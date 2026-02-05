@@ -8,41 +8,48 @@
             @font-face { font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }
             @font-face { font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }
             body { font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; }
+            
             .sidebar { width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }
             .week-title { font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }
+            
             .tablinks { width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; font-size: 0.8rem; font-family: 'MontserratSemiBold', sans-serif; background-image: url('FondoDegradado.png'); background-size: cover; background-clip: text; -webkit-background-clip: text; color: white; transition: 0.2s; }
             .tablinks.active { background: white; color: black; -webkit-background-clip: initial; background-clip: initial; font-family: 'MontserratExtraBold', sans-serif; }
+            
             .main-content { flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: center; background-attachment: fixed; color: white; }
-            .top-row { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; margin-bottom: 20px; }
-            .header-controls { flex: 1; min-height: 80px; }
+            
+            .top-row { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; margin-bottom: 20px; height: 80px; box-sizing: border-box; }
+            .header-controls { flex: 1; display: flex; flex-direction: column; gap: 6px; }
             .spacer { flex: 1; }
-            .title-stack { flex: 2; text-align: center; }
+            .title-stack { flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+            
             .sub-title { font-family: 'MontserratExtraBold'; font-size: 1.05rem; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
             .main-title { font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-            .toggle-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); max-width: 170px; width: 100%; text-align: center; }
+            
+            .toggle-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }
+            
             .logo-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
             .tournament-logo { height: 25px; width: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
+            
             .tables-row { display: flex; gap: 20px; justify-content: center; width: 100%; }
             .main-draw-view, .qual-view, .changes-view { display: flex; gap: 20px; width: 100%; justify-content: center; }
+            
             .table-column { flex: 1; max-width: 550px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 6px; overflow: hidden; }
             .entry-table { width: 100%; border-collapse: collapse; color: white; }
             .entry-table th { background: rgba(255, 255, 255, 0.1); padding: 10px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }
-            .entry-table th:nth-child(2) { text-align: left; padding-left: 15px; }
             .entry-table td { padding: 7px 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); text-align: center; font-size: 0.78rem; }
-            .entry-table td:nth-child(2) { text-align: left; padding-left: 15px; }
             .entry-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.04); }
             .latam-row td { font-family: 'MontserratExtraBold' !important; }
+
             @media (max-width: 768px) {
                 body { flex-direction: column; overflow: auto; }
                 .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; display: flex; overflow-x: auto; white-space: nowrap; background-attachment: scroll; }
                 .week-title { display: none; }
                 .tablinks { width: auto; display: inline-block; padding: 12px 15px; -webkit-background-clip: initial; background-clip: initial; color: white; }
                 .main-content { height: auto; overflow: visible; padding: 15px 10px; background-attachment: scroll; }
-                .top-row { flex-direction: column; gap: 10px; margin-top: 0; margin-bottom: 15px; }
-                .main-title { font-size: 1.2rem; order: 2; }
-                .sub-title { font-size: 0.85rem; order: 1; margin-bottom: 4px; }
-                .header-controls { order: 3; width: 100%; min-height: auto; }
-                .toggle-btn { max-width: 100%; padding: 10px; }
+                .top-row { flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 15px; }
+                .header-controls { width: 100%; align-items: center; order: 3; }
+                .main-title { order: 2; }
+                .sub-title { order: 1; }
                 .spacer { display: none; }
                 .main-draw-view, .qual-view, .changes-view { flex-direction: column; align-items: center; }
                 .table-column { width: 100%; max-width: 100%; }
@@ -53,9 +60,10 @@
         <div class="sidebar"><div class="week-title">Week of Feb 16</div><button class="tablinks active" onclick="openTourney(event, 'WTA_1000_DUBAI')">WTA 1000 DUBAI</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_MIDLAND')">WTA 125 MIDLAND</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_2')">WTA 125 OEIRAS 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LES_SABLES')">WTA 125 LES SABLES</button><div class="week-title">Week of Feb 23</div><button class="tablinks " onclick="openTourney(event, 'WTA_500_MERIDA')">WTA 500 MERIDA</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_AUSTIN')">WTA 250 AUSTIN</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_1')">WTA 125 ANTALYA 1</button><div class="week-title">Week of Mar 2</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 INDIAN WELLS</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 ANTALYA 2</button></div>
         <div class="main-content"><div id="WTA_1000_DUBAI" class="tabcontent" style="display: block;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_DUBAI')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -537,9 +545,10 @@
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_125_MIDLAND" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_MIDLAND')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -795,9 +804,10 @@
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_OEIRAS_2')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1053,9 +1063,10 @@
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_125_LES_SABLES" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_LES_SABLES')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1263,9 +1274,10 @@
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_500_MERIDA" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_MERIDA')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1401,9 +1413,10 @@
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_250_AUSTIN" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_AUSTIN')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1563,9 +1576,10 @@
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button>
                         <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_1')">Changes List</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1750,27 +1764,13 @@
             const activeTab = btn.closest('.tabcontent');
             const mainView = activeTab.querySelector('.main-draw-view');
             const qualView = activeTab.querySelector('.qual-view');
-            const changeView = activeTab.querySelector('.changes-view');
+            const changesView = activeTab.querySelector('.changes-view');
             const subTitle = activeTab.querySelector('.sub-title');
-            const changesBtn = activeTab.querySelector('.changes-btn');
-            const tempBtn = activeTab.querySelector('.temp-qual-btn');
             
-            if (changeView.style.display === "flex") {
-                if (btn.innerText.includes("Qualifying")) {
-                    mainView.style.display = "none";
-                    qualView.style.display = "flex";
-                    activeTab.querySelector('.toggle-btn').innerText = "Switch to Main Draw";
-                    subTitle.innerText = "QUALIFYING ENTRY LIST";
-                } else {
-                    mainView.style.display = "flex";
-                    qualView.style.display = "none";
-                    activeTab.querySelector('.toggle-btn').innerText = "Switch to Qualifying";
-                    subTitle.innerText = "MAIN DRAW ENTRY LIST";
-                }
-                changeView.style.display = "none";
-                changesBtn.style.display = "block";
-                if (tempBtn) tempBtn.remove();
-                return;
+            if (changesView.style.display === "flex") {
+                changesView.style.display = "none";
+                activeTab.querySelector('.changes-btn').style.display = "block";
+                activeTab.querySelector('.back-to-qual-btn').style.display = "none";
             }
 
             const isMain = mainView.style.display !== "none";
@@ -1782,25 +1782,25 @@
 
         function showChanges(btn, tid) {
             const activeTab = document.getElementById(tid);
-            const toggleBtn = activeTab.querySelector('.toggle-btn');
-            const controls = activeTab.querySelector('.header-controls');
-            
             activeTab.querySelector('.main-draw-view').style.display = "none";
             activeTab.querySelector('.qual-view').style.display = "none";
             activeTab.querySelector('.changes-view').style.display = "flex";
             activeTab.querySelector('.sub-title').innerText = "LIST OF CHANGES";
             
             btn.style.display = "none";
-            toggleBtn.innerText = "Switch to Main Draw";
+            activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
+            activeTab.querySelector('.back-to-qual-btn').style.display = "block";
+        }
+
+        function showQualFromChanges(btn) {
+            const activeTab = btn.closest('.tabcontent');
+            activeTab.querySelector('.changes-view').style.display = "none";
+            activeTab.querySelector('.qual-view').style.display = "flex";
+            activeTab.querySelector('.sub-title').innerText = "QUALIFYING ENTRY LIST";
             
-            if (!activeTab.querySelector('.temp-qual-btn')) {
-                const qualBtn = document.createElement("button");
-                qualBtn.className = "toggle-btn temp-qual-btn";
-                qualBtn.style.marginTop = "6px";
-                qualBtn.innerText = "Switch to Qualifying";
-                qualBtn.onclick = function() { toggleView(this); };
-                controls.appendChild(qualBtn);
-            }
+            btn.style.display = "none";
+            activeTab.querySelector('.changes-btn').style.display = "block";
+            activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
         }
         </script>
     </body>
