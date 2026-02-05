@@ -250,7 +250,6 @@ def main():
             
             body {{ font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; }}
             
-            /* PC VERSION: UNTOUCHED */
             .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }}
             .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
             
@@ -282,11 +281,14 @@ def main():
             .entry-table tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.04); }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; }}
 
-            /* MOBILE FIXES WITHOUT CHANGING PC */
             @media (max-width: 768px) {{
-                body {{ flex-direction: column; overflow: auto; background: black; }}
+                body {{ 
+                    flex-direction: column; 
+                    overflow: auto; 
+                    background: black; 
+                    height: auto;
+                }}
                 
-                /* Create a fixed background layer for mobile only */
                 body::before {{
                     content: "";
                     position: fixed;
@@ -300,23 +302,49 @@ def main():
                 .sidebar {{ 
                     width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; 
                     display: flex; overflow-x: auto; white-space: nowrap; 
-                    background-image: none; background: rgba(0,0,0,0.2); 
+                    background-image: none; 
+                    background: transparent; 
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
                 }}
                 
                 .main-content {{ 
-                    background-image: none; background: transparent; 
-                    height: auto; overflow: visible; padding: 15px 10px; 
+                    background-image: none; 
+                    background: transparent; 
+                    height: auto; 
+                    overflow: visible; 
+                    padding: 15px 10px 80px;
+                    min-height: 100vh;
+                    box-sizing: border-box;
                 }}
 
                 .week-title {{ display: none; }}
                 .tablinks {{ width: auto; display: inline-block; padding: 12px 15px; -webkit-background-clip: initial; background-clip: initial; color: white; }}
-                .top-row {{ flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 15px; }}
+                
+                .top-row {{ 
+                    flex-direction: column; 
+                    height: auto; 
+                    align-items: center; 
+                    gap: 15px; 
+                    margin-bottom: 15px; 
+                }}
+                
                 .header-controls {{ width: 100%; align-items: center; order: 3; }}
-                .main-title {{ order: 2; }}
-                .sub-title {{ order: 1; }}
+                .main-title {{ order: 2; text-align: center; }}
+                .sub-title {{ order: 1; text-align: center; }}
                 .spacer {{ display: none; }}
-                .main-draw-view, .qual-view, .changes-view {{ flex-direction: column; align-items: center; }}
-                .table-column {{ width: 100%; max-width: 100%; }}
+                
+                .main-draw-view, .qual-view, .changes-view {{ 
+                    flex-direction: column; 
+                    align-items: center; 
+                }}
+                
+                .table-column {{ 
+                    width: 100%; 
+                    max-width: 100%; 
+                    margin-bottom: 20px;
+                }}
             }}
         </style>
     </head>
