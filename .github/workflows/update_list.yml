@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,6 +28,31 @@ jobs:
 
       - name: Run scraping script
         run: python main.py
+
+      - name: Check for Changes and Send Email
+        id: change_check
+        run: |
+          # Check if change_log.json has new content
+          if git diff --quiet change_log.json; then
+            echo "HAS_CHANGES=false" >> $GITHUB_OUTPUT
+          else
+            echo "HAS_CHANGES=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Email Alert
+        if: steps.change_check.outputs.HAS_CHANGES == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "🚨 WTA List Change Detected!"
+          to: ${{ secrets.RECEIVE_ALERT }}
+          from: WTA Entry Bot
+          body: |
+            A change was detected in the WTA Entry Lists. 
+            View the latest updates here: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
 
       - name: Commit and push changes
         run: |
