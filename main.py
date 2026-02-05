@@ -7,7 +7,6 @@ import os
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
-# --- CONFIGURATION ---
 TOURNAMENT_GROUPS = {
     "Week of Feb 16": {
         "https://www.wtatennis.com/tournaments/dubai/player-list": "WTA 1000 DUBAI",
@@ -29,7 +28,6 @@ TOURNAMENT_GROUPS = {
 API_URL = "https://api.wtatennis.com/tennis/players/ranked"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"}
 LATAM_CODES = ["ARG", "BOL", "BRA", "CHI", "COL", "CRC", "CUB", "DOM", "ECU", "ESA", "GUA", "HON", "MEX", "NCA", "PAN", "PAR", "PER", "PUR", "URU", "VEN"]
-
 STATE_FILE = "player_state.json"
 LOG_FILE = "change_log.json"
 
@@ -43,6 +41,13 @@ def load_json(filename):
 def save_json(filename, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
+
+def format_pretty_date(date_str):
+    try:
+        dt = datetime.strptime(date_str, "%Y-%m-%d")
+        return dt.strftime("%B %d, %Y")
+    except:
+        return date_str
 
 def track_changes(tid, draw_type, current_names):
     state = load_json(STATE_FILE)
@@ -76,7 +81,8 @@ def get_rankings_from_api(date_str):
         params = {"metric": "SINGLES", "type": "rankSingles", "sort": "asc", "at": date_str, "pageSize": 100, "page": page}
         try:
             r = requests.get(API_URL, params=params, headers=HEADERS, timeout=10)
-            items = r.json().get('content', []) if isinstance(r.json(), dict) else r.json()
+            data = r.json()
+            items = data.get('content', []) if isinstance(data, dict) else data
             if not items: break
             all_players.extend(items)
             page += 1
@@ -120,7 +126,6 @@ def scrape_tournament(url, tab_label, tid):
         except: continue
 
     if not start_date_str: start_date_str = "2026-02-16"
-    
     start_dt = datetime.strptime(start_date_str[:10], "%Y-%m-%d")
     tourney_monday = start_dt - timedelta(days=start_dt.weekday())
     is_weekend_start = start_dt.weekday() >= 5
@@ -130,7 +135,6 @@ def scrape_tournament(url, tab_label, tid):
     
     avail_md_dt = datetime.strptime(md_ranking_date, "%Y-%m-%d")
     friday_md_str = (avail_md_dt + timedelta(days=4)).strftime("%Y-%m-%d")
-    
     avail_qual_dt = datetime.strptime(qual_ranking_date, "%Y-%m-%d")
     friday_qual_str = (avail_qual_dt + timedelta(days=4)).strftime("%Y-%m-%d")
 
@@ -151,12 +155,11 @@ def scrape_tournament(url, tab_label, tid):
     main_df = process_players(main_names, md_rankings)
     qual_df = process_players(qual_names, qual_rankings)
     
-    state = load_json(STATE_FILE)
-    
     def get_display_content(df, tid, draw_type, availability_date):
         key = f"{tid}_{draw_type.replace(' ', '_')}"
-        if df.empty and not state.get(key):
-            return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available in the WTA website on {availability_date}</p>"
+        if df.empty and not load_json(STATE_FILE).get(key):
+            pretty_date = format_pretty_date(availability_date)
+            return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on {pretty_date}</p>"
         
         def apply_highlights(table_df):
             html = table_df.to_html(index=False, classes="entry-table", border=0)
@@ -208,9 +211,7 @@ def main():
         for url, label in tournaments.items():
             tid = label.replace(" ", "_").replace(".", "")
             data = scrape_tournament(url, label, tid)
-            
             has_new_data = data and ("<tr>" in data.get("content", "") or "WTA website" in data.get("content", ""))
-            
             if has_new_data:
                 current_tourney_body = f"""
                 <div class="top-row">
@@ -245,54 +246,33 @@ def main():
         <style>
             @font-face {{ font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }}
             @font-face {{ font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }}
-            
             :root {{ color-scheme: dark; }}
-
             * {{ -webkit-tap-highlight-color: transparent; box-sizing: border-box; }}
-
-            body {{ 
-                font-family: 'MontserratSemiBold', sans-serif; 
-                margin: 0; 
-                display: flex; 
-                height: 100vh; 
-                background: black; 
-                color: white;
-            }}
-            
+            body {{ font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; color: white; }}
             .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }}
             .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
-            
             .tablinks {{ width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; font-size: 0.8rem; font-family: 'MontserratSemiBold', sans-serif; background-image: url('FondoDegradado.png'); background-size: cover; background-clip: text; -webkit-background-clip: text; color: white; transition: 0.2s; }}
             .tablinks.active {{ background: white; color: black; -webkit-background-clip: initial; background-clip: initial; font-family: 'MontserratExtraBold', sans-serif; }}
-            
             .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: center; background-attachment: fixed; color: white; }}
-            
             .top-row {{ display: flex; align-items: center; justify-content: space-between; margin-top: 5px; margin-bottom: 20px; height: 80px; }}
             .header-controls {{ flex: 1; display: flex; flex-direction: column; gap: 6px; }}
             .spacer {{ flex: 1; }}
             .title-stack {{ flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; }}
-            
             .sub-title {{ font-family: 'MontserratExtraBold'; font-size: 1.05rem; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
             .main-title {{ font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
-            
             .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; }}
-            
             .logo-container {{ text-align: center; margin-top: 25px; padding-bottom: 15px; }}
             .tournament-logo {{ height: 25px; width: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }}
-            
             .tables-row {{ display: flex; gap: 20px; justify-content: center; width: 100%; }}
             .main-draw-view, .qual-view, .changes-view {{ display: flex; gap: 20px; width: 100%; justify-content: center; }}
-            
             .table-column {{ flex: 1; max-width: 550px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 6px; overflow: hidden; }}
             .entry-table {{ width: 100%; border-collapse: collapse; color: white; }}
             .entry-table th {{ background: rgba(255, 255, 255, 0.1); padding: 10px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }}
             .entry-table td {{ padding: 7px 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); text-align: center; font-size: 0.78rem; }}
             .entry-table tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.04); }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; }}
-
             @media (max-width: 768px) {{
                 body {{ flex-direction: column; overflow-x: hidden; overflow-y: auto; background: black; }}
-                
                 body::before {{
                     content: "";
                     position: fixed;
@@ -306,7 +286,6 @@ def main():
                     -webkit-transform: translateZ(0);
                     transform: translateZ(0);
                 }}
-
                 .sidebar {{ 
                     width: 100%; height: auto; border-right: none; 
                     border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
@@ -317,7 +296,6 @@ def main():
                     scrollbar-width: none;
                 }}
                 .sidebar::-webkit-scrollbar {{ display: none; }}
-
                 .tablinks {{ 
                     width: auto; 
                     display: inline-block; 
@@ -331,20 +309,9 @@ def main():
                     background-clip: initial; 
                     transition: 0.2s;
                 }}
-
-                .tablinks.active {{ 
-                    background: white; 
-                    color: black; 
-                    border: 1px solid white;
-                }}
-                
-                .main-content {{ 
-                    background: transparent; 
-                    height: auto; overflow: visible; padding: 15px 10px 100px; 
-                }}
-
+                .tablinks.active {{ background: white; color: black; border: 1px solid white; }}
+                .main-content {{ background: transparent; height: auto; overflow: visible; padding: 15px 10px 100px; }}
                 .table-column {{ width: 100%; max-width: 100%; overflow: visible; margin-bottom: 20px; }}
-
                 .week-title {{ display: none; }}
                 .top-row {{ flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 25px; }}
                 .header-controls {{ width: 100%; align-items: center; order: 3; }}
@@ -367,45 +334,38 @@ def main():
             document.getElementById(tid).style.display = "block";
             evt.currentTarget.classList.add("active");
         }}
-
         function toggleView(btn) {{
             const activeTab = btn.closest('.tabcontent');
             const mainView = activeTab.querySelector('.main-draw-view');
             const qualView = activeTab.querySelector('.qual-view');
             const changesView = activeTab.querySelector('.changes-view');
             const subTitle = activeTab.querySelector('.sub-title');
-            
             if (changesView.style.display === "flex") {{
                 changesView.style.display = "none";
                 activeTab.querySelector('.changes-btn').style.display = "block";
                 activeTab.querySelector('.back-to-qual-btn').style.display = "none";
             }}
-
             const isMain = mainView.style.display !== "none";
             mainView.style.display = isMain ? "none" : "flex";
             qualView.style.display = isMain ? "flex" : "none";
             btn.innerText = isMain ? "Switch to Main Draw" : "Switch to Qualifying";
             subTitle.innerText = isMain ? "QUALIFYING ENTRY LIST" : "MAIN DRAW ENTRY LIST";
         }}
-
         function showChanges(btn, tid) {{
             const activeTab = document.getElementById(tid);
             activeTab.querySelector('.main-draw-view').style.display = "none";
             activeTab.querySelector('.qual-view').style.display = "none";
             activeTab.querySelector('.changes-view').style.display = "flex";
             activeTab.querySelector('.sub-title').innerText = "LIST OF CHANGES";
-            
             btn.style.display = "none";
             activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
             activeTab.querySelector('.back-to-qual-btn').style.display = "block";
         }}
-
         function showQualFromChanges(btn) {{
             const activeTab = btn.closest('.tabcontent');
             activeTab.querySelector('.changes-view').style.display = "none";
             activeTab.querySelector('.qual-view').style.display = "flex";
             activeTab.querySelector('.sub-title').innerText = "QUALIFYING ENTRY LIST";
-            
             btn.style.display = "none";
             activeTab.querySelector('.changes-btn').style.display = "block";
             activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
