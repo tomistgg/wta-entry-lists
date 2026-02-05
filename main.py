@@ -259,7 +259,6 @@ def main():
                 color: white;
             }}
             
-            /* --- PC VERSION --- */
             .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }}
             .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
             
@@ -291,7 +290,6 @@ def main():
             .entry-table tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.04); }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; }}
 
-            /* --- MOBILE REFINEMENTS --- */
             @media (max-width: 768px) {{
                 body {{ flex-direction: column; overflow-x: hidden; overflow-y: auto; background: black; }}
                 
@@ -316,9 +314,9 @@ def main():
                     background: transparent;
                     padding: 10px 8px;
                     gap: 8px;
-                    scrollbar-width: none; /* Hide scrollbar Firefox */
+                    scrollbar-width: none;
                 }}
-                .sidebar::-webkit-scrollbar {{ display: none; }} /* Hide scrollbar Chrome/Safari */
+                .sidebar::-webkit-scrollbar {{ display: none; }}
 
                 .tablinks {{ 
                     width: auto; 
