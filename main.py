@@ -154,11 +154,13 @@ def scrape_tournament(url, tab_label, tid):
     if not history:
         changes_body = "<p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p>"
     else:
-        changes_body = '<div class="table-column" style="max-width:800px; margin:0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th>CHANGE</th></tr></thead><tbody>'
+        # UPDATED: Added style to 'CHANGE' th to align it to the left
+        changes_body = '<div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody>'
         for entry in history:
             changes_body += f'<tr><td>{entry["date"]}</td><td style="text-align:left; padding-left:20px;">{entry["change"]}</td></tr>'
         changes_body += '</tbody></table></div>'
-    changes_view_html = f'<div class="changes-view" style="display:none;">{changes_body}</div>'
+    
+    changes_view_html = f'<div class="changes-view" style="display:none; justify-content: center;">{changes_body}</div>'
     return {"full_name": full_name, "content": main_draw_html + qual_html + changes_view_html}
 
 def main():

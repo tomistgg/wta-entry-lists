@@ -1,0 +1,80 @@
+{
+    "WTA_1000_DUBAI": [
+        {
+            "date": "2026-01-31",
+            "change": "<strong>EVA LYS</strong> withdrew from Main Draw"
+        },
+        {
+            "date": "2026-01-31",
+            "change": "<strong>TATJANA MARIA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-04",
+            "change": "<strong>LOIS BOISSON</strong> withdrew from Main Draw"
+        },
+        {
+            "date": "2026-02-04",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> withdrew from Main Draw"
+        },
+        {
+            "date": "2026-02-04",
+            "change": "<strong>DARIA KASATKINA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-04",
+            "change": "<strong>MARIE BOUZKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-04",
+            "change": "<strong>ELLA SEIDEL</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-04",
+            "change": "<strong>CAMILA OSORIO</strong> added to Qualifying"
+        }
+    ],
+    "WTA_125_OEIRAS_2": [
+        {
+            "date": "2026-02-05",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> withdrew from Main Draw"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>MARINA STAKUSIC</strong> withdrew from Main Draw"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>FRANCISCA JORGE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>ANOUK KOEVERMANS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>DALILA JAKUPOVIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>SARA SORRIBES TORMO</strong> added to Qualifying"
+        }
+    ],
+    "WTA_125_MIDLAND": [
+        {
+            "date": "2026-02-05",
+            "change": "<strong>FRANCESCA JONES</strong> withdrew from Main Draw"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>ANNA ROGERS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>MIA RISTIC</strong> withdrew from Qualifying"
+        },
+        {
+            "date": "2026-02-05",
+            "change": "<strong>EMILY APPLETON</strong> added to Qualifying"
+        }
+    ]
+}
