@@ -1,0 +1,2640 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @font-face { font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }
+            @font-face { font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }
+
+            body { font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; }
+            
+            .sidebar { 
+                width: 250px; 
+                background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center;
+                border-right: 2px solid #ffffff; 
+                overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; 
+            }
+            .week-title { font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }
+            .tablinks { 
+                width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; 
+                font-size: 0.8rem; font-family: 'MontserratSemiBold', sans-serif;
+                background-image: url('FondoDegradado.png'); background-size: cover; background-clip: text;
+                -webkit-background-clip: text; color: white; transition: 0.2s;
+            }
+            .tablinks.active { background: white; color: black; -webkit-background-clip: initial; background-clip: initial; font-family: 'MontserratExtraBold', sans-serif; }
+            
+            .main-content { 
+                flex-grow: 1; overflow-y: auto; padding: 15px 30px; 
+                background-image: url('FondoDegradado.png'); background-size: cover; background-position: center; background-attachment: fixed;
+                color: white; 
+            }
+            
+            .top-row { 
+                display: flex; 
+                align-items: center; 
+                justify-content: space-between; 
+                margin-top: 5px; 
+                margin-bottom: 20px; 
+            }
+            .header-controls { flex: 1; }
+            .spacer { flex: 1; }
+
+            .title-stack { flex: 2; text-align: center; }
+            
+            /* UPDATED: Subtitle now uses MontserratExtraBold and same text-shadow */
+            .sub-title { 
+                font-family: 'MontserratExtraBold'; 
+                font-size: 1.05rem; 
+                color: #ffffff; 
+                margin-bottom: 8px; 
+                text-transform: uppercase; 
+                letter-spacing: 1.5px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            }
+
+            .main-title { 
+                font-family: 'MontserratExtraBold'; 
+                font-size: 1.4rem; 
+                margin: 0; 
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+            }
+
+            .toggle-btn {
+                background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white;
+                padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; 
+                font-family: 'MontserratSemiBold', sans-serif;
+                backdrop-filter: blur(5px);
+            }
+
+            .logo-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
+            .tournament-logo { height: 25px; width: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
+            
+            .tables-row { display: flex; gap: 20px; justify-content: center; width: 100%; }
+            .main-draw-view, .qual-view { display: flex; gap: 20px; width: 100%; justify-content: center; }
+
+            .table-column { flex: 1; max-width: 550px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 6px; overflow: hidden; }
+            
+            .entry-table { width: 100%; border-collapse: collapse; color: white; }
+            .entry-table th { background: rgba(255, 255, 255, 0.1); padding: 10px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }
+            .entry-table th:nth-child(2) { text-align: left; padding-left: 15px; }
+            .entry-table td { padding: 7px 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); text-align: center; font-size: 0.78rem; }
+            .entry-table td:nth-child(2) { text-align: left; padding-left: 15px; }
+            .entry-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.04); }
+
+            @media (max-width: 768px) {
+                body { flex-direction: column; overflow: auto; }
+                .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; display: flex; overflow-x: auto; white-space: nowrap; background-attachment: scroll; }
+                .week-title { display: none; }
+                .tablinks { width: auto; display: inline-block; padding: 12px 15px; -webkit-background-clip: initial; background-clip: initial; color: white; }
+                .main-content { height: auto; overflow: visible; padding: 15px 10px; background-attachment: scroll; }
+                .top-row { flex-direction: column; gap: 10px; margin-top: 0; margin-bottom: 15px; }
+                .main-title { font-size: 1.2rem; order: 2; }
+                .sub-title { font-size: 0.85rem; order: 1; margin-bottom: 4px; }
+                .header-controls { order: 3; width: 100%; }
+                .toggle-btn { width: 100%; padding: 10px; }
+                .spacer { display: none; }
+                .main-draw-view, .qual-view { flex-direction: column; align-items: center; }
+                .table-column { width: 100%; max-width: 100%; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar"><div class="week-title">Week of Feb 9</div><button class="tablinks active" onclick="openTourney(event, 'WTA_1000_DOHA')">WTA 1000 DOHA</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_1')">WTA 125 OEIRAS 1</button><div class="week-title">Week of Feb 16</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_DUBAI')">WTA 1000 DUBAI</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_MIDLAND')">WTA 125 MIDLAND</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_2')">WTA 125 OEIRAS 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LES_SABLES')">WTA 125 LES SABLES</button><div class="week-title">Week of Feb 23</div><button class="tablinks " onclick="openTourney(event, 'WTA_500_MERIDA')">WTA 500 MERIDA</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_AUSTIN')">WTA 250 AUSTIN</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_1')">WTA 125 ANTALYA 1</button><div class="week-title">Week of Mar 2</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 INDIAN WELLS</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 ANTALYA 2</button></div>
+        <div class="main-content">
+            <div id="WTA_1000_DOHA" class="tabcontent" style="display: block;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 1000 - Qatar TotalEnergies Open 2026</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Aryna Sabalenka</td>
+      <td>BLR</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Iga Swiatek</td>
+      <td>POL</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Coco Gauff</td>
+      <td>USA</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Amanda Anisimova</td>
+      <td>USA</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Elena Rybakina</td>
+      <td>KAZ</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Jasmine Paolini</td>
+      <td>ITA</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Mirra Andreeva</td>
+      <td>RUS</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Belinda Bencic</td>
+      <td>SUI</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Ekaterina Alexandrova</td>
+      <td>RUS</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Elina Svitolina</td>
+      <td>UKR</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Linda Noskova</td>
+      <td>CZE</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Clara Tauson</td>
+      <td>DEN</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Emma Navarro</td>
+      <td>USA</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Victoria Mboko</td>
+      <td>CAN</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Liudmila Samsonova</td>
+      <td>RUS</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Karolina Muchova</td>
+      <td>CZE</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Elise Mertens</td>
+      <td>BEL</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Leylah Fernandez</td>
+      <td>CAN</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Diana Shnaider</td>
+      <td>RUS</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Jelena Ostapenko</td>
+      <td>LAT</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Qinwen Zheng</td>
+      <td>CHN</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Paula Badosa</td>
+      <td>ESP</td>
+      <td>26</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>23</td>
+      <td>Dayana Yastremska</td>
+      <td>UKR</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Sofia Kenin</td>
+      <td>USA</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Emma Raducanu</td>
+      <td>GBR</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Veronika Kudermetova</td>
+      <td>RUS</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Maya Joint</td>
+      <td>AUS</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Anna Kalinskaya</td>
+      <td>RUS</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>Marketa Vondrousova</td>
+      <td>CZE</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>Lois Boisson</td>
+      <td>FRA</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>Mccartney Kessler</td>
+      <td>USA</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>Jaqueline  Cristian</td>
+      <td>ROU</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>Ann Li</td>
+      <td>USA</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>Jessica Bouzas Maneiro</td>
+      <td>ESP</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>Sorana Cirstea</td>
+      <td>ROU</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>Tatjana Maria</td>
+      <td>GER</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>Xinyu Wang</td>
+      <td>CHN</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>Anastasia Pavlyuchenkova</td>
+      <td>RUS</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>Marie Bouzkova</td>
+      <td>CZE</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>Katerina Siniakova</td>
+      <td>CZE</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>Laura Siegemund</td>
+      <td>GER</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td>Daria Kasatkina</td>
+      <td>AUS</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>Barbora Krejcikova</td>
+      <td>CZE</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td>Karolina Pliskova</td>
+      <td>CZE</td>
+      <td>1052</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Alexandra Eala</td>
+      <td>PHI</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Emiliana Arango</td>
+      <td>COL</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Cristina Bucsa</td>
+      <td>ESP</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Maria Sakkari</td>
+      <td>GRE</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Magda Linette</td>
+      <td>POL</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Janice Tjen</td>
+      <td>INA</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Magdalena Frech</td>
+      <td>POL</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Elsa Jacquemot</td>
+      <td>FRA</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Tereza Valentova</td>
+      <td>CZE</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Ashlyn Krueger</td>
+      <td>USA</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Sonay Kartal</td>
+      <td>GBR</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Solana Sierra</td>
+      <td>ARG</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Hailey Baptiste</td>
+      <td>USA</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Peyton Stearns</td>
+      <td>USA</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Antonia Ruzic</td>
+      <td>CRO</td>
+      <td>71</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>16</td>
+      <td>Rebecca Sramkova</td>
+      <td>SVK</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Shuai Zhang</td>
+      <td>CHN</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Varvara Gracheva</td>
+      <td>FRA</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Ajla Tomljanovic</td>
+      <td>AUS</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Ella Seidel</td>
+      <td>GER</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Elena-Gabriela Ruse</td>
+      <td>ROU</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Elisabetta Cocciaretto</td>
+      <td>ITA</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Camila Osorio</td>
+      <td>COL</td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Renata Zarazua</td>
+      <td>MEX</td>
+      <td>84</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Lulu Sun</td>
+      <td>NZL</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Simona Waltert</td>
+      <td>SUI</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Moyuka Uchijima</td>
+      <td>JPN</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Sara Bejlek</td>
+      <td>CZE</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>Kimberly Birrell</td>
+      <td>AUS</td>
+      <td>107</td>
+    </tr>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_125_OEIRAS_1" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Oeiras 1 Jamor Indoor</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Viktorija Golubic</td>
+      <td>SUI</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Dalma Galfi</td>
+      <td>HUN</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Suzan Lamens</td>
+      <td>NED</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Mayar Sherif</td>
+      <td>EGY</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Caroline Dolehide</td>
+      <td>USA</td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Katie Boulter</td>
+      <td>GBR</td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Victoria Jimenez Kasintseva</td>
+      <td>AND</td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Tiantsoa Rakotomanga Rajaonah</td>
+      <td>FRA</td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Diane Parry</td>
+      <td>FRA</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Greet Minnen</td>
+      <td>BEL</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Nikola Bartunkova</td>
+      <td>CZE</td>
+      <td>126</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Marina Stakusic</td>
+      <td>CAN</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Viktoriya Tomova</td>
+      <td>BUL</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Kaitlin Quevedo</td>
+      <td>ESP</td>
+      <td>129</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Yue Yuan</td>
+      <td>CHN</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Linda Fruhvirtova</td>
+      <td>CZE</td>
+      <td>132</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Linda Klimovicova</td>
+      <td>POL</td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Daria Snigur</td>
+      <td>UKR</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Lola Radivojevic</td>
+      <td>SRB</td>
+      <td>137</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Maria Timofeeva</td>
+      <td>UZB</td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Lucrezia Stefanini</td>
+      <td>ITA</td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Leyre Romero Gormaz</td>
+      <td>ESP</td>
+      <td>141</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Darja Vidmanova</td>
+      <td>CZE</td>
+      <td>142</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Dominika Salkova</td>
+      <td>CZE</td>
+      <td>144</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Maja Chwalinska</td>
+      <td>POL</td>
+      <td>145</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Varvara Lepchenko</td>
+      <td>USA</td>
+      <td>146</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Elina Avanesyan</td>
+      <td>ARM</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Iryna Shymanovich</td>
+      <td>BLR</td>
+      <td>153</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Anna-Lena Friedsam</td>
+      <td>GER</td>
+      <td>156</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Carole Monnet</td>
+      <td>FRA</td>
+      <td>174</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Teodora Kostovic</td>
+      <td>SRB</td>
+      <td>176</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Anhelina Kalinina</td>
+      <td>UKR</td>
+      <td>178</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Cadence Brace</td>
+      <td>CAN</td>
+      <td>186</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Miriam Bulgaru</td>
+      <td>ROU</td>
+      <td>197</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Laura Pigossi</td>
+      <td>BRA</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Xinyu Gao</td>
+      <td>CHN</td>
+      <td>208</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Alina Korneeva</td>
+      <td>RUS</td>
+      <td>211</td>
+    </tr>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_1000_DUBAI" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 1000  - Dubai Duty Free Tennis Championships</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Aryna Sabalenka</td>
+      <td>BLR</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Iga Swiatek</td>
+      <td>POL</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Coco Gauff</td>
+      <td>USA</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Amanda Anisimova</td>
+      <td>USA</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Elena Rybakina</td>
+      <td>KAZ</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Jessica Pegula</td>
+      <td>USA</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Jasmine Paolini</td>
+      <td>ITA</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Mirra Andreeva</td>
+      <td>RUS</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Madison Keys</td>
+      <td>USA</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Belinda Bencic</td>
+      <td>SUI</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Ekaterina Alexandrova</td>
+      <td>RUS</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Elina Svitolina</td>
+      <td>UKR</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Linda Noskova</td>
+      <td>CZE</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Clara Tauson</td>
+      <td>DEN</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Emma Navarro</td>
+      <td>USA</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Naomi Osaka</td>
+      <td>JPN</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Victoria Mboko</td>
+      <td>CAN</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Liudmila Samsonova</td>
+      <td>RUS</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Karolina Muchova</td>
+      <td>CZE</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Marta Kostyuk</td>
+      <td>UKR</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Elise Mertens</td>
+      <td>BEL</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Leylah Fernandez</td>
+      <td>CAN</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>23</td>
+      <td>Diana Shnaider</td>
+      <td>RUS</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Jelena Ostapenko</td>
+      <td>LAT</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Qinwen Zheng</td>
+      <td>CHN</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Paula Badosa</td>
+      <td>ESP</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Dayana Yastremska</td>
+      <td>UKR</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Sofia Kenin</td>
+      <td>USA</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>Emma Raducanu</td>
+      <td>GBR</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>Iva Jovic</td>
+      <td>USA</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>Maya Joint</td>
+      <td>AUS</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>Anna Kalinskaya</td>
+      <td>RUS</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>Marketa Vondrousova</td>
+      <td>CZE</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>Mccartney Kessler</td>
+      <td>USA</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>Jaqueline  Cristian</td>
+      <td>ROU</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>Ann Li</td>
+      <td>USA</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>Jessica Bouzas Maneiro</td>
+      <td>ESP</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>Sorana Cirstea</td>
+      <td>ROU</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>Tatjana Maria</td>
+      <td>GER</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>Marie Bouzkova</td>
+      <td>CZE</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>Daria Kasatkina</td>
+      <td>AUS</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td>Barbora Krejcikova</td>
+      <td>CZE</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>Karolina Pliskova</td>
+      <td>CZE</td>
+      <td>1052</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Xinyu Wang</td>
+      <td>CHN</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Anastasia Pavlyuchenkova</td>
+      <td>RUS</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Katerina Siniakova</td>
+      <td>CZE</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Laura Siegemund</td>
+      <td>GER</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Alexandra Eala</td>
+      <td>PHI</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Cristina Bucsa</td>
+      <td>ESP</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Magda Linette</td>
+      <td>POL</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Anastasia Potapova</td>
+      <td>AUT</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Janice Tjen</td>
+      <td>INA</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Magdalena Frech</td>
+      <td>POL</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Elsa Jacquemot</td>
+      <td>FRA</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Tereza Valentova</td>
+      <td>CZE</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Sonay Kartal</td>
+      <td>GBR</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Solana Sierra</td>
+      <td>ARG</td>
+      <td>64</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>Hailey Baptiste</td>
+      <td>USA</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Peyton Stearns</td>
+      <td>USA</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Donna Vekic</td>
+      <td>CRO</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Antonia Ruzic</td>
+      <td>CRO</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Rebecca Sramkova</td>
+      <td>SVK</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Shuai Zhang</td>
+      <td>CHN</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Varvara Gracheva</td>
+      <td>FRA</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Anna Bondar</td>
+      <td>HUN</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Petra Marcinko</td>
+      <td>CRO</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Ella Seidel</td>
+      <td>GER</td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Elena-Gabriela Ruse</td>
+      <td>ROU</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Elisabetta Cocciaretto</td>
+      <td>ITA</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Camila Osorio</td>
+      <td>COL</td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Kimberly Birrell</td>
+      <td>AUS</td>
+      <td>107</td>
+    </tr>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_125_MIDLAND" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Dow Tennis Classic</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Ashlyn Krueger</td>
+      <td>USA</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Caty Mcnally</td>
+      <td>USA</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Caroline Dolehide</td>
+      <td>USA</td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Himeno Sakatsume</td>
+      <td>JPN</td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Darja Vidmanova</td>
+      <td>CZE</td>
+      <td>142</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Whitney Osuigwe</td>
+      <td>USA</td>
+      <td>152</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Alina Charaeva</td>
+      <td>RUS</td>
+      <td>162</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Hanyu Guo</td>
+      <td>CHN</td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Louisa Chirico</td>
+      <td>USA</td>
+      <td>177</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Elizabeth Mandlik</td>
+      <td>USA</td>
+      <td>181</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Cadence Brace</td>
+      <td>CAN</td>
+      <td>186</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Ana Sofia Sánchez</td>
+      <td>MEX</td>
+      <td>191</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Kayla Cross</td>
+      <td>CAN</td>
+      <td>198</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Nao Hibino</td>
+      <td>JPN</td>
+      <td>202</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Elvina Kalieva</td>
+      <td>USA</td>
+      <td>206</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Mary Stoiana</td>
+      <td>USA</td>
+      <td>221</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Claire Liu</td>
+      <td>USA</td>
+      <td>226</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Bianca Andreescu</td>
+      <td>CAN</td>
+      <td>227</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Jessica Pieri</td>
+      <td>ITA</td>
+      <td>228</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Katherine Sebov</td>
+      <td>CAN</td>
+      <td>245</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Anna Rogers</td>
+      <td>USA</td>
+      <td>253</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Kayla Day</td>
+      <td>USA</td>
+      <td>256</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Madison Brengle</td>
+      <td>USA</td>
+      <td>450</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Xiaodi You</td>
+      <td>CHN</td>
+      <td>282</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Lia Karatancheva</td>
+      <td>BUL</td>
+      <td>291</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Sakura Hosogi</td>
+      <td>JPN</td>
+      <td>294</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Katarina Jokic</td>
+      <td>SRB</td>
+      <td>310</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Carolyn Ansari</td>
+      <td>USA</td>
+      <td>312</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Hanna Chang</td>
+      <td>USA</td>
+      <td>317</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Katrina Scott</td>
+      <td>USA</td>
+      <td>319</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Gabriela Lee</td>
+      <td>ROU</td>
+      <td>329</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Lea Ma</td>
+      <td>USA</td>
+      <td>342</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Viktoria Morvayova</td>
+      <td>SVK</td>
+      <td>347</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Tatiana Pieri</td>
+      <td>ITA</td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Emily Appleton</td>
+      <td>GBR</td>
+      <td>377</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Mariia Tkacheva</td>
+      <td>RUS</td>
+      <td>469</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Catherine Harrison</td>
+      <td>NaN</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Oeiras 2 Jamor Indoor</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Olga Danilovic</td>
+      <td>SRB</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Viktorija Golubic</td>
+      <td>SUI</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Dalma Galfi</td>
+      <td>HUN</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Suzan Lamens</td>
+      <td>NED</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Sinja Kraus</td>
+      <td>AUT</td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Katie Boulter</td>
+      <td>GBR</td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Victoria Jimenez Kasintseva</td>
+      <td>AND</td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Viktoriya Tomova</td>
+      <td>BUL</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Kaitlin Quevedo</td>
+      <td>ESP</td>
+      <td>129</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Yue Yuan</td>
+      <td>CHN</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Linda Fruhvirtova</td>
+      <td>CZE</td>
+      <td>132</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Linda Klimovicova</td>
+      <td>POL</td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Daria Snigur</td>
+      <td>UKR</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Maria Timofeeva</td>
+      <td>UZB</td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Maja Chwalinska</td>
+      <td>POL</td>
+      <td>145</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Elina Avanesyan</td>
+      <td>ARM</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Iryna Shymanovich</td>
+      <td>BLR</td>
+      <td>153</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Carole Monnet</td>
+      <td>FRA</td>
+      <td>174</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Gabriela Knutson</td>
+      <td>CZE</td>
+      <td>175</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Teodora Kostovic</td>
+      <td>SRB</td>
+      <td>176</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Anhelina Kalinina</td>
+      <td>UKR</td>
+      <td>178</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Anouk Koevermans</td>
+      <td>NED</td>
+      <td>192</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Francisca Jorge</td>
+      <td>POR</td>
+      <td>213</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Tiantsoa Rakotomanga Rajaonah</td>
+      <td>FRA</td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Viktoria Hruncakova</td>
+      <td>SVK</td>
+      <td>219</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Ye-Xin Ma</td>
+      <td>CHN</td>
+      <td>224</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Barbora Palicova</td>
+      <td>CZE</td>
+      <td>230</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Fiona Crawley</td>
+      <td>USA</td>
+      <td>243</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Caroline Werner</td>
+      <td>GER</td>
+      <td>246</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Eva Guerrero Alvarez</td>
+      <td>ESP</td>
+      <td>248</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Ayana Akli</td>
+      <td>USA</td>
+      <td>251</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Anastasia Tikhonova</td>
+      <td>RUS</td>
+      <td>254</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Nuria Parrizas Diaz</td>
+      <td>ESP</td>
+      <td>261</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Angela Fita Boluda</td>
+      <td>ESP</td>
+      <td>262</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Matilde Jorge</td>
+      <td>POR</td>
+      <td>268</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Sara Sorribes Tormo</td>
+      <td>ESP</td>
+      <td>293</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Dalila Jakupovic</td>
+      <td>SLO</td>
+      <td>334</td>
+    </tr>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_125_LES_SABLES" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Open Arena Les Sables d'Olonne</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Darja Semenistaja</td>
+      <td>LAT</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Lucia Bronzetti</td>
+      <td>ITA</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Diane Parry</td>
+      <td>FRA</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Greet Minnen</td>
+      <td>BEL</td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Tamara Korpatsch</td>
+      <td>GER</td>
+      <td>124</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Lola Radivojevic</td>
+      <td>SRB</td>
+      <td>137</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Lucrezia Stefanini</td>
+      <td>ITA</td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Sofia Costoulas</td>
+      <td>BEL</td>
+      <td>143</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Dominika Salkova</td>
+      <td>CZE</td>
+      <td>144</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Varvara Lepchenko</td>
+      <td>USA</td>
+      <td>146</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Anna-Lena Friedsam</td>
+      <td>GER</td>
+      <td>156</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Jessika Ponchet</td>
+      <td>FRA</td>
+      <td>165</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Ekaterine Gorgodze</td>
+      <td>GEO</td>
+      <td>168</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Andrea Lazaro Garcia</td>
+      <td>ESP</td>
+      <td>182</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Xiyu Wang</td>
+      <td>CHN</td>
+      <td>183</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Manon Leonard</td>
+      <td>FRA</td>
+      <td>201</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Lina Gjorcheska</td>
+      <td>MKD</td>
+      <td>205</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Xinyu Gao</td>
+      <td>CHN</td>
+      <td>208</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Carol Young Suh Lee</td>
+      <td>USA</td>
+      <td>209</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Alina Korneeva</td>
+      <td>RUS</td>
+      <td>211</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Silvia Ambrosio</td>
+      <td>ITA</td>
+      <td>214</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Lisa Pigato</td>
+      <td>ITA</td>
+      <td>238</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Fiona Ferro</td>
+      <td>FRA</td>
+      <td>366</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Harmony Tan</td>
+      <td>FRA</td>
+      <td>215</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Camilla Rosatello</td>
+      <td>ITA</td>
+      <td>225</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Aliona Bolsova</td>
+      <td>ESP</td>
+      <td>231</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Mona Barthel</td>
+      <td>GER</td>
+      <td>233</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Chloe Paquet</td>
+      <td>FRA</td>
+      <td>237</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Raluka Serban</td>
+      <td>CYP</td>
+      <td>247</td>
+    </tr>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_500_MERIDA" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 500  - Mérida Open</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Emma Navarro</td>
+      <td>USA</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Liudmila Samsonova</td>
+      <td>RUS</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Diana Shnaider</td>
+      <td>RUS</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Paula Badosa</td>
+      <td>ESP</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Jaqueline  Cristian</td>
+      <td>ROU</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Ann Li</td>
+      <td>USA</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Jessica Bouzas Maneiro</td>
+      <td>ESP</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Tatjana Maria</td>
+      <td>GER</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Marie Bouzkova</td>
+      <td>CZE</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Daria Kasatkina</td>
+      <td>AUS</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Emiliana Arango</td>
+      <td>COL</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Cristina Bucsa</td>
+      <td>ESP</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Maria Sakkari</td>
+      <td>GRE</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Magda Linette</td>
+      <td>POL</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Anastasia Potapova</td>
+      <td>AUT</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Beatriz Haddad Maia</td>
+      <td>BRA</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Elisabetta Cocciaretto</td>
+      <td>ITA</td>
+      <td>80</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_250_AUSTIN" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 250  - ATX Open</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Jessica Pegula</td>
+      <td>USA</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Iva Jovic</td>
+      <td>USA</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Mccartney Kessler</td>
+      <td>USA</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Eva Lys</td>
+      <td>GER</td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Xinyu Wang</td>
+      <td>CHN</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Ashlyn Krueger</td>
+      <td>USA</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Anna Blinkova</td>
+      <td>RUS</td>
+      <td>62</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Solana Sierra</td>
+      <td>ARG</td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Peyton Stearns</td>
+      <td>USA</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Francesca Jones</td>
+      <td>GBR</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Rebecca Sramkova</td>
+      <td>SVK</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Varvara Gracheva</td>
+      <td>FRA</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Anna Bondar</td>
+      <td>HUN</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Ajla Tomljanovic</td>
+      <td>AUS</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Petra Marcinko</td>
+      <td>CRO</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Caty Mcnally</td>
+      <td>USA</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Lulu Sun</td>
+      <td>NZL</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Kamilla Rakhimova</td>
+      <td>UZB</td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Dalma Galfi</td>
+      <td>HUN</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Katie Volynets</td>
+      <td>USA</td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Kimberly Birrell</td>
+      <td>AUS</td>
+      <td>107</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Moyuka Uchijima</td>
+      <td>JPN</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Sara Bejlek</td>
+      <td>CZE</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Panna Udvardy</td>
+      <td>HUN</td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Oleksandra Oliynykova</td>
+      <td>UKR</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Julia Grabher</td>
+      <td>AUT</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Veronika Erjavec</td>
+      <td>SLO</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Lucia Bronzetti</td>
+      <td>ITA</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Mayar Sherif</td>
+      <td>EGY</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Tiantsoa Rakotomanga Rajaonah</td>
+      <td>FRA</td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Arantxa Rus</td>
+      <td>NED</td>
+      <td>133</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Katarzyna Kawa</td>
+      <td>POL</td>
+      <td>135</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Leyre Romero Gormaz</td>
+      <td>ESP</td>
+      <td>141</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Polina Kudermetova</td>
+      <td>UZB</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Tamara Zidansek</td>
+      <td>SLO</td>
+      <td>151</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Despina Papamichail</td>
+      <td>GRE</td>
+      <td>160</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Nuria Brancaccio</td>
+      <td>ITA</td>
+      <td>164</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Ekaterine Gorgodze</td>
+      <td>GEO</td>
+      <td>168</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Carole Monnet</td>
+      <td>FRA</td>
+      <td>174</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Anhelina Kalinina</td>
+      <td>UKR</td>
+      <td>178</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Julia Riera</td>
+      <td>ARG</td>
+      <td>180</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Guiomar Maristany Zuleta De Reales</td>
+      <td>ESP</td>
+      <td>184</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Elena Pridankina</td>
+      <td>RUS</td>
+      <td>189</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Lisa Pigato</td>
+      <td>ITA</td>
+      <td>238</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_1000_INDIAN_WELLS" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 1000  - BNP Paribas Open</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div>
+            <div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open</h1>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table></div></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+            </div></div>
+        <script>
+        function openTourney(evt, tid) {
+            const tc = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tc.length; i++) tc[i].style.display = "none";
+            const tl = document.getElementsByClassName("tablinks");
+            for (let i = 0; i < tl.length; i++) tl[i].classList.remove("active");
+            document.getElementById(tid).style.display = "block";
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleView(btn) {
+            const activeTab = btn.closest('.tabcontent');
+            const mainView = activeTab.querySelector('.main-draw-view');
+            const qualView = activeTab.querySelector('.qual-view');
+            const subTitle = activeTab.querySelector('.sub-title');
+            const isMain = mainView.style.display !== "none";
+            
+            mainView.style.display = isMain ? "none" : "flex";
+            qualView.style.display = isMain ? "flex" : "none";
+            btn.innerText = isMain ? "Switch to Main Draw" : "Switch to Qualifying";
+            subTitle.innerText = isMain ? "QUALIFYING ENTRY LIST" : "MAIN DRAW ENTRY LIST";
+        }
+        </script>
+    </body>
+    </html>
