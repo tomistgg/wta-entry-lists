@@ -7,84 +7,31 @@
         <style>
             @font-face { font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }
             @font-face { font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }
-
             body { font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; }
-            
-            .sidebar { 
-                width: 250px; 
-                background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center;
-                border-right: 2px solid #ffffff; 
-                overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; 
-            }
+            .sidebar { width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }
             .week-title { font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }
-            .tablinks { 
-                width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; 
-                font-size: 0.8rem; font-family: 'MontserratSemiBold', sans-serif;
-                background-image: url('FondoDegradado.png'); background-size: cover; background-clip: text;
-                -webkit-background-clip: text; color: white; transition: 0.2s;
-            }
+            .tablinks { width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; font-size: 0.8rem; font-family: 'MontserratSemiBold', sans-serif; background-image: url('FondoDegradado.png'); background-size: cover; background-clip: text; -webkit-background-clip: text; color: white; transition: 0.2s; }
             .tablinks.active { background: white; color: black; -webkit-background-clip: initial; background-clip: initial; font-family: 'MontserratExtraBold', sans-serif; }
-            
-            .main-content { 
-                flex-grow: 1; overflow-y: auto; padding: 15px 30px; 
-                background-image: url('FondoDegradado.png'); background-size: cover; background-position: center; background-attachment: fixed;
-                color: white; 
-            }
-            
-            .top-row { 
-                display: flex; 
-                align-items: center; 
-                justify-content: space-between; 
-                margin-top: 5px; 
-                margin-bottom: 20px; 
-            }
-            .header-controls { flex: 1; }
+            .main-content { flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: center; background-attachment: fixed; color: white; }
+            .top-row { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; margin-bottom: 20px; }
+            .header-controls { flex: 1; min-height: 80px; }
             .spacer { flex: 1; }
-
             .title-stack { flex: 2; text-align: center; }
-            
-            .sub-title { 
-                font-family: 'MontserratExtraBold'; 
-                font-size: 1.05rem; 
-                color: #ffffff; 
-                margin-bottom: 8px; 
-                text-transform: uppercase; 
-                letter-spacing: 1.5px;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            }
-
-            .main-title { 
-                font-family: 'MontserratExtraBold'; 
-                font-size: 1.4rem; 
-                margin: 0; 
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
-            }
-
-            .toggle-btn {
-                background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white;
-                padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; 
-                font-family: 'MontserratSemiBold', sans-serif;
-                backdrop-filter: blur(5px);
-            }
-
+            .sub-title { font-family: 'MontserratExtraBold'; font-size: 1.05rem; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+            .main-title { font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+            .toggle-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); max-width: 170px; width: 100%; text-align: center; }
             .logo-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
             .tournament-logo { height: 25px; width: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
-            
             .tables-row { display: flex; gap: 20px; justify-content: center; width: 100%; }
-            .main-draw-view, .qual-view { display: flex; gap: 20px; width: 100%; justify-content: center; }
-
+            .main-draw-view, .qual-view, .changes-view { display: flex; gap: 20px; width: 100%; justify-content: center; }
             .table-column { flex: 1; max-width: 550px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 6px; overflow: hidden; }
-            
             .entry-table { width: 100%; border-collapse: collapse; color: white; }
             .entry-table th { background: rgba(255, 255, 255, 0.1); padding: 10px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }
             .entry-table th:nth-child(2) { text-align: left; padding-left: 15px; }
             .entry-table td { padding: 7px 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); text-align: center; font-size: 0.78rem; }
             .entry-table td:nth-child(2) { text-align: left; padding-left: 15px; }
             .entry-table tr:nth-child(even) { background: rgba(255, 255, 255, 0.04); }
-
-            /* LATAM HIGHLIGHT RULE */
             .latam-row td { font-family: 'MontserratExtraBold' !important; }
-
             @media (max-width: 768px) {
                 body { flex-direction: column; overflow: auto; }
                 .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; display: flex; overflow-x: auto; white-space: nowrap; background-attachment: scroll; }
@@ -94,518 +41,21 @@
                 .top-row { flex-direction: column; gap: 10px; margin-top: 0; margin-bottom: 15px; }
                 .main-title { font-size: 1.2rem; order: 2; }
                 .sub-title { font-size: 0.85rem; order: 1; margin-bottom: 4px; }
-                .header-controls { order: 3; width: 100%; }
-                .toggle-btn { width: 100%; padding: 10px; }
+                .header-controls { order: 3; width: 100%; min-height: auto; }
+                .toggle-btn { max-width: 100%; padding: 10px; }
                 .spacer { display: none; }
-                .main-draw-view, .qual-view { flex-direction: column; align-items: center; }
+                .main-draw-view, .qual-view, .changes-view { flex-direction: column; align-items: center; }
                 .table-column { width: 100%; max-width: 100%; }
             }
         </style>
     </head>
     <body>
-        <div class="sidebar"><div class="week-title">Week of Feb 9</div><button class="tablinks active" onclick="openTourney(event, 'WTA_1000_DOHA')">WTA 1000 DOHA</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_1')">WTA 125 OEIRAS 1</button><div class="week-title">Week of Feb 16</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_DUBAI')">WTA 1000 DUBAI</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_MIDLAND')">WTA 125 MIDLAND</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_2')">WTA 125 OEIRAS 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LES_SABLES')">WTA 125 LES SABLES</button><div class="week-title">Week of Feb 23</div><button class="tablinks " onclick="openTourney(event, 'WTA_500_MERIDA')">WTA 500 MERIDA</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_AUSTIN')">WTA 250 AUSTIN</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_1')">WTA 125 ANTALYA 1</button><div class="week-title">Week of Mar 2</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 INDIAN WELLS</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 ANTALYA 2</button></div>
-        <div class="main-content">
-            <div id="WTA_1000_DOHA" class="tabcontent" style="display: block;">
+        <div class="sidebar"><div class="week-title">Week of Feb 16</div><button class="tablinks active" onclick="openTourney(event, 'WTA_1000_DUBAI')">WTA 1000 DUBAI</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_MIDLAND')">WTA 125 MIDLAND</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_2')">WTA 125 OEIRAS 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LES_SABLES')">WTA 125 LES SABLES</button><div class="week-title">Week of Feb 23</div><button class="tablinks " onclick="openTourney(event, 'WTA_500_MERIDA')">WTA 500 MERIDA</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_AUSTIN')">WTA 250 AUSTIN</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_1')">WTA 125 ANTALYA 1</button><div class="week-title">Week of Mar 2</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 INDIAN WELLS</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 ANTALYA 2</button></div>
+        <div class="main-content"><div id="WTA_1000_DUBAI" class="tabcontent" style="display: block;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 1000 - Qatar TotalEnergies Open 2026</h1>
-                    </div>
-                    <div class="spacer"></div>
-                </div>
-                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Magdalena Frech</td>
-      <td>POL</td>
-      <td>57</td>
-    </tr>
-    <tr class="latam-row">
-      <td>2</td>
-      <td>Beatriz Haddad Maia</td>
-      <td>BRA</td>
-      <td>59</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Tereza Valentova</td>
-      <td>CZE</td>
-      <td>60</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Sonay Kartal</td>
-      <td>GBR</td>
-      <td>63</td>
-    </tr>
-    <tr class="latam-row">
-      <td>5</td>
-      <td>Solana Sierra</td>
-      <td>ARG</td>
-      <td>64</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Hailey Baptiste</td>
-      <td>USA</td>
-      <td>66</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Antonia Ruzic</td>
-      <td>CRO</td>
-      <td>71</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Rebecca Sramkova</td>
-      <td>SVK</td>
-      <td>72</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Shuai Zhang</td>
-      <td>CHN</td>
-      <td>73</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Varvara Gracheva</td>
-      <td>FRA</td>
-      <td>74</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Ella Seidel</td>
-      <td>GER</td>
-      <td>78</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Elisabetta Cocciaretto</td>
-      <td>ITA</td>
-      <td>80</td>
-    </tr>
-    <tr class="latam-row">
-      <td>13</td>
-      <td>Camila Osorio</td>
-      <td>COL</td>
-      <td>82</td>
-    </tr>
-    <tr class="latam-row">
-      <td>14</td>
-      <td>Renata Zarazua</td>
-      <td>MEX</td>
-      <td>84</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Simona Waltert</td>
-      <td>SUI</td>
-      <td>86</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Moyuka Uchijima</td>
-      <td>JPN</td>
-      <td>87</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>17</td>
-      <td>Julia Grabher</td>
-      <td>AUT</td>
-      <td>92</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Alycia Parks</td>
-      <td>USA</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Aliaksandra Sasnovich</td>
-      <td>BLR</td>
-      <td>102</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Anastasia Zakharova</td>
-      <td>RUS</td>
-      <td>103</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Kimberly Birrell</td>
-      <td>AUS</td>
-      <td>107</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Yuliia Starodubtseva</td>
-      <td>UKR</td>
-      <td>110</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Rebeka Masarova</td>
-      <td>SUI</td>
-      <td>115</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Priscilla Hon</td>
-      <td>AUS</td>
-      <td>121</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>Katarzyna Kawa</td>
-      <td>POL</td>
-      <td>135</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Ekaterine Gorgodze</td>
-      <td>GEO</td>
-      <td>168</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Arina Rodionova</td>
-      <td>AUS</td>
-      <td>207</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Storm Hunter</td>
-      <td>AUS</td>
-      <td>363</td>
-    </tr>
-    <tr>
-      <td>29</td>
-      <td>Berfu Cengiz</td>
-      <td>TUR</td>
-      <td>479</td>
-    </tr>
-    <tr>
-      <td>30</td>
-      <td>Vera Zvonareva</td>
-      <td>RUS</td>
-      <td>641</td>
-    </tr>
-    <tr>
-      <td>31</td>
-      <td>Mubaraka Al-Naimi</td>
-      <td>NaN</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td>32</td>
-      <td>Hind Al-Mudahka</td>
-      <td>NaN</td>
-      <td>—</td>
-    </tr>
-  </tbody>
-</table></div></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_125_OEIRAS_1" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 125  - Oeiras 1 Jamor Indoor</h1>
-                    </div>
-                    <div class="spacer"></div>
-                </div>
-                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Viktorija Golubic</td>
-      <td>SUI</td>
-      <td>81</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Dalma Galfi</td>
-      <td>HUN</td>
-      <td>93</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Suzan Lamens</td>
-      <td>NED</td>
-      <td>95</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Mayar Sherif</td>
-      <td>EGY</td>
-      <td>109</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Caroline Dolehide</td>
-      <td>USA</td>
-      <td>111</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Katie Boulter</td>
-      <td>GBR</td>
-      <td>113</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Victoria Jimenez Kasintseva</td>
-      <td>AND</td>
-      <td>114</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Tiantsoa Rakotomanga Rajaonah</td>
-      <td>FRA</td>
-      <td>118</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Diane Parry</td>
-      <td>FRA</td>
-      <td>122</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Greet Minnen</td>
-      <td>BEL</td>
-      <td>123</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Nikola Bartunkova</td>
-      <td>CZE</td>
-      <td>126</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Marina Stakusic</td>
-      <td>CAN</td>
-      <td>127</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Viktoriya Tomova</td>
-      <td>BUL</td>
-      <td>128</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Kaitlin Quevedo</td>
-      <td>ESP</td>
-      <td>129</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Yue Yuan</td>
-      <td>CHN</td>
-      <td>130</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Linda Fruhvirtova</td>
-      <td>CZE</td>
-      <td>132</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Linda Klimovicova</td>
-      <td>POL</td>
-      <td>134</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Daria Snigur</td>
-      <td>UKR</td>
-      <td>136</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Lola Radivojevic</td>
-      <td>SRB</td>
-      <td>137</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Maria Timofeeva</td>
-      <td>UZB</td>
-      <td>138</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Lucrezia Stefanini</td>
-      <td>ITA</td>
-      <td>139</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Leyre Romero Gormaz</td>
-      <td>ESP</td>
-      <td>141</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Darja Vidmanova</td>
-      <td>CZE</td>
-      <td>142</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Dominika Salkova</td>
-      <td>CZE</td>
-      <td>144</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Maja Chwalinska</td>
-      <td>POL</td>
-      <td>145</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Varvara Lepchenko</td>
-      <td>USA</td>
-      <td>146</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Elina Avanesyan</td>
-      <td>ARM</td>
-      <td>149</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Iryna Shymanovich</td>
-      <td>BLR</td>
-      <td>153</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Anna-Lena Friedsam</td>
-      <td>GER</td>
-      <td>156</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Carole Monnet</td>
-      <td>FRA</td>
-      <td>174</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Teodora Kostovic</td>
-      <td>SRB</td>
-      <td>176</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Anhelina Kalinina</td>
-      <td>UKR</td>
-      <td>178</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Cadence Brace</td>
-      <td>CAN</td>
-      <td>186</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Miriam Bulgaru</td>
-      <td>ROU</td>
-      <td>197</td>
-    </tr>
-    <tr class="latam-row">
-      <td>12</td>
-      <td>Laura Pigossi</td>
-      <td>BRA</td>
-      <td>200</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Xinyu Gao</td>
-      <td>CHN</td>
-      <td>208</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Alina Korneeva</td>
-      <td>RUS</td>
-      <td>211</td>
-    </tr>
-  </tbody>
-</table></div></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_1000_DUBAI" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_DUBAI')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1083,13 +533,13 @@
       <td>107</td>
     </tr>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_125_MIDLAND" class="tabcontent" style="display: none;">
+                </div><div id="WTA_125_MIDLAND" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_MIDLAND')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1341,13 +791,13 @@
       <td>—</td>
     </tr>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: none;">
+                </div><div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_OEIRAS_2')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1599,13 +1049,13 @@
       <td>334</td>
     </tr>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_125_LES_SABLES" class="tabcontent" style="display: none;">
+                </div><div id="WTA_125_LES_SABLES" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_LES_SABLES')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1809,13 +1259,13 @@
       <td>247</td>
     </tr>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_500_MERIDA" class="tabcontent" style="display: none;">
+                </div><div id="WTA_500_MERIDA" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_MERIDA')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -1947,13 +1397,13 @@
   </thead>
   <tbody>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_250_AUSTIN" class="tabcontent" style="display: none;">
+                </div><div id="WTA_250_AUSTIN" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_AUSTIN')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -2109,13 +1559,13 @@
   </thead>
   <tbody>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;">
+                </div><div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;">
                 <div class="top-row">
-                    <div class="header-controls">
+                    <div class="header-controls" style="display:flex; flex-direction:column; gap:6px;">
                         <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_1')">Changes List</button>
                     </div>
                     <div class="title-stack">
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
@@ -2283,81 +1733,9 @@
   </thead>
   <tbody>
   </tbody>
-</table></div></div></div>
+</table></div></div><div class="changes-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_1000_INDIAN_WELLS" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 1000  - BNP Paribas Open</h1>
-                    </div>
-                    <div class="spacer"></div>
-                </div>
-                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table></div></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div>
-            <div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn" onclick="toggleView(this)">Switch to Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open</h1>
-                    </div>
-                    <div class="spacer"></div>
-                </div>
-                <div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table></div></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-            </div></div>
+                </div><div id="WTA_1000_INDIAN_WELLS" class="tabcontent" style="display: none;"></div><div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: none;"></div></div>
         <script>
         function openTourney(evt, tid) {
             const tc = document.getElementsByClassName("tabcontent");
@@ -2372,13 +1750,57 @@
             const activeTab = btn.closest('.tabcontent');
             const mainView = activeTab.querySelector('.main-draw-view');
             const qualView = activeTab.querySelector('.qual-view');
+            const changeView = activeTab.querySelector('.changes-view');
             const subTitle = activeTab.querySelector('.sub-title');
-            const isMain = mainView.style.display !== "none";
+            const changesBtn = activeTab.querySelector('.changes-btn');
+            const tempBtn = activeTab.querySelector('.temp-qual-btn');
             
+            if (changeView.style.display === "flex") {
+                if (btn.innerText.includes("Qualifying")) {
+                    mainView.style.display = "none";
+                    qualView.style.display = "flex";
+                    activeTab.querySelector('.toggle-btn').innerText = "Switch to Main Draw";
+                    subTitle.innerText = "QUALIFYING ENTRY LIST";
+                } else {
+                    mainView.style.display = "flex";
+                    qualView.style.display = "none";
+                    activeTab.querySelector('.toggle-btn').innerText = "Switch to Qualifying";
+                    subTitle.innerText = "MAIN DRAW ENTRY LIST";
+                }
+                changeView.style.display = "none";
+                changesBtn.style.display = "block";
+                if (tempBtn) tempBtn.remove();
+                return;
+            }
+
+            const isMain = mainView.style.display !== "none";
             mainView.style.display = isMain ? "none" : "flex";
             qualView.style.display = isMain ? "flex" : "none";
             btn.innerText = isMain ? "Switch to Main Draw" : "Switch to Qualifying";
             subTitle.innerText = isMain ? "QUALIFYING ENTRY LIST" : "MAIN DRAW ENTRY LIST";
+        }
+
+        function showChanges(btn, tid) {
+            const activeTab = document.getElementById(tid);
+            const toggleBtn = activeTab.querySelector('.toggle-btn');
+            const controls = activeTab.querySelector('.header-controls');
+            
+            activeTab.querySelector('.main-draw-view').style.display = "none";
+            activeTab.querySelector('.qual-view').style.display = "none";
+            activeTab.querySelector('.changes-view').style.display = "flex";
+            activeTab.querySelector('.sub-title').innerText = "LIST OF CHANGES";
+            
+            btn.style.display = "none";
+            toggleBtn.innerText = "Switch to Main Draw";
+            
+            if (!activeTab.querySelector('.temp-qual-btn')) {
+                const qualBtn = document.createElement("button");
+                qualBtn.className = "toggle-btn temp-qual-btn";
+                qualBtn.style.marginTop = "6px";
+                qualBtn.innerText = "Switch to Qualifying";
+                qualBtn.onclick = function() { toggleView(this); };
+                controls.appendChild(qualBtn);
+            }
         }
         </script>
     </body>
