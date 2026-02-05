@@ -247,8 +247,10 @@ def main():
         <style>
             @font-face {{ font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }}
             @font-face {{ font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }}
+            
             body {{ font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; }}
             
+            /* PC VERSION: UNTOUCHED */
             .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }}
             .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
             
@@ -280,12 +282,34 @@ def main():
             .entry-table tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.04); }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; }}
 
+            /* MOBILE FIXES WITHOUT CHANGING PC */
             @media (max-width: 768px) {{
-                body {{ flex-direction: column; overflow: auto; }}
-                .sidebar {{ width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; display: flex; overflow-x: auto; white-space: nowrap; background-attachment: scroll; }}
+                body {{ flex-direction: column; overflow: auto; background: black; }}
+                
+                /* Create a fixed background layer for mobile only */
+                body::before {{
+                    content: "";
+                    position: fixed;
+                    top: 0; left: 0; width: 100%; height: 100%;
+                    background-image: url('FondoDegradado.png');
+                    background-size: cover;
+                    background-position: center;
+                    z-index: -1;
+                }}
+
+                .sidebar {{ 
+                    width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; 
+                    display: flex; overflow-x: auto; white-space: nowrap; 
+                    background-image: none; background: rgba(0,0,0,0.2); 
+                }}
+                
+                .main-content {{ 
+                    background-image: none; background: transparent; 
+                    height: auto; overflow: visible; padding: 15px 10px; 
+                }}
+
                 .week-title {{ display: none; }}
                 .tablinks {{ width: auto; display: inline-block; padding: 12px 15px; -webkit-background-clip: initial; background-clip: initial; color: white; }}
-                .main-content {{ height: auto; overflow: visible; padding: 15px 10px; background-attachment: scroll; }}
                 .top-row {{ flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 15px; }}
                 .header-controls {{ width: 100%; align-items: center; order: 3; }}
                 .main-title {{ order: 2; }}
