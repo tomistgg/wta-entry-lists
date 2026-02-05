@@ -119,17 +119,15 @@ def scrape_tournament(url, tab_label, tid):
                 break
         except: continue
 
-    if not start_date_str: start_date_str = "2026-02-16" 
+    if not start_date_str: start_date_str = "2026-02-16"
     
     start_dt = datetime.strptime(start_date_str[:10], "%Y-%m-%d")
     tourney_monday = start_dt - timedelta(days=start_dt.weekday())
-    is_weekend_start = start_dt.weekday() >= 5 
+    is_weekend_start = start_dt.weekday() >= 5
     
-    # Calculate Ranking Dates
     md_ranking_date = (tourney_monday - timedelta(weeks=(3 if is_weekend_start else 4))).strftime("%Y-%m-%d")
     qual_ranking_date = (tourney_monday - timedelta(weeks=(2 if is_weekend_start else 3))).strftime("%Y-%m-%d")
     
-    # Calculate Availability Fridays per Table
     avail_md_dt = datetime.strptime(md_ranking_date, "%Y-%m-%d")
     friday_md_str = (avail_md_dt + timedelta(days=4)).strftime("%Y-%m-%d")
     
@@ -211,7 +209,6 @@ def main():
             tid = label.replace(" ", "_").replace(".", "")
             data = scrape_tournament(url, label, tid)
             
-            # Condition check for new or old content
             has_new_data = data and ("<tr>" in data.get("content", "") or "WTA website" in data.get("content", ""))
             
             if has_new_data:
@@ -243,13 +240,26 @@ def main():
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="color-scheme" content="dark only">
         <style>
             @font-face {{ font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }}
             @font-face {{ font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }}
             
-            body {{ font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; }}
+            :root {{ color-scheme: dark; }}
+
+            * {{ -webkit-tap-highlight-color: transparent; box-sizing: border-box; }}
+
+            body {{ 
+                font-family: 'MontserratSemiBold', sans-serif; 
+                margin: 0; 
+                display: flex; 
+                height: 100vh; 
+                background: black; 
+                color: white;
+            }}
             
+            /* --- PC VERSION --- */
             .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: left center; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }}
             .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
             
@@ -258,7 +268,7 @@ def main():
             
             .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-position: center; background-attachment: fixed; color: white; }}
             
-            .top-row {{ display: flex; align-items: center; justify-content: space-between; margin-top: 5px; margin-bottom: 20px; height: 80px; box-sizing: border-box; }}
+            .top-row {{ display: flex; align-items: center; justify-content: space-between; margin-top: 5px; margin-bottom: 20px; height: 80px; }}
             .header-controls {{ flex: 1; display: flex; flex-direction: column; gap: 6px; }}
             .spacer {{ flex: 1; }}
             .title-stack {{ flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; }}
@@ -266,7 +276,7 @@ def main():
             .sub-title {{ font-family: 'MontserratExtraBold'; font-size: 1.05rem; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
             .main-title {{ font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
             
-            .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }}
+            .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; }}
             
             .logo-container {{ text-align: center; margin-top: 25px; padding-bottom: 15px; }}
             .tournament-logo {{ height: 25px; width: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }}
@@ -281,43 +291,67 @@ def main():
             .entry-table tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.04); }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; }}
 
+            /* --- MOBILE REFINEMENTS --- */
             @media (max-width: 768px) {{
-                body {{ flex-direction: column; overflow: auto; background: black; }}
+                body {{ flex-direction: column; overflow-x: hidden; overflow-y: auto; background: black; }}
                 
                 body::before {{
                     content: "";
                     position: fixed;
                     top: 0; left: 0; width: 100%; height: 100%;
+                    background-color: rgba(255, 100, 100, 0.15); 
                     background-image: url('FondoDegradado.png');
+                    background-blend-mode: screen;
                     background-size: cover;
                     background-position: center;
                     z-index: -1;
+                    -webkit-transform: translateZ(0);
+                    transform: translateZ(0);
                 }}
 
                 .sidebar {{ 
-                    width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; 
+                    width: 100%; height: auto; border-right: none; 
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
                     display: flex; overflow-x: auto; white-space: nowrap; 
+                    background: transparent;
+                    padding: 10px 8px;
+                    gap: 8px;
+                    scrollbar-width: none; /* Hide scrollbar Firefox */
+                }}
+                .sidebar::-webkit-scrollbar {{ display: none; }} /* Hide scrollbar Chrome/Safari */
+
+                .tablinks {{ 
+                    width: auto; 
+                    display: inline-block; 
+                    padding: 8px 16px; 
+                    color: white; 
                     background: transparent; 
+                    border: 1px solid rgba(255, 255, 255, 0.4); 
+                    border-radius: 20px; 
+                    font-size: 0.75rem;
+                    -webkit-background-clip: initial; 
+                    background-clip: initial; 
+                    transition: 0.2s;
+                }}
+
+                .tablinks.active {{ 
+                    background: white; 
+                    color: black; 
+                    border: 1px solid white;
                 }}
                 
                 .main-content {{ 
                     background: transparent; 
-                    height: auto; overflow: visible; padding: 15px 10px 50px; 
+                    height: auto; overflow: visible; padding: 15px 10px 100px; 
                 }}
 
-                .table-column {{ 
-                    width: 100%; max-width: 100%; 
-                    overflow: visible; 
-                    background: transparent;
-                }}
-                .entry-table td {{ padding: 7px 8px; }}
+                .table-column {{ width: 100%; max-width: 100%; overflow: visible; margin-bottom: 20px; }}
 
                 .week-title {{ display: none; }}
-                .tablinks {{ width: auto; display: inline-block; padding: 12px 15px; -webkit-background-clip: initial; background-clip: initial; color: white; }}
-                .top-row {{ flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 15px; }}
+                .top-row {{ flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 25px; }}
                 .header-controls {{ width: 100%; align-items: center; order: 3; }}
-                .main-title {{ order: 2; }}
-                .sub-title {{ order: 1; }}
+                .main-title {{ order: 2; text-align: center; }}
+                .sub-title {{ order: 1; text-align: center; }}
                 .spacer {{ display: none; }}
                 .main-draw-view, .qual-view, .changes-view {{ flex-direction: column; align-items: center; }}
             }}
