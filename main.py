@@ -282,12 +282,7 @@ def main():
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; }}
 
             @media (max-width: 768px) {{
-                body {{ 
-                    flex-direction: column; 
-                    overflow: auto; 
-                    background: black; 
-                    height: auto;
-                }}
+                body {{ flex-direction: column; overflow: auto; background: black; }}
                 
                 body::before {{
                     content: "";
@@ -302,49 +297,29 @@ def main():
                 .sidebar {{ 
                     width: 100%; height: auto; border-right: none; border-bottom: 2px solid white; 
                     display: flex; overflow-x: auto; white-space: nowrap; 
-                    background-image: none; 
                     background: transparent; 
-                    position: sticky;
-                    top: 0;
-                    z-index: 100;
                 }}
                 
                 .main-content {{ 
-                    background-image: none; 
                     background: transparent; 
-                    height: auto; 
-                    overflow: visible; 
-                    padding: 15px 10px 80px;
-                    min-height: 100vh;
-                    box-sizing: border-box;
+                    height: auto; overflow: visible; padding: 15px 10px 50px; 
                 }}
+
+                .table-column {{ 
+                    width: 100%; max-width: 100%; 
+                    overflow: visible; 
+                    background: transparent;
+                }}
+                .entry-table td {{ padding: 7px 8px; }}
 
                 .week-title {{ display: none; }}
                 .tablinks {{ width: auto; display: inline-block; padding: 12px 15px; -webkit-background-clip: initial; background-clip: initial; color: white; }}
-                
-                .top-row {{ 
-                    flex-direction: column; 
-                    height: auto; 
-                    align-items: center; 
-                    gap: 15px; 
-                    margin-bottom: 15px; 
-                }}
-                
+                .top-row {{ flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 15px; }}
                 .header-controls {{ width: 100%; align-items: center; order: 3; }}
-                .main-title {{ order: 2; text-align: center; }}
-                .sub-title {{ order: 1; text-align: center; }}
+                .main-title {{ order: 2; }}
+                .sub-title {{ order: 1; }}
                 .spacer {{ display: none; }}
-                
-                .main-draw-view, .qual-view, .changes-view {{ 
-                    flex-direction: column; 
-                    align-items: center; 
-                }}
-                
-                .table-column {{ 
-                    width: 100%; 
-                    max-width: 100%; 
-                    margin-bottom: 20px;
-                }}
+                .main-draw-view, .qual-view, .changes-view {{ flex-direction: column; align-items: center; }}
             }}
         </style>
     </head>
