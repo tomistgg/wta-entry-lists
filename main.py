@@ -5,7 +5,7 @@ import time
 import re
 import os
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # --- CONFIGURATION ---
 TOURNAMENT_GROUPS = {
@@ -106,16 +106,39 @@ def scrape_tournament(url, tab_label, tid):
         r = requests.get(url, headers=HEADERS, timeout=15)
         soup = BeautifulSoup(r.text, 'html.parser')
     except: return None
+    
     full_name = tab_label
+    start_date_str = None
     scripts = soup.find_all('script', type='application/ld+json')
     for script in scripts:
         try:
             data = json.loads(script.string)
             if data.get('@type') == 'SportsEvent':
                 full_name = clean_tournament_word(data.get('description', tab_label))
+                start_date_str = data.get('startDate')
                 break
         except: continue
-    md_rankings = get_rankings_from_api("2026-01-12")
+
+    if not start_date_str: start_date_str = "2026-02-16" 
+    
+    start_dt = datetime.strptime(start_date_str[:10], "%Y-%m-%d")
+    tourney_monday = start_dt - timedelta(days=start_dt.weekday())
+    is_weekend_start = start_dt.weekday() >= 5 
+    
+    # Calculate Ranking Dates
+    md_ranking_date = (tourney_monday - timedelta(weeks=(3 if is_weekend_start else 4))).strftime("%Y-%m-%d")
+    qual_ranking_date = (tourney_monday - timedelta(weeks=(2 if is_weekend_start else 3))).strftime("%Y-%m-%d")
+    
+    # Calculate Availability Fridays per Table
+    avail_md_dt = datetime.strptime(md_ranking_date, "%Y-%m-%d")
+    friday_md_str = (avail_md_dt + timedelta(days=4)).strftime("%Y-%m-%d")
+    
+    avail_qual_dt = datetime.strptime(qual_ranking_date, "%Y-%m-%d")
+    friday_qual_str = (avail_qual_dt + timedelta(days=4)).strftime("%Y-%m-%d")
+
+    md_rankings = get_rankings_from_api(md_ranking_date)
+    qual_rankings = get_rankings_from_api(qual_ranking_date)
+
     main_names, qual_names, current_section = [], [], "MAIN"
     for tag in soup.find_all(True):
         tab_attr = tag.get('data-ui-tab')
@@ -126,12 +149,17 @@ def scrape_tournament(url, tab_label, tid):
         if player_name:
             if current_section == "MAIN" and player_name not in main_names: main_names.append(player_name)
             elif current_section == "QUAL" and player_name not in qual_names: qual_names.append(player_name)
+    
     main_df = process_players(main_names, md_rankings)
-    qual_df = process_players(qual_names, md_rankings)
-    if not main_df.empty: track_changes(tid, "Main Draw", main_df['Player'].tolist())
-    if not qual_df.empty: track_changes(tid, "Qualifying", qual_df['Player'].tolist())
-
-    def generate_split_tables(df):
+    qual_df = process_players(qual_names, qual_rankings)
+    
+    state = load_json(STATE_FILE)
+    
+    def get_display_content(df, tid, draw_type, availability_date):
+        key = f"{tid}_{draw_type.replace(' ', '_')}"
+        if df.empty and not state.get(key):
+            return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available in the WTA website on {availability_date}</p>"
+        
         def apply_highlights(table_df):
             html = table_df.to_html(index=False, classes="entry-table", border=0)
             rows = html.split('<tr>')
@@ -141,6 +169,7 @@ def scrape_tournament(url, tab_label, tid):
                 if country_val in LATAM_CODES: final_html.append('<tr class="latam-row">' + content)
                 else: final_html.append('<tr>' + content)
             return "".join(final_html)
+
         if len(df) > 25:
             midpoint = (len(df) + 1) // 2
             df1, df2 = df.iloc[:midpoint], df.iloc[midpoint:]
@@ -148,13 +177,16 @@ def scrape_tournament(url, tab_label, tid):
                     f'<div class="table-column">{apply_highlights(df2)}</div>')
         return f'<div class="table-column">{apply_highlights(df)}</div>'
 
-    main_draw_html = f'<div class="main-draw-view">{generate_split_tables(main_df)}</div>'
-    qual_html = f'<div class="qual-view" style="display:none;">{generate_split_tables(qual_df)}</div>'
+    if not main_df.empty: track_changes(tid, "Main Draw", main_df['Player'].tolist())
+    if not qual_df.empty: track_changes(tid, "Qualifying", qual_df['Player'].tolist())
+
+    main_draw_html = f'<div class="main-draw-view">{get_display_content(main_df, tid, "Main Draw", friday_md_str)}</div>'
+    qual_html = f'<div class="qual-view" style="display:none;">{get_display_content(qual_df, tid, "Qualifying", friday_qual_str)}</div>'
+    
     history = load_json(LOG_FILE).get(tid, [])
     if not history:
         changes_body = "<p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p>"
     else:
-        # UPDATED: Added style to 'CHANGE' th to align it to the left
         changes_body = '<div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody>'
         for entry in history:
             changes_body += f'<tr><td>{entry["date"]}</td><td style="text-align:left; padding-left:20px;">{entry["change"]}</td></tr>'
@@ -178,7 +210,10 @@ def main():
         for url, label in tournaments.items():
             tid = label.replace(" ", "_").replace(".", "")
             data = scrape_tournament(url, label, tid)
-            has_new_data = data and "<tr>" in data.get("content", "")
+            
+            # Condition check for new or old content
+            has_new_data = data and ("<tr>" in data.get("content", "") or "WTA website" in data.get("content", ""))
+            
             if has_new_data:
                 current_tourney_body = f"""
                 <div class="top-row">
