@@ -55,7 +55,7 @@ def track_changes(tid, draw_type, current_names):
     if prev_names:
         for name in prev_names:
             if name not in curr_names_set:
-                new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> withdrew from {draw_type}"})
+                new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> removed from {draw_type}"})
         for name in curr_names_set:
             if name not in prev_names:
                 new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> added to {draw_type}"})
