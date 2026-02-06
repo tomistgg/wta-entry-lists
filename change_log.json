@@ -76,5 +76,37 @@
             "date": "2026-02-05",
             "change": "<strong>EMILY APPLETON</strong> added to Qualifying"
         }
+    ],
+    "WTA_250_AUSTIN": [
+        {
+            "date": "2026-02-06",
+            "change": "\u2728 <b>WTA 250  - ATX Open</b> Qualifying list is now available."
+        }
+    ],
+    "WTA_125_ANTALYA_1": [
+        {
+            "date": "2026-02-06",
+            "change": "\u2728 <b>WTA 125  - Megasaray Hotels Open</b> Qualifying list is now available."
+        },
+        {
+            "date": "2026-02-06",
+            "change": "<strong>LISA PIGATO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-06",
+            "change": "<strong>ALICE RAME</strong> added to Main Draw"
+        }
+    ],
+    "WTA_1000_INDIAN_WELLS": [
+        {
+            "date": "2026-02-06",
+            "change": "\u2728 <b>WTA 1000  - BNP Paribas Open</b> Main Draw list is now available."
+        }
+    ],
+    "WTA_125_ANTALYA_2": [
+        {
+            "date": "2026-02-06",
+            "change": "\u2728 <b>WTA 125  - Megasaray Hotels Open</b> Main Draw list is now available."
+        }
     ]
 }
