@@ -2843,7 +2843,7 @@
                     filename:     title + ' - ' + subTitle + '.pdf',
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { scale: 1.5, useCORS: true, backgroundColor: '#000000' }, 
-                    jsPDF:        { unit: 'mm', format: [418, 243], orientation: 'landscape' }
+                    jsPDF:        { unit: 'mm', format: [418, 242], orientation: 'landscape' }
                 };
 
                 html2pdf().set(opt).from(element).save().then(() => {
