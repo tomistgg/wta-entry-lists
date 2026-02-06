@@ -1,4 +1,4 @@
-name: Update WTA Entry Lists
+name: Update WTA Tracker
 
 on:
   schedule:
