@@ -52,14 +52,17 @@ def track_changes(tid, draw_type, current_names, t_name):
     state = load_json(STATE_FILE)
     history = load_json(LOG_FILE)
     key = f"{tid}_{draw_type.replace(' ', '_')}"
+    
     prev_names = set(state.get(key, []))
     curr_names_set = set(current_names)
     today = datetime.now().strftime("%Y-%m-%d")
+    
     new_entries_for_web = []
     notification_for_email = None
 
     if not prev_names and curr_names_set:
-        notification_for_email = f"✨ {t_name} {draw_type} list is now available."
+        notification_for_email = f"{t_name} {draw_type} list is now available."
+    
     elif prev_names:
         for name in prev_names:
             if name not in curr_names_set:
@@ -77,7 +80,16 @@ def track_changes(tid, draw_type, current_names, t_name):
     
     state[key] = list(current_names)
     save_json(STATE_FILE, state)
-    return notification_for_email, [re.sub('<[^<]+?>', '', e['change']) for e in new_entries_for_web]
+
+    email_updates = []
+    if notification_for_email:
+        email_updates.append(notification_for_email)
+    
+    for entry in new_entries_for_web:
+        clean_msg = re.sub('<[^<]+?>', '', entry['change'])
+        email_updates.append(clean_msg)
+        
+    return email_updates
 
 def clean_tournament_word(text):
     if not text: return ""
@@ -164,13 +176,9 @@ def scrape_tournament(url, tab_label, tid):
     
     run_notifications = []
     if not main_df.empty:
-        email_msg, web_msgs = track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name)
-        if email_msg: run_notifications.append(email_msg)
-        run_notifications.extend(web_msgs)
+        run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name))
     if not qual_df.empty:
-        email_msg, web_msgs = track_changes(tid, "Qualifying", qual_df['Player'].tolist(), full_name)
-        if email_msg: run_notifications.append(email_msg)
-        run_notifications.extend(web_msgs)
+        run_notifications.extend(track_changes(tid, "Qualifying", qual_df['Player'].tolist(), full_name))
 
     def get_display_content(df, tid, draw_type, availability_date):
         key = f"{tid}_{draw_type.replace(' ', '_')}"
