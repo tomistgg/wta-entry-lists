@@ -142,9 +142,10 @@ def process_players(names, rankings_df):
         merged = df.assign(ranking=None, country="—")
     merged['ranking_num'] = pd.to_numeric(merged['ranking'], errors='coerce').fillna(9999)
     merged = merged.sort_values(by='ranking_num', ascending=True).reset_index(drop=True)
-    merged['Pos.'] = (merged.index + 1).astype(str)
-    for col in ['ranking', 'Pos.']:
-        merged[col] = merged[col].astype(str).replace(r'\.0$', '', regex=True).replace(['nan', 'None'], '—')
+    merged['Pos.'] = (merged.index + 1).astype(str)    
+    merged['Rank'] = merged['ranking'].astype(str).replace(r'\.0$', '', regex=True).replace(['nan', 'None'], '—')
+    merged['Country'] = merged['country'].fillna('—')
+    
     return merged[['Pos.', 'Player', 'Country', 'Rank']]
 
 def scrape_tournament(url, tab_label, tid):
