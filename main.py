@@ -52,28 +52,37 @@ def track_changes(tid, draw_type, current_names, t_name):
     state = load_json(STATE_FILE)
     history = load_json(LOG_FILE)
     key = f"{tid}_{draw_type.replace(' ', '_')}"
+    
     prev_names = set(state.get(key, []))
     curr_names_set = set(current_names)
     today = datetime.now().strftime("%Y-%m-%d")
-    new_entries = []
+    
+    new_entries_for_web = []
+    notification_for_email = None
 
     if not prev_names and curr_names_set:
-        new_entries.append({"date": today, "change": f"✨ <b>{t_name}</b> {draw_type} list is now available."})
+        # We create the message but DO NOT add it to new_entries_for_web
+        notification_for_email = f"✨ {t_name} {draw_type} list is now available."
+    
     elif prev_names:
         for name in prev_names:
             if name not in curr_names_set:
-                new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> removed from {draw_type}"})
+                msg = f"<strong>{name.upper()}</strong> removed from {draw_type}"
+                new_entries_for_web.append({"date": today, "change": msg})
         for name in curr_names_set:
             if name not in prev_names:
-                new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> added to {draw_type}"})
-    
-    if new_entries:
+                msg = f"<strong>{name.upper()}</strong> added to {draw_type}"
+                new_entries_for_web.append({"date": today, "change": msg})
+
+    if new_entries_for_web:
         if tid not in history: history[tid] = []
-        history[tid] = new_entries + history[tid]
+        history[tid] = new_entries_for_web + history[tid]
         save_json(LOG_FILE, history)
     
     state[key] = list(current_names)
     save_json(STATE_FILE, state)
+
+    return notification_for_email, [re.sub('<[^<]+?>', '', e['change']) for e in new_entries_for_web]
 
 def clean_tournament_word(text):
     if not text: return ""
