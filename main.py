@@ -49,25 +49,36 @@ def format_pretty_date(date_str):
     except:
         return date_str
 
-def track_changes(tid, draw_type, current_names):
+def track_changes(tid, draw_type, current_names, t_name):
     state = load_json(STATE_FILE)
     history = load_json(LOG_FILE)
     key = f"{tid}_{draw_type.replace(' ', '_')}"
+    
     prev_names = set(state.get(key, []))
     curr_names_set = set(current_names)
     today = datetime.now().strftime("%Y-%m-%d")
     new_entries = []
-    if prev_names:
+
+    if not prev_names and curr_names_set:
+        # This matches your requested wording
+        new_entries.append({
+            "date": today, 
+            "change": f"<b>{t_name}</b> {draw_type} list is now available."
+        })
+    
+    elif prev_names:
         for name in prev_names:
             if name not in curr_names_set:
                 new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> removed from {draw_type}"})
         for name in curr_names_set:
             if name not in prev_names:
                 new_entries.append({"date": today, "change": f"<strong>{name.upper()}</strong> added to {draw_type}"})
+
     if new_entries:
         if tid not in history: history[tid] = []
         history[tid] = new_entries + history[tid]
         save_json(LOG_FILE, history)
+    
     state[key] = list(current_names)
     save_json(STATE_FILE, state)
 
