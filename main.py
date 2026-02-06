@@ -66,9 +66,23 @@ def get_display_content(df, tid, draw_type, availability_date):
             else: final_html.append('<tr>' + content)
         return "".join(final_html)
 
-    if len(df) > 25:
-        midpoint = (len(df) + 1) // 2
-        return f'<div class="table-column">{apply_highlights(df.iloc[:midpoint])}</div><div class="table-column">{apply_highlights(df.iloc[midpoint:])}</div>'
+    total_players = len(df)
+    
+    if total_players > 50:
+        size = (total_players + 2) // 3
+        col1 = df.iloc[:size]
+        col2 = df.iloc[size:size*2]
+        col3 = df.iloc[size*2:]
+        return (f'<div class="table-column">{apply_highlights(col1)}</div>'
+                f'<div class="table-column">{apply_highlights(col2)}</div>'
+                f'<div class="table-column">{apply_highlights(col3)}</div>')
+    
+    elif total_players > 25:
+        midpoint = (total_players + 1) // 2
+        return (f'<div class="table-column">{apply_highlights(df.iloc[:midpoint])}</div>'
+                f'<div class="table-column">{apply_highlights(df.iloc[midpoint:])}</div>')
+    
+    # Single column
     return f'<div class="table-column">{apply_highlights(df)}</div>'
 
 def track_changes(tid, draw_type, current_names, t_name):
@@ -247,7 +261,7 @@ def main():
             .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
             .tablinks {{ width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; font-size: 0.8rem; font-family: 'MontserratSemiBold', sans-serif; background-image: url('FondoDegradado.png'); background-size: cover; background-clip: text; -webkit-background-clip: text; color: white; transition: 0.2s; }}
             .tablinks.active {{ background: white; color: black; -webkit-background-clip: initial; background-clip: initial; font-family: 'MontserratExtraBold', sans-serif; }}
-            .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-attachment: fixed; }}
+            .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 20px; background-image: url('FondoDegradado.png'); background-size: cover; background-attachment: fixed; }}
             .top-row {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }}
             .header-controls {{ display: flex; flex-direction: column; gap: 6px; flex: 1; }}
             .title-stack {{ flex: 2; text-align: center; }}
@@ -256,10 +270,10 @@ def main():
             .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }}
             .tables-row {{ display: flex; gap: 20px; justify-content: center; width: 100%; }}
             .main-draw-view, .qual-view, .changes-view {{ display: flex; gap: 20px; width: 100%; justify-content: center; }}
-            .table-column {{ flex: 1; max-width: 550px; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; overflow: hidden; background: rgba(0,0,0,0.2); }}
+            .table-column {{ flex: 1; min-width: 280px; max-width: 450px; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; overflow: hidden; background: rgba(0,0,0,0.2); }}
             .entry-table {{ width: 100%; border-collapse: collapse; color: white; }}
-            .entry-table th {{ background: rgba(255, 255, 255, 0.1); padding: 10px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }}
-            .entry-table td {{ padding: 7px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 0.78rem; }}
+            .entry-table th {{ background: rgba(255, 255, 255, 0.1); padding: 9px 9px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }}
+            .entry-table td {{ padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 0.78rem; }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; color: #fff; }}
             .logo-container {{ text-align: center; margin-top: 25px; }}
             .tournament-logo {{ height: 25px; }}
