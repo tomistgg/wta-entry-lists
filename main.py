@@ -7,7 +7,6 @@ import os
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
-# --- CONFIGURATION ---
 TOURNAMENT_GROUPS = {
     "Week of Feb 16": {
         "https://www.wtatennis.com/tournaments/dubai/player-list": "WTA 1000 DUBAI",
@@ -23,6 +22,10 @@ TOURNAMENT_GROUPS = {
     "Week of Mar 2": {
         "https://www.wtatennis.com/tournaments/609/indian-wells/2026/player-list": "WTA 1000 INDIAN WELLS",
         "https://www.wtatennis.com/tournaments/1107/antalya-125-2/2026/player-list": "WTA 125 ANTALYA 2",
+    },
+    "Week of Mar 9": {
+        "https://www.wtatennis.com/tournaments/1161/austin-125-1/2026/player-list": "WTA 125 AUSTIN",
+        "https://www.wtatennis.com/tournaments/1125/antalya-125-3/2026/player-list": "WTA 125 ANTALYA 3",
     }
 }
 
@@ -32,7 +35,6 @@ LATAM_CODES = ["ARG", "BOL", "BRA", "CHI", "COL", "CRC", "CUB", "DOM", "ECU", "E
 STATE_FILE = "player_state.json"
 LOG_FILE = "change_log.json"
 
-# --- HELPERS ---
 def load_json(filename):
     if os.path.exists(filename):
         with open(filename, "r", encoding="utf-8") as f:
@@ -168,6 +170,13 @@ def scrape_tournament(url, tab_label, tid):
             if data.get('@type') == 'SportsEvent':
                 full_name = re.sub(r'\bTournament\b', '', data.get('description', tab_label), flags=re.IGNORECASE).strip()
                 start_date_str = data.get('startDate')[:10]
+                
+                edition_match = re.search(r'(\d+)$', tab_label)
+                if edition_match:
+                    num = edition_match.group(1)
+                    pattern = rf'\b{num}\b'
+                    if not re.search(pattern, full_name):
+                        full_name = f"{full_name} {num}"
                 break
         except: continue
 
@@ -235,7 +244,7 @@ def main():
                 all_alerts.append(f"Tournament: {label}\n" + "\n".join(f"- {n}" for n in data["notifications"]))
             
             if data:
-                body = f'<div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, \'{tid}\')">Changes List</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">{data["full_name"]}</h1></div><div class="spacer"></div></div><div class="tables-row">{data["content"]}</div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>'
+                body = f'<div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, \'{tid}\')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">{data["full_name"]}</h1></div><div class="spacer"></div></div><div class="tables-row">{data["content"]}</div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>'
             elif tid in old_content: 
                 body = old_content[tid]
             else: 
@@ -267,7 +276,7 @@ def main():
             .title-stack {{ flex: 2; text-align: center; }}
             .sub-title {{ font-family: 'MontserratExtraBold'; font-size: 1.05rem; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
             .main-title {{ font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
-            .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }}
+            .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 110px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }}
             .tables-row {{ display: flex; gap: 20px; justify-content: center; width: 100%; }}
             .main-draw-view, .qual-view, .changes-view {{ display: flex; gap: 20px; width: 100%; justify-content: center; }}
             .table-column {{ flex: 1; min-width: 280px; max-width: 450px; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; overflow: hidden; background: rgba(0,0,0,0.2); }}
@@ -314,7 +323,7 @@ def main():
                 const isMain = mainView.style.display !== "none";
                 mainView.style.display = isMain ? "none" : "flex";
                 qualView.style.display = isMain ? "flex" : "none";
-                btn.innerText = isMain ? "Switch to Main Draw" : "Switch to Qualifying";
+                btn.innerText = isMain ? "Main Draw" : "Qualifying";
                 subTitle.innerText = isMain ? "QUALIFYING ENTRY LIST" : "MAIN DRAW ENTRY LIST";
             }}
             function showChanges(btn, tid) {{
@@ -324,7 +333,7 @@ def main():
                 activeTab.querySelector('.changes-view').style.display = "flex";
                 activeTab.querySelector('.sub-title').innerText = "LIST OF CHANGES";
                 btn.style.display = "none";
-                activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
+                activeTab.querySelector('.main-qual-toggle').innerText = "Main Draw";
                 activeTab.querySelector('.back-to-qual-btn').style.display = "block";
             }}
             function showQualFromChanges(btn) {{
@@ -334,7 +343,7 @@ def main():
                 activeTab.querySelector('.sub-title').innerText = "QUALIFYING ENTRY LIST";
                 btn.style.display = "none";
                 activeTab.querySelector('.changes-btn').style.display = "block";
-                activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
+                activeTab.querySelector('.main-qual-toggle').innerText = "Main Draw";
             }}
         </script>
     </body>
