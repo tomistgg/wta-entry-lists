@@ -46,10 +46,11 @@ jobs:
         if: steps.git-check.outputs.changes == 'true'
         id: get_msg
         run: |
-          # This reads the file and handles multi-line text for GitHub variables
-          echo "BODY<<EOF" >> $GITHUB_ENV
-          cat email_body.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          # Create a unique delimiter to avoid formatting errors
+          DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "body<<$DELIMITER" >> $GITHUB_OUTPUT
+          cat email_body.txt >> $GITHUB_OUTPUT
+          echo "$DELIMITER" >> $GITHUB_OUTPUT
 
       - name: Send Email Alert
         if: steps.git-check.outputs.changes == 'true'
@@ -59,7 +60,8 @@ jobs:
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "🎾 WTA Update: Changes in Entry Lists"
+          subject: "WTA Update: Changes in Entry Lists"
           to: ${{ secrets.RECEIVE_ALERT }}
           from: "WTA Tracker"
-          body: ${{ env.BODY }}
+          # We now reference the 'body' output from the 'get_msg' step
+          body: ${{ steps.get_msg.outputs.body }}
