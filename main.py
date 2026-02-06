@@ -60,7 +60,6 @@ def track_changes(tid, draw_type, current_names, t_name):
     new_entries = []
 
     if not prev_names and curr_names_set:
-        # This matches your requested wording
         new_entries.append({
             "date": today, 
             "change": f"<b>{t_name}</b> {draw_type} list is now available."
