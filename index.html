@@ -16,7 +16,7 @@
             .main-content { flex-grow: 1; overflow-y: auto; padding: 15px 20px; background-image: url('FondoDegradado.png'); background-size: cover; background-attachment: fixed; }
             .top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
             .header-controls { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-            .title-stack { flex: 2; text-align: center; }
+            .title-stack { flex: 2; text-align: center; min-width: 0; }
             .sub-title { font-family: 'MontserratExtraBold'; font-size: 1.05rem; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
             .main-title { font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
             .toggle-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 110px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }
@@ -30,6 +30,13 @@
             .logo-container { text-align: center; margin-top: 25px; }
             .tournament-logo { height: 25px; }
             .spacer { flex: 1; }
+            .pdf-btn { width: 60px !important; }
+            .is-exporting .header-controls, 
+            .is-exporting .pdf-btn,
+            .is-exporting .spacer { display: none !important; }
+            .is-exporting .top-row { justify-content: center !important; display: flex !important; width: 100% !important; }
+            .is-exporting .title-stack { flex: 0 0 100% !important; max-width: 100% !important; margin: 0 auto !important; padding: 0 !important; }
+            @media print { .main-content { background: black !important; color: white !important; } }
             @media (max-width: 768px) {
                 body { flex-direction: column; }
                 .sidebar { width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; }
@@ -39,10 +46,26 @@
                 .top-row { flex-direction: column; height: auto; gap: 10px; }
             }
         </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
     <body>
         <div class="sidebar"><div class="week-title">Week of Feb 16</div><button class="tablinks active" onclick="openTourney(event, 'WTA_1000_DUBAI')">WTA 1000 DUBAI</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_MIDLAND')">WTA 125 MIDLAND</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_OEIRAS_2')">WTA 125 OEIRAS 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LES_SABLES')">WTA 125 LES SABLES</button><div class="week-title">Week of Feb 23</div><button class="tablinks " onclick="openTourney(event, 'WTA_500_MERIDA')">WTA 500 MERIDA</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_AUSTIN')">WTA 250 AUSTIN</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_1')">WTA 125 ANTALYA 1</button><div class="week-title">Week of Mar 2</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 INDIAN WELLS</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 ANTALYA 2</button><div class="week-title">Week of Mar 9</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_AUSTIN')">WTA 125 AUSTIN</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_3')">WTA 125 ANTALYA 3</button></div>
-        <div class="main-content"><div id="WTA_1000_DUBAI" class="tabcontent" style="display: block;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_DUBAI')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 1000  - Dubai Duty Free Tennis Championships</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+        <div class="main-content"><div id="WTA_1000_DUBAI" class="tabcontent" style="display: block;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_DUBAI')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 1000  - Dubai Duty Free Tennis Championships</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -512,7 +535,24 @@
       <td>84</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-01-31</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Main Draw</td></tr><tr><td>2026-01-31</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> added to Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> added to Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>ELLA SEIDEL</strong> added to Qualifying</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> added to Qualifying</td></tr></tbody></table></div></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_MIDLAND" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_MIDLAND')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Dow Tennis Classic</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-01-31</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Main Draw</td></tr><tr><td>2026-01-31</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> added to Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> added to Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>ELLA SEIDEL</strong> added to Qualifying</td></tr><tr><td>2026-02-04</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> added to Qualifying</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_MIDLAND" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_MIDLAND')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Dow Tennis Classic</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -756,7 +796,24 @@
       <td>—</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>FRANCESCA JONES</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>ANNA ROGERS</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>MIA RISTIC</strong> removed from Qualifying</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>EMILY APPLETON</strong> added to Qualifying</td></tr></tbody></table></div></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_OEIRAS_2')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Oeiras 2 Jamor Indoor</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>FRANCESCA JONES</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>ANNA ROGERS</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>MIA RISTIC</strong> removed from Qualifying</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>EMILY APPLETON</strong> added to Qualifying</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_OEIRAS_2')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Oeiras 2 Jamor Indoor</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -1000,7 +1057,24 @@
       <td>338</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>MARINA STAKUSIC</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>FRANCISCA JORGE</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>ANOUK KOEVERMANS</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>DALILA JAKUPOVIC</strong> added to Qualifying</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>SARA SORRIBES TORMO</strong> added to Qualifying</td></tr></tbody></table></div></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_LES_SABLES" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_LES_SABLES')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Open Arena Les Sables d'Olonne</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>MARINA STAKUSIC</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>FRANCISCA JORGE</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>ANOUK KOEVERMANS</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>DALILA JAKUPOVIC</strong> added to Qualifying</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>SARA SORRIBES TORMO</strong> added to Qualifying</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_LES_SABLES" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_LES_SABLES')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Open Arena Les Sables d'Olonne</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -1196,7 +1270,24 @@
       <td>243</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_500_MERIDA" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_MERIDA')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 500  - Mérida Open</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_500_MERIDA" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_MERIDA')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 500  - Mérida Open</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -1440,7 +1531,24 @@
       <td>772</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_250_AUSTIN" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_AUSTIN')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 250  - ATX Open</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_250_AUSTIN" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_AUSTIN')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 250  - ATX Open</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -1708,7 +1816,24 @@
       <td>398</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_1')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Megasaray Hotels Open 1</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_1')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open 1</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -1952,7 +2077,24 @@
       <td>268</td>
     </tr>
   </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-06</td><td style="text-align:left; padding-left:20px;"><strong>LISA PIGATO</strong> removed from Main Draw</td></tr><tr><td>2026-02-06</td><td style="text-align:left; padding-left:20px;"><strong>ALICE RAME</strong> added to Main Draw</td></tr></tbody></table></div></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_1000_INDIAN_WELLS" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_INDIAN_WELLS')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 1000  - BNP Paribas Open</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-06</td><td style="text-align:left; padding-left:20px;"><strong>LISA PIGATO</strong> removed from Main Draw</td></tr><tr><td>2026-02-06</td><td style="text-align:left; padding-left:20px;"><strong>ALICE RAME</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_1000_INDIAN_WELLS" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_INDIAN_WELLS')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 1000  - BNP Paribas Open</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -2441,7 +2583,24 @@
       <td>348</td>
     </tr>
   </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_2')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Megasaray Hotels Open 2</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+</table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_2')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open 2</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
   <thead>
     <tr style="text-align: right;">
       <th>Pos.</th>
@@ -2590,7 +2749,43 @@
       <td>176</td>
     </tr>
   </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_AUSTIN" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_AUSTIN')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Austin 125</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 20, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div><div id="WTA_125_ANTALYA_3" class="tabcontent" style="display: none;"><div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_3')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">WTA 125  - Megasaray Hotels Open 3</h1></div><div class="spacer"></div></div><div class="tables-row"><div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 20, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div></div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div></div></div>
+</table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_AUSTIN" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_AUSTIN')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Austin 125</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 20, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_ANTALYA_3" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_3')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open 3</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 13, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 20, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div></div>
         <script>
             function openTourney(evt, tid) {
                 const tc = document.getElementsByClassName("tabcontent");
@@ -2635,6 +2830,25 @@
                 btn.style.display = "none";
                 activeTab.querySelector('.changes-btn').style.display = "block";
                 activeTab.querySelector('.main-qual-toggle').innerText = "Main Draw";
+            }
+            function exportToPDF() {
+                const element = document.querySelector('.main-content');
+                document.body.classList.add('is-exporting');
+                
+                const title = document.querySelector('.main-title').innerText;
+                const subTitle = document.querySelector('.sub-title').innerText;
+                
+                const opt = {
+                    margin:       [0, 0, 0, 0],
+                    filename:     title + ' - ' + subTitle + '.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 1.5, useCORS: true, backgroundColor: '#000000' }, 
+                    jsPDF:        { unit: 'mm', format: [418, 243], orientation: 'landscape' }
+                };
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    document.body.classList.remove('is-exporting');
+                });
             }
         </script>
     </body>

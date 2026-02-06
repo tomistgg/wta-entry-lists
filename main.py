@@ -244,7 +244,24 @@ def main():
                 all_alerts.append(f"Tournament: {label}\n" + "\n".join(f"- {n}" for n in data["notifications"]))
             
             if data:
-                body = f'<div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, \'{tid}\')">Changes</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">{data["full_name"]}</h1></div><div class="spacer"></div></div><div class="tables-row">{data["content"]}</div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>'
+                body = f'''
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, '{tid}')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">{data["full_name"]}</h1>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                    </div>
+                </div>
+                {data["content"]}
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                '''
             elif tid in old_content: 
                 body = old_content[tid]
             else: 
@@ -273,7 +290,7 @@ def main():
             .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 20px; background-image: url('FondoDegradado.png'); background-size: cover; background-attachment: fixed; }}
             .top-row {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }}
             .header-controls {{ display: flex; flex-direction: column; gap: 6px; flex: 1; }}
-            .title-stack {{ flex: 2; text-align: center; }}
+            .title-stack {{ flex: 2; text-align: center; min-width: 0; }}
             .sub-title {{ font-family: 'MontserratExtraBold'; font-size: 1.05rem; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
             .main-title {{ font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
             .toggle-btn {{ background: rgba(255, 255, 255, 0.15); border: 1px solid white; color: white; height: 32px; width: 110px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; font-family: 'MontserratSemiBold', sans-serif; backdrop-filter: blur(5px); text-align: center; box-sizing: border-box; }}
@@ -287,6 +304,13 @@ def main():
             .logo-container {{ text-align: center; margin-top: 25px; }}
             .tournament-logo {{ height: 25px; }}
             .spacer {{ flex: 1; }}
+            .pdf-btn {{ width: 60px !important; }}
+            .is-exporting .header-controls, 
+            .is-exporting .pdf-btn,
+            .is-exporting .spacer {{ display: none !important; }}
+            .is-exporting .top-row {{ justify-content: center !important; display: flex !important; width: 100% !important; }}
+            .is-exporting .title-stack {{ flex: 0 0 100% !important; max-width: 100% !important; margin: 0 auto !important; padding: 0 !important; }}
+            @media print {{ .main-content {{ background: black !important; color: white !important; }} }}
             @media (max-width: 768px) {{
                 body {{ flex-direction: column; }}
                 .sidebar {{ width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; }}
@@ -296,6 +320,7 @@ def main():
                 .top-row {{ flex-direction: column; height: auto; gap: 10px; }}
             }}
         </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
     <body>
         <div class="sidebar">{sidebar_html}</div>
@@ -345,6 +370,25 @@ def main():
                 activeTab.querySelector('.changes-btn').style.display = "block";
                 activeTab.querySelector('.main-qual-toggle').innerText = "Main Draw";
             }}
+            function exportToPDF() {{
+                const element = document.querySelector('.main-content');
+                document.body.classList.add('is-exporting');
+                
+                const title = document.querySelector('.main-title').innerText;
+                const subTitle = document.querySelector('.sub-title').innerText;
+                
+                const opt = {{
+                    margin:       [0, 0, 0, 0],
+                    filename:     title + ' - ' + subTitle + '.pdf',
+                    image:        {{ type: 'jpeg', quality: 0.98 }},
+                    html2canvas:  {{ scale: 1.5, useCORS: true, backgroundColor: '#000000' }}, 
+                    jsPDF:        {{ unit: 'mm', format: [418, 242], orientation: 'landscape' }}
+                }};
+
+                html2pdf().set(opt).from(element).save().then(() => {{
+                    document.body.classList.remove('is-exporting');
+                }});
+            }}
         </script>
     </body>
     </html>"""
@@ -352,7 +396,6 @@ def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(full_site_html)
     
-    # Save email summary
     if all_alerts:
         with open("email_body.txt", "w", encoding="utf-8") as f:
             f.write("The following changes were detected:\n\n" + "\n\n".join(all_alerts))
