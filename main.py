@@ -355,6 +355,11 @@ def main():
         with open("email_body.txt", "w", encoding="utf-8") as f:
             f.write("The following changes were detected:\n\n")
             f.write("\n\n".join(all_new_changes))
+            f.write("\n\nCheck your site: https://your-username.github.io/your-repo/")
+    else:
+        # If no changes, delete the file so the YAML 'if' check works correctly
+        if os.path.exists("email_body.txt"):
+            os.remove("email_body.txt")
 
 if __name__ == "__main__":
     main()
