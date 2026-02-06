@@ -59,7 +59,7 @@ def track_changes(tid, draw_type, current_names, t_name):
     notification_for_email = None
 
     if not prev_names and curr_names_set:
-        notification_for_email = f"✨ {t_name} {draw_type} list is now available."
+        notification_for_email = f"{t_name} {draw_type} list is now available."
     elif prev_names:
         for name in prev_names:
             if name not in curr_names_set:
@@ -175,43 +175,27 @@ def scrape_tournament(url, tab_label, tid):
     if not qual_df.empty:
         run_notifications.extend(track_changes(tid, "Qualifying", qual_df['Player'].tolist(), full_name))
 
-    def get_display_content(df, tid, draw_type, availability_date):
-        key = f"{tid}_{draw_type.replace(' ', '_')}"
-        if df.empty and not load_json(STATE_FILE).get(key):
-            pretty_date = format_pretty_date(availability_date)
-            return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on {pretty_date}</p>"
-        
-        def apply_highlights(table_df):
-            html = table_df.to_html(index=False, classes="entry-table", border=0)
-            rows = html.split('<tr>')
-            final_html = [rows[0]]
-            for i, content in enumerate(rows[1:]):
-                country_val = str(table_df.iloc[i]['Country']).upper()
-                if country_val in LATAM_CODES: final_html.append('<tr class="latam-row">' + content)
-                else: final_html.append('<tr>' + content)
-            return "".join(final_html)
-
-        if len(df) > 25:
-            midpoint = (len(df) + 1) // 2
-            df1, df2 = df.iloc[:midpoint], df.iloc[midpoint:]
-            return (f'<div class="table-column">{apply_highlights(df1)}</div>'
-                    f'<div class="table-column">{apply_highlights(df2)}</div>')
-        return f'<div class="table-column">{apply_highlights(df)}</div>'
-
-    main_draw_html = f'<div class="main-draw-view">{get_display_content(main_df, tid, "Main Draw", friday_md_str)}</div>'
-    qual_html = f'<div class="qual-view" style="display:none;">{get_display_content(qual_df, tid, "Qualifying", friday_qual_str)}</div>'
+    full_history = load_json(LOG_FILE)
+    history_for_this_tourney = full_history.get(tid, [])
     
-    history = load_json(LOG_FILE).get(tid, [])
-    if not history:
+    if not history_for_this_tourney:
         changes_body = "<p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p>"
     else:
-        changes_body = '<div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody>'
-        for entry in history:
+        changes_body = '<div class="table-column" style="max-width:550px; margin: 0 auto;">'
+        changes_body += '<table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody>'
+        for entry in history_for_this_tourney:
             changes_body += f'<tr><td>{entry["date"]}</td><td style="text-align:left; padding-left:20px;">{entry["change"]}</td></tr>'
         changes_body += '</tbody></table></div>'
     
+    main_draw_html = f'<div class="main-draw-view">{get_display_content(main_df, tid, "Main Draw", friday_md_str)}</div>'
+    qual_html = f'<div class="qual-view" style="display:none;">{get_display_content(qual_df, tid, "Qualifying", friday_qual_str)}</div>'
     changes_view_html = f'<div class="changes-view" style="display:none; justify-content: center;">{changes_body}</div>'
-    return {"full_name": full_name, "content": main_draw_html + qual_html + changes_view_html, "notifications": run_notifications}
+    
+    return {
+        "full_name": full_name, 
+        "content": main_draw_html + qual_html + changes_view_html, 
+        "notifications": run_notifications
+    }
 
 def main():
     old_content = {}
