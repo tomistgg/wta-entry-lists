@@ -46,10 +46,13 @@ jobs:
         if: steps.git-check.outputs.changes == 'true'
         id: get_msg
         run: |
-          # Create a unique delimiter to avoid formatting errors
           DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "body<<$DELIMITER" >> $GITHUB_OUTPUT
-          cat email_body.txt >> $GITHUB_OUTPUT
+          if [ -f email_body.txt ]; then
+            cat email_body.txt >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in files, but no text summary was generated." >> $GITHUB_OUTPUT
+          fi
           echo "$DELIMITER" >> $GITHUB_OUTPUT
 
       - name: Send Email Alert
