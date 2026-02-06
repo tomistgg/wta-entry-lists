@@ -1,63 +1,65 @@
-name: Hourly WTA Update
+name: Update WTA Tracker
 
 on:
   schedule:
-    - cron: '0 * * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: write
+    - cron: '*/30 * * * *'
+  workflow_dispatch:     
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.9'
 
       - name: Install dependencies
         run: |
           pip install requests pandas beautifulsoup4
 
-      - name: Run scraping script
+      - name: Run Scraper
         run: python main.py
 
-      - name: Check for Changes and Send Email
-        id: change_check
+      - name: Check for changes
+        id: git-check
         run: |
-          # Check if change_log.json has new content
-          if git diff --quiet change_log.json; then
-            echo "HAS_CHANGES=false" >> $GITHUB_OUTPUT
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          if git diff --staged --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
           else
-            echo "HAS_CHANGES=true" >> $GITHUB_OUTPUT
+            echo "changes=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Commit and push changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git commit -m "Update player entry lists and logs"
+          git push
+
+      - name: Read email body
+        if: steps.git-check.outputs.changes == 'true'
+        id: get_msg
+        run: |
+          # This reads the file and handles multi-line text for GitHub variables
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          cat email_body.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Send Email Alert
-        if: steps.change_check.outputs.HAS_CHANGES == 'true'
+        if: steps.git-check.outputs.changes == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "🚨 WTA List Change Detected!"
+          subject: "🎾 WTA Update: Changes in Entry Lists"
           to: ${{ secrets.RECEIVE_ALERT }}
-          from: WTA Entry Bot
-          body: |
-            A change was detected in the WTA Entry Lists. 
-            View the latest updates here: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          git add index.html player_state.json change_log.json
-          git commit -m "Auto-update entry lists and changes" || exit 0
-          git push
+          from: "WTA Tracker"
+          body: ${{ env.BODY }}
