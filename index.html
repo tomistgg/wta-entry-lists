@@ -35,51 +35,10 @@
             .latam-row td { font-family: 'MontserratExtraBold' !important; }
             @media (max-width: 768px) {
                 body { flex-direction: column; overflow-x: hidden; overflow-y: auto; background: black; }
-                body::before {
-                    content: "";
-                    position: fixed;
-                    top: 0; left: 0; width: 100%; height: 100%;
-                    background-color: rgba(255, 100, 100, 0.15); 
-                    background-image: url('FondoDegradado.png');
-                    background-blend-mode: screen;
-                    background-size: cover;
-                    background-position: center;
-                    z-index: -1;
-                    -webkit-transform: translateZ(0);
-                    transform: translateZ(0);
-                }
-                .sidebar { 
-                    width: 100%; height: auto; border-right: none; 
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
-                    display: flex; overflow-x: auto; white-space: nowrap; 
-                    background: transparent;
-                    padding: 10px 8px;
-                    gap: 8px;
-                    scrollbar-width: none;
-                }
-                .sidebar::-webkit-scrollbar { display: none; }
-                .tablinks { 
-                    width: auto; 
-                    display: inline-block; 
-                    padding: 8px 16px; 
-                    color: white; 
-                    background: transparent; 
-                    border: 1px solid rgba(255, 255, 255, 0.4); 
-                    border-radius: 20px; 
-                    font-size: 0.75rem;
-                    -webkit-background-clip: initial; 
-                    background-clip: initial; 
-                    transition: 0.2s;
-                }
-                .tablinks.active { background: white; color: black; border: 1px solid white; }
-                .main-content { background: transparent; height: auto; overflow: visible; padding: 15px 10px 100px; }
-                .table-column { width: 100%; max-width: 100%; overflow: visible; margin-bottom: 20px; }
-                .week-title { display: none; }
-                .top-row { flex-direction: column; height: auto; align-items: center; gap: 15px; margin-bottom: 25px; }
-                .header-controls { width: 100%; align-items: center; order: 3; }
-                .main-title { order: 2; text-align: center; }
-                .sub-title { order: 1; text-align: center; }
-                .spacer { display: none; }
+                .sidebar { width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; padding: 10px 8px; gap: 8px; }
+                .tablinks { width: auto; display: inline-block; padding: 8px 16px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; font-size: 0.75rem; }
+                .main-content { padding: 15px 10px 100px; }
+                .top-row { flex-direction: column; height: auto; gap: 15px; }
                 .main-draw-view, .qual-view, .changes-view { flex-direction: column; align-items: center; }
             }
         </style>
