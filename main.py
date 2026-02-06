@@ -203,35 +203,137 @@ def main():
     old_content = {}
     if os.path.exists("index.html"):
         with open("index.html", "r", encoding="utf-8") as f:
-            old_html = f.read()
-            found = re.findall(r'<div id="(.*?)" class="tabcontent".*?>(.*?)', old_html, re.DOTALL)
-            for tid, content in found: old_content[tid] = content.strip()
+            try:
+                old_html = f.read()
+                found = re.findall(r'<div id="(.*?)" class="tabcontent".*?>(.*?)', old_html, re.DOTALL)
+                for tid, content in found: old_content[tid] = content.strip()
+            except: pass
 
     sidebar_html, content_html, is_first, all_alerts = "", "", True, []
+    
     for week, tourneys in TOURNAMENT_GROUPS.items():
         sidebar_html += f'<div class="week-title">{week}</div>'
         for url, label in tourneys.items():
             tid = label.replace(" ", "_").replace(".", "")
             data = scrape_tournament(url, label, tid)
+            
             if data and data.get("notifications"):
                 all_alerts.append(f"Tournament: {label}\n" + "\n".join(f"- {n}" for n in data["notifications"]))
             
             if data:
                 body = f'<div class="top-row"><div class="header-controls"><button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Switch to Qualifying</button><button class="toggle-btn changes-btn" onclick="showChanges(this, \'{tid}\')">Changes List</button><button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Switch to Qualifying</button></div><div class="title-stack"><div class="sub-title">MAIN DRAW ENTRY LIST</div><h1 class="main-title">{data["full_name"]}</h1></div><div class="spacer"></div></div><div class="tables-row">{data["content"]}</div><div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>'
-            elif tid in old_content: body = old_content[tid]
-            else: continue
+            elif tid in old_content: 
+                body = old_content[tid]
+            else: 
+                continue
 
             active_btn, active_div = ("active", "display: block;") if is_first else ("", "display: none;")
             is_first = False
             sidebar_html += f'<button class="tablinks {active_btn}" onclick="openTourney(event, \'{tid}\')">{label}</button>'
             content_html += f'<div id="{tid}" class="tabcontent" style="{active_div}">{body}</div>'
 
+    full_site_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        @font-face {{ font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }}
+        @font-face {{ font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }}
+        :root {{ color-scheme: dark; }}
+        * {{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }}
+        body {{ font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; color: white; }}
+        .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; z-index: 10; }}
+        .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; color: white; font-size: 0.9rem; text-transform: uppercase; }}
+        .tablinks {{ width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; font-size: 0.8rem; color: white; transition: 0.2s; }}
+        .tablinks.active {{ background: white; color: black; font-family: 'MontserratExtraBold'; }}
+        .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-attachment: fixed; }}
+        .top-row {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }}
+        .header-controls {{ display: flex; flex-direction: column; gap: 6px; flex: 1; }}
+        .title-stack {{ flex: 2; text-align: center; }}
+        .sub-title {{ font-family: 'MontserratExtraBold'; font-size: 1.05rem; letter-spacing: 1.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
+        .main-title {{ font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }}
+        .toggle-btn {{ background: rgba(255,255,255,0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; }}
+        .tables-row {{ display: flex; gap: 20px; justify-content: center; width: 100%; }}
+        .main-draw-view, .qual-view, .changes-view {{ display: flex; gap: 20px; width: 100%; justify-content: center; }}
+        .table-column {{ flex: 1; max-width: 550px; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; overflow: hidden; background: rgba(0,0,0,0.2); }}
+        .entry-table {{ width: 100%; border-collapse: collapse; color: white; }}
+        .entry-table th {{ background: rgba(255,255,255,0.1); padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.25); font-size: 0.8rem; }}
+        .entry-table td {{ padding: 7px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 0.78rem; }}
+        .latam-row td {{ font-family: 'MontserratExtraBold' !important; color: #fff; }}
+        .logo-container {{ text-align: center; margin-top: 25px; }}
+        .tournament-logo {{ height: 25px; }}
+        .spacer {{ flex: 1; }}
+        @media (max-width: 768px) {{
+            body {{ flex-direction: column; }}
+            .sidebar {{ width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; }}
+            .tablinks {{ width: auto; display: inline-block; padding: 10px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-right: 5px; }}
+            .main-content {{ padding: 10px; }}
+            .tables-row, .main-draw-view, .qual-view, .changes-view {{ flex-direction: column; align-items: center; }}
+            .top-row {{ flex-direction: column; height: auto; gap: 10px; }}
+        }}
+    </style>
+</head>
+<body>
+    <div class="sidebar">{sidebar_html}</div>
+    <div class="main-content">{content_html}</div>
+    <script>
+        function openTourney(evt, tid) {{
+            const tc = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tc.length; i++) tc[i].style.display = "none";
+            const tl = document.getElementsByClassName("tablinks");
+            for (let i = 0; i < tl.length; i++) tl[i].classList.remove("active");
+            document.getElementById(tid).style.display = "block";
+            evt.currentTarget.classList.add("active");
+        }}
+        function toggleView(btn) {{
+            const activeTab = btn.closest('.tabcontent');
+            const mainView = activeTab.querySelector('.main-draw-view');
+            const qualView = activeTab.querySelector('.qual-view');
+            const changesView = activeTab.querySelector('.changes-view');
+            const subTitle = activeTab.querySelector('.sub-title');
+            if (changesView.style.display === "flex") {{
+                changesView.style.display = "none";
+                activeTab.querySelector('.changes-btn').style.display = "block";
+                activeTab.querySelector('.back-to-qual-btn').style.display = "none";
+            }}
+            const isMain = mainView.style.display !== "none";
+            mainView.style.display = isMain ? "none" : "flex";
+            qualView.style.display = isMain ? "flex" : "none";
+            btn.innerText = isMain ? "Switch to Main Draw" : "Switch to Qualifying";
+            subTitle.innerText = isMain ? "QUALIFYING ENTRY LIST" : "MAIN DRAW ENTRY LIST";
+        }}
+        function showChanges(btn, tid) {{
+            const activeTab = document.getElementById(tid);
+            activeTab.querySelector('.main-draw-view').style.display = "none";
+            activeTab.querySelector('.qual-view').style.display = "none";
+            activeTab.querySelector('.changes-view').style.display = "flex";
+            activeTab.querySelector('.sub-title').innerText = "LIST OF CHANGES";
+            btn.style.display = "none";
+            activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
+            activeTab.querySelector('.back-to-qual-btn').style.display = "block";
+        }}
+        function showQualFromChanges(btn) {{
+            const activeTab = btn.closest('.tabcontent');
+            activeTab.querySelector('.changes-view').style.display = "none";
+            activeTab.querySelector('.qual-view').style.display = "flex";
+            activeTab.querySelector('.sub-title').innerText = "QUALIFYING ENTRY LIST";
+            btn.style.display = "none";
+            activeTab.querySelector('.changes-btn').style.display = "block";
+            activeTab.querySelector('.main-qual-toggle').innerText = "Switch to Main Draw";
+        }}
+    </script>
+</body>
+</html>"""
+
     with open("index.html", "w", encoding="utf-8") as f:
-        f.write(f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>@font-face {{ font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }} @font-face {{ font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }} body {{ font-family: 'MontserratSemiBold', sans-serif; margin: 0; display: flex; height: 100vh; background: black; color: white; }} .sidebar {{ width: 250px; background-image: url('FondoDegradado.png'); background-size: cover; border-right: 2px solid #ffffff; overflow-y: auto; padding: 10px; flex-shrink: 0; }} .week-title {{ font-family: 'MontserratExtraBold'; padding: 25px 10px 5px; font-size: 0.9rem; text-transform: uppercase; }} .tablinks {{ width: 100%; border: none; background: none; text-align: left; padding: 8px 10px; cursor: pointer; color: white; font-size: 0.8rem; }} .tablinks.active {{ background: white; color: black; font-family: 'MontserratExtraBold'; }} .main-content {{ flex-grow: 1; overflow-y: auto; padding: 15px 30px; background-image: url('FondoDegradado.png'); background-size: cover; background-attachment: fixed; }} .top-row {{ display: flex; align-items: center; justify-content: space-between; height: 80px; }} .header-controls {{ display: flex; flex-direction: column; gap: 6px; }} .title-stack {{ text-align: center; flex: 2; }} .sub-title {{ font-family: 'MontserratExtraBold'; font-size: 1.05rem; letter-spacing: 1.5px; }} .main-title {{ font-family: 'MontserratExtraBold'; font-size: 1.4rem; margin: 0; }} .toggle-btn {{ background: rgba(255,255,255,0.15); border: 1px solid white; color: white; height: 32px; width: 170px; border-radius: 20px; cursor: pointer; font-size: 0.68rem; }} .tables-row {{ display: flex; gap: 20px; justify-content: center; }} .table-column {{ flex: 1; max-width: 550px; border: 1px solid rgba(255,255,255,0.35); border-radius: 6px; }} .entry-table {{ width: 100%; border-collapse: collapse; }} .entry-table th {{ background: rgba(255,255,255,0.1); padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.25); }} .entry-table td {{ padding: 7px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; }} .latam-row td {{ font-family: 'MontserratExtraBold' !important; }} .logo-container {{ text-align: center; margin-top: 25px; }} .tournament-logo {{ height: 25px; }} @media (max-width: 768px) {{ body {{ flex-direction: column; }} .sidebar {{ width: 100%; height: auto; display: flex; overflow-x: auto; }} .tables-row {{ flex-direction: column; align-items: center; }} }}</style></head><body><div class="sidebar">{sidebar_html}</div><div class="main-content">{content_html}</div><script>function openTourney(e,t){{var a=document.getElementsByClassName("tabcontent");for(i=0;i<a.length;i++)a[i].style.display="none";var n=document.getElementsByClassName("tablinks");for(i=0;i<n.length;i++)n[i].classList.remove("active");document.getElementById(t).style.display="block",e.currentTarget.classList.add("active")}}function toggleView(e){{var t=e.closest(".tabcontent"),a=t.querySelector(".main-draw-view"),n=t.querySelector(".qual-view"),s=t.querySelector(".changes-view"),r=t.querySelector(".sub-title");"flex"===s.style.display&&(s.style.display="none",t.querySelector(".changes-btn").style.display="block",t.querySelector(".back-to-qual-btn").style.display="none");var o="none"!==a.style.display;a.style.display=o?"none":"flex",n.style.display=o?"flex":"none",e.innerText=o?"Switch to Main Draw":"Switch to Qualifying",r.innerText=o?"QUALIFYING ENTRY LIST":"MAIN DRAW ENTRY LIST"}}function showChanges(e,t){{var a=document.getElementById(t);a.querySelector(".main-draw-view").style.display="none",a.querySelector(".qual-view").style.display="none",a.querySelector(".changes-view").style.display="flex",a.querySelector(".sub-title").innerText="LIST OF CHANGES",e.style.display="none",a.querySelector(".main-qual-toggle").innerText="Switch to Main Draw",a.querySelector(".back-to-qual-btn").style.display="block"}}function showQualFromChanges(e){{var t=e.closest(".tabcontent");t.querySelector(".changes-view").style.display="none",t.querySelector(".qual-view").style.display="flex",t.querySelector(".sub-title").innerText="QUALIFYING ENTRY LIST",e.style.display="none",t.querySelector(".changes-btn").style.display="block",t.querySelector(".main-qual-toggle").innerText="Switch to Main Draw"}}</script></body></html>""")
+        f.write(full_site_html)
     
+    # Save email summary
     if all_alerts:
         with open("email_body.txt", "w", encoding="utf-8") as f:
             f.write("The following changes were detected:\n\n" + "\n\n".join(all_alerts))
-    elif os.path.exists("email_body.txt"): os.remove("email_body.txt")
+    elif os.path.exists("email_body.txt"):
+        os.remove("email_body.txt")
 
 if __name__ == "__main__": main()
