@@ -5,12 +5,17 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:     
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetches all history so rebase works correctly
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,8 +32,8 @@ jobs:
       - name: Check for changes
         id: git-check
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
           if git diff --staged --quiet; then
             echo "changes=false" >> $GITHUB_OUTPUT
@@ -40,6 +45,7 @@ jobs:
         if: steps.git-check.outputs.changes == 'true'
         run: |
           git commit -m "Update player entry lists and logs"
+          git pull --rebase origin main
           git push
 
       - name: Read email body
@@ -66,5 +72,4 @@ jobs:
           subject: "WTA Update: Changes in Entry Lists"
           to: ${{ secrets.RECEIVE_ALERT }}
           from: "WTA Tracker"
-          # We now reference the 'body' output from the 'get_msg' step
           body: ${{ steps.get_msg.outputs.body }}
