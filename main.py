@@ -82,7 +82,6 @@ def get_display_content(df, tid, draw_type, availability_date):
         return (f'<div class="table-column">{apply_highlights(df.iloc[:midpoint])}</div>'
                 f'<div class="table-column">{apply_highlights(df.iloc[midpoint:])}</div>')
     
-    # Single column
     return f'<div class="table-column">{apply_highlights(df)}</div>'
 
 def track_changes(tid, draw_type, current_names, t_name):
@@ -204,7 +203,8 @@ def scrape_tournament(url, tab_label, tid):
     main_draw_html = f'<div class="main-draw-view">{get_display_content(main_df, tid, "Main Draw", fri_md)}</div>'
     qual_html = f'<div class="qual-view" style="display:none;">{get_display_content(qual_df, tid, "Qualifying", fri_qual)}</div>'
     
-    fresh_history = load_json(LOG_FILE).get(tid, [])
+    current_history = load_json(LOG_FILE)
+    fresh_history = current_history.get(tid, [])
     if not fresh_history:
         changes_body = "<p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p>"
     else:
