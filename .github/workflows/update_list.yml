@@ -51,7 +51,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: WTA Entry List Changes Detected
-          to: your-email@gmail.com
+          to: ${{ secrets.RECEIVE_ALERT }}
           from: WTA Tracker
           body: ${{ steps.check_email.outputs.body }}
 
