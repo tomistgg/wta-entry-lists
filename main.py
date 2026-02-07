@@ -35,6 +35,10 @@ LATAM_CODES = ["ARG", "BOL", "BRA", "CHI", "COL", "CRC", "CUB", "DOM", "ECU", "E
 STATE_FILE = "player_state.json"
 LOG_FILE = "change_log.json"
 
+PLAYER_OVERRIDES = {
+    "CATHERINE HARRISON": {"country": "USA"}
+}
+
 def load_json(filename):
     if os.path.exists(filename):
         with open(filename, "r", encoding="utf-8") as f:
@@ -125,19 +129,40 @@ def track_changes(tid, draw_type, current_names, t_name):
 
 def process_players(names, rankings_df):
     if not names: return pd.DataFrame(columns=['Pos.', 'Player', 'Country', 'Rank'])
-    df = pd.DataFrame({'Player': [name.strip().title() for name in names]})
-    df['player_upper'] = df['Player'].str.upper()
+    
+    processed_data = []
+    rankings_dict = {}
     if not rankings_df.empty:
-        rankings_df['player_upper'] = rankings_df['player'].str.upper()
-        merged = pd.merge(df, rankings_df.drop_duplicates('player_upper'), on='player_upper', how='left')
-    else:
-        merged = df.assign(ranking=None, country="—")
-    merged['ranking_num'] = pd.to_numeric(merged['ranking'], errors='coerce').fillna(9999)
-    merged = merged.sort_values(by='ranking_num', ascending=True).reset_index(drop=True)
-    merged['Pos.'] = (merged.index + 1).astype(str)
-    merged['Rank'] = merged['ranking'].astype(str).replace(r'\.0$', '', regex=True).replace(['nan', 'None'], '—')
-    merged['Country'] = merged['country'].fillna('—')
-    return merged[['Pos.', 'Player', 'Country', 'Rank']]
+        rankings_dict = rankings_df.set_index(rankings_df['player'].str.upper()).to_dict('index')
+
+    for name in names:
+        clean_name = name.strip().title()
+        upper_name = clean_name.upper()
+        
+        rank_info = rankings_dict.get(upper_name, {})
+        country = rank_info.get('country', '—')
+        rank = str(rank_info.get('ranking', 'SR'))
+        
+        if upper_name in PLAYER_OVERRIDES:
+            country = PLAYER_OVERRIDES[upper_name].get('country', country)
+
+        if rank.lower() in ['nan', 'none', '']:
+            rank = 'SR'
+        else:
+            rank = rank.replace('.0', '')
+
+        processed_data.append({
+            'Player': clean_name,
+            'Country': country,
+            'Rank': rank,
+            'rank_sort': 9999 if rank == 'SR' else int(rank)
+        })
+
+    df = pd.DataFrame(processed_data)
+    df = df.sort_values('rank_sort').reset_index(drop=True)
+    df['Pos.'] = (df.index + 1).astype(str)
+    
+    return df[['Pos.', 'Player', 'Country', 'Rank']]
 
 def get_rankings_from_api(date_str):
     all_players, page = [], 0
