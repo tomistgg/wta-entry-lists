@@ -314,8 +314,9 @@ def main():
             @media print {{ .main-content {{ background: black !important; color: white !important; }} }}
             @media (max-width: 768px) {{
                 body {{ flex-direction: column; }}
-                .sidebar {{ width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; }}
-                .tablinks {{ width: auto; display: inline-block; padding: 10px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-right: 5px; }}
+                .sidebar {{ width: 100%; height: auto; display: flex; overflow-x: auto; white-space: nowrap; align-items: center; padding: 5px; }}
+                .week-title {{ display: inline-block !important; padding: 0 10px !important; margin: 0 !important; font-size: 0.7rem !important; line-height: 1.2 !important; text-align: center !important; max-width: 55px !important; white-space: normal !important; word-spacing: 100px !important; flex-shrink: 0; text-transform: uppercase; }}
+                .tablinks {{ width: auto; display: inline-block; padding: 10px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-right: 5px; flex-shrink: 0; vertical-align: middle; }}
                 .main-content {{ padding: 10px; }}
                 .tables-row, .main-draw-view, .qual-view, .changes-view {{ flex-direction: column; align-items: center; }}
                 .top-row {{ display: flex !important; flex-direction: row !important; flex-wrap: wrap; justify-content: center !important; height: auto; gap: 8px; }}
