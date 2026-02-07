@@ -32,14 +32,13 @@ jobs:
         id: check_email
         run: |
           if [ -f email_body.txt ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-            # Create a unique delimiter to handle multi-line text safely
-            EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-            echo "body<<$EOF" >> $GITHUB_OUTPUT
-            cat email_body.txt >> $GITHUB_OUTPUT
-            echo "$EOF" >> $GITHUB_OUTPUT
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "body<<DELIMITER_EOF" >> "$GITHUB_OUTPUT"
+            cat email_body.txt >> "$GITHUB_OUTPUT"
+            echo "" >> "$GITHUB_OUTPUT"
+            echo "DELIMITER_EOF" >> "$GITHUB_OUTPUT"
           else
-            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Send mail
