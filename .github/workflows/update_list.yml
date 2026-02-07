@@ -58,6 +58,12 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add index.html player_state.json change_log.json
-          # Only commit if there are changes to save
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update entry lists and logs" && git push)
+          
+          git add -A 
+          
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto-update entry lists and logs (including cleanup)"
+            git push
+          else
+            echo "No changes to commit"
+          fi
