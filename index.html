@@ -28,6 +28,7 @@
             .entry-table td { padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 0.78rem; }
             .latam-row td { font-family: 'MontserratExtraBold' !important; color: #fff; }
             .logo-container { text-align: center; margin-top: 25px; }
+            .pdf-container { flex: 1; display: flex; justify-content: flex-end; }
             .tournament-logo { height: 25px; }
             .spacer { flex: 1; }
             .pdf-btn { width: 60px !important; }
@@ -43,7 +44,10 @@
                 .tablinks { width: auto; display: inline-block; padding: 10px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-right: 5px; }
                 .main-content { padding: 10px; }
                 .tables-row, .main-draw-view, .qual-view, .changes-view { flex-direction: column; align-items: center; }
-                .top-row { flex-direction: column; height: auto; gap: 10px; }
+                .top-row { display: flex !important; flex-direction: row !important; flex-wrap: wrap; justify-content: center !important; height: auto; gap: 8px; }
+                .header-controls, .pdf-container { display: contents !important; }
+                .toggle-btn { order: 1 !important; margin: 0 !important; }
+                .title-stack { order: 2 !important; flex: 0 0 100% !important; width: 100%; text-align: center; margin-top: 10px;}
             }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -61,7 +65,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 1000  - Dubai Duty Free Tennis Championships</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_1000_DUBAI')">PDF</button>
                     </div>
                 </div>
@@ -548,7 +552,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Dow Tennis Classic</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_MIDLAND')">PDF</button>
                     </div>
                 </div>
@@ -809,7 +813,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Oeiras 2 Jamor Indoor</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_OEIRAS_2')">PDF</button>
                     </div>
                 </div>
@@ -1070,7 +1074,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Open Arena Les Sables d'Olonne</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_LES_SABLES')">PDF</button>
                     </div>
                 </div>
@@ -1283,7 +1287,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 500  - Mérida Open</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_500_MERIDA')">PDF</button>
                     </div>
                 </div>
@@ -1544,7 +1548,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 250  - ATX Open</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_250_AUSTIN')">PDF</button>
                     </div>
                 </div>
@@ -1829,7 +1833,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Megasaray Hotels Open 1</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_ANTALYA_1')">PDF</button>
                     </div>
                 </div>
@@ -2090,7 +2094,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 1000  - BNP Paribas Open</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_1000_INDIAN_WELLS')">PDF</button>
                     </div>
                 </div>
@@ -2596,7 +2600,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Megasaray Hotels Open 2</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_ANTALYA_2')">PDF</button>
                     </div>
                 </div>
@@ -2762,7 +2766,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Austin 125</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_AUSTIN')">PDF</button>
                     </div>
                 </div>
@@ -2779,7 +2783,7 @@
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">WTA 125  - Megasaray Hotels Open 3</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_ANTALYA_3')">PDF</button>
                     </div>
                 </div>

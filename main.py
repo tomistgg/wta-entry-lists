@@ -255,7 +255,7 @@ def main():
                         <div class="sub-title">MAIN DRAW ENTRY LIST</div>
                         <h1 class="main-title">{data["full_name"]}</h1>
                     </div>
-                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                    <div class="pdf-container">
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('{tid}')">PDF</button>
                     </div>
                 </div>
@@ -302,6 +302,7 @@ def main():
             .entry-table td {{ padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 0.78rem; }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; color: #fff; }}
             .logo-container {{ text-align: center; margin-top: 25px; }}
+            .pdf-container {{ flex: 1; display: flex; justify-content: flex-end; }}
             .tournament-logo {{ height: 25px; }}
             .spacer {{ flex: 1; }}
             .pdf-btn {{ width: 60px !important; }}
@@ -317,7 +318,10 @@ def main():
                 .tablinks {{ width: auto; display: inline-block; padding: 10px 15px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-right: 5px; }}
                 .main-content {{ padding: 10px; }}
                 .tables-row, .main-draw-view, .qual-view, .changes-view {{ flex-direction: column; align-items: center; }}
-                .top-row {{ flex-direction: column; height: auto; gap: 10px; }}
+                .top-row {{ display: flex !important; flex-direction: row !important; flex-wrap: wrap; justify-content: center !important; height: auto; gap: 8px; }}
+                .header-controls, .pdf-container {{ display: contents !important; }}
+                .toggle-btn {{ order: 1 !important; margin: 0 !important; }}
+                .title-stack {{ order: 2 !important; flex: 0 0 100% !important; width: 100%; text-align: center; margin-top: 10px;}}
             }}
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
