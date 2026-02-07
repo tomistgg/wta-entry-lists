@@ -133,7 +133,7 @@ def process_players(names, rankings_df):
     processed_data = []
     rankings_dict = {}
     if not rankings_df.empty:
-        rankings_dict = rankings_df.set_index(rankings_df['player'].str.upper()).to_dict('index')
+        rankings_dict = rankings_df.drop_duplicates(subset=['player']).set_index(rankings_df['player'].drop_duplicates().str.upper()).to_dict('index')
 
     for name in names:
         clean_name = name.strip().title()
