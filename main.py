@@ -97,7 +97,7 @@ def track_changes(tid, draw_type, current_names, t_name):
     notification_for_email = None
 
     if not prev_names and curr_names_set:
-        notification_for_email = f"✨ {t_name} {draw_type} list is now available."
+        notification_for_email = f"{t_name} {draw_type} list is now available."
     elif prev_names:
         for name in prev_names:
             if name not in curr_names_set:
@@ -256,7 +256,7 @@ def main():
                         <h1 class="main-title">{data["full_name"]}</h1>
                     </div>
                     <div style="flex: 1; display: flex; justify-content: flex-end;">
-                        <button class="toggle-btn pdf-btn" onclick="exportToPDF()">PDF</button>
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('{tid}')">PDF</button>
                     </div>
                 </div>
                 {data["content"]}
@@ -378,11 +378,11 @@ def main():
                 const subTitle = document.querySelector('.sub-title').innerText;
                 
                 const opt = {{
-                    margin:       [0, 0, 0, 0],
-                    filename:     title + ' - ' + subTitle + '.pdf',
+                    margin:       0,
+                    filename:     'entry-list.pdf',
                     image:        {{ type: 'jpeg', quality: 0.98 }},
                     html2canvas:  {{ scale: 1.5, useCORS: true, backgroundColor: '#000000' }}, 
-                    jsPDF:        {{ unit: 'mm', format: [418, 242], orientation: 'landscape' }}
+                    jsPDF:        {{ unit: 'mm', format: [418, 244], orientation: 'landscape' }}
                 }};
 
                 html2pdf().set(opt).from(element).save().then(() => {{
