@@ -6,28 +6,113 @@ import re
 import os
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+import unicodedata
 
-TOURNAMENT_GROUPS = {
-    "Week of Feb 16": {
-        "https://www.wtatennis.com/tournaments/dubai/player-list": "WTA 1000 DUBAI",
-        "https://www.wtatennis.com/tournaments/2051/midland-125/2026/player-list": "WTA 125 MIDLAND",
-        "https://www.wtatennis.com/tournaments/1156/oeiras-125-indoor-2/2026/player-list": "WTA 125 OEIRAS 2",
-        "https://www.wtatennis.com/tournaments/1157/les-sables-d-olonne-125/2026/player-list": "WTA 125 LES SABLES",
-    },
-    "Week of Feb 23": {
-        "https://www.wtatennis.com/tournaments/2085/m-rida/2026/player-list": "WTA 500 MERIDA",
-        "https://www.wtatennis.com/tournaments/2082/austin/2026/player-list": "WTA 250 AUSTIN",
-        "https://www.wtatennis.com/tournaments/1124/antalya-125-1/2026/player-list": "WTA 125 ANTALYA 1",
-    },
-    "Week of Mar 2": {
-        "https://www.wtatennis.com/tournaments/609/indian-wells/2026/player-list": "WTA 1000 INDIAN WELLS",
-        "https://www.wtatennis.com/tournaments/1107/antalya-125-2/2026/player-list": "WTA 125 ANTALYA 2",
-    },
-    "Week of Mar 9": {
-        "https://www.wtatennis.com/tournaments/1161/austin-125-1/2026/player-list": "WTA 125 AUSTIN",
-        "https://www.wtatennis.com/tournaments/1125/antalya-125-3/2026/player-list": "WTA 125 ANTALYA 3",
+def get_next_monday():
+    today = datetime.now()
+    days_until_monday = (7 - today.weekday()) % 7
+    if days_until_monday == 0:
+        days_until_monday = 7
+    next_mon = today + timedelta(days=days_until_monday)
+    return next_mon.replace(hour=0, minute=0, second=0, microsecond=0)
+
+def get_monday_from_date(date_str):
+    date = datetime.strptime(date_str, "%Y-%m-%d")
+    weekday = date.weekday()
+    
+    if weekday >= 5:
+        days_until_monday = 7 - weekday
+        monday = date + timedelta(days=days_until_monday)
+    else:
+        days_since_monday = weekday
+        monday = date - timedelta(days=days_since_monday)
+    
+    return monday
+
+def format_week_label(monday_date):
+    months_es = {
+        1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril",
+        5: "Mayo", 6: "Junio", 7: "Julio", 8: "Agosto",
+        9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"
     }
-}
+    return f"Semana {monday_date.day} {months_es[monday_date.month]}"
+
+def build_tournament_groups():
+    next_monday = get_next_monday()
+    four_weeks_later = next_monday + timedelta(weeks=4)
+    
+    from_date = (next_monday - timedelta(days=7)).strftime("%Y-%m-%d")
+    to_date = four_weeks_later.strftime("%Y-%m-%d")
+    
+    url = "https://api.wtatennis.com/tennis/tournaments/"
+    
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
+        "referer": "https://www.wtatennis.com/",
+        "account": "wta"
+    }
+    
+    params = {
+        "page": 0,
+        "pageSize": 30,
+        "excludeLevels": "ITF",
+        "from": from_date,
+        "to": to_date
+    }
+    
+    try:
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        data = response.json()
+    except Exception as e:
+        print(f"Error fetching tournaments: {e}")
+        return {}
+    
+    tournament_groups = {}
+    
+    for tournament in data.get("content", []):
+        tournament_id = tournament["tournamentGroup"]["id"]
+        raw_name = tournament["tournamentGroup"]["name"]
+        
+        nfkd_form = unicodedata.normalize('NFKD', raw_name)
+        clean_name = "".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+        suffix = ""
+        if "#" in clean_name:
+            parts = clean_name.split("#")
+            clean_name = parts[0].strip()
+            suffix = " " + parts[1].strip()
+        
+        name = clean_name.lower().replace(" ", "-").replace("'", "-")
+        if suffix:
+            name += "-" + suffix.strip()
+        
+        year = tournament["year"]
+        level = tournament["level"]
+        city = tournament["city"].title()
+        start_date = tournament["startDate"]
+        
+        monday = get_monday_from_date(start_date)
+        
+        if not (next_monday <= monday < four_weeks_later):
+            continue
+        
+        week_label = format_week_label(monday)
+        
+        url = f"https://www.wtatennis.com/tournaments/{tournament_id}/{name}/{year}/player-list"
+        display_name = f"{level} {city}{suffix}"
+        
+        if week_label not in tournament_groups:
+            tournament_groups[week_label] = {}
+        
+        # Store tournament with its level for sorting later
+        tournament_groups[week_label][url] = {
+            "name": display_name,
+            "level": level
+        }
+    
+    return tournament_groups
+
+TOURNAMENT_GROUPS = build_tournament_groups()
 
 API_URL = "https://api.wtatennis.com/tennis/players/ranked"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"}
@@ -267,7 +352,10 @@ def main():
     
     for week, tourneys in TOURNAMENT_GROUPS.items():
         sidebar_html += f'<div class="week-title">{week}</div>'
-        for url, label in tourneys.items():
+        for url, info in tourneys.items():
+            # Extract the actual string name from the info dictionary
+            label = info["name"] 
+            
             tid = label.replace(" ", "_").replace(".", "")
             data = scrape_tournament(url, label, tid)
             
