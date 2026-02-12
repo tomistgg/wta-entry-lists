@@ -1,0 +1,34 @@
+The following changes were detected:
+
+Tournament: WTA 1000 Dubai
+- WTA 1000  - Dubai Duty Free Tennis Championships Qualifying list is now available.
+
+Tournament: WTA 125 Oeiras 2
+- WTA 125  - Oeiras 2 Jamor Indoor Main Draw list is now available.
+- WTA 125  - Oeiras 2 Jamor Indoor Qualifying list is now available.
+
+Tournament: WTA 125 Les Sables D'Olonne
+- WTA 125  - Open Arena Les Sables d'Olonne Main Draw list is now available.
+- WTA 125  - Open Arena Les Sables d'Olonne Qualifying list is now available.
+
+Tournament: WTA 125 Midland
+- WTA 125  - Dow Tennis Classic Main Draw list is now available.
+- WTA 125  - Dow Tennis Classic Qualifying list is now available.
+
+Tournament: WTA 250 Austin
+- WTA 250  - ATX Open Main Draw list is now available.
+- WTA 250  - ATX Open Qualifying list is now available.
+
+Tournament: WTA 500 Mérida
+- WTA 500  - Mérida Open Main Draw list is now available.
+- WTA 500  - Mérida Open Qualifying list is now available.
+
+Tournament: WTA 125 Antalya 1
+- WTA 125  - Megasaray Hotels Open 1 Main Draw list is now available.
+- WTA 125  - Megasaray Hotels Open 1 Qualifying list is now available.
+
+Tournament: WTA 125 Antalya 2
+- WTA 125  - Megasaray Hotels Open 2 Main Draw list is now available.
+
+Tournament: WTA 1000 Indian Wells
+- WTA 1000  - BNP Paribas Open Main Draw list is now available.
