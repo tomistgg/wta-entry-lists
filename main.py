@@ -143,7 +143,8 @@ def format_pretty_date(date_str):
 
 def get_display_content(df, tid, draw_type, availability_date):
     key = f"{tid.upper()}_{draw_type.replace(' ', '_').upper()}"
-    if df.empty and not load_json(STATE_FILE).get(key):
+    
+    if df.empty:
         pretty_date = format_pretty_date(availability_date)
         return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on {pretty_date}</p>"
     
@@ -175,7 +176,7 @@ def get_display_content(df, tid, draw_type, availability_date):
     
     return f'<div class="table-column">{apply_highlights(df)}</div>'
 
-def track_changes(tid, draw_type, current_names, t_name):
+def track_changes(tid, draw_type, current_names, t_name, skip_notifications=False):
     state = load_json(STATE_FILE)
     history = load_json(LOG_FILE)
     key = f"{tid.upper()}_{draw_type.replace(' ', '_').upper()}"
@@ -185,25 +186,27 @@ def track_changes(tid, draw_type, current_names, t_name):
     new_entries_for_web = []
     notification_for_email = None
 
-    if not prev_names and curr_names_set:
-        notification_for_email = f"{t_name} {draw_type} list is now available."
-    elif prev_names:
-        for name in prev_names:
-            if name not in curr_names_set:
-                msg = f"<strong>{name.upper()}</strong> removed from {draw_type}"
-                new_entries_for_web.append({"date": today, "change": msg})
-        for name in curr_names_set:
-            if name not in prev_names:
-                msg = f"<strong>{name.upper()}</strong> added to {draw_type}"
-                new_entries_for_web.append({"date": today, "change": msg})
+    if not skip_notifications:
+        if not prev_names and curr_names_set:
+            notification_for_email = f"{t_name} {draw_type} list is now available."
+        elif prev_names:
+            for name in prev_names:
+                if name not in curr_names_set:
+                    msg = f"<strong>{name.upper()}</strong> removed from {draw_type}"
+                    new_entries_for_web.append({"date": today, "change": msg})
+            for name in curr_names_set:
+                if name not in prev_names:
+                    msg = f"<strong>{name.upper()}</strong> added to {draw_type}"
+                    new_entries_for_web.append({"date": today, "change": msg})
 
     if new_entries_for_web:
         if tid not in history: history[tid] = []
         history[tid] = new_entries_for_web + history[tid]
         save_json(LOG_FILE, history)
     
-    state[key] = list(current_names)
-    save_json(STATE_FILE, state)
+    if current_names or not prev_names:
+        state[key] = list(current_names)
+        save_json(STATE_FILE, state)
 
     email_updates = []
     if notification_for_email: email_updates.append(notification_for_email)
@@ -316,17 +319,20 @@ def scrape_tournament(url, tab_label, tid):
     used_cached_main = False
     if not main_names and qual_names:
         state = load_json(STATE_FILE)
-        md_key = f"{tid}_Main_Draw"
+        md_key = f"{tid}_MAIN_DRAW"
         if state.get(md_key):
             main_names = state[md_key]
             used_cached_main = True
+            print(f"DEBUG: Loaded {len(main_names)} cached names for {tid} Main Draw")
 
     main_df = process_players(main_names, md_rankings)
     qual_df = process_players(qual_names, qual_rankings)
+    
+    print(f"DEBUG: {tid} Main Draw - main_df has {len(main_df)} rows, used_cached={used_cached_main}")
+    print(f"DEBUG: {tid} Qualifying - qual_df has {len(qual_df)} rows")
 
     run_notifications = []
-    if not used_cached_main:
-        run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name))
+    run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name, skip_notifications=used_cached_main))
     run_notifications.extend(track_changes(tid, "Qualifying", qual_df['Player'].tolist(), full_name))
 
     main_draw_html = f'<div class="main-draw-view">{get_display_content(main_df, tid, "Main Draw", fri_md)}</div>'
