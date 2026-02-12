@@ -227,6 +227,12 @@ def scrape_tournament(url, tab_label, tid):
             if section == "MAIN" and p not in main_names: main_names.append(p)
             elif section == "QUAL" and p not in qual_names: qual_names.append(p)
     
+    if not main_names and qual_names:
+        state = load_json(STATE_FILE)
+        md_key = f"{tid}_Main_Draw"
+        if state.get(md_key):
+            main_names = state[md_key]
+
     main_df = process_players(main_names, md_rankings)
     qual_df = process_players(qual_names, qual_rankings)
 
