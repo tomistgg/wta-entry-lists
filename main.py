@@ -265,7 +265,7 @@ def get_rankings_from_api(date_str):
     return pd.DataFrame([{'ranking': p.get('ranking'), 'player': p.get('player', {}).get('fullName'), 'country': p.get('player', {}).get('countryCode')} for p in all_players])
 
 def scrape_tournament(url, tab_label, tid):
-    tid = tid.upper().replace(" ", "_").replace(".", "")
+    tid = tid.upper().replace(" ", "_").replace(".", "").replace("-", "_").replace("'", "")
     print(f"Scraping {tab_label}...")
     try:
         r = requests.get(url, headers=HEADERS, timeout=15)
@@ -357,7 +357,7 @@ def main():
             # Extract the actual string name from the info dictionary
             label = info["name"] 
             
-            tid = label.replace(" ", "_").replace(".", "").upper()
+            tid = label.replace(" ", "_").replace(".", "").replace("-", "_").replace("'", "").upper()
             data = scrape_tournament(url, label, tid)
             
             if data and data.get("notifications"):
