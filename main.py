@@ -313,17 +313,20 @@ def scrape_tournament(url, tab_label, tid):
             if section == "MAIN" and p not in main_names: main_names.append(p)
             elif section == "QUAL" and p not in qual_names: qual_names.append(p)
     
+    used_cached_main = False
     if not main_names and qual_names:
         state = load_json(STATE_FILE)
         md_key = f"{tid}_Main_Draw"
         if state.get(md_key):
             main_names = state[md_key]
+            used_cached_main = True
 
     main_df = process_players(main_names, md_rankings)
     qual_df = process_players(qual_names, qual_rankings)
 
     run_notifications = []
-    run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name))
+    if not used_cached_main:
+        run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name))
     run_notifications.extend(track_changes(tid, "Qualifying", qual_df['Player'].tolist(), full_name))
 
     main_draw_html = f'<div class="main-draw-view">{get_display_content(main_df, tid, "Main Draw", fri_md)}</div>'
