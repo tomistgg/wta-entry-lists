@@ -225,7 +225,7 @@ def process_players(names, rankings_df):
         upper_name = clean_name.upper()
         
         rank_info = rankings_dict.get(upper_name, {})
-        country = rank_info.get('country', '—')
+        country = rank_info.get('country', '-”')
         rank = str(rank_info.get('ranking', 'SR'))
         
         if upper_name in PLAYER_OVERRIDES:
@@ -356,7 +356,7 @@ def main():
             # Extract the actual string name from the info dictionary
             label = info["name"] 
             
-            tid = label.replace(" ", "_").replace(".", "")
+            tid = label.replace(" ", "_").replace(".", "").upper()
             data = scrape_tournament(url, label, tid)
             
             if data and data.get("notifications"):
