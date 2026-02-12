@@ -142,7 +142,7 @@ def format_pretty_date(date_str):
     except: return date_str
 
 def get_display_content(df, tid, draw_type, availability_date):
-    key = f"{tid}_{draw_type.replace(' ', '_')}"
+    key = f"{tid.upper()}_{draw_type.replace(' ', '_').upper()}"
     if df.empty and not load_json(STATE_FILE).get(key):
         pretty_date = format_pretty_date(availability_date)
         return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on {pretty_date}</p>"
@@ -178,7 +178,7 @@ def get_display_content(df, tid, draw_type, availability_date):
 def track_changes(tid, draw_type, current_names, t_name):
     state = load_json(STATE_FILE)
     history = load_json(LOG_FILE)
-    key = f"{tid}_{draw_type.replace(' ', '_')}"
+    key = f"{tid.upper()}_{draw_type.replace(' ', '_').upper()}"
     prev_names = set(state.get(key, []))
     curr_names_set = set(current_names)
     today = datetime.now().strftime("%Y-%m-%d")
@@ -225,7 +225,7 @@ def process_players(names, rankings_df):
         upper_name = clean_name.upper()
         
         rank_info = rankings_dict.get(upper_name, {})
-        country = rank_info.get('country', '-”')
+        country = rank_info.get('country', '-')
         rank = str(rank_info.get('ranking', 'SR'))
         
         if upper_name in PLAYER_OVERRIDES:
@@ -265,6 +265,7 @@ def get_rankings_from_api(date_str):
     return pd.DataFrame([{'ranking': p.get('ranking'), 'player': p.get('player', {}).get('fullName'), 'country': p.get('player', {}).get('countryCode')} for p in all_players])
 
 def scrape_tournament(url, tab_label, tid):
+    tid = tid.upper().replace(" ", "_").replace(".", "")
     print(f"Scraping {tab_label}...")
     try:
         r = requests.get(url, headers=HEADERS, timeout=15)
