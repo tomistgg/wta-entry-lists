@@ -323,14 +323,10 @@ def scrape_tournament(url, tab_label, tid):
         if state.get(md_key):
             main_names = state[md_key]
             used_cached_main = True
-            print(f"DEBUG: Loaded {len(main_names)} cached names for {tid} Main Draw")
 
     main_df = process_players(main_names, md_rankings)
     qual_df = process_players(qual_names, qual_rankings)
     
-    print(f"DEBUG: {tid} Main Draw - main_df has {len(main_df)} rows, used_cached={used_cached_main}")
-    print(f"DEBUG: {tid} Qualifying - qual_df has {len(qual_df)} rows")
-
     run_notifications = []
     run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name, skip_notifications=used_cached_main))
     run_notifications.extend(track_changes(tid, "Qualifying", qual_df['Player'].tolist(), full_name))
