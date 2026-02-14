@@ -1,24 +1,17 @@
 The following changes were detected:
 
 Tournament: WTA 1000 Dubai
-- MADISON KEYS removed from Main Draw
-- MARTA KOSTYUK removed from Main Draw
-- MARKETA VONDROUSOVA removed from Main Draw
-- JAQUELINE  CRISTIAN removed from Main Draw
-- KAROLINA PLISKOVA removed from Main Draw
-- NAOMI OSAKA removed from Main Draw
-- IGA SWIATEK removed from Main Draw
-- MCCARTNEY KESSLER removed from Main Draw
-- ARYNA SABALENKA removed from Main Draw
-- JANICE TJEN added to Main Draw
-- SARA BEJLEK added to Main Draw
-- LAURA SIEGEMUND added to Main Draw
-- ANASTASIA PAVLYUCHENKOVA added to Main Draw
-- KATERINA SINIAKOVA added to Main Draw
-- CRISTINA BUCSA added to Main Draw
-- LULU SUN added to Main Draw
-- MARIA SAKKARI added to Main Draw
-- ZEYNEP SONMEZ added to Main Draw
-- JAQUELINE CRISTIAN added to Main Draw
-- ALEXANDRA EALA added to Main Draw
-- MAGDA LINETTE added to Main Draw
+- MOYUKA UCHIJIMA added to Main Draw
+- ELISABETTA COCCIARETTO added to Main Draw
+- REBECCA SRAMKOVA added to Main Draw
+- ALIAKSANDRA SASNOVICH added to Main Draw
+- HAILEY BAPTISTE added to Main Draw
+- ELLA SEIDEL added to Main Draw
+- KIMBERLY BIRRELL added to Main Draw
+- ELENA-GABRIELA RUSE added to Main Draw
+- PEYTON STEARNS added to Main Draw
+- VARVARA GRACHEVA added to Main Draw
+
+Tournament: WTA 125 Antalya 1
+- TIANTSOA RAKOTOMANGA RAJAONAH removed from Main Draw
+- MIRIAM BULGARU added to Main Draw
