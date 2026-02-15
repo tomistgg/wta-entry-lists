@@ -215,27 +215,31 @@ def track_changes(tid, draw_type, current_names, t_name, skip_notifications=Fals
         email_updates.append(clean_msg)
     return email_updates
 
-def process_players(names, rankings_df):
-    if not names: return pd.DataFrame(columns=['Pos.', 'Player', 'Country', 'Rank'])
-    
+def process_players(players, rankings_df):
+    if not players: return pd.DataFrame(columns=['Pos.', 'Player', 'Country', 'Rank'])
+
+    # Normalize: accept list of strings (cache) or list of dicts (API)
+    if isinstance(players[0], str):
+        players = [{"name": p, "country": None} for p in players]
+
     processed_data = []
     rankings_dict = {}
     if not rankings_df.empty:
         rankings_dict = rankings_df.drop_duplicates(subset=['player']).set_index(rankings_df['player'].drop_duplicates().str.upper()).to_dict('index')
 
-    for name in names:
-        clean_name = name.strip().title()
+    for player in players:
+        clean_name = player["name"].strip().title()
         upper_name = clean_name.upper()
-        
+
         rank_info = rankings_dict.get(upper_name, {})
-        country = rank_info.get('country', '-')
-        rank = str(rank_info.get('ranking', 'SR'))
-        
+        country = player.get("country") or rank_info.get('country', '-')
+        rank = str(rank_info.get('ranking', '-'))
+
         if upper_name in PLAYER_OVERRIDES:
             country = PLAYER_OVERRIDES[upper_name].get('country', country)
 
         if rank.lower() in ['nan', 'none', '']:
-            rank = 'SR'
+            rank = '-'
         else:
             rank = rank.replace('.0', '')
 
@@ -243,13 +247,13 @@ def process_players(names, rankings_df):
             'Player': clean_name,
             'Country': country,
             'Rank': rank,
-            'rank_sort': 9999 if rank == 'SR' else int(rank)
+            'rank_sort': 9999 if rank == '-' else int(rank)
         })
 
     df = pd.DataFrame(processed_data)
     df = df.sort_values('rank_sort').reset_index(drop=True)
     df['Pos.'] = (df.index + 1).astype(str)
-    
+
     return df[['Pos.', 'Player', 'Country', 'Rank']]
 
 def get_rankings_from_api(date_str):
@@ -266,6 +270,26 @@ def get_rankings_from_api(date_str):
             time.sleep(0.05)
         except: break
     return pd.DataFrame([{'ranking': p.get('ranking'), 'player': p.get('player', {}).get('fullName'), 'country': p.get('player', {}).get('countryCode')} for p in all_players])
+
+def fetch_player_info(player_id):
+    url = f"https://api.wtatennis.com/tennis/players/{player_id}/matches"
+    params = {"page": 0, "pageSize": 1, "sort": "desc"}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36",
+        "referer": "https://www.wtatennis.com/",
+        "account": "wta"
+    }
+    try:
+        r = requests.get(url, params=params, headers=headers, timeout=10)
+        data = r.json()
+        player = data.get("player", {})
+        name = player.get("fullName")
+        country = player.get("countryCode")
+        if name:
+            return {"name": name, "country": country}
+    except:
+        pass
+    return None
 
 def scrape_tournament(url, tab_label, tid):
     tid = tid.upper().replace(" ", "_").replace(".", "").replace("-", "_").replace("'", "")
@@ -305,27 +329,41 @@ def scrape_tournament(url, tab_label, tid):
     md_rankings = get_rankings_from_api(md_date)
     qual_rankings = get_rankings_from_api(qual_date)
 
-    main_names, qual_names, section = [], [], "MAIN"
+    main_ids, qual_ids, section = [], [], "MAIN"
     for tag in soup.find_all(True):
         attr = tag.get('data-ui-tab')
         if attr == 'Qualifying': section = "QUAL"
         elif attr == 'Doubles': section = "STOP"
         if section == "STOP": continue
-        p = tag.get('data-tracking-player-name')
-        if p:
-            if section == "MAIN" and p not in main_names: main_names.append(p)
-            elif section == "QUAL" and p not in qual_names: qual_names.append(p)
-    
+        href = tag.get('href', '')
+        match = re.match(r'/players/(\d+)/', href)
+        if match:
+            player_id = match.group(1)
+            if section == "MAIN" and player_id not in main_ids: main_ids.append(player_id)
+            elif section == "QUAL" and player_id not in qual_ids: qual_ids.append(player_id)
+
+    # Fetch player info from API for all unique IDs
+    all_ids = list(dict.fromkeys(main_ids + qual_ids))
+    player_cache = {}
+    for pid in all_ids:
+        info = fetch_player_info(pid)
+        if info:
+            player_cache[pid] = info
+        time.sleep(0.05)
+
+    main_players = [player_cache[pid] for pid in main_ids if pid in player_cache]
+    qual_players = [player_cache[pid] for pid in qual_ids if pid in player_cache]
+
     used_cached_main = False
-    if not main_names and qual_names:
+    if not main_players and qual_players:
         state = load_json(STATE_FILE)
         md_key = f"{tid}_MAIN_DRAW"
         if state.get(md_key):
-            main_names = state[md_key]
+            main_players = state[md_key]
             used_cached_main = True
 
-    main_df = process_players(main_names, md_rankings)
-    qual_df = process_players(qual_names, qual_rankings)
+    main_df = process_players(main_players, md_rankings)
+    qual_df = process_players(qual_players, qual_rankings)
     
     run_notifications = []
     run_notifications.extend(track_changes(tid, "Main Draw", main_df['Player'].tolist(), full_name, skip_notifications=used_cached_main))
