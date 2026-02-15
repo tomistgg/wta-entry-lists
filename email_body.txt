@@ -1,7 +1,0 @@
-The following changes were detected:
-
-Tournament: WTA 500 Mérida
-- ELISABETTA COCCIARETTO removed from Main Draw
-- MAGDALENA FRECH added to Main Draw
-- MAGDALENA FRECH removed from Qualifying
-- ELINA AVANESYAN added to Qualifying
