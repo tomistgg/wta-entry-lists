@@ -232,7 +232,7 @@ def process_players(players, rankings_df):
         upper_name = clean_name.upper()
 
         rank_info = rankings_dict.get(upper_name, {})
-        country = player.get("country") or rank_info.get('country', '-')
+        country = rank_info.get('country') or player.get("country") or '-'
         rank = str(rank_info.get('ranking', '-'))
 
         if upper_name in PLAYER_OVERRIDES:
@@ -329,30 +329,48 @@ def scrape_tournament(url, tab_label, tid):
     md_rankings = get_rankings_from_api(md_date)
     qual_rankings = get_rankings_from_api(qual_date)
 
-    main_ids, qual_ids, section = [], [], "MAIN"
+    main_entries, qual_entries, section = [], [], "MAIN"
+    main_seen, qual_seen = set(), set()
     for tag in soup.find_all(True):
         attr = tag.get('data-ui-tab')
         if attr == 'Qualifying': section = "QUAL"
         elif attr == 'Doubles': section = "STOP"
         if section == "STOP": continue
         href = tag.get('href', '')
-        match = re.match(r'/players/(\d+)/', href)
-        if match:
-            player_id = match.group(1)
-            if section == "MAIN" and player_id not in main_ids: main_ids.append(player_id)
-            elif section == "QUAL" and player_id not in qual_ids: qual_ids.append(player_id)
+        m = re.match(r'/players/(\d+)/([^/]+)', href)
+        if m:
+            pid, slug = m.group(1), m.group(2)
+            if section == "MAIN" and pid not in main_seen:
+                main_seen.add(pid)
+                main_entries.append((pid, slug))
+            elif section == "QUAL" and pid not in qual_seen:
+                qual_seen.add(pid)
+                qual_entries.append((pid, slug))
 
-    # Fetch player info from API for all unique IDs
-    all_ids = list(dict.fromkeys(main_ids + qual_ids))
+    # Build set of ranked player names for quick lookup
+    ranked_names = set()
+    for rankings_df in [md_rankings, qual_rankings]:
+        if not rankings_df.empty:
+            ranked_names.update(rankings_df['player'].dropna().str.upper())
+
+    # Resolve: slug-derived name for ranked players, API only for unranked
     player_cache = {}
-    for pid in all_ids:
-        info = fetch_player_info(pid)
-        if info:
-            player_cache[pid] = info
-        time.sleep(0.05)
+    seen_pids = set()
+    for pid, slug in main_entries + qual_entries:
+        if pid in seen_pids:
+            continue
+        seen_pids.add(pid)
+        candidate = slug.replace("-", " ").upper()
+        if candidate in ranked_names:
+            player_cache[pid] = {"name": candidate, "country": None}
+        else:
+            info = fetch_player_info(pid)
+            if info:
+                player_cache[pid] = info
+            time.sleep(0.05)
 
-    main_players = [player_cache[pid] for pid in main_ids if pid in player_cache]
-    qual_players = [player_cache[pid] for pid in qual_ids if pid in player_cache]
+    main_players = [player_cache[pid] for pid, _ in main_entries if pid in player_cache]
+    qual_players = [player_cache[pid] for pid, _ in qual_entries if pid in player_cache]
 
     used_cached_main = False
     if not main_players and qual_players:
