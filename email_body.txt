@@ -1,43 +1,72 @@
 The following changes were detected:
 
 Tournament: WTA 1000 Dubai
-- WTA 1000  - Dubai Duty Free Tennis Championships Main Draw list is now available.
-- WTA 1000  - Dubai Duty Free Tennis Championships Qualifying list is now available.
+- MAYA JOINT added to Main Draw
+- MAGDA LINETTE added to Main Draw
+- KATERINA SINIAKOVA added to Main Draw
+- LULU SUN added to Main Draw
+- DIANA SHNAIDER added to Main Draw
+- ALEXANDRA EALA added to Main Draw
+- ANASTASIA ZAKHAROVA added to Main Draw
+- ANNA KALINSKAYA added to Main Draw
+- TATJANA MARIA added to Main Draw
+- MOYUKA UCHIJIMA added to Main Draw
+- DAYANA YASTREMSKA added to Main Draw
+- JULIA GRABHER added to Qualifying
+- STORM HUNTER added to Qualifying
+- ANASTASIA ZAKHAROVA added to Qualifying
+- ANNA BONDAR added to Qualifying
+- MOYUKA UCHIJIMA added to Qualifying
 
 Tournament: WTA 125 Oeiras 2
-- WTA 125  - Oeiras 2 Jamor Indoor Main Draw list is now available.
-- WTA 125  - Oeiras 2 Jamor Indoor Qualifying list is now available.
-
-Tournament: WTA 125 Les Sables D'Olonne
-- WTA 125  - Open Arena Les Sables d'Olonne Main Draw list is now available.
-- WTA 125  - Open Arena Les Sables d'Olonne Qualifying list is now available.
+- MADALENA MATIAS added to Main Draw
+- ELINA AVANESYAN added to Main Draw
+- DARIA SNIGUR added to Main Draw
 
 Tournament: WTA 125 Midland
-- WTA 125  - Dow Tennis Classic Main Draw list is now available.
-- WTA 125  - Dow Tennis Classic Qualifying list is now available.
+- SAKURA HOSOGI added to Qualifying
 
 Tournament: WTA 250 Austin
-- WTA 250  - ATX Open Main Draw list is now available.
-- WTA 250  - ATX Open Qualifying list is now available.
+- ANNA BLINKOVA added to Main Draw
+- YUE YUAN added to Qualifying
+- MADISON BRENGLE added to Qualifying
 
 Tournament: WTA 500 Mérida
-- WTA 500  - MÉRIDA OPEN Main Draw list is now available.
-- WTA 500  - MÉRIDA OPEN Qualifying list is now available.
+- DONNA VEKIC added to Qualifying
+- DIANE PARRY added to Qualifying
+- CAMILA OSORIO added to Qualifying
+- PRISCILLA HON added to Qualifying
+- RENATA ZARAZUA added to Qualifying
+- ELLA SEIDEL added to Qualifying
 
 Tournament: WTA 125 Antalya 1
-- WTA 125  - Megasaray Hotels Open 1 Main Draw list is now available.
-- WTA 125  - Megasaray Hotels Open 1 Qualifying list is now available.
+- TAMARA ZIDANSEK added to Main Draw
+- OLEKSANDRA OLIYNYKOVA added to Main Draw
+- EKATERINE GORGODZE added to Main Draw
+- MAYAR SHERIF added to Main Draw
+- ANASTASIA GASANOVA added to Qualifying
+- CAROLINA ALVES added to Qualifying
 
 Tournament: WTA 125 Antalya 2
-- WTA 125  - Megasaray Hotels Open 2 Main Draw list is now available.
-- WTA 125  - Megasaray Hotels Open 2 Qualifying list is now available.
+- OLEKSANDRA OLIYNYKOVA added to Main Draw
+- DOMINIKA SALKOVA added to Main Draw
+- ALINA CHARAEVA added to Main Draw
+- MAYAR SHERIF added to Main Draw
 
 Tournament: WTA 1000 Indian Wells
-- WTA 1000  - BNP Paribas Open Main Draw list is now available.
-- WTA 1000  - BNP Paribas Open Qualifying list is now available.
-
-Tournament: WTA 125 Austin 1
-- WTA 125  - Austin 125 1 Main Draw list is now available.
+- SONAY KARTAL added to Main Draw
+- ELINA SVITOLINA added to Main Draw
+- CATY MCNALLY added to Main Draw
+- ANNA BONDAR added to Main Draw
+- ANTONIA RUZIC added to Main Draw
+- EKATERINA ALEXANDROVA added to Main Draw
+- MARTA KOSTYUK added to Main Draw
+- ELISE MERTENS added to Main Draw
+- XINYU WANG added to Main Draw
+- DAYANA YASTREMSKA added to Main Draw
+- VERONIKA KUDERMETOVA added to Main Draw
+- TALIA GIBSON added to Qualifying
 
 Tournament: WTA 125 Antalya 3
-- WTA 125  - Megasaray Hotels Open 3 Main Draw list is now available.
+- VERONIKA ERJAVEC added to Main Draw
+- LUCIA BRONZETTI added to Main Draw
