@@ -357,7 +357,6 @@
         "Moyuka Uchijima",
         "Oleksandra Oliynykova",
         "Panna Udvardy",
-        "Sara Bejlek",
         "Veronika Erjavec",
         "Mayar Sherif",
         "Lucia Bronzetti",
@@ -376,12 +375,12 @@
         "Anhelina Kalinina",
         "Elina Avanesyan",
         "Ekaterine Gorgodze",
-        "Guiomar Maristany Zuleta De Reales"
+        "Guiomar Maristany Zuleta De Reales",
+        "Anastasia Gasanova"
     ],
     "WTA_125_ANTALYA_2_QUALIFYING": [
         "Julia Grabher",
         "Teodora Kostovic",
-        "Anastasia Gasanova",
         "Carole Monnet",
         "Julia Riera",
         "Elena Pridankina",
@@ -390,9 +389,10 @@
         "Andrea Lazaro Garcia",
         "Miriam Bulgaru",
         "Laura Pigossi",
-        "Jazmin Ortenzi",
         "Mai Hontama",
-        "Sada Nahimana"
+        "Tara Wuerth",
+        "Carolina Alves",
+        "Caroline Werner"
     ],
     "WTA_1000_INDIAN_WELLS_MAIN_DRAW": [
         "Aryna Sabalenka",
@@ -541,7 +541,14 @@
         "Rebecca Sramkova",
         "Anna Blinkova"
     ],
-    "WTA_125_AUSTIN_1_QUALIFYING": [],
+    "WTA_125_AUSTIN_1_QUALIFYING": [
+        "Dalma Galfi",
+        "Renata Zarazua",
+        "Viktorija Golubic",
+        "Kamilla Rakhimova",
+        "Kaja Juvan",
+        "Kimberly Birrell"
+    ],
     "WTA_125_ANTALYA_3_MAIN_DRAW": [
         "Oleksandra Oliynykova",
         "Julia Grabher",
@@ -567,7 +574,22 @@
         "Nuria Brancaccio",
         "Ekaterine Gorgodze"
     ],
-    "WTA_125_ANTALYA_3_QUALIFYING": [],
+    "WTA_125_ANTALYA_3_QUALIFYING": [
+        "Maria Timofeeva",
+        "Guiomar Maristany Zuleta De Reales",
+        "Teodora Kostovic",
+        "Carole Monnet",
+        "Julia Riera",
+        "Anastasia Gasanova",
+        "Anhelina Kalinina",
+        "Elena Pridankina",
+        "Lisa Pigato",
+        "Alice Rame",
+        "Silvia Ambrosio",
+        "Miriam Bulgaru",
+        "Laura Pigossi",
+        "Chloe Paquet"
+    ],
     "WTA_1000_MIAMI_MAIN_DRAW": [
         "Aryna Sabalenka",
         "Iga Swiatek",
