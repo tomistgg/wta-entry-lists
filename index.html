@@ -54,1058 +54,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
     <body>
-        <div class="sidebar"><div class="week-title">Semana 23 Febrero</div><button class="tablinks active" onclick="openTourney(event, 'WTA_250_AUSTIN')">WTA 250 Austin</button><button class="tablinks " onclick="openTourney(event, 'WTA_500_MÉRIDA')">WTA 500 Mérida</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_1')">WTA 125 Antalya 1</button><div class="week-title">Semana 2 Marzo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 Antalya 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 Indian Wells</button><div class="week-title">Semana 9 Marzo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_AUSTIN_1')">WTA 125 Austin 1</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_3')">WTA 125 Antalya 3</button><div class="week-title">Semana 16 Marzo</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_MIAMI')">WTA 1000 Miami</button></div>
-        <div class="main-content"><div id="WTA_250_AUSTIN" class="tabcontent" style="display: block;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
-                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_AUSTIN')">Changes</button>
-                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 250  - ATX Open</h1>
-                    </div>
-                    <div class="pdf-container">
-                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_250_AUSTIN')">PDF</button>
-                    </div>
-                </div>
-                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Jessica Pegula</td>
-      <td>USA</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Iva Jovic</td>
-      <td>USA</td>
-      <td>27</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Xinyu Wang</td>
-      <td>CHN</td>
-      <td>46</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Ashlyn Krueger</td>
-      <td>USA</td>
-      <td>62</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Anna Blinkova</td>
-      <td>RUS</td>
-      <td>64</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Peyton Stearns</td>
-      <td>USA</td>
-      <td>68</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Francesca Jones</td>
-      <td>GBR</td>
-      <td>71</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Rebecca Sramkova</td>
-      <td>SVK</td>
-      <td>73</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Anna Bondar</td>
-      <td>HUN</td>
-      <td>74</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Kimberly Birrell</td>
-      <td>AUS</td>
-      <td>76</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Varvara Gracheva</td>
-      <td>FRA</td>
-      <td>77</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Ajla Tomljanovic</td>
-      <td>AUS</td>
-      <td>78</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Petra Marcinko</td>
-      <td>CRO</td>
-      <td>81</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Caty Mcnally</td>
-      <td>USA</td>
-      <td>85</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Lulu Sun</td>
-      <td>NZL</td>
-      <td>86</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Dalma Galfi</td>
-      <td>HUN</td>
-      <td>91</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>17</td>
-      <td>Kamilla Rakhimova</td>
-      <td>UZB</td>
-      <td>93</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Katie Volynets</td>
-      <td>USA</td>
-      <td>96</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Alycia Parks</td>
-      <td>USA</td>
-      <td>99</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Kaja Juvan</td>
-      <td>SLO</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Oksana Selekhmeteva</td>
-      <td>RUS</td>
-      <td>101</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Anastasia Zakharova</td>
-      <td>RUS</td>
-      <td>105</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Caroline Dolehide</td>
-      <td>USA</td>
-      <td>111</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Rebeka Masarova</td>
-      <td>SUI</td>
-      <td>115</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>Taylor Townsend</td>
-      <td>USA</td>
-      <td>116</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Nikola Bartunkova</td>
-      <td>CZE</td>
-      <td>126</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Whitney Osuigwe</td>
-      <td>USA</td>
-      <td>152</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Elizabeth Mandlik</td>
-      <td>USA</td>
-      <td>182</td>
-    </tr>
-    <tr>
-      <td>29</td>
-      <td>Mary Stoiana</td>
-      <td>USA</td>
-      <td>222</td>
-    </tr>
-    <tr>
-      <td>30</td>
-      <td>Claire Liu</td>
-      <td>USA</td>
-      <td>227</td>
-    </tr>
-    <tr>
-      <td>31</td>
-      <td>Bianca Andreescu</td>
-      <td>CAN</td>
-      <td>228</td>
-    </tr>
-    <tr>
-      <td>32</td>
-      <td>Venus Williams</td>
-      <td>USA</td>
-      <td>578</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Nikola Bartunkova</td>
-      <td>CZE</td>
-      <td>108</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Rebeka Masarova</td>
-      <td>SUI</td>
-      <td>114</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Caroline Dolehide</td>
-      <td>USA</td>
-      <td>117</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Linda Fruhvirtova</td>
-      <td>CZE</td>
-      <td>121</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Joanna Garland</td>
-      <td>TPE</td>
-      <td>122</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Yue Yuan</td>
-      <td>CHN</td>
-      <td>130</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Himeno Sakatsume</td>
-      <td>JPN</td>
-      <td>132</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Whitney Osuigwe</td>
-      <td>USA</td>
-      <td>161</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Elizabeth Mandlik</td>
-      <td>USA</td>
-      <td>174</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Louisa Chirico</td>
-      <td>USA</td>
-      <td>175</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Ena Shibahara</td>
-      <td>JPN</td>
-      <td>197</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Claire Liu</td>
-      <td>USA</td>
-      <td>205</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Kayla Day</td>
-      <td>USA</td>
-      <td>218</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Nao Hibino</td>
-      <td>JPN</td>
-      <td>229</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Anna Rogers</td>
-      <td>USA</td>
-      <td>243</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Xiaodi You</td>
-      <td>CHN</td>
-      <td>254</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Gabriela Lee</td>
-      <td>ROU</td>
-      <td>347</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Madison Brengle</td>
-      <td>USA</td>
-      <td>398</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Emily Appleton</td>
-      <td>GBR</td>
-      <td>414</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Mariia Tkacheva</td>
-      <td>RUS</td>
-      <td>448</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Carmen Andreea  Herea</td>
-      <td>ROU</td>
-      <td>561</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Gina Feistel</td>
-      <td>POL</td>
-      <td>652</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Jennifer Brady</td>
-      <td>USA</td>
-      <td>807</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ELIZABETH MANDLIK</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>CAROLINE DOLEHIDE</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>REBEKA MASAROVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>WHITNEY OSUIGWE</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>CLAIRE LIU</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>SOLANA SIERRA</strong> removed from Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>VENUS WILLIAMS</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>TAYLOR TOWNSEND</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>MARY STOIANA</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>BIANCA ANDREESCU</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>KAJA JUVAN</strong> added to Main Draw</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>LANLANA TARARUDEE</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>DARJA VIDMANOVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>BIANCA ANDREESCU</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>ALINA CHARAEVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>KAJA JUVAN</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>TAYLOR TOWNSEND</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>ELVINA KALIEVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MADDISON INGLIS</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>KAYLA DAY</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>GABRIELA LEE</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>ENA SHIBAHARA</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>ANNA ROGERS</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>NAO HIBINO</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>CARMEN ANDREEA  HEREA</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>EMILY APPLETON</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>LOUISA CHIRICO</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>JENNIFER BRADY</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MARIIA TKACHEVA</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>CLAIRE LIU</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>YUE YUAN</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MADISON BRENGLE</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> removed from Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>LILLI TAGGER</strong> removed from Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>ELIZABETH MANDLIK</strong> added to Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>ALINA CHARAEVA</strong> added to Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Main Draw</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> added to Main Draw</td></tr></tbody></table></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-                </div><div id="WTA_500_MÉRIDA" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
-                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_MÉRIDA')">Changes</button>
-                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 500  - MÉRIDA OPEN</h1>
-                    </div>
-                    <div class="pdf-container">
-                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_500_MÉRIDA')">PDF</button>
-                    </div>
-                </div>
-                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Jasmine Paolini</td>
-      <td>ITA</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Emma Navarro</td>
-      <td>USA</td>
-      <td>15</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Dayana Yastremska</td>
-      <td>UKR</td>
-      <td>28</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Ann Li</td>
-      <td>USA</td>
-      <td>38</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Jessica Bouzas Maneiro</td>
-      <td>ESP</td>
-      <td>40</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Tatjana Maria</td>
-      <td>GER</td>
-      <td>42</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Marie Bouzkova</td>
-      <td>CZE</td>
-      <td>44</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Magda Linette</td>
-      <td>POL</td>
-      <td>50</td>
-    </tr>
-    <tr class="latam-row">
-      <td>9</td>
-      <td>Emiliana Arango</td>
-      <td>COL</td>
-      <td>51</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Cristina Bucsa</td>
-      <td>ESP</td>
-      <td>52</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Anastasia Potapova</td>
-      <td>AUT</td>
-      <td>55</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Magdalena Frech</td>
-      <td>POL</td>
-      <td>57</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Janice Tjen</td>
-      <td>INA</td>
-      <td>59</td>
-    </tr>
-    <tr class="latam-row">
-      <td>14</td>
-      <td>Beatriz Haddad Maia</td>
-      <td>BRA</td>
-      <td>61</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>15</td>
-      <td>Donna Vekic</td>
-      <td>CRO</td>
-      <td>72</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Shuai Zhang</td>
-      <td>CHN</td>
-      <td>75</td>
-    </tr>
-    <tr class="latam-row">
-      <td>17</td>
-      <td>Renata Zarazua</td>
-      <td>MEX</td>
-      <td>80</td>
-    </tr>
-    <tr class="latam-row">
-      <td>18</td>
-      <td>Camila Osorio</td>
-      <td>COL</td>
-      <td>84</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Yulia Putintseva</td>
-      <td>KAZ</td>
-      <td>94</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Zeynep Sonmez</td>
-      <td>TUR</td>
-      <td>112</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Katie Boulter</td>
-      <td>GBR</td>
-      <td>113</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Victoria Jimenez Kasintseva</td>
-      <td>AND</td>
-      <td>114</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Marina Stakusic</td>
-      <td>CAN</td>
-      <td>127</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Maria Timofeeva</td>
-      <td>UZB</td>
-      <td>138</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>Varvara Lepchenko</td>
-      <td>USA</td>
-      <td>146</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Cadence Brace</td>
-      <td>CAN</td>
-      <td>187</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Heather Watson</td>
-      <td>GBR</td>
-      <td>266</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Sloane Stephens</td>
-      <td>USA</td>
-      <td>1102</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Shuai Zhang</td>
-      <td>CHN</td>
-      <td>82</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Victoria Jimenez Kasintseva</td>
-      <td>AND</td>
-      <td>112</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Diane Parry</td>
-      <td>FRA</td>
-      <td>119</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Priscilla Hon</td>
-      <td>AUS</td>
-      <td>126</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Varvara Lepchenko</td>
-      <td>USA</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Maria Timofeeva</td>
-      <td>UZB</td>
-      <td>155</td>
-    </tr>
-    <tr class="latam-row">
-      <td>7</td>
-      <td>Maria Lourdes Carle</td>
-      <td>ARG</td>
-      <td>156</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Elina Avanesyan</td>
-      <td>ARM</td>
-      <td>169</td>
-    </tr>
-    <tr class="latam-row">
-      <td>9</td>
-      <td>Ana Sofia Sánchez</td>
-      <td>MEX</td>
-      <td>195</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Cadence Brace</td>
-      <td>CAN</td>
-      <td>198</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Kayla Cross</td>
-      <td>CAN</td>
-      <td>200</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Heather Watson</td>
-      <td>GBR</td>
-      <td>277</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Lia Karatancheva</td>
-      <td>BUL</td>
-      <td>292</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Katarina Jokic</td>
-      <td>SRB</td>
-      <td>307</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Katrina Scott</td>
-      <td>USA</td>
-      <td>312</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Tiphanie Lemaitre</td>
-      <td>FRA</td>
-      <td>317</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Miriana Tona</td>
-      <td>ITA</td>
-      <td>379</td>
-    </tr>
-    <tr class="latam-row">
-      <td>18</td>
-      <td>Martina Capurro Taborda</td>
-      <td>ARG</td>
-      <td>394</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Valeriya Strakhova</td>
-      <td>UKR</td>
-      <td>402</td>
-    </tr>
-    <tr class="latam-row">
-      <td>20</td>
-      <td>Victoria Rodriguez</td>
-      <td>MEX</td>
-      <td>415</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Sachia Vickery</td>
-      <td>USA</td>
-      <td>626</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Martina Trevisan</td>
-      <td>ITA</td>
-      <td>683</td>
-    </tr>
-    <tr class="latam-row">
-      <td>23</td>
-      <td>Marian Gomez Pezuela Cano</td>
-      <td>MEX</td>
-      <td>1175</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Katarzyna Piter</td>
-      <td>POL</td>
-      <td>-</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>MARIA TIMOFEEVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>CADENCE BRACE</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>SHUAI ZHANG</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA LEPCHENKO</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA JIMENEZ KASINTSEVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>DIANA SHNAIDER</strong> removed from Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>PAULA BADOSA</strong> removed from Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>RENATA ZARAZUA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>SLOANE STEPHENS</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ZEYNEP SONMEZ</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>MARINA STAKUSIC</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>JASMINE PAOLINI</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>HANYU GUO</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>VALERIYA STRAKHOVA</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>RENATA ZARAZUA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MARINA STAKUSIC</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA COSTOULAS</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA RODRIGUEZ</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>SACHIA VICKERY</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>KATARZYNA PITER</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MARTINA CAPURRO TABORDA</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>KATARINA JOKIC</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>KATRINA SCOTT</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MARTINA TREVISAN</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MARIAN GOMEZ PEZUELA CANO</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>LIA KARATANCHEVA</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> added to Qualifying</td></tr><tr><td>2026-02-20</td><td style="text-align:left; padding-left:20px;"><strong>MIRIANA TONA</strong> added to Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>DONNA VEKIC</strong> removed from Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>HAILEY BAPTISTE</strong> removed from Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>ELLA SEIDEL</strong> removed from Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>CADENCE BRACE</strong> added to Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>HANYU GUO</strong> added to Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>KAYLA CROSS</strong> added to Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>ANA SOFIA SÁNCHEZ</strong> added to Qualifying</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> removed from Main Draw</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> removed from Main Draw</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> added to Main Draw</td></tr><tr><td>2026-02-17</td><td style="text-align:left; padding-left:20px;"><strong>DONNA VEKIC</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>DONNA VEKIC</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>DIANE PARRY</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>PRISCILLA HON</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>RENATA ZARAZUA</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ELLA SEIDEL</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ELINA AVANESYAN</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> added to Main Draw</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>SLOANE STEPHENS</strong> removed from Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> added to Qualifying</td></tr></tbody></table></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-                </div><div id="WTA_125_ANTALYA_1" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
-                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_ANTALYA_1')">Changes</button>
-                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">WTA 125  - Megasaray Hotels Open 1</h1>
-                    </div>
-                    <div class="pdf-container">
-                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_ANTALYA_1')">PDF</button>
-                    </div>
-                </div>
-                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Moyuka Uchijima</td>
-      <td>JPN</td>
-      <td>88</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Panna Udvardy</td>
-      <td>HUN</td>
-      <td>90</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Oleksandra Oliynykova</td>
-      <td>UKR</td>
-      <td>92</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Julia Grabher</td>
-      <td>AUT</td>
-      <td>95</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Veronika Erjavec</td>
-      <td>SLO</td>
-      <td>102</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Lucia Bronzetti</td>
-      <td>ITA</td>
-      <td>107</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Mayar Sherif</td>
-      <td>EGY</td>
-      <td>109</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Arantxa Rus</td>
-      <td>NED</td>
-      <td>133</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Katarzyna Kawa</td>
-      <td>POL</td>
-      <td>135</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Leyre Romero Gormaz</td>
-      <td>ESP</td>
-      <td>141</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Polina Kudermetova</td>
-      <td>UZB</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Tamara Zidansek</td>
-      <td>SLO</td>
-      <td>151</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Despina Papamichail</td>
-      <td>GRE</td>
-      <td>160</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Nuria Brancaccio</td>
-      <td>ITA</td>
-      <td>165</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>15</td>
-      <td>Ekaterine Gorgodze</td>
-      <td>GEO</td>
-      <td>169</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Carole Monnet</td>
-      <td>FRA</td>
-      <td>175</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Anhelina Kalinina</td>
-      <td>UKR</td>
-      <td>179</td>
-    </tr>
-    <tr class="latam-row">
-      <td>18</td>
-      <td>Julia Riera</td>
-      <td>ARG</td>
-      <td>181</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Guiomar Maristany Zuleta De Reales</td>
-      <td>ESP</td>
-      <td>185</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Alice Rame</td>
-      <td>FRA</td>
-      <td>195</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Miriam Bulgaru</td>
-      <td>ROU</td>
-      <td>199</td>
-    </tr>
-    <tr class="latam-row">
-      <td>22</td>
-      <td>Laura Pigossi</td>
-      <td>BRA</td>
-      <td>202</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Anastasia Gasanova</td>
-      <td>RUS</td>
-      <td>213</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Selena Janicijevic</td>
-      <td>FRA</td>
-      <td>223</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>Ipek Oz</td>
-      <td>TUR</td>
-      <td>515</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Adelina Lachinova</td>
-      <td>LAT</td>
-      <td>572</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Ilay Yoruk</td>
-      <td>TUR</td>
-      <td>787</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Ada Kumru</td>
-      <td>TUR</td>
-      <td>1107</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Iryna Shymanovich</td>
-      <td>BLR</td>
-      <td>158</td>
-    </tr>
-    <tr class="latam-row">
-      <td>2</td>
-      <td>Carolina Alves</td>
-      <td>BRA</td>
-      <td>230</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Amarissa Toth</td>
-      <td>HUN</td>
-      <td>240</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Mia Ristic</td>
-      <td>SRB</td>
-      <td>271</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Dalila Spiteri</td>
-      <td>ITA</td>
-      <td>272</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Anastasia Zolotareva</td>
-      <td>RUS</td>
-      <td>303</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Katarina Zavatska</td>
-      <td>UKR</td>
-      <td>306</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Polona Hercog</td>
-      <td>SLO</td>
-      <td>311</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Alevtina Ibragimova</td>
-      <td>RUS</td>
-      <td>314</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Darya Astakhova</td>
-      <td>RUS</td>
-      <td>374</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Denislava Glushkova</td>
-      <td>BUL</td>
-      <td>376</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Martina Colmegna</td>
-      <td>ITA</td>
-      <td>382</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Ikumi Yamazaki</td>
-      <td>JPN</td>
-      <td>393</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Sofia Shapatava</td>
-      <td>GEO</td>
-      <td>403</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Defne Cirpanli</td>
-      <td>TUR</td>
-      <td>862</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ELENA PRIDANKINA</strong> removed from Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>LAURA PIGOSSI</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA GASANOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>IPEK OZ</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ADELINA LACHINOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>SELENA JANICIJEVIC</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ADA KUMRU</strong> added to Main Draw</td></tr><tr><td>2026-02-22</td><td style="text-align:left; padding-left:20px;"><strong>ILAY YORUK</strong> added to Main Draw</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA GASANOVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>SARA SAITO</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>LAURA PIGOSSI</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>MAI HONTAMA</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>SELENA JANICIJEVIC</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA PALICOVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>NURIA PARRIZAS DIAZ</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>JAZMIN ORTENZI</strong> removed from Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA SHAPATAVA</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>DARYA ASTAKHOVA</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>DENISLAVA GLUSHKOVA</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>DEFNE CIRPANLI</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>IKUMI YAMAZAKI</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>KATARINA ZAVATSKA</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>POLONA HERCOG</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZOLOTAREVA</strong> added to Qualifying</td></tr><tr><td>2026-02-21</td><td style="text-align:left; padding-left:20px;"><strong>MARTINA COLMEGNA</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA GASANOVA</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>CAROLINA ALVES</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>TAMARA ZIDANSEK</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINE GORGODZE</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MAYAR SHERIF</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MIRIAM BULGARU</strong> added to Main Draw</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>MIRIAM BULGARU</strong> removed from Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>DALILA SPITERI</strong> added to Qualifying</td></tr><tr><td>2026-02-13</td><td style="text-align:left; padding-left:20px;"><strong>MIA RISTIC</strong> added to Qualifying</td></tr><tr><td>2026-02-06</td><td style="text-align:left; padding-left:20px;"><strong>LISA PIGATO</strong> removed from Main Draw</td></tr><tr><td>2026-02-06</td><td style="text-align:left; padding-left:20px;"><strong>ALICE RAME</strong> added to Main Draw</td></tr></tbody></table></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-                </div><div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: none;">
+        <div class="sidebar"><div class="week-title">Semana 2 Marzo</div><button class="tablinks active" onclick="openTourney(event, 'WTA_125_ANTALYA_2')">WTA 125 Antalya 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_1000_INDIAN_WELLS')">WTA 1000 Indian Wells</button><div class="week-title">Semana 9 Marzo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_AUSTIN_1')">WTA 125 Austin 1</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_ANTALYA_3')">WTA 125 Antalya 3</button><div class="week-title">Semana 16 Marzo</div><button class="tablinks " onclick="openTourney(event, 'WTA_1000_MIAMI')">WTA 1000 Miami</button><div class="week-title">Semana 23 Marzo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_DUBROVNIK')">WTA 125 Dubrovnik</button></div>
+        <div class="main-content"><div id="WTA_125_ANTALYA_2" class="tabcontent" style="display: block;">
                 <div class="top-row">
                     <div class="header-controls">
                         <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
@@ -2322,39 +1272,39 @@
   <tbody>
     <tr>
       <td>1</td>
-      <td>Viktorija Golubic</td>
-      <td>SUI</td>
-      <td>75</td>
+      <td>Dalma Galfi</td>
+      <td>HUN</td>
+      <td>86</td>
     </tr>
-    <tr>
+    <tr class="latam-row">
       <td>2</td>
-      <td>Kimberly Birrell</td>
-      <td>AUS</td>
-      <td>80</td>
+      <td>Renata Zarazua</td>
+      <td>MEX</td>
+      <td>87</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>Dalma Galfi</td>
-      <td>HUN</td>
-      <td>87</td>
+      <td>Viktorija Golubic</td>
+      <td>SUI</td>
+      <td>88</td>
     </tr>
-    <tr class="latam-row">
+    <tr>
       <td>4</td>
-      <td>Renata Zarazua</td>
-      <td>MEX</td>
-      <td>89</td>
+      <td>Kamilla Rakhimova</td>
+      <td>UZB</td>
+      <td>91</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>Kamilla Rakhimova</td>
-      <td>UZB</td>
+      <td>Kaja Juvan</td>
+      <td>SLO</td>
       <td>92</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>Kaja Juvan</td>
-      <td>SLO</td>
-      <td>93</td>
+      <td>Kimberly Birrell</td>
+      <td>AUS</td>
+      <td>94</td>
     </tr>
   </tbody>
 </table></div></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
@@ -2537,85 +1487,85 @@
       <td>1</td>
       <td>Maria Timofeeva</td>
       <td>UZB</td>
-      <td>155</td>
+      <td>154</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>Teodora Kostovic</td>
-      <td>SRB</td>
-      <td>160</td>
+      <td>Guiomar Maristany Zuleta De Reales</td>
+      <td>ESP</td>
+      <td>165</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>Guiomar Maristany Zuleta De Reales</td>
-      <td>ESP</td>
-      <td>167</td>
+      <td>Teodora Kostovic</td>
+      <td>SRB</td>
+      <td>171</td>
     </tr>
     <tr>
       <td>4</td>
       <td>Carole Monnet</td>
       <td>FRA</td>
-      <td>179</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Elena Pridankina</td>
-      <td>RUS</td>
-      <td>183</td>
+      <td>177</td>
     </tr>
     <tr class="latam-row">
-      <td>6</td>
+      <td>5</td>
       <td>Julia Riera</td>
       <td>ARG</td>
       <td>187</td>
     </tr>
     <tr>
-      <td>7</td>
+      <td>6</td>
       <td>Anastasia Gasanova</td>
       <td>RUS</td>
+      <td>189</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Anhelina Kalinina</td>
+      <td>UKR</td>
       <td>191</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>Lisa Pigato</td>
-      <td>ITA</td>
-      <td>196</td>
+      <td>Elena Pridankina</td>
+      <td>RUS</td>
+      <td>192</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>Alice Rame</td>
-      <td>FRA</td>
-      <td>200</td>
+      <td>Lisa Pigato</td>
+      <td>ITA</td>
+      <td>193</td>
     </tr>
     <tr>
       <td>10</td>
-      <td>Anhelina Kalinina</td>
-      <td>UKR</td>
-      <td>202</td>
+      <td>Alice Rame</td>
+      <td>FRA</td>
+      <td>199</td>
     </tr>
     <tr>
       <td>11</td>
       <td>Silvia Ambrosio</td>
       <td>ITA</td>
-      <td>206</td>
+      <td>205</td>
     </tr>
     <tr>
       <td>12</td>
       <td>Miriam Bulgaru</td>
       <td>ROU</td>
-      <td>207</td>
+      <td>208</td>
     </tr>
     <tr class="latam-row">
       <td>13</td>
       <td>Laura Pigossi</td>
       <td>BRA</td>
-      <td>215</td>
+      <td>214</td>
     </tr>
     <tr>
       <td>14</td>
       <td>Chloe Paquet</td>
       <td>FRA</td>
-      <td>219</td>
+      <td>215</td>
     </tr>
   </tbody>
 </table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA ERJAVEC</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>LUCIA BRONZETTI</strong> added to Main Draw</td></tr></tbody></table></div></div>
@@ -2683,14 +1633,14 @@
     </tr>
     <tr>
       <td>7</td>
-      <td>Jasmine Paolini</td>
-      <td>ITA</td>
+      <td>Mirra Andreeva</td>
+      <td>RUS</td>
       <td>7</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>Mirra Andreeva</td>
-      <td>RUS</td>
+      <td>Jasmine Paolini</td>
+      <td>ITA</td>
       <td>8</td>
     </tr>
     <tr>
@@ -2707,20 +1657,20 @@
     </tr>
     <tr>
       <td>11</td>
-      <td>Ekaterina Alexandrova</td>
-      <td>RUS</td>
+      <td>Karolina Muchova</td>
+      <td>CZE</td>
       <td>11</td>
     </tr>
     <tr>
       <td>12</td>
-      <td>Belinda Bencic</td>
-      <td>SUI</td>
+      <td>Ekaterina Alexandrova</td>
+      <td>RUS</td>
       <td>12</td>
     </tr>
     <tr>
       <td>13</td>
-      <td>Karolina Muchova</td>
-      <td>CZE</td>
+      <td>Belinda Bencic</td>
+      <td>SUI</td>
       <td>13</td>
     </tr>
     <tr>
@@ -2731,8 +1681,8 @@
     </tr>
     <tr>
       <td>15</td>
-      <td>Madison Keys</td>
-      <td>USA</td>
+      <td>Clara Tauson</td>
+      <td>DEN</td>
       <td>15</td>
     </tr>
     <tr>
@@ -2743,25 +1693,25 @@
     </tr>
     <tr>
       <td>17</td>
-      <td>Clara Tauson</td>
-      <td>DEN</td>
+      <td>Madison Keys</td>
+      <td>USA</td>
       <td>17</td>
     </tr>
     <tr>
       <td>18</td>
-      <td>Iva Jovic</td>
-      <td>USA</td>
+      <td>Liudmila Samsonova</td>
+      <td>RUS</td>
       <td>18</td>
     </tr>
     <tr>
       <td>19</td>
-      <td>Liudmila Samsonova</td>
-      <td>RUS</td>
+      <td>Emma Navarro</td>
+      <td>USA</td>
       <td>19</td>
     </tr>
     <tr>
       <td>20</td>
-      <td>Emma Navarro</td>
+      <td>Iva Jovic</td>
       <td>USA</td>
       <td>20</td>
     </tr>
@@ -2808,134 +1758,134 @@
   <tbody>
     <tr>
       <td>26</td>
-      <td>Jelena Ostapenko</td>
-      <td>LAT</td>
+      <td>Marta Kostyuk</td>
+      <td>UKR</td>
       <td>26</td>
     </tr>
     <tr>
       <td>27</td>
-      <td>Leylah Fernandez</td>
-      <td>CAN</td>
+      <td>Jelena Ostapenko</td>
+      <td>LAT</td>
       <td>27</td>
     </tr>
     <tr>
       <td>28</td>
-      <td>Marta Kostyuk</td>
-      <td>UKR</td>
+      <td>Maya Joint</td>
+      <td>AUS</td>
       <td>28</td>
     </tr>
     <tr>
       <td>29</td>
-      <td>Maya Joint</td>
-      <td>AUS</td>
+      <td>Leylah Fernandez</td>
+      <td>CAN</td>
       <td>29</td>
     </tr>
     <tr>
       <td>30</td>
-      <td>Xinyu Wang</td>
-      <td>CHN</td>
+      <td>Sofia Kenin</td>
+      <td>USA</td>
       <td>30</td>
     </tr>
     <tr>
       <td>31</td>
-      <td>Alexandra Eala</td>
-      <td>PHI</td>
+      <td>Mccartney Kessler</td>
+      <td>USA</td>
       <td>31</td>
     </tr>
     <tr>
       <td>32</td>
-      <td>Maria Sakkari</td>
-      <td>GRE</td>
+      <td>Sorana Cirstea</td>
+      <td>ROU</td>
       <td>32</td>
     </tr>
     <tr>
       <td>33</td>
-      <td>Jaqueline  Cristian</td>
-      <td>ROU</td>
+      <td>Xinyu Wang</td>
+      <td>CHN</td>
       <td>33</td>
     </tr>
     <tr>
       <td>34</td>
-      <td>Marie Bouzkova</td>
-      <td>CZE</td>
+      <td>Maria Sakkari</td>
+      <td>GRE</td>
       <td>34</td>
     </tr>
     <tr>
       <td>35</td>
-      <td>Sorana Cirstea</td>
-      <td>ROU</td>
+      <td>Lois Boisson</td>
+      <td>FRA</td>
       <td>35</td>
     </tr>
     <tr>
       <td>36</td>
-      <td>Janice Tjen</td>
-      <td>INA</td>
+      <td>Ann Li</td>
+      <td>USA</td>
       <td>36</td>
     </tr>
     <tr>
       <td>37</td>
-      <td>Sara Bejlek</td>
+      <td>Marketa Vondrousova</td>
       <td>CZE</td>
       <td>37</td>
     </tr>
     <tr>
       <td>38</td>
-      <td>Lois Boisson</td>
-      <td>FRA</td>
+      <td>Marie Bouzkova</td>
+      <td>CZE</td>
       <td>38</td>
     </tr>
     <tr>
       <td>39</td>
-      <td>Ann Li</td>
-      <td>USA</td>
+      <td>Jaqueline  Cristian</td>
+      <td>ROU</td>
       <td>39</td>
     </tr>
     <tr>
       <td>40</td>
-      <td>Mccartney Kessler</td>
-      <td>USA</td>
+      <td>Elisabetta Cocciaretto</td>
+      <td>ITA</td>
       <td>40</td>
     </tr>
     <tr>
       <td>41</td>
-      <td>Elisabetta Cocciaretto</td>
-      <td>ITA</td>
+      <td>Sara Bejlek</td>
+      <td>CZE</td>
       <td>41</td>
     </tr>
     <tr>
       <td>42</td>
-      <td>Hailey Baptiste</td>
-      <td>USA</td>
+      <td>Katerina Siniakova</td>
+      <td>CZE</td>
       <td>42</td>
     </tr>
     <tr>
       <td>43</td>
-      <td>Katerina Siniakova</td>
+      <td>Tereza Valentova</td>
       <td>CZE</td>
       <td>43</td>
     </tr>
     <tr>
       <td>44</td>
-      <td>Sofia Kenin</td>
-      <td>USA</td>
+      <td>Dayana Yastremska</td>
+      <td>UKR</td>
       <td>44</td>
     </tr>
     <tr>
       <td>45</td>
-      <td>Marketa Vondrousova</td>
-      <td>CZE</td>
+      <td>Hailey Baptiste</td>
+      <td>USA</td>
       <td>45</td>
     </tr>
     <tr>
       <td>46</td>
-      <td>Tereza Valentova</td>
-      <td>CZE</td>
+      <td>Janice Tjen</td>
+      <td>INA</td>
       <td>46</td>
     </tr>
     <tr>
       <td>47</td>
-      <td>Magda Linette</td>
-      <td>POL</td>
+      <td>Alexandra Eala</td>
+      <td>PHI</td>
       <td>47</td>
     </tr>
     <tr>
@@ -2946,14 +1896,14 @@
     </tr>
     <tr>
       <td>49</td>
-      <td>Dayana Yastremska</td>
-      <td>UKR</td>
+      <td>Veronika Kudermetova</td>
+      <td>RUS</td>
       <td>49</td>
     </tr>
     <tr>
       <td>50</td>
-      <td>Barbora Krejcikova</td>
-      <td>CZE</td>
+      <td>Magda Linette</td>
+      <td>POL</td>
       <td>50</td>
     </tr>
   </tbody>
@@ -2969,74 +1919,74 @@
   <tbody>
     <tr>
       <td>51</td>
-      <td>Antonia Ruzic</td>
-      <td>CRO</td>
+      <td>Sonay Kartal</td>
+      <td>GBR</td>
       <td>51</td>
     </tr>
     <tr>
       <td>52</td>
-      <td>Sonay Kartal</td>
-      <td>GBR</td>
+      <td>Laura Siegemund</td>
+      <td>GER</td>
       <td>52</td>
     </tr>
     <tr>
       <td>53</td>
-      <td>Laura Siegemund</td>
-      <td>GER</td>
+      <td>Barbora Krejcikova</td>
+      <td>CZE</td>
       <td>53</td>
     </tr>
     <tr>
       <td>54</td>
-      <td>Veronika Kudermetova</td>
-      <td>RUS</td>
+      <td>Tatjana Maria</td>
+      <td>GER</td>
       <td>54</td>
     </tr>
     <tr>
       <td>55</td>
-      <td>Tatjana Maria</td>
-      <td>GER</td>
-      <td>55</td>
-    </tr>
-    <tr>
-      <td>56</td>
-      <td>Varvara Gracheva</td>
-      <td>FRA</td>
-      <td>56</td>
-    </tr>
-    <tr>
-      <td>57</td>
       <td>Magdalena Frech</td>
       <td>POL</td>
+      <td>55</td>
+    </tr>
+    <tr class="latam-row">
+      <td>56</td>
+      <td>Emiliana Arango</td>
+      <td>COL</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td>Elsa Jacquemot</td>
+      <td>FRA</td>
       <td>57</td>
     </tr>
     <tr>
       <td>58</td>
-      <td>Daria Kasatkina</td>
-      <td>AUS</td>
+      <td>Peyton Stearns</td>
+      <td>USA</td>
       <td>58</td>
     </tr>
-    <tr class="latam-row">
+    <tr>
       <td>59</td>
-      <td>Emiliana Arango</td>
-      <td>COL</td>
+      <td>Eva Lys</td>
+      <td>GER</td>
       <td>59</td>
     </tr>
     <tr>
       <td>60</td>
-      <td>Elsa Jacquemot</td>
+      <td>Varvara Gracheva</td>
       <td>FRA</td>
       <td>60</td>
     </tr>
-    <tr class="latam-row">
+    <tr>
       <td>61</td>
-      <td>Camila Osorio</td>
-      <td>COL</td>
+      <td>Daria Kasatkina</td>
+      <td>AUS</td>
       <td>61</td>
     </tr>
-    <tr>
+    <tr class="latam-row">
       <td>62</td>
-      <td>Peyton Stearns</td>
-      <td>USA</td>
+      <td>Camila Osorio</td>
+      <td>COL</td>
       <td>62</td>
     </tr>
     <tr>
@@ -3065,60 +2015,77 @@
     </tr>
     <tr>
       <td>67</td>
-      <td>Caty Mcnally</td>
-      <td>USA</td>
+      <td>Antonia Ruzic</td>
+      <td>CRO</td>
       <td>67</td>
     </tr>
     <tr>
       <td>68</td>
-      <td>Eva Lys</td>
-      <td>GER</td>
+      <td>Caty Mcnally</td>
+      <td>USA</td>
       <td>68</td>
     </tr>
     <tr>
       <td>69</td>
       <td>Petra Marcinko</td>
       <td>CRO</td>
-      <td>70</td>
+      <td>69</td>
     </tr>
     <tr>
       <td>70</td>
-      <td>Francesca Jones</td>
-      <td>GBR</td>
-      <td>73</td>
+      <td>Paula Badosa</td>
+      <td>ESP</td>
+      <td>70</td>
     </tr>
     <tr>
       <td>71</td>
-      <td>Ajla Tomljanovic</td>
-      <td>AUS</td>
-      <td>74</td>
+      <td>Francesca Jones</td>
+      <td>GBR</td>
+      <td>72</td>
     </tr>
     <tr>
       <td>72</td>
-      <td>Oksana Selekhmeteva</td>
-      <td>RUS</td>
-      <td>76</td>
+      <td>Ajla Tomljanovic</td>
+      <td>AUS</td>
+      <td>73</td>
     </tr>
     <tr>
       <td>73</td>
-      <td>Paula Badosa</td>
-      <td>ESP</td>
-      <td>85</td>
+      <td>Oksana Selekhmeteva</td>
+      <td>RUS</td>
+      <td>74</td>
     </tr>
     <tr>
       <td>74</td>
       <td>Karolina Pliskova</td>
       <td>CZE</td>
-      <td>265</td>
+      <td>267</td>
     </tr>
     <tr>
       <td>75</td>
       <td>Yafan Wang</td>
       <td>CHN</td>
-      <td>356</td>
+      <td>355</td>
     </tr>
   </tbody>
 </table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 27, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_DUBROVNIK" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_DUBROVNIK')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">WTA 125  - Dubrovnik Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_DUBROVNIK')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on February 27, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on March 06, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div></div>
         <script>
