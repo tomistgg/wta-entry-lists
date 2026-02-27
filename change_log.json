@@ -1531,12 +1531,46 @@
     ],
     "WTA_125_ANTALYA_3": [
         {
+            "date": "2026-02-27",
+            "change": "<strong>SILVIA AMBROSIO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>MIRIAM BULGARU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>CAROLINE WERNER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>MAI HONTAMA</strong> added to Qualifying"
+        },
+        {
             "date": "2026-02-15",
             "change": "<strong>VERONIKA ERJAVEC</strong> added to Main Draw"
         },
         {
             "date": "2026-02-15",
             "change": "<strong>LUCIA BRONZETTI</strong> added to Main Draw"
+        }
+    ],
+    "WTA_1000_MIAMI": [
+        {
+            "date": "2026-02-27",
+            "change": "<strong>LOIS BOISSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>YAFAN WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> added to Main Draw"
         }
     ]
 }
