@@ -1572,5 +1572,23 @@
             "date": "2026-02-27",
             "change": "<strong>ANASTASIA POTAPOVA</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_AUSTIN_1": [
+        {
+            "date": "2026-02-27",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        }
     ]
 }
