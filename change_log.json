@@ -1058,5 +1058,23 @@
             "date": "2026-02-15",
             "change": "<strong>LUCIA BRONZETTI</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_AUSTIN_1": [
+        {
+            "date": "2026-03-06",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-06",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-06",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-06",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        }
     ]
 }
