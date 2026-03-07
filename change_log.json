@@ -1727,6 +1727,54 @@
     ],
     "WTA_125_ANTALYA_3": [
         {
+            "date": "2026-03-07",
+            "change": "<strong>LAURA PIGOSSI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>MARIA TIMOFEEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>ANHELINA KALININA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>ALICE RAME</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>GUIOMAR MARISTANY ZULETA DE REALES</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>EKATERINA REYNGOLD</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>NURIA PARRIZAS DIAZ</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>MIA RISTIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>SELINA ATAY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>KATARINA ZAVATSKA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>IREM KURT</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>LIA KARATANCHEVA</strong> added to Qualifying"
+        },
+        {
             "date": "2026-02-27",
             "change": "<strong>SILVIA AMBROSIO</strong> removed from Qualifying"
         },
@@ -1753,42 +1801,6 @@
     ],
     "WTA_125_AUSTIN_1": [
         {
-            "date": "2026-03-06",
-            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
-        },
-        {
-            "date": "2026-03-06",
-            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
-        },
-        {
-            "date": "2026-03-06",
-            "change": "<strong>VIKTORIJA GOLUBIC</strong> added to Main Draw"
-        },
-        {
-            "date": "2026-03-06",
-            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
-        }
-    ],
-    "WTA_1000_MIAMI": [
-        {
-            "date": "2026-02-27",
-            "change": "<strong>LOIS BOISSON</strong> removed from Main Draw"
-        },
-        {
-            "date": "2026-02-27",
-            "change": "<strong>YAFAN WANG</strong> removed from Main Draw"
-        },
-        {
-            "date": "2026-02-27",
-            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
-        },
-        {
-            "date": "2026-02-27",
-            "change": "<strong>ANASTASIA POTAPOVA</strong> added to Main Draw"
-        }
-    ],
-    "WTA_125_AUSTIN_1": [
-        {
             "date": "2026-02-28",
             "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
         },
@@ -1811,6 +1823,24 @@
         {
             "date": "2026-02-27",
             "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        }
+    ],
+    "WTA_1000_MIAMI": [
+        {
+            "date": "2026-02-27",
+            "change": "<strong>LOIS BOISSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>YAFAN WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> added to Main Draw"
         }
     ]
 }
