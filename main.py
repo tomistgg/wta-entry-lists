@@ -261,7 +261,7 @@ def get_rankings_from_api(date_str):
             page += 1
             time.sleep(0.05)
         except: break
-    return pd.DataFrame([{'ranking': p.get('ranking'), 'player': p.get('player', {}).get('fullName'), 'country': p.get('player', {}).get('countryCode')} for p in all_players])
+    return pd.DataFrame([{'ranking': p.get('ranking'), 'player': (p.get('player') or {}).get('fullName'), 'country': (p.get('player') or {}).get('countryCode')} for p in all_players if p])
 
 def fetch_player_info(player_id):
     url = f"https://api.wtatennis.com/tennis/players/{player_id}/matches"

@@ -2,6 +2,70 @@
     "WTA_1000_DUBAI": [
         {
             "date": "2026-02-15",
+            "change": "<strong>JULIA GRABHER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>STORM HUNTER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANNA BONDAR</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MOYUKA UCHIJIMA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MAYA JOINT</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MAGDA LINETTE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>KATERINA SINIAKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>LULU SUN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DIANA SHNAIDER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ALEXANDRA EALA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANNA KALINSKAYA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>TATJANA MARIA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MOYUKA UCHIJIMA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DAYANA YASTREMSKA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
             "change": "<strong>NAOMI OSAKA</strong> removed from Main Draw"
         },
         {
@@ -166,6 +230,18 @@
         }
     ],
     "WTA_125_OEIRAS_2": [
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MADALENA MATIAS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ELINA AVANESYAN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DARIA SNIGUR</strong> added to Main Draw"
+        },
         {
             "date": "2026-02-15",
             "change": "<strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Qualifying"
@@ -378,6 +454,10 @@
     "WTA_125_MIDLAND": [
         {
             "date": "2026-02-15",
+            "change": "<strong>SAKURA HOSOGI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
             "change": "<strong>VIKTORIA MORVAYOVA</strong> removed from Qualifying"
         },
         {
@@ -555,6 +635,142 @@
     ],
     "WTA_125_ANTALYA_1": [
         {
+            "date": "2026-02-22",
+            "change": "<strong>ELENA PRIDANKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>LAURA PIGOSSI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>ANASTASIA GASANOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>IPEK OZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>ADELINA LACHINOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>SELENA JANICIJEVIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>ADA KUMRU</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>ILAY YORUK</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>ANASTASIA GASANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>SARA SAITO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>LAURA PIGOSSI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>MAI HONTAMA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>SADA NAHIMANA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>SELENA JANICIJEVIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>BARBORA PALICOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>NURIA PARRIZAS DIAZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>JAZMIN ORTENZI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>SOFIA SHAPATAVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>DARYA ASTAKHOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>DENISLAVA GLUSHKOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>DEFNE CIRPANLI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>IKUMI YAMAZAKI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>KATARINA ZAVATSKA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>POLONA HERCOG</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>ALEVTINA IBRAGIMOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>ANASTASIA ZOLOTAREVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>MARTINA COLMEGNA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANASTASIA GASANOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>CAROLINA ALVES</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>TAMARA ZIDANSEK</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>EKATERINE GORGODZE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MAYAR SHERIF</strong> added to Main Draw"
+        },
+        {
             "date": "2026-02-15",
             "change": "<strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Main Draw"
         },
@@ -589,6 +805,170 @@
     ],
     "WTA_250_AUSTIN": [
         {
+            "date": "2026-02-22",
+            "change": "<strong>ELIZABETH MANDLIK</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>CAROLINE DOLEHIDE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>REBEKA MASAROVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>WHITNEY OSUIGWE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>CLAIRE LIU</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>MCCARTNEY KESSLER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>VENUS WILLIAMS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>TAYLOR TOWNSEND</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>MARY STOIANA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>BIANCA ANDREESCU</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>KAJA JUVAN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>BIANCA ANDREESCU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ALINA CHARAEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>TAYLOR TOWNSEND</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ELVINA KALIEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MADDISON INGLIS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>KAYLA DAY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>GABRIELA LEE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ENA SHIBAHARA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ANNA ROGERS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>NAO HIBINO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>CARMEN ANDREEA  HEREA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>EMILY APPLETON</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>GINA FEISTEL</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>LOUISA CHIRICO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>JENNIFER BRADY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MARIIA TKACHEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>XIAODI YOU</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>CLAIRE LIU</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>YUE YUAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MADISON BRENGLE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANNA BLINKOVA</strong> added to Main Draw"
+        },
+        {
             "date": "2026-02-13",
             "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
         },
@@ -614,6 +994,234 @@
         }
     ],
     "WTA_500_M\u00c9RIDA": [
+        {
+            "date": "2026-02-22",
+            "change": "<strong>MARIA TIMOFEEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>CADENCE BRACE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>SHUAI ZHANG</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>VARVARA LEPCHENKO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>VICTORIA JIMENEZ KASINTSEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>HEATHER WATSON</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>PAULA BADOSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>RENATA ZARAZUA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>SLOANE STEPHENS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>YULIA PUTINTSEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>ZEYNEP SONMEZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>MARINA STAKUSIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>CAMILA OSORIO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>DAYANA YASTREMSKA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-22",
+            "change": "<strong>JASMINE PAOLINI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>HANYU GUO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>VALERIYA STRAKHOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MARINA STAKUSIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>SOFIA COSTOULAS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>KATIE BOULTER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>VICTORIA RODRIGUEZ</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>SACHIA VICKERY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>KATARZYNA PITER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MARTINA CAPURRO TABORDA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>KATARINA JOKIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>KATRINA SCOTT</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MARTINA TREVISAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MARIAN GOMEZ PEZUELA CANO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>LIA KARATANCHEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>TIPHANIE LEMAITRE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>MIRIANA TONA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>JANICE TJEN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>CADENCE BRACE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>HANYU GUO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>KAYLA CROSS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>ANA SOFIA S\u00c1NCHEZ</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>MARIA SAKKARI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>JANICE TJEN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-17",
+            "change": "<strong>DONNA VEKIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DONNA VEKIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DIANE PARRY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>CAMILA OSORIO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>PRISCILLA HON</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>RENATA ZARAZUA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ELLA SEIDEL</strong> added to Qualifying"
+        },
         {
             "date": "2026-02-15",
             "change": "<strong>MAGDALENA FRECH</strong> removed from Qualifying"
@@ -787,6 +1395,3032 @@
         {
             "date": "2026-02-15",
             "change": "<strong>CHLOE PAQUET</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_ANTALYA_2": [
+        {
+            "date": "2026-03-01",
+            "change": "<strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>IPEK OZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>ADELINA LACHINOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>JULIA RIERA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>CAROLE MONNET</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>BERFU CENGIZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>ADA KUMRU</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>TARA WUERTH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>JULIA GRABHER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>ANDREA LAZARO GARCIA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>CAROLINA ALVES</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>JULIA RIERA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>CAROLE MONNET</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>MIRIAM BULGARU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>KATARINA ZAVATSKA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>ANASTASIIA SOBOLIEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>MIA RISTIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>BERRAK KOCAK</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>AMARISSA TOTH</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>ANASTASIA ZOLOTAREVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>ALEVTINA IBRAGIMOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>ANI AMIRAGHYAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>LIA KARATANCHEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ANASTASIA GASANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>JAZMIN ORTENZI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>SADA NAHIMANA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>CAROLINA ALVES</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>CAROLINE WERNER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>TARA WUERTH</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-20",
+            "change": "<strong>ANASTASIA GASANOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DOMINIKA SALKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ALINA CHARAEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MAYAR SHERIF</strong> added to Main Draw"
+        }
+    ],
+    "WTA_1000_INDIAN_WELLS": [
+        {
+            "date": "2026-03-01",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>KATIE VOLYNETS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>OLGA DANILOVIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>LILLI TAGGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>KAYLA DAY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>MARIA TIMOFEEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>DARJA VIDMANOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>HIMENO SAKATSUME</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>JULIETA PAREJA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>MARIA LOURDES CARLE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>ELIZABETH MANDLIK</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>ELVINA KALIEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>LUCREZIA STEFANINI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>VIKTORIYA TOMOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>EMERSON JONES</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>WHITNEY OSUIGWE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>MARY STOIANA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>VARVARA LEPCHENKO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>AKASHA URHOBO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-01",
+            "change": "<strong>MARINA STAKUSIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>ZEYNEP SONMEZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>PRISCILLA HON</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>MARTINA TREVISAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>LOIS BOISSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>ZEYNEP SONMEZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-21",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>TALIA GIBSON</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>SONAY KARTAL</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ELINA SVITOLINA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>CATY MCNALLY</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANNA BONDAR</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ANTONIA RUZIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>EKATERINA ALEXANDROVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>MARTA KOSTYUK</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>ELISE MERTENS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>XINYU WANG</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>DAYANA YASTREMSKA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_ANTALYA_3": [
+        {
+            "date": "2026-03-08",
+            "change": "<strong>TEODORA KOSTOVIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>DALILA JAKUPOVIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KAITLIN QUEVEDO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MAYAR SHERIF</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ANHELINA KALININA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>BERFU CENGIZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>TEODORA KOSTOVIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>GUIOMAR MARISTANY ZULETA DE REALES</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MARIA SARA POPA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>IPEK OZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ADA KUMRU</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>LAURA PIGOSSI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>MARIA TIMOFEEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>ANHELINA KALININA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>ALICE RAME</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>GUIOMAR MARISTANY ZULETA DE REALES</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>EKATERINA REYNGOLD</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>NURIA PARRIZAS DIAZ</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>MIA RISTIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>SELINA ATAY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>KATARINA ZAVATSKA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>IREM KURT</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-07",
+            "change": "<strong>LIA KARATANCHEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>SILVIA AMBROSIO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>MIRIAM BULGARU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>CAROLINE WERNER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>MAI HONTAMA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>VERONIKA ERJAVEC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-15",
+            "change": "<strong>LUCIA BRONZETTI</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_AUSTIN_1": [
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MALAIKA RAPOLU</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>LANLANA TARARUDEE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>SLOANE STEPHENS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>EMERSON JONES</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>LEOLIA JEANJEAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>LUCREZIA STEFANINI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>HIMENO SAKATSUME</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>AJLA TOMLJANOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KATIE BOULTER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>VARVARA GRACHEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>TATJANA MARIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>PEYTON STEARNS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MADDISON INGLIS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KAJA JUVAN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>SINJA KRAUS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>BIANCA ANDREESCU</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KATIE VOLYNETS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>DALMA GALFI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>KIMBERLY BIRRELL</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>ELLA SEIDEL</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MCCARTNEY KESSLER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>DONNA VEKIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>EMMA NAVARRO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>RENATA ZARAZUA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>LULU SUN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>YUE YUAN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>SUZAN LAMENS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>PAULA BADOSA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-02-28",
+            "change": "<strong>ELLA SEIDEL</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        }
+    ],
+    "WTA_1000_MIAMI": [
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADDISON INGLIS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ZEYNEP SONMEZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YUE YUAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SINJA KRAUS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANE PARRY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LILLI TAGGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BLINKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TALIA GIBSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAROLINE DOLEHIDE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TAYLOR TOWNSEND</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE VOLYNETS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA-GABRIELA RUSE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALIAKSANDRA SASNOVICH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON BRENGLE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTINA TREVISAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SIMONA WALTERT</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ASHLYN KRUEGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LULU SUN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEOLIA JEANJEAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBEKA MASAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>STORM HUNTER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SUZAN LAMENS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA SEMENISTAJA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>COCO GAUFF</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JASMINE PAOLINI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MIRRA ANDREEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA PEGULA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA NOSKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTA KOSTYUK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA RYBAKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARKETA VONDROUSOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AMANDA ANISIMOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA NAVARRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TATJANA MARIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LAURA SIEGEMUND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BELINDA BENCIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NAOMI OSAKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IVA JOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON KEYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATERINA SINIAKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA MUCHOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VARVARA GRACHEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IGA SWIATEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA MBOKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>XINYU WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISE MERTENS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AJLA TOMLJANOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE BOULTER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TEREZA VALENTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELINA SVITOLINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDALENA FRECH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MCCARTNEY KESSLER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PAULA BADOSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JELENA OSTAPENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOFIA KENIN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEYLAH FERNANDEZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ARYNA SABALENKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIA SAKKARI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELSA JACQUEMOT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CLARA TAUSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DAYANA YASTREMSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SORANA CIRSTEA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SONAY KARTAL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIE BOUZKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CATY MCNALLY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALEXANDRA EALA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PEYTON STEARNS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBEKA MASAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADDISON INGLIS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAROLINE DOLEHIDE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANE PARRY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>STORM HUNTER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BLINKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ZEYNEP SONMEZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ASHLYN KRUEGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE VOLYNETS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YUE YUAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON BRENGLE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TALIA GIBSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTINA TREVISAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TAYLOR TOWNSEND</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALIAKSANDRA SASNOVICH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SINJA KRAUS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SIMONA WALTERT</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA-GABRIELA RUSE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LILLI TAGGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SUZAN LAMENS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEOLIA JEANJEAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA SEMENISTAJA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LULU SUN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TEREZA VALENTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIE BOUZKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JELENA OSTAPENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDALENA FRECH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CLARA TAUSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LAURA SIEGEMUND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA NOSKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE BOULTER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELSA JACQUEMOT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MCCARTNEY KESSLER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VARVARA GRACHEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISE MERTENS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BELINDA BENCIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA NAVARRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AMANDA ANISIMOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>XINYU WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TATJANA MARIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MIRRA ANDREEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JASMINE PAOLINI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIA SAKKARI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IVA JOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELINA SVITOLINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEYLAH FERNANDEZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARKETA VONDROUSOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SONAY KARTAL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATERINA SINIAKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AJLA TOMLJANOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ARYNA SABALENKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA MUCHOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CATY MCNALLY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA RYBAKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>COCO GAUFF</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON KEYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NAOMI OSAKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALEXANDRA EALA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOFIA KENIN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA MBOKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PAULA BADOSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DAYANA YASTREMSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA PEGULA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SORANA CIRSTEA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PEYTON STEARNS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTA KOSTYUK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IGA SWIATEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE VOLYNETS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TAYLOR TOWNSEND</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YUE YUAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LULU SUN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA-GABRIELA RUSE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LILLI TAGGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANE PARRY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TALIA GIBSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBEKA MASAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA SEMENISTAJA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTINA TREVISAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SUZAN LAMENS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADDISON INGLIS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SIMONA WALTERT</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ASHLYN KRUEGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAROLINE DOLEHIDE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BLINKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SINJA KRAUS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALIAKSANDRA SASNOVICH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEOLIA JEANJEAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ZEYNEP SONMEZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON BRENGLE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>STORM HUNTER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TEREZA VALENTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ARYNA SABALENKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIA SAKKARI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TATJANA MARIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARKETA VONDROUSOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MCCARTNEY KESSLER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NAOMI OSAKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOFIA KENIN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA NAVARRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISE MERTENS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LAURA SIEGEMUND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATERINA SINIAKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CLARA TAUSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MIRRA ANDREEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DAYANA YASTREMSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PAULA BADOSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PEYTON STEARNS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON KEYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELINA SVITOLINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEYLAH FERNANDEZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JASMINE PAOLINI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA NOSKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTA KOSTYUK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JELENA OSTAPENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VARVARA GRACHEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CATY MCNALLY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIE BOUZKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AJLA TOMLJANOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IVA JOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IGA SWIATEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SORANA CIRSTEA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>XINYU WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELSA JACQUEMOT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDALENA FRECH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE BOULTER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA RYBAKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BELINDA BENCIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AMANDA ANISIMOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA PEGULA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA MBOKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA MUCHOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>COCO GAUFF</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALEXANDRA EALA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SONAY KARTAL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SINJA KRAUS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SUZAN LAMENS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTINA TREVISAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA SEMENISTAJA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON BRENGLE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE VOLYNETS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LULU SUN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEOLIA JEANJEAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TAYLOR TOWNSEND</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANE PARRY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BLINKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBEKA MASAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LILLI TAGGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAROLINE DOLEHIDE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALIAKSANDRA SASNOVICH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADDISON INGLIS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA-GABRIELA RUSE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SIMONA WALTERT</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YUE YUAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ASHLYN KRUEGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ZEYNEP SONMEZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>STORM HUNTER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TALIA GIBSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARKETA VONDROUSOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NAOMI OSAKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISE MERTENS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>COCO GAUFF</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON KEYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CLARA TAUSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIE BOUZKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BELINDA BENCIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CATY MCNALLY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DAYANA YASTREMSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA MBOKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALEXANDRA EALA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA NOSKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATERINA SINIAKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PEYTON STEARNS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LAURA SIEGEMUND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JASMINE PAOLINI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VARVARA GRACHEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELINA SVITOLINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA MUCHOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AJLA TOMLJANOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE BOULTER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEYLAH FERNANDEZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SONAY KARTAL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELSA JACQUEMOT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA RYBAKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IGA SWIATEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA PEGULA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MCCARTNEY KESSLER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIA SAKKARI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TEREZA VALENTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SORANA CIRSTEA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PAULA BADOSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDALENA FRECH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>XINYU WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ARYNA SABALENKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IVA JOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TATJANA MARIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JELENA OSTAPENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTA KOSTYUK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MIRRA ANDREEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA NAVARRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOFIA KENIN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AMANDA ANISIMOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TAYLOR TOWNSEND</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SUZAN LAMENS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TALIA GIBSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA-GABRIELA RUSE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBECCA SRAMKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE VOLYNETS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAROLINE DOLEHIDE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON BRENGLE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BLINKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANE PARRY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KIMBERLY BIRRELL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARJA SEMENISTAJA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DONNA VEKIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LILLI TAGGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTINA TREVISAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LULU SUN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YUE YUAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALIAKSANDRA SASNOVICH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEOLIA JEANJEAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADDISON INGLIS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ZEYNEP SONMEZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SIMONA WALTERT</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SINJA KRAUS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAJA JUVAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>STORM HUNTER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ASHLYN KRUEGER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>RENATA ZARAZUA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>REBEKA MASAROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JASMINE PAOLINI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>COCO GAUFF</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDALENA FRECH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA PEGULA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIA SAKKARI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOFIA KENIN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>XINYU WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELENA RYBAKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ARYNA SABALENKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA NAVARRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA MUCHOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AMANDA ANISIMOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MCCARTNEY KESSLER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARIE BOUZKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TATJANA MARIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PEYTON STEARNS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>TEREZA VALENTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CATY MCNALLY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>AJLA TOMLJANOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CLARA TAUSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LEYLAH FERNANDEZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELISE MERTENS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LAURA SIEGEMUND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PAULA BADOSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>NAOMI OSAKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATERINA SINIAKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARTA KOSTYUK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELINA SVITOLINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DAYANA YASTREMSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KATIE BOULTER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VICTORIA MBOKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BELINDA BENCIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ELSA JACQUEMOT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IGA SWIATEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CAMILA OSORIO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MARKETA VONDROUSOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JELENA OSTAPENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ALEXANDRA EALA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MIRRA ANDREEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>IVA JOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>VARVARA GRACHEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SORANA CIRSTEA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>MADISON KEYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>LINDA NOSKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>SONAY KARTAL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-10",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>MANANCHAYA SAWANGKAEW</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-08",
+            "change": "<strong>YUE YUAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>LOIS BOISSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>YAFAN WANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-02-27",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> added to Main Draw"
         }
     ]
 }
