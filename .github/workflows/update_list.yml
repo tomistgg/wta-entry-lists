@@ -28,32 +28,6 @@ jobs:
       - name: Run Scraper
         run: python main.py
 
-      - name: Check if email body exists
-        id: check_email
-        run: |
-          if [ -f email_body.txt ]; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "body<<DELIMITER_EOF" >> "$GITHUB_OUTPUT"
-            cat email_body.txt >> "$GITHUB_OUTPUT"
-            echo "" >> "$GITHUB_OUTPUT"
-            echo "DELIMITER_EOF" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Send mail
-        if: steps.check_email.outputs.exists == 'true'
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: WTA Entry List Changes Detected
-          to: ${{ secrets.RECEIVE_ALERT }}
-          from: WTA Tracker
-          body: ${{ steps.check_email.outputs.body }}
-
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

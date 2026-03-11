@@ -184,12 +184,9 @@ def track_changes(tid, draw_type, current_names, t_name, skip_notifications=Fals
     curr_names_set = set(current_names)
     today = datetime.now().strftime("%Y-%m-%d")
     new_entries_for_web = []
-    notification_for_email = None
 
     if not skip_notifications:
-        if not prev_names and curr_names_set:
-            notification_for_email = f"{t_name} {draw_type} list is now available."
-        elif prev_names:
+        if prev_names:
             for name in prev_names:
                 if name not in curr_names_set:
                     msg = f"<strong>{name.upper()}</strong> removed from {draw_type}"
@@ -208,12 +205,7 @@ def track_changes(tid, draw_type, current_names, t_name, skip_notifications=Fals
         state[key] = list(current_names)
         save_json(STATE_FILE, state)
 
-    email_updates = []
-    if notification_for_email: email_updates.append(notification_for_email)
-    for entry in new_entries_for_web:
-        clean_msg = re.sub('<[^<]+?>', '', entry['change'])
-        email_updates.append(clean_msg)
-    return email_updates
+    return []
 
 def process_players(players, rankings_df):
     if not players: return pd.DataFrame(columns=['Pos.', 'Player', 'Country', 'Rank'])
@@ -410,19 +402,16 @@ def main():
                 for tid, content in found: old_content[tid] = content.strip()
             except: pass
 
-    sidebar_html, content_html, is_first, all_alerts = "", "", True, []
-    
+    sidebar_html, content_html, is_first = "", "", True
+
     for week, tourneys in TOURNAMENT_GROUPS.items():
         sidebar_html += f'<div class="week-title">{week}</div>'
         for url, info in tourneys.items():
             # Extract the actual string name from the info dictionary
-            label = info["name"] 
-            
+            label = info["name"]
+
             tid = label.replace(" ", "_").replace(".", "").replace("-", "_").replace("'", "").upper()
             data = scrape_tournament(url, label, tid)
-            
-            if data and data.get("notifications"):
-                all_alerts.append(f"Tournament: {label}\n" + "\n".join(f"- {n}" for n in data["notifications"]))
             
             if data:
                 body = f'''
@@ -582,10 +571,4 @@ def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(full_site_html)
     
-    if all_alerts:
-        with open("email_body.txt", "w", encoding="utf-8") as f:
-            f.write("The following changes were detected:\n\n" + "\n\n".join(all_alerts))
-    elif os.path.exists("email_body.txt"):
-        os.remove("email_body.txt")
-
 if __name__ == "__main__": main()
