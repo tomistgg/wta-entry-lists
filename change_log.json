@@ -5830,6 +5830,46 @@
     "WTA_125_DUBROVNIK": [
         {
             "date": "2026-03-13",
+            "change": "<strong>LEYRE ROMERO GORMAZ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>POLINA KUDERMETOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>JIL TEICHMANN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>SADA NAHIMANA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>CHLOE PAQUET</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>FIONA FERRO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>ELENA-GABRIELA RUSE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>PANNA UDVARDY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>POLINA KUDERMETOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>LEYRE ROMERO GORMAZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-03-13",
             "change": "<strong>JIL TEICHMANN</strong> removed from Qualifying"
         },
         {
@@ -5979,6 +6019,16 @@
         {
             "date": "2026-03-13",
             "change": "<strong>ANNA BONDAR</strong> removed from Main Draw"
+        }
+    ],
+    "WTA_500_CHARLESTON": [
+        {
+            "date": "2026-03-13",
+            "change": "<strong>DARIA KASATKINA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-13",
+            "change": "<strong>DALMA GALFI</strong> added to Main Draw"
         }
     ]
 }
