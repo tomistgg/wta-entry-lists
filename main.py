@@ -8,6 +8,53 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import unicodedata
 
+_RANKINGS_CACHE = {}
+
+
+def _current_monday_str():
+    today = datetime.now()
+    return (today - timedelta(days=today.weekday())).strftime("%Y-%m-%d")
+
+
+def _extract_wta_tournament_id_from_url(url):
+    m = re.search(r'/tournaments/(\d+)/', str(url or ''))
+    return m.group(1) if m else None
+
+
+def _pick_tournament_sports_event_ldjson(scripts, tournament_id=None):
+    """Pick the JSON-LD SportsEvent that represents the tournament (not the season)."""
+    events = []
+    for script in scripts or []:
+        try:
+            data = json.loads(script.string)
+        except Exception:
+            continue
+        if not isinstance(data, dict):
+            continue
+        if data.get('@type') != 'SportsEvent':
+            continue
+        events.append(data)
+
+    if tournament_id:
+        # Prefer the tournament's canonical page JSON-LD: ".../tournaments/<id>/.../<year>"
+        for ev in events:
+            ev_id = str(ev.get('@id') or '')
+            if f"/tournaments/{tournament_id}/" in ev_id and "player-list" not in ev_id:
+                return ev
+
+    # Fallback: prefer an event that looks like a tournament, not a season.
+    for ev in events:
+        desc = str(ev.get('description') or '')
+        if 'Tournament' in desc:
+            return ev
+    for ev in events:
+        start = str(ev.get('startDate') or '')[:10]
+        end = str(ev.get('endDate') or '')[:10]
+        if start and end and not (start.endswith('-01-01') and end.endswith('-12-31')):
+            return ev
+
+    return events[0] if events else None
+
 def get_next_monday():
     today = datetime.now()
     days_until_monday = (7 - today.weekday()) % 7
@@ -263,6 +310,13 @@ def get_rankings_from_api(date_str):
         except: break
     return pd.DataFrame([{'ranking': p.get('ranking'), 'player': (p.get('player') or {}).get('fullName'), 'country': (p.get('player') or {}).get('countryCode')} for p in all_players if p])
 
+
+def get_rankings_cached(date_str):
+    """Cached wrapper around `get_rankings_from_api` (reduces duplicate API calls)."""
+    if date_str not in _RANKINGS_CACHE:
+        _RANKINGS_CACHE[date_str] = get_rankings_from_api(date_str)
+    return _RANKINGS_CACHE[date_str]
+
 def fetch_player_info(player_id):
     url = f"https://api.wtatennis.com/tennis/players/{player_id}/matches"
     params = {"page": 0, "pageSize": 1, "sort": "desc"}
@@ -293,22 +347,24 @@ def scrape_tournament(url, tab_label, tid):
     
     full_name = tab_label
     scripts = soup.find_all('script', type='application/ld+json')
-    start_date_str = "2026-02-16"
-    for script in scripts:
-        try:
-            data = json.loads(script.string)
-            if data.get('@type') == 'SportsEvent':
-                full_name = re.sub(r'\bTournament\b', '', data.get('description', tab_label), flags=re.IGNORECASE).strip()
-                start_date_str = data.get('startDate')[:10]
-                
-                edition_match = re.search(r'(\d+)$', tab_label)
-                if edition_match:
-                    num = edition_match.group(1)
-                    pattern = rf'\b{num}\b'
-                    if not re.search(pattern, full_name):
-                        full_name = f"{full_name} {num}"
-                break
-        except: continue
+    tournament_id = _extract_wta_tournament_id_from_url(url)
+    event = _pick_tournament_sports_event_ldjson(scripts, tournament_id=tournament_id)
+    start_date_str = ""
+    if event:
+        full_name = (event.get("name") or "").strip() or full_name
+        start_date_str = str(event.get("startDate") or "")[:10]
+        if not start_date_str:
+            start_date_str = str(event.get("endDate") or "")[:10]
+
+    edition_match = re.search(r'(\d+)$', tab_label)
+    if edition_match:
+        num = edition_match.group(1)
+        pattern = rf'\b{num}\b'
+        if not re.search(pattern, full_name):
+            full_name = f"{full_name} {num}"
+
+    if not start_date_str:
+        start_date_str = datetime.now().strftime("%Y-%m-%d")
 
     start_dt = datetime.strptime(start_date_str, "%Y-%m-%d")
     tourney_monday = start_dt - timedelta(days=start_dt.weekday())
@@ -318,8 +374,10 @@ def scrape_tournament(url, tab_label, tid):
     fri_md = (datetime.strptime(md_date, "%Y-%m-%d") + timedelta(days=4)).strftime("%Y-%m-%d")
     fri_qual = (datetime.strptime(qual_date, "%Y-%m-%d") + timedelta(days=4)).strftime("%Y-%m-%d")
 
-    md_rankings = get_rankings_from_api(md_date)
-    qual_rankings = get_rankings_from_api(qual_date)
+    # Always show this week's WTA rankings (current Monday) for all tournaments.
+    ranking_date = _current_monday_str()
+    md_rankings = get_rankings_cached(ranking_date)
+    qual_rankings = md_rankings
 
     main_entries, qual_entries, section = [], [], "MAIN"
     main_seen, qual_seen = set(), set()
