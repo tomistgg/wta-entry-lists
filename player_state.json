@@ -391,7 +391,22 @@
         "Shuai Zhang",
         "Karolina Pliskova"
     ],
-    "WTA_500_LINZ_QUALIFYING": [],
+    "WTA_500_LINZ_QUALIFYING": [
+        "Anastasia Potapova",
+        "Donna Vekic",
+        "Alycia Parks",
+        "Elena-Gabriela Ruse",
+        "Panna Udvardy",
+        "Katie Volynets",
+        "Julia Grabher",
+        "Dalma Galfi",
+        "Sinja Kraus",
+        "Aliaksandra Sasnovich",
+        "Victoria Jimenez Kasintseva",
+        "Tamara Korpatsch",
+        "Madison Brengle",
+        "Oceane Dodin"
+    ],
     "WTA_125_MADRID_MAIN_DRAW": [
         "Anastasia Pavlyuchenkova",
         "Emiliana Arango",
@@ -417,7 +432,22 @@
         "Alina Korneeva",
         "Robin Montgomery"
     ],
-    "WTA_125_MADRID_QUALIFYING": [],
+    "WTA_125_MADRID_QUALIFYING": [
+        "Jessika Ponchet",
+        "Louisa Chirico",
+        "Elizabeth Mandlik",
+        "Andrea Lazaro Garcia",
+        "Elena Pridankina",
+        "Laura Samson",
+        "Lina Gjorcheska",
+        "Carol Young Suh Lee",
+        "Aliona Bolsova",
+        "Marina Bassols Ribera",
+        "Fiona Crawley",
+        "Irene Burillo",
+        "Lisa Pigato",
+        "Fiona Ferro"
+    ],
     "WTA_500_STUTTGART_MAIN_DRAW": [],
     "WTA_500_STUTTGART_QUALIFYING": [],
     "WTA_125_OEIRAS_MAIN_DRAW": [],
