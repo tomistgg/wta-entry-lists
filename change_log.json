@@ -6956,5 +6956,15 @@
             "date": "2026-03-22",
             "change": "<strong>LIA KARATANCHEVA</strong> added to Qualifying"
         }
+    ],
+    "WTA_500_LINZ": [
+        {
+            "date": "2026-03-25",
+            "change": "<strong>ANTONIA RUZIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-03-25",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        }
     ]
 }
