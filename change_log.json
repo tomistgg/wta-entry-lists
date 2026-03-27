@@ -6966,5 +6966,15 @@
             "date": "2026-03-25",
             "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_MADRID": [
+        {
+            "date": "2026-03-27",
+            "change": "<strong>LOUISA CHIRICO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-03-27",
+            "change": "<strong>CAROLINE WERNER</strong> added to Qualifying"
+        }
     ]
 }
