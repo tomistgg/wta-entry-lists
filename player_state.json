@@ -516,7 +516,22 @@
         "Tamara Zidansek",
         "Katarzyna Kawa"
     ],
-    "WTA_125_OEIRAS_QUALIFYING": [],
+    "WTA_125_OEIRAS_QUALIFYING": [
+        "Kaitlin Quevedo",
+        "Joanna Garland",
+        "Arantxa Rus",
+        "Lola Radivojevic",
+        "Varvara Lepchenko",
+        "Greet Minnen",
+        "Anouk Koevermans",
+        "Teodora Kostovic",
+        "Whitney Osuigwe",
+        "Ekaterine Gorgodze",
+        "Carol Young Suh Lee",
+        "Jil Teichmann",
+        "Francisca Jorge",
+        "Robin Montgomery"
+    ],
     "WTA_250_ROUEN_MAIN_DRAW": [
         "Marta Kostyuk",
         "Marie Bouzkova",
@@ -540,7 +555,28 @@
         "Daria Kasatkina",
         "Anna Bondar"
     ],
-    "WTA_250_ROUEN_QUALIFYING": [],
+    "WTA_250_ROUEN_QUALIFYING": [
+        "Xinyu Wang",
+        "Oleksandra Oliynykova",
+        "Caty Mcnally",
+        "Elena-Gabriela Ruse",
+        "Kamilla Rakhimova",
+        "Dalma Galfi",
+        "Anna Blinkova",
+        "Katie Volynets",
+        "Anastasia Potapova",
+        "Diane Parry",
+        "Anastasia Pavlyuchenkova",
+        "Lilli Tagger",
+        "Yue Yuan",
+        "Anhelina Kalinina",
+        "Dominika Salkova",
+        "Tiantsoa Rakotomanga Rajaonah",
+        "Alina Charaeva",
+        "Lucrezia Stefanini",
+        "Maria Timofeeva",
+        "Sloane Stephens"
+    ],
     "WTA_125_OEIRAS_2_MAIN_DRAW": [
         "Francesca Jones",
         "Darja Semenistaja",
