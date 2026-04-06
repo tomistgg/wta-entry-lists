@@ -8192,5 +8192,15 @@
             "date": "2026-04-03",
             "change": "<strong>BARBORA PALICOVA</strong> added to Qualifying"
         }
+    ],
+    "WTA_500_STUTTGART": [
+        {
+            "date": "2026-04-06",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-06",
+            "change": "<strong>EMMA NAVARRO</strong> added to Main Draw"
+        }
     ]
 }
