@@ -8202,5 +8202,47 @@
             "date": "2026-04-06",
             "change": "<strong>EMMA NAVARRO</strong> added to Main Draw"
         }
+    ],
+    "WTA_250_ROUEN": [
+        {
+            "date": "2026-04-07",
+            "change": "<strong>CATY MCNALLY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>POLINA KUDERMETOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>ELVINA KALIEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>MARIE BOUZKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>SOFIA KENIN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>CATY MCNALLY</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-04-07",
+            "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> added to Main Draw"
+        }
     ]
 }
