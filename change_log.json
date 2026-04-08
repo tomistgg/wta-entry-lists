@@ -8244,5 +8244,23 @@
             "date": "2026-04-07",
             "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_HUZHOU": [
+        {
+            "date": "2026-04-08",
+            "change": "<strong>KRISTINA MLADENOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-08",
+            "change": "<strong>ALISA OKTIABREVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-08",
+            "change": "<strong>DALILA JAKUPOVIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-04-08",
+            "change": "<strong>DILETTA CHERUBINI</strong> added to Main Draw"
+        }
     ]
 }
