@@ -9317,6 +9317,42 @@
     ],
     "WTA_1000_ROME": [
         {
+            "date": "2026-04-12",
+            "change": "<strong>JANICE TJEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>MIRRA ANDREEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>BARBORA KREJCIKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>CLARA TAUSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>MADISON KEYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>LOIS BOISSON</strong> removed from Main Draw"
+        },
+        {
             "date": "2026-04-11",
             "change": "<strong>ARYNA SABALENKA</strong> removed from Main Draw"
         },
@@ -10215,6 +10251,42 @@
         {
             "date": "2026-04-10",
             "change": "<strong>IGA SWIATEK</strong> removed from Main Draw"
+        }
+    ],
+    "WTA_125_LA_BISBAL_DEMPORD\u00c1": [
+        {
+            "date": "2026-04-12",
+            "change": "<strong>LAURA SIEGEMUND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>LEYLAH FERNANDEZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>ALEXANDRA EALA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>ANASTASIA POTAPOVA</strong> removed from Main Draw"
+        }
+    ],
+    "WTA_125_JIUJIANG": [
+        {
+            "date": "2026-04-12",
+            "change": "<strong>HAYU KINOSHITA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-12",
+            "change": "<strong>XIAODI YOU</strong> removed from Main Draw"
         }
     ]
 }
