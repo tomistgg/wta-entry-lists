@@ -10466,5 +10466,23 @@
             "date": "2026-04-13",
             "change": "<strong>DANKA KOVINIC</strong> removed from Main Draw"
         }
+    ],
+    "WTA_125_SAINT_MALO": [
+        {
+            "date": "2026-04-15",
+            "change": "<strong>MAJA CHWALINSKA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-04-15",
+            "change": "<strong>CHLOE PAQUET</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-04-15",
+            "change": "<strong>MAYA JOINT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-04-15",
+            "change": "<strong>MAJA CHWALINSKA</strong> added to Main Draw"
+        }
     ]
 }
