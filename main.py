@@ -374,10 +374,13 @@ def scrape_tournament(url, tab_label, tid):
     fri_md = (datetime.strptime(md_date, "%Y-%m-%d") + timedelta(days=4)).strftime("%Y-%m-%d")
     fri_qual = (datetime.strptime(qual_date, "%Y-%m-%d") + timedelta(days=4)).strftime("%Y-%m-%d")
 
-    # Always show this week's WTA rankings (current Monday) for all tournaments.
-    ranking_date = _current_monday_str()
-    md_rankings = get_rankings_cached(ranking_date)
-    qual_rankings = md_rankings
+    # Use deadline-week rankings: 4 weeks before start for Main Draw, 3 weeks for Qualifying.
+    # If the deadline date hasn't arrived yet, fall back to the current Monday's rankings.
+    today_monday = _current_monday_str()
+    md_ranking_date = md_date if md_date <= today_monday else today_monday
+    qual_ranking_date = qual_date if qual_date <= today_monday else today_monday
+    md_rankings = get_rankings_cached(md_ranking_date)
+    qual_rankings = get_rankings_cached(qual_ranking_date)
 
     main_entries, qual_entries, section = [], [], "MAIN"
     main_seen, qual_seen = set(), set()
