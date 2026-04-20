@@ -54,1168 +54,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
     <body>
-        <div class="sidebar"><div class="week-title">Semana 20 Abril</div><button class="tablinks active" onclick="openTourney(event, 'WTA_125_OEIRAS_2')">WTA 125 Oeiras 2</button><button class="tablinks " onclick="openTourney(event, 'WTA_1000_MADRID')">WTA 1000 Madrid</button><div class="week-title">Semana 27 Abril</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_HUZHOU')">WTA 125 Huzhou</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_SAINT_MALO')">WTA 125 Saint Malo</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LA_BISBAL_DEMPORDÁ')">WTA 125 La Bisbal D'Empordá</button><div class="week-title">Semana 4 Mayo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_ISTANBUL')">WTA 125 Istanbul</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_JIUJIANG')">WTA 125 Jiujiang</button><button class="tablinks " onclick="openTourney(event, 'WTA_1000_ROME')">WTA 1000 Rome</button><div class="week-title">Semana 11 Mayo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_PARMA')">WTA 125 Parma</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_PARIS')">WTA 125 Paris</button></div>
-        <div class="main-content"><div id="WTA_125_OEIRAS_2" class="tabcontent" style="display: block;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
-                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_OEIRAS_2')">Changes</button>
-                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">Oeiras Open CETO 2</h1>
-                    </div>
-                    <div class="pdf-container">
-                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_OEIRAS_2')">PDF</button>
-                    </div>
-                </div>
-                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Francesca Jones</td>
-      <td>GBR</td>
-      <td>93</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Darja Semenistaja</td>
-      <td>LAT</td>
-      <td>103</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Yue Yuan</td>
-      <td>CHN</td>
-      <td>124</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Maja Chwalinska</td>
-      <td>POL</td>
-      <td>128</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Linda Klimovicova</td>
-      <td>POL</td>
-      <td>145</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Bianca Andreescu</td>
-      <td>CAN</td>
-      <td>146</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Sofia Costoulas</td>
-      <td>BEL</td>
-      <td>148</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Lucia Bronzetti</td>
-      <td>ITA</td>
-      <td>152</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Varvara Lepchenko</td>
-      <td>USA</td>
-      <td>155</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Greet Minnen</td>
-      <td>BEL</td>
-      <td>156</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Anouk Koevermans</td>
-      <td>NED</td>
-      <td>157</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Whitney Osuigwe</td>
-      <td>USA</td>
-      <td>160</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Ekaterine Gorgodze</td>
-      <td>GEO</td>
-      <td>165</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Carol Young Suh Lee</td>
-      <td>USA</td>
-      <td>166</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>15</td>
-      <td>Guiomar Maristany Zuleta De Reales</td>
-      <td>ESP</td>
-      <td>168</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Andrea Lazaro Garcia</td>
-      <td>ESP</td>
-      <td>170</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Carole Monnet</td>
-      <td>FRA</td>
-      <td>172</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Jil Teichmann</td>
-      <td>SUI</td>
-      <td>181</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Mona Barthel</td>
-      <td>GER</td>
-      <td>184</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Storm Hunter</td>
-      <td>AUS</td>
-      <td>201</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Anna-Lena Friedsam</td>
-      <td>GER</td>
-      <td>202</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Elena Pridankina</td>
-      <td>RUS</td>
-      <td>206</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Celine Naef</td>
-      <td>SUI</td>
-      <td>213</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Fiona Ferro</td>
-      <td>FRA</td>
-      <td>221</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>Matilde Jorge</td>
-      <td>POR</td>
-      <td>245</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Angelina Voloshchuk</td>
-      <td>POR</td>
-      <td>381</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Miroslava Medvedeva</td>
-      <td>RUS</td>
-      <td>-</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Polina Kudermetova</td>
-      <td>UZB</td>
-      <td>156</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Iryna Shymanovich</td>
-      <td>BLR</td>
-      <td>166</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Lucie Havlickova</td>
-      <td>CZE</td>
-      <td>218</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Claire Liu</td>
-      <td>USA</td>
-      <td>223</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Caroline Werner</td>
-      <td>GER</td>
-      <td>234</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Elizara Yaneva</td>
-      <td>BUL</td>
-      <td>236</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Ayana Akli</td>
-      <td>USA</td>
-      <td>246</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Mia Ristic</td>
-      <td>SRB</td>
-      <td>266</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Tessa Johanna Brockmann</td>
-      <td>GER</td>
-      <td>278</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Alisa Oktiabreva</td>
-      <td>RUS</td>
-      <td>284</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Elena Ruxandra Bertea</td>
-      <td>ROU</td>
-      <td>292</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Ane Mintegi Del Olmo</td>
-      <td>ESP</td>
-      <td>297</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Lea Boskovic</td>
-      <td>CRO</td>
-      <td>318</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Francesca Curmi</td>
-      <td>MLT</td>
-      <td>348</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ANNA-LENA FRIEDSAM</strong> removed from Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ELENA PRIDANKINA</strong> removed from Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>CELINE NAEF</strong> removed from Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>TARA WUERTH</strong> removed from Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>STORM HUNTER</strong> removed from Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ALISA OKTIABREVA</strong> added to Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>LEA BOSKOVIC</strong> added to Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>TESSA JOHANNA BROCKMANN</strong> added to Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ANE MINTEGI DEL OLMO</strong> added to Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ELENA RUXANDRA BERTEA</strong> added to Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>FRANCESCA CURMI</strong> added to Qualifying</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>FRANCISCA JORGE</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>JOANNA GARLAND</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>CELINE NAEF</strong> added to Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>STORM HUNTER</strong> added to Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ANNA-LENA FRIEDSAM</strong> added to Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>MIROSLAVA MEDVEDEVA</strong> added to Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ELENA PRIDANKINA</strong> added to Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>MATILDE JORGE</strong> added to Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MADALENA MATIAS</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ELINA AVANESYAN</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>DARIA SNIGUR</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>EVA GUERRERO ALVAREZ</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIA HRUNCAKOVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANGELA FITA BOLUDA</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MATILDE JORGE</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>FIONA CRAWLEY</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>AYANA AKLI</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>SARA SORRIBES TORMO</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>YE-XIN MA</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA PALICOVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>CAROLINE WERNER</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA TIKHONOVA</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>NURIA PARRIZAS DIAZ</strong> removed from Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>YASMINE MANSOURI</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>GINA DITTMANN</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>FREYA CHRISTIE</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>LUCIJA CIRIC BAGARIC</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MAKOTO NINOMIYA</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>NAIKTHA BAINS</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>TERESA FRANCO DIAS</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>SARA LANCA</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>EDEN SILVA</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>NIKA RADISIC</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANALU FREITAS</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>NADIIA KOLB</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>EN-SHUO LIANG</strong> added to Qualifying</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MARIA TIMOFEEVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>DALMA GALFI</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANHELINA KALININA</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>OLGA DANILOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>LINDA FRUHVIRTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MAJA CHWALINSKA</strong> removed from Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>FIONA CRAWLEY</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>NURIA PARRIZAS DIAZ</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>MATILDE JORGE</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA PALICOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA TIKHONOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>ANA FILIPA SANTOS</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIA HRUNCAKOVA</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>SARA SORRIBES TORMO</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>AYANA AKLI</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>CAROLINE WERNER</strong> added to Main Draw</td></tr><tr><td>2026-02-15</td><td style="text-align:left; padding-left:20px;"><strong>EMILY APPLETON</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>MARINA STAKUSIC</strong> removed from Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>FRANCISCA JORGE</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>ANOUK KOEVERMANS</strong> added to Main Draw</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>DALILA JAKUPOVIC</strong> added to Qualifying</td></tr><tr><td>2026-02-05</td><td style="text-align:left; padding-left:20px;"><strong>SARA SORRIBES TORMO</strong> added to Qualifying</td></tr></tbody></table></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-                </div><div id="WTA_1000_MADRID" class="tabcontent" style="display: none;">
-                <div class="top-row">
-                    <div class="header-controls">
-                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
-                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_1000_MADRID')">Changes</button>
-                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
-                    </div>
-                    <div class="title-stack">
-                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
-                        <h1 class="main-title">Mutua Madrid Open</h1>
-                    </div>
-                    <div class="pdf-container">
-                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_1000_MADRID')">PDF</button>
-                    </div>
-                </div>
-                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Aryna Sabalenka</td>
-      <td>BLR</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Elena Rybakina</td>
-      <td>KAZ</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Iga Swiatek</td>
-      <td>POL</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Coco Gauff</td>
-      <td>USA</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Jessica Pegula</td>
-      <td>USA</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Amanda Anisimova</td>
-      <td>USA</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Jasmine Paolini</td>
-      <td>ITA</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Elina Svitolina</td>
-      <td>UKR</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Victoria Mboko</td>
-      <td>CAN</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Mirra Andreeva</td>
-      <td>RUS</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Ekaterina Alexandrova</td>
-      <td>RUS</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Belinda Bencic</td>
-      <td>SUI</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Linda Noskova</td>
-      <td>CZE</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Naomi Osaka</td>
-      <td>JPN</td>
-      <td>15</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Clara Tauson</td>
-      <td>DEN</td>
-      <td>16</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Iva Jovic</td>
-      <td>USA</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Madison Keys</td>
-      <td>USA</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Elise Mertens</td>
-      <td>BEL</td>
-      <td>19</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Diana Shnaider</td>
-      <td>RUS</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Anna Kalinskaya</td>
-      <td>RUS</td>
-      <td>21</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Liudmila Samsonova</td>
-      <td>RUS</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Jelena Ostapenko</td>
-      <td>LAT</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Leylah Fernandez</td>
-      <td>CAN</td>
-      <td>25</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Qinwen Zheng</td>
-      <td>CHN</td>
-      <td>26</td>
-    </tr>
-    <tr>
-      <td>25</td>
-      <td>Marta Kostyuk</td>
-      <td>UKR</td>
-      <td>28</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Alexandra Eala</td>
-      <td>PHI</td>
-      <td>29</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Cristina Bucsa</td>
-      <td>ESP</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Marie Bouzkova</td>
-      <td>CZE</td>
-      <td>32</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>29</td>
-      <td>Maria Sakkari</td>
-      <td>GRE</td>
-      <td>33</td>
-    </tr>
-    <tr>
-      <td>30</td>
-      <td>Xinyu Wang</td>
-      <td>CHN</td>
-      <td>34</td>
-    </tr>
-    <tr>
-      <td>31</td>
-      <td>Sorana Cirstea</td>
-      <td>ROU</td>
-      <td>35</td>
-    </tr>
-    <tr>
-      <td>32</td>
-      <td>Jaqueline  Cristian</td>
-      <td>ROU</td>
-      <td>36</td>
-    </tr>
-    <tr>
-      <td>33</td>
-      <td>Magdalena Frech</td>
-      <td>POL</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <td>34</td>
-      <td>Lois Boisson</td>
-      <td>FRA</td>
-      <td>38</td>
-    </tr>
-    <tr>
-      <td>35</td>
-      <td>Ann Li</td>
-      <td>USA</td>
-      <td>39</td>
-    </tr>
-    <tr>
-      <td>36</td>
-      <td>Janice Tjen</td>
-      <td>INA</td>
-      <td>40</td>
-    </tr>
-    <tr>
-      <td>37</td>
-      <td>Katerina Siniakova</td>
-      <td>CZE</td>
-      <td>42</td>
-    </tr>
-    <tr>
-      <td>38</td>
-      <td>Elisabetta Cocciaretto</td>
-      <td>ITA</td>
-      <td>44</td>
-    </tr>
-    <tr>
-      <td>39</td>
-      <td>Hailey Baptiste</td>
-      <td>USA</td>
-      <td>45</td>
-    </tr>
-    <tr>
-      <td>40</td>
-      <td>Sofia Kenin</td>
-      <td>USA</td>
-      <td>46</td>
-    </tr>
-    <tr>
-      <td>41</td>
-      <td>Peyton Stearns</td>
-      <td>USA</td>
-      <td>47</td>
-    </tr>
-    <tr>
-      <td>42</td>
-      <td>Jessica Bouzas Maneiro</td>
-      <td>ESP</td>
-      <td>48</td>
-    </tr>
-    <tr>
-      <td>43</td>
-      <td>Tereza Valentova</td>
-      <td>CZE</td>
-      <td>49</td>
-    </tr>
-    <tr>
-      <td>44</td>
-      <td>Magda Linette</td>
-      <td>POL</td>
-      <td>50</td>
-    </tr>
-    <tr>
-      <td>45</td>
-      <td>Laura Siegemund</td>
-      <td>GER</td>
-      <td>53</td>
-    </tr>
-    <tr>
-      <td>46</td>
-      <td>Dayana Yastremska</td>
-      <td>UKR</td>
-      <td>54</td>
-    </tr>
-    <tr>
-      <td>47</td>
-      <td>Antonia Ruzic</td>
-      <td>CRO</td>
-      <td>55</td>
-    </tr>
-    <tr class="latam-row">
-      <td>48</td>
-      <td>Camila Osorio</td>
-      <td>COL</td>
-      <td>58</td>
-    </tr>
-    <tr>
-      <td>49</td>
-      <td>Tatjana Maria</td>
-      <td>GER</td>
-      <td>59</td>
-    </tr>
-    <tr>
-      <td>50</td>
-      <td>Shuai Zhang</td>
-      <td>CHN</td>
-      <td>61</td>
-    </tr>
-    <tr>
-      <td>51</td>
-      <td>Elsa Jacquemot</td>
-      <td>FRA</td>
-      <td>62</td>
-    </tr>
-    <tr class="latam-row">
-      <td>52</td>
-      <td>Solana Sierra</td>
-      <td>ARG</td>
-      <td>63</td>
-    </tr>
-    <tr>
-      <td>53</td>
-      <td>Daria Kasatkina</td>
-      <td>AUS</td>
-      <td>64</td>
-    </tr>
-    <tr>
-      <td>54</td>
-      <td>Anna Bondar</td>
-      <td>HUN</td>
-      <td>65</td>
-    </tr>
-    <tr>
-      <td>55</td>
-      <td>Oleksandra Oliynykova</td>
-      <td>UKR</td>
-      <td>66</td>
-    </tr>
-    <tr>
-      <td>56</td>
-      <td>Katie Boulter</td>
-      <td>GBR</td>
-      <td>67</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>57</td>
-      <td>Talia Gibson</td>
-      <td>AUS</td>
-      <td>68</td>
-    </tr>
-    <tr class="latam-row">
-      <td>58</td>
-      <td>Beatriz Haddad Maia</td>
-      <td>BRA</td>
-      <td>69</td>
-    </tr>
-    <tr>
-      <td>59</td>
-      <td>Kimberly Birrell</td>
-      <td>AUS</td>
-      <td>70</td>
-    </tr>
-    <tr>
-      <td>60</td>
-      <td>Oksana Selekhmeteva</td>
-      <td>RUS</td>
-      <td>71</td>
-    </tr>
-    <tr>
-      <td>61</td>
-      <td>Caty Mcnally</td>
-      <td>USA</td>
-      <td>72</td>
-    </tr>
-    <tr>
-      <td>62</td>
-      <td>Elena-Gabriela Ruse</td>
-      <td>ROU</td>
-      <td>73</td>
-    </tr>
-    <tr>
-      <td>63</td>
-      <td>Anastasia Zakharova</td>
-      <td>RUS</td>
-      <td>74</td>
-    </tr>
-    <tr>
-      <td>64</td>
-      <td>Yulia Putintseva</td>
-      <td>KAZ</td>
-      <td>75</td>
-    </tr>
-    <tr>
-      <td>65</td>
-      <td>Petra Marcinko</td>
-      <td>CRO</td>
-      <td>76</td>
-    </tr>
-    <tr>
-      <td>66</td>
-      <td>Eva Lys</td>
-      <td>GER</td>
-      <td>77</td>
-    </tr>
-    <tr>
-      <td>67</td>
-      <td>Moyuka Uchijima</td>
-      <td>JPN</td>
-      <td>78</td>
-    </tr>
-    <tr>
-      <td>68</td>
-      <td>Ashlyn Krueger</td>
-      <td>USA</td>
-      <td>79</td>
-    </tr>
-    <tr>
-      <td>69</td>
-      <td>Taylor Townsend</td>
-      <td>USA</td>
-      <td>80</td>
-    </tr>
-    <tr>
-      <td>70</td>
-      <td>Ajla Tomljanovic</td>
-      <td>AUS</td>
-      <td>81</td>
-    </tr>
-    <tr>
-      <td>71</td>
-      <td>Kamilla Rakhimova</td>
-      <td>UZB</td>
-      <td>82</td>
-    </tr>
-    <tr>
-      <td>72</td>
-      <td>Zeynep Sonmez</td>
-      <td>TUR</td>
-      <td>83</td>
-    </tr>
-    <tr>
-      <td>73</td>
-      <td>Viktorija Golubic</td>
-      <td>SUI</td>
-      <td>84</td>
-    </tr>
-    <tr>
-      <td>74</td>
-      <td>Julia Grabher</td>
-      <td>AUT</td>
-      <td>85</td>
-    </tr>
-    <tr>
-      <td>75</td>
-      <td>Victoria Jimenez Kasintseva</td>
-      <td>AND</td>
-      <td>89</td>
-    </tr>
-    <tr>
-      <td>76</td>
-      <td>Paula Badosa</td>
-      <td>ESP</td>
-      <td>100</td>
-    </tr>
-    <tr class="latam-row">
-      <td>77</td>
-      <td>Emiliana Arango</td>
-      <td>COL</td>
-      <td>109</td>
-    </tr>
-    <tr>
-      <td>78</td>
-      <td>Kaitlin Quevedo</td>
-      <td>ESP</td>
-      <td>133</td>
-    </tr>
-    <tr>
-      <td>79</td>
-      <td>Irina-Camelia Begu</td>
-      <td>ROU</td>
-      <td>171</td>
-    </tr>
-    <tr>
-      <td>80</td>
-      <td>Laura Samson</td>
-      <td>CZE</td>
-      <td>174</td>
-    </tr>
-    <tr>
-      <td>81</td>
-      <td>Karolina Pliskova</td>
-      <td>CZE</td>
-      <td>260</td>
-    </tr>
-    <tr>
-      <td>82</td>
-      <td>Robin Montgomery</td>
-      <td>USA</td>
-      <td>337</td>
-    </tr>
-    <tr>
-      <td>83</td>
-      <td>Carlota Martinez Cirez</td>
-      <td>ESP</td>
-      <td>351</td>
-    </tr>
-    <tr>
-      <td>84</td>
-      <td>Venus Williams</td>
-      <td>USA</td>
-      <td>517</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Dalma Galfi</td>
-      <td>HUN</td>
-      <td>84</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Katie Volynets</td>
-      <td>USA</td>
-      <td>86</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Simona Waltert</td>
-      <td>SUI</td>
-      <td>88</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Yuliia Starodubtseva</td>
-      <td>UKR</td>
-      <td>89</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Diane Parry</td>
-      <td>FRA</td>
-      <td>91</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Panna Udvardy</td>
-      <td>HUN</td>
-      <td>92</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Daria Snigur</td>
-      <td>UKR</td>
-      <td>93</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Anastasia Potapova</td>
-      <td>AUT</td>
-      <td>94</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Nikola Bartunkova</td>
-      <td>CZE</td>
-      <td>95</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Hanne Vandewinkel</td>
-      <td>BEL</td>
-      <td>96</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Alycia Parks</td>
-      <td>USA</td>
-      <td>97</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Anna Blinkova</td>
-      <td>RUS</td>
-      <td>99</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Veronika Erjavec</td>
-      <td>SLO</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Lulu Sun</td>
-      <td>NZL</td>
-      <td>105</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Tamara Korpatsch</td>
-      <td>GER</td>
-      <td>109</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Aliaksandra Sasnovich</td>
-      <td>BLR</td>
-      <td>111</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>Anastasia Pavlyuchenkova</td>
-      <td>RUS</td>
-      <td>114</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Donna Vekic</td>
-      <td>CRO</td>
-      <td>115</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>Darja Vidmanova</td>
-      <td>CZE</td>
-      <td>116</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>Suzan Lamens</td>
-      <td>NED</td>
-      <td>117</td>
-    </tr>
-    <tr>
-      <td>21</td>
-      <td>Sinja Kraus</td>
-      <td>AUT</td>
-      <td>118</td>
-    </tr>
-    <tr>
-      <td>22</td>
-      <td>Anhelina Kalinina</td>
-      <td>UKR</td>
-      <td>119</td>
-    </tr>
-    <tr>
-      <td>23</td>
-      <td>Rebecca Sramkova</td>
-      <td>SVK</td>
-      <td>122</td>
-    </tr>
-    <tr>
-      <td>24</td>
-      <td>Leolia Jeanjean</td>
-      <td>FRA</td>
-      <td>124</td>
-    </tr>
-  </tbody>
-</table></div><div class="table-column"><table class="dataframe entry-table">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Pos.</th>
-      <th>Player</th>
-      <th>Country</th>
-      <th>Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>25</td>
-      <td>Rebeka Masarova</td>
-      <td>SUI</td>
-      <td>125</td>
-    </tr>
-    <tr>
-      <td>26</td>
-      <td>Dominika Salkova</td>
-      <td>CZE</td>
-      <td>126</td>
-    </tr>
-    <tr>
-      <td>27</td>
-      <td>Alina Charaeva</td>
-      <td>RUS</td>
-      <td>129</td>
-    </tr>
-    <tr>
-      <td>28</td>
-      <td>Katarzyna Kawa</td>
-      <td>POL</td>
-      <td>132</td>
-    </tr>
-    <tr>
-      <td>29</td>
-      <td>Elvina Kalieva</td>
-      <td>USA</td>
-      <td>143</td>
-    </tr>
-    <tr>
-      <td>30</td>
-      <td>Linda Fruhvirtova</td>
-      <td>CZE</td>
-      <td>144</td>
-    </tr>
-    <tr>
-      <td>31</td>
-      <td>Lola Radivojevic</td>
-      <td>SRB</td>
-      <td>146</td>
-    </tr>
-    <tr>
-      <td>32</td>
-      <td>Lucrezia Stefanini</td>
-      <td>ITA</td>
-      <td>148</td>
-    </tr>
-    <tr>
-      <td>33</td>
-      <td>Nuria Brancaccio</td>
-      <td>ITA</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>34</td>
-      <td>Leyre Romero Gormaz</td>
-      <td>ESP</td>
-      <td>151</td>
-    </tr>
-    <tr>
-      <td>35</td>
-      <td>Teodora Kostovic</td>
-      <td>SRB</td>
-      <td>159</td>
-    </tr>
-    <tr>
-      <td>36</td>
-      <td>Despina Papamichail</td>
-      <td>GRE</td>
-      <td>163</td>
-    </tr>
-    <tr>
-      <td>37</td>
-      <td>Viktoriya Tomova</td>
-      <td>BUL</td>
-      <td>169</td>
-    </tr>
-    <tr>
-      <td>38</td>
-      <td>Marina Bassols Ribera</td>
-      <td>ESP</td>
-      <td>203</td>
-    </tr>
-    <tr>
-      <td>39</td>
-      <td>Julieta Pareja</td>
-      <td>USA</td>
-      <td>269</td>
-    </tr>
-    <tr>
-      <td>40</td>
-      <td>Tyra Caterina Grant</td>
-      <td>ITA</td>
-      <td>272</td>
-    </tr>
-    <tr>
-      <td>41</td>
-      <td>Elina Avanesyan</td>
-      <td>ARM</td>
-      <td>388</td>
-    </tr>
-    <tr>
-      <td>42</td>
-      <td>Ruth Roura Llaverias</td>
-      <td>ESP</td>
-      <td>480</td>
-    </tr>
-    <tr>
-      <td>43</td>
-      <td>Sara Sorribes Tormo</td>
-      <td>ESP</td>
-      <td>524</td>
-    </tr>
-    <tr>
-      <td>44</td>
-      <td>Sloane Stephens</td>
-      <td>USA</td>
-      <td>554</td>
-    </tr>
-    <tr>
-      <td>45</td>
-      <td>Oceane Dodin</td>
-      <td>FRA</td>
-      <td>564</td>
-    </tr>
-    <tr>
-      <td>46</td>
-      <td>Martina Trevisan</td>
-      <td>ITA</td>
-      <td>603</td>
-    </tr>
-    <tr>
-      <td>47</td>
-      <td>Ksenia Efremova</td>
-      <td>FRA</td>
-      <td>643</td>
-    </tr>
-    <tr class="latam-row">
-      <td>48</td>
-      <td>Nauhany Vitoria Leme Da Silva</td>
-      <td>BRA</td>
-      <td>661</td>
-    </tr>
-  </tbody>
-</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA MUCHOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARKETA VONDROUSOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EMMA RADUCANU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EMMA NAVARRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ASHLYN KRUEGER</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MOYUKA UCHIJIMA</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ROBIN MONTGOMERY</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>IRINA-CAMELIA BEGU</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TAYLOR TOWNSEND</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EMILIANA ARANGO</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>CARLOTA MARTINEZ CIREZ</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA JIMENEZ KASINTSEVA</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>PAULA BADOSA</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JULIA GRABHER</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>AJLA TOMLJANOVIC</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LAURA SAMSON</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ZEYNEP SONMEZ</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KAITLIN QUEVEDO</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VENUS WILLIAMS</strong> added to Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>AJLA TOMLJANOVIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JULIA GRABHER</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>IRINA-CAMELIA BEGU</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LILLI TAGGER</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EMILIANA ARANGO</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TAYLOR TOWNSEND</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MAYAR SHERIF</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KAJA JUVAN</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ALINA KORNEEVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MOYUKA UCHIJIMA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELLA SEIDEL</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ZEYNEP SONMEZ</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ASHLYN KRUEGER</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TEODORA KOSTOVIC</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELVINA KALIEVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LUCREZIA STEFANINI</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>RUTH ROURA LLAVERIAS</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SLOANE STEPHENS</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LOLA RADIVOJEVIC</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KATARZYNA KAWA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>NAUHANY VITORIA LEME DA SILVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARINA BASSOLS RIBERA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TYRA CATERINA GRANT</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>DESPINA PAPAMICHAIL</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELINA AVANESYAN</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ALINA CHARAEVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>NURIA BRANCACCIO</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>REBEKA MASAROVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JULIETA PAREJA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARTINA TREVISAN</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LINDA FRUHVIRTOVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LEYRE ROMERO GORMAZ</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>DOMINIKA SALKOVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA EFREMOVA</strong> added to Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIYA TOMOVA</strong> added to Qualifying</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Qualifying</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>LEOLIA JEANJEAN</strong> added to Qualifying</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> added to Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ALINA KORNEEVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>PANNA UDVARDY</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>TAYLOR TOWNSEND</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>HANNE VANDEWINKEL</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SARA SORRIBES TORMO</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MAYAR SHERIF</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MOYUKA UCHIJIMA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA POTAPOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DONNA VEKIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ASHLYN KRUEGER</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>YULIIA STARODUBTSEVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>TAMARA KORPATSCH</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DIANE PARRY</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DARIA SNIGUR</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>REBECCA SRAMKOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LULU SUN</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ALIAKSANDRA SASNOVICH</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SINJA KRAUS</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA JIMENEZ KASINTSEVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>IRINA-CAMELIA BEGU</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>OCEANE DODIN</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANHELINA KALININA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JULIA GRABHER</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA ERJAVEC</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELLA SEIDEL</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DALMA GALFI</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>AJLA TOMLJANOVIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DARJA VIDMANOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KATIE VOLYNETS</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LILLI TAGGER</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA PAVLYUCHENKOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SIMONA WALTERT</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ZEYNEP SONMEZ</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KAJA JUVAN</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>EMILIANA ARANGO</strong> removed from Qualifying</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA RUZIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA EALA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA SINIAKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>IVA JOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BONDAR</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SHUAI ZHANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ARYNA SABALENKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA MUCHOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MARKETA VONDROUSOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELENA RYBAKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>PEYTON STEARNS</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KIMBERLY BIRRELL</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MBOKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELISE MERTENS</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LINDA NOSKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>EMMA NAVARRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LEYLAH FERNANDEZ</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PEGULA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DIANA SHNAIDER</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>PETRA MARCINKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JELENA OSTAPENKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>BELINDA BENCIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>AMANDA ANISIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LAURA SIEGEMUND</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>IGA SWIATEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JASMINE PAOLINI</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>EMMA RADUCANU</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>COCO GAUFF</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANNA KALINSKAYA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MAGDA LINETTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>NAOMI OSAKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELINA SVITOLINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SOLANA SIERRA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELSA JACQUEMOT</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MARTA KOSTYUK</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>HAILEY BAPTISTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>ELENA-GABRIELA RUSE</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>SORANA CIRSTEA</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Main Draw</td></tr><tr><td>2026-04-09</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-01</td><td style="text-align:left; padding-left:20px;"><strong>SONAY KARTAL</strong> removed from Main Draw</td></tr><tr><td>2026-04-01</td><td style="text-align:left; padding-left:20px;"><strong>PETRA MARCINKO</strong> added to Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>SOLANA SIERRA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA MUCHOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>JELENA OSTAPENKO</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ANNA KALINSKAYA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>EMMA NAVARRO</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ARYNA SABALENKA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MARTA KOSTYUK</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>SONAY KARTAL</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>IVA JOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MAGDA LINETTE</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>LEYLAH FERNANDEZ</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA RUZIC</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>NAOMI OSAKA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>HAILEY BAPTISTE</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ELENA-GABRIELA RUSE</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>DIANA SHNAIDER</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MARKETA VONDROUSOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>SHUAI ZHANG</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>PEYTON STEARNS</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BONDAR</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>EMMA RADUCANU</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>AMANDA ANISIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>KIMBERLY BIRRELL</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PEGULA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>COCO GAUFF</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>JASMINE PAOLINI</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>SORANA CIRSTEA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>IGA SWIATEK</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>BELINDA BENCIC</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ELSA JACQUEMOT</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MBOKO</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>LINDA NOSKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA SINIAKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA EALA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ELENA RYBAKINA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ELISE MERTENS</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>ELINA SVITOLINA</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>LAURA SIEGEMUND</strong> removed from Main Draw</td></tr><tr><td>2026-03-29</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> removed from Main Draw</td></tr></tbody></table></div></div>
-                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
-                </div><div id="WTA_125_HUZHOU" class="tabcontent" style="display: none;">
+        <div class="sidebar"><div class="week-title">Semana 27 Abril</div><button class="tablinks active" onclick="openTourney(event, 'WTA_125_HUZHOU')">WTA 125 Huzhou</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_SAINT_MALO')">WTA 125 Saint Malo</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LA_BISBAL_DEMPORDÁ')">WTA 125 La Bisbal D'Empordá</button><div class="week-title">Semana 4 Mayo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_ISTANBUL')">WTA 125 Istanbul</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_JIUJIANG')">WTA 125 Jiujiang</button><button class="tablinks " onclick="openTourney(event, 'WTA_1000_ROME')">WTA 1000 Rome</button><div class="week-title">Semana 11 Mayo</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_PARMA')">WTA 125 Parma</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_PARIS')">WTA 125 Paris</button><div class="week-title">Semana 18 Mayo</div><button class="tablinks " onclick="openTourney(event, 'WTA_500_STRASBOURG')">WTA 500 Strasbourg</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_RABAT')">WTA 250 Rabat</button></div>
+        <div class="main-content"><div id="WTA_125_HUZHOU" class="tabcontent" style="display: block;">
                 <div class="top-row">
                     <div class="header-controls">
                         <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
@@ -2128,85 +968,85 @@
       <td>1</td>
       <td>Storm Hunter</td>
       <td>AUS</td>
-      <td>201</td>
+      <td>200</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>Claire Liu</td>
-      <td>USA</td>
-      <td>214</td>
+      <td>Katherine Sebov</td>
+      <td>CAN</td>
+      <td>212</td>
     </tr>
-    <tr class="latam-row">
+    <tr>
       <td>3</td>
-      <td>Laura Pigossi</td>
-      <td>BRA</td>
-      <td>217</td>
+      <td>Elena Pridankina</td>
+      <td>RUS</td>
+      <td>215</td>
     </tr>
     <tr>
       <td>4</td>
       <td>Aliona Falei</td>
       <td>BLR</td>
-      <td>223</td>
+      <td>222</td>
     </tr>
-    <tr>
+    <tr class="latam-row">
       <td>5</td>
-      <td>Katherine Sebov</td>
-      <td>CAN</td>
-      <td>224</td>
+      <td>Laura Pigossi</td>
+      <td>BRA</td>
+      <td>225</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>Elena Pridankina</td>
-      <td>RUS</td>
-      <td>229</td>
+      <td>Elizara Yaneva</td>
+      <td>BUL</td>
+      <td>232</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>Elizara Yaneva</td>
-      <td>BUL</td>
-      <td>233</td>
+      <td>Claire Liu</td>
+      <td>USA</td>
+      <td>234</td>
     </tr>
     <tr>
       <td>8</td>
       <td>Tereza Martincova</td>
       <td>CZE</td>
-      <td>247</td>
+      <td>262</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>Alice Tubello</td>
-      <td>FRA</td>
-      <td>255</td>
-    </tr>
-    <tr>
-      <td>10</td>
       <td>Mia Ristic</td>
       <td>SRB</td>
       <td>265</td>
     </tr>
     <tr>
+      <td>10</td>
+      <td>Tara Wuerth</td>
+      <td>CRO</td>
+      <td>268</td>
+    </tr>
+    <tr>
       <td>11</td>
       <td>Ayla Aksu</td>
       <td>TUR</td>
-      <td>269</td>
+      <td>270</td>
     </tr>
     <tr>
       <td>12</td>
-      <td>Tara Wuerth</td>
-      <td>CRO</td>
-      <td>271</td>
+      <td>Alice Tubello</td>
+      <td>FRA</td>
+      <td>297</td>
     </tr>
     <tr>
       <td>13</td>
       <td>Vera Zvonareva</td>
       <td>RUS</td>
-      <td>323</td>
+      <td>342</td>
     </tr>
     <tr>
       <td>14</td>
       <td>Berfu Cengiz</td>
       <td>TUR</td>
-      <td>467</td>
+      <td>470</td>
     </tr>
   </tbody>
 </table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>KATARZYNA KAWA</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>ANOUK KOEVERMANS</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>JOANNA GARLAND</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>LINDA FRUHVIRTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>GUIOMAR MARISTANY ZULETA DE REALES</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>POLINA IATCENKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA COSTOULAS</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>TIANTSOA RAKOTOMANGA RAJAONAH</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>KAJA JUVAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>LOLA RADIVOJEVIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINE GORGODZE</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>CAROLE MONNET</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>POLINA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>FRANCESCA JONES</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>MARIA TIMOFEEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA GASANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>HANYU GUO</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>XIYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>DONNA VEKIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>TAMARA ZIDANSEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>TATIANA PROZOROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-13</td><td style="text-align:left; padding-left:20px;"><strong>DANKA KOVINIC</strong> removed from Main Draw</td></tr></tbody></table></div></div>
@@ -2226,7 +1066,251 @@
                         <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_JIUJIANG')">PDF</button>
                     </div>
                 </div>
-                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on April 10, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on April 17, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KYOKA OKAMURA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SIJIA WEI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YIDI YANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>PRISKA NUGROHO</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KRISTIANA SIDOROVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARUKA KAJI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIA MORVAYOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAN SHI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YUFEI REN</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EN-SHUO LIANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SAKURA HOSOGI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA REYNGOLD</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELENA MICIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>FANGRAN TIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARIIA TKACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MAI HONTAMA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIN ZHU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MANANCHAYA SAWANGKAEW</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>AOI ITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>NAO HIBINO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>DALILA SPITERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YE-XIN MA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PIERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SARA SAITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ZHUOXUAN BAI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MEI YAMAGUCHI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LANLANA TARARUDEE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARRIET DART</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TAYLAH PRESTON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIZETTE CABRERA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZOLOTAREVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SAKURA HOSOGI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EN-SHUO LIANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YIDI YANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KRISTIANA SIDOROVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KYOKA OKAMURA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIA MORVAYOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SIJIA WEI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA REYNGOLD</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YUFEI REN</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELENA MICIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>PRISKA NUGROHO</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAN SHI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARUKA KAJI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SARA SAITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MEI YAMAGUCHI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ZHUOXUAN BAI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MANANCHAYA SAWANGKAEW</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>NAO HIBINO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YE-XIN MA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIN ZHU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIZETTE CABRERA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PIERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TAYLAH PRESTON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>AOI ITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LANLANA TARARUDEE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>FANGRAN TIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARRIET DART</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MAI HONTAMA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZOLOTAREVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>DALILA SPITERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARIIA TKACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Main Draw</td></tr></tbody></table></div></div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Lanlana Tararudee</td>
+      <td>THA</td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Lin Zhu</td>
+      <td>CHN</td>
+      <td>137</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Taylah Preston</td>
+      <td>AUS</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Ye-Xin Ma</td>
+      <td>CHN</td>
+      <td>166</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Nao Hibino</td>
+      <td>JPN</td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Harriet Dart</td>
+      <td>GBR</td>
+      <td>173</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Mananchaya Sawangkaew</td>
+      <td>THA</td>
+      <td>185</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Xiaodi You</td>
+      <td>CHN</td>
+      <td>193</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Mai Hontama</td>
+      <td>JPN</td>
+      <td>211</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Aoi Ito</td>
+      <td>JPN</td>
+      <td>218</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Fangran Tian</td>
+      <td>CHN</td>
+      <td>245</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Jessica Pieri</td>
+      <td>ITA</td>
+      <td>248</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Dalila Spiteri</td>
+      <td>ITA</td>
+      <td>271</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Anastasia Zolotareva</td>
+      <td>RUS</td>
+      <td>272</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Mei Yamaguchi</td>
+      <td>JPN</td>
+      <td>274</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Sofya Lansere</td>
+      <td>RUS</td>
+      <td>285</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Lizette Cabrera</td>
+      <td>AUS</td>
+      <td>286</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Heather Watson</td>
+      <td>GBR</td>
+      <td>287</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Alevtina Ibragimova</td>
+      <td>RUS</td>
+      <td>297</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Sara Saito</td>
+      <td>JPN</td>
+      <td>300</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Hayu Kinoshita</td>
+      <td>JPN</td>
+      <td>301</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Zhuoxuan Bai</td>
+      <td>CHN</td>
+      <td>353</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Mariia Tkacheva</td>
+      <td>RUS</td>
+      <td>603</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Viktoria Morvayova</td>
+      <td>SVK</td>
+      <td>316</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Yidi Yang</td>
+      <td>CHN</td>
+      <td>317</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Ekaterina Reyngold</td>
+      <td>RUS</td>
+      <td>329</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Haruka Kaji</td>
+      <td>JPN</td>
+      <td>331</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Kyoka Okamura</td>
+      <td>JPN</td>
+      <td>334</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>En-Shuo Liang</td>
+      <td>TPE</td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Han Shi</td>
+      <td>CHN</td>
+      <td>353</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Yufei Ren</td>
+      <td>CHN</td>
+      <td>359</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Elena Micic</td>
+      <td>AUS</td>
+      <td>364</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Eri Shimizu</td>
+      <td>JPN</td>
+      <td>376</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Kristiana Sidorova</td>
+      <td>RUS</td>
+      <td>380</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Sijia Wei</td>
+      <td>CHN</td>
+      <td>382</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Sakura Hosogi</td>
+      <td>JPN</td>
+      <td>387</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Priska Nugroho</td>
+      <td>INA</td>
+      <td>391</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KYOKA OKAMURA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SIJIA WEI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YIDI YANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>PRISKA NUGROHO</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KRISTIANA SIDOROVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARUKA KAJI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIA MORVAYOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAN SHI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YUFEI REN</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EN-SHUO LIANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SAKURA HOSOGI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA REYNGOLD</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELENA MICIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>FANGRAN TIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARIIA TKACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MAI HONTAMA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIN ZHU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MANANCHAYA SAWANGKAEW</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>AOI ITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>NAO HIBINO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>DALILA SPITERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YE-XIN MA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PIERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SARA SAITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ZHUOXUAN BAI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MEI YAMAGUCHI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LANLANA TARARUDEE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARRIET DART</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TAYLAH PRESTON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIZETTE CABRERA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZOLOTAREVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SAKURA HOSOGI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EN-SHUO LIANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YIDI YANG</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KRISTIANA SIDOROVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>KYOKA OKAMURA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIA MORVAYOVA</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SIJIA WEI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA REYNGOLD</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YUFEI REN</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ELENA MICIC</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>PRISKA NUGROHO</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAN SHI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARUKA KAJI</strong> removed from Qualifying</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SARA SAITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MEI YAMAGUCHI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ZHUOXUAN BAI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MANANCHAYA SAWANGKAEW</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>NAO HIBINO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>YE-XIN MA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIN ZHU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LIZETTE CABRERA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PIERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>TAYLAH PRESTON</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>AOI ITO</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>LANLANA TARARUDEE</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>FANGRAN TIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>HARRIET DART</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MAI HONTAMA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZOLOTAREVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>DALILA SPITERI</strong> removed from Main Draw</td></tr><tr><td>2026-04-19</td><td style="text-align:left; padding-left:20px;"><strong>MARIIA TKACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> removed from Main Draw</td></tr></tbody></table></div></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div><div id="WTA_1000_ROME" class="tabcontent" style="display: none;">
                 <div class="top-row">
@@ -2740,25 +1824,25 @@
       <td>1</td>
       <td>Anastasia Potapova</td>
       <td>AUT</td>
-      <td>56</td>
+      <td>54</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>Zeynep Sonmez</td>
-      <td>TUR</td>
-      <td>67</td>
+      <td>Elena-Gabriela Ruse</td>
+      <td>ROU</td>
+      <td>61</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>Elena-Gabriela Ruse</td>
-      <td>ROU</td>
-      <td>71</td>
+      <td>Zeynep Sonmez</td>
+      <td>TUR</td>
+      <td>79</td>
     </tr>
     <tr>
       <td>4</td>
       <td>Petra Marcinko</td>
       <td>CRO</td>
-      <td>74</td>
+      <td>80</td>
     </tr>
     <tr>
       <td>5</td>
@@ -2778,10 +1862,10 @@
       <td>COL</td>
       <td>83</td>
     </tr>
-    <tr>
+    <tr class="latam-row">
       <td>8</td>
-      <td>Alycia Parks</td>
-      <td>USA</td>
+      <td>Renata Zarazua</td>
+      <td>MEX</td>
       <td>84</td>
     </tr>
     <tr>
@@ -2790,76 +1874,76 @@
       <td>AUS</td>
       <td>85</td>
     </tr>
-    <tr class="latam-row">
+    <tr>
       <td>10</td>
-      <td>Emiliana Arango</td>
-      <td>COL</td>
+      <td>Moyuka Uchijima</td>
+      <td>JPN</td>
       <td>86</td>
     </tr>
-    <tr class="latam-row">
+    <tr>
       <td>11</td>
-      <td>Renata Zarazua</td>
-      <td>MEX</td>
+      <td>Ella Seidel</td>
+      <td>GER</td>
       <td>87</td>
     </tr>
     <tr class="latam-row">
       <td>12</td>
-      <td>Solana Sierra</td>
-      <td>ARG</td>
+      <td>Emiliana Arango</td>
+      <td>COL</td>
       <td>88</td>
     </tr>
     <tr>
       <td>13</td>
-      <td>Anna Blinkova</td>
-      <td>RUS</td>
+      <td>Katie Volynets</td>
+      <td>USA</td>
       <td>89</td>
     </tr>
-    <tr>
+    <tr class="latam-row">
       <td>14</td>
-      <td>Taylor Townsend</td>
-      <td>USA</td>
+      <td>Solana Sierra</td>
+      <td>ARG</td>
       <td>90</td>
     </tr>
     <tr>
       <td>15</td>
-      <td>Lilli Tagger</td>
-      <td>AUT</td>
+      <td>Anna Blinkova</td>
+      <td>RUS</td>
       <td>91</td>
     </tr>
     <tr>
       <td>16</td>
-      <td>Hanne Vandewinkel</td>
-      <td>BEL</td>
+      <td>Simona Waltert</td>
+      <td>SUI</td>
       <td>92</td>
     </tr>
     <tr>
       <td>17</td>
-      <td>Nikola Bartunkova</td>
-      <td>CZE</td>
+      <td>Dalma Galfi</td>
+      <td>HUN</td>
       <td>93</td>
     </tr>
     <tr>
       <td>18</td>
-      <td>Moyuka Uchijima</td>
-      <td>JPN</td>
+      <td>Taylor Townsend</td>
+      <td>USA</td>
       <td>94</td>
     </tr>
     <tr>
       <td>19</td>
-      <td>Diane Parry</td>
-      <td>FRA</td>
+      <td>Alycia Parks</td>
+      <td>USA</td>
       <td>95</td>
     </tr>
     <tr>
       <td>20</td>
-      <td>Veronika Erjavec</td>
-      <td>SLO</td>
+      <td>Nikola Bartunkova</td>
+      <td>CZE</td>
       <td>96</td>
     </tr>
     <tr>
       <td>21</td>
-      <td>Simona Waltert</td>
-      <td>SUI</td>
+      <td>Lilli Tagger</td>
+      <td>AUT</td>
       <td>97</td>
     </tr>
   </tbody>
@@ -2875,129 +1959,129 @@
   <tbody>
     <tr>
       <td>22</td>
-      <td>Daria Snigur</td>
-      <td>UKR</td>
+      <td>Hanne Vandewinkel</td>
+      <td>BEL</td>
       <td>98</td>
     </tr>
     <tr>
       <td>23</td>
-      <td>Tamara Korpatsch</td>
-      <td>GER</td>
+      <td>Julia Grabher</td>
+      <td>AUT</td>
       <td>99</td>
     </tr>
     <tr>
       <td>24</td>
-      <td>Ella Seidel</td>
-      <td>GER</td>
+      <td>Diane Parry</td>
+      <td>FRA</td>
       <td>100</td>
     </tr>
     <tr>
       <td>25</td>
-      <td>Katie Volynets</td>
-      <td>USA</td>
+      <td>Daria Snigur</td>
+      <td>UKR</td>
       <td>101</td>
     </tr>
     <tr>
       <td>26</td>
-      <td>Paula Badosa</td>
-      <td>ESP</td>
-      <td>103</td>
+      <td>Tamara Korpatsch</td>
+      <td>GER</td>
+      <td>102</td>
     </tr>
     <tr>
       <td>27</td>
-      <td>Lulu Sun</td>
-      <td>NZL</td>
-      <td>106</td>
+      <td>Veronika Erjavec</td>
+      <td>SLO</td>
+      <td>104</td>
     </tr>
     <tr>
       <td>28</td>
-      <td>Julia Grabher</td>
-      <td>AUT</td>
-      <td>107</td>
+      <td>Mayar Sherif</td>
+      <td>EGY</td>
+      <td>105</td>
     </tr>
     <tr>
       <td>29</td>
-      <td>Ashlyn Krueger</td>
-      <td>USA</td>
-      <td>108</td>
+      <td>Paula Badosa</td>
+      <td>ESP</td>
+      <td>106</td>
     </tr>
     <tr>
       <td>30</td>
-      <td>Aliaksandra Sasnovich</td>
-      <td>BLR</td>
-      <td>109</td>
+      <td>Anhelina Kalinina</td>
+      <td>UKR</td>
+      <td>107</td>
     </tr>
     <tr>
       <td>31</td>
-      <td>Anhelina Kalinina</td>
-      <td>UKR</td>
-      <td>110</td>
+      <td>Lulu Sun</td>
+      <td>NZL</td>
+      <td>109</td>
     </tr>
     <tr>
       <td>32</td>
-      <td>Yue Yuan</td>
-      <td>CHN</td>
-      <td>111</td>
+      <td>Ashlyn Krueger</td>
+      <td>USA</td>
+      <td>110</td>
     </tr>
     <tr>
       <td>33</td>
-      <td>Darja Semenistaja</td>
-      <td>LAT</td>
-      <td>112</td>
+      <td>Aliaksandra Sasnovich</td>
+      <td>BLR</td>
+      <td>111</td>
     </tr>
     <tr>
       <td>34</td>
       <td>Victoria Jimenez Kasintseva</td>
       <td>AND</td>
-      <td>115</td>
+      <td>112</td>
     </tr>
     <tr>
       <td>35</td>
-      <td>Anastasia Pavlyuchenkova</td>
-      <td>RUS</td>
-      <td>116</td>
+      <td>Yue Yuan</td>
+      <td>CHN</td>
+      <td>114</td>
     </tr>
     <tr>
       <td>36</td>
-      <td>Dalma Galfi</td>
-      <td>HUN</td>
-      <td>117</td>
+      <td>Darja Semenistaja</td>
+      <td>LAT</td>
+      <td>116</td>
     </tr>
     <tr>
       <td>37</td>
-      <td>Mayar Sherif</td>
-      <td>EGY</td>
-      <td>119</td>
+      <td>Anastasia Pavlyuchenkova</td>
+      <td>RUS</td>
+      <td>118</td>
     </tr>
     <tr>
       <td>38</td>
       <td>Suzan Lamens</td>
       <td>NED</td>
-      <td>123</td>
+      <td>119</td>
     </tr>
     <tr>
       <td>39</td>
       <td>Irina-Camelia Begu</td>
       <td>ROU</td>
-      <td>182</td>
+      <td>183</td>
     </tr>
     <tr>
       <td>40</td>
       <td>Jil Teichmann</td>
       <td>SUI</td>
-      <td>191</td>
+      <td>193</td>
     </tr>
     <tr>
       <td>41</td>
       <td>Sara Sorribes Tormo</td>
       <td>ESP</td>
-      <td>359</td>
+      <td>528</td>
     </tr>
     <tr>
       <td>42</td>
       <td>Oceane Dodin</td>
       <td>FRA</td>
-      <td>523</td>
+      <td>564</td>
     </tr>
   </tbody>
 </table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> added to Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> removed from Main Draw</td></tr><tr><td>2026-04-12</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ARYNA SABALENKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LINDA NOSKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PEGULA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>PEYTON STEARNS</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARKETA VONDROUSOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SORANA CIRSTEA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SONAY KARTAL</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>COCO GAUFF</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>BELINDA BENCIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELINA SVITOLINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JASMINE PAOLINI</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA EALA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELSA JACQUEMOT</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA KALINSKAYA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>NAOMI OSAKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JELENA OSTAPENKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MAGDA LINETTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>IGA SWIATEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA MUCHOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELENA RYBAKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BONDAR</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>HAILEY BAPTISTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>AMANDA ANISIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LAURA SIEGEMUND</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARTA KOSTYUK</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>PANNA UDVARDY</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>EMMA NAVARRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>YULIIA STARODUBTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELISE MERTENS</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MBOKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA SINIAKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>EMMA RADUCANU</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LEYLAH FERNANDEZ</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SHUAI ZHANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>IVA JOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA RUZIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>DIANA SHNAIDER</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JASMINE PAOLINI</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ARYNA SABALENKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>EMMA RADUCANU</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SONAY KARTAL</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PEGULA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELISE MERTENS</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELSA JACQUEMOT</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>HAILEY BAPTISTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SHUAI ZHANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELINA SVITOLINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA SINIAKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA KALINSKAYA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELENA RYBAKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>PEYTON STEARNS</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA RUZIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>IGA SWIATEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARKETA VONDROUSOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MBOKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>AMANDA ANISIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>NAOMI OSAKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>PANNA UDVARDY</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>COCO GAUFF</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LINDA NOSKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MARTA KOSTYUK</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>EMMA NAVARRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LEYLAH FERNANDEZ</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>LAURA SIEGEMUND</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA EALA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>YULIIA STARODUBTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA MUCHOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>DIANA SHNAIDER</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JELENA OSTAPENKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>BELINDA BENCIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>SORANA CIRSTEA</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>MAGDA LINETTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BONDAR</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Main Draw</td></tr><tr><td>2026-04-11</td><td style="text-align:left; padding-left:20px;"><strong>IVA JOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ELISABETTA COCCIARETTO</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MCCARTNEY KESSLER</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>YULIIA STARODUBTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ELINA SVITOLINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MARTA KOSTYUK</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA MUCHOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>NAOMI OSAKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>IVA JOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>EMMA RADUCANU</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MARKETA VONDROUSOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA RUZIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>TATJANA MARIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>LINDA NOSKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>JELENA OSTAPENKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ARYNA SABALENKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>DIANA SHNAIDER</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MBOKO</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA GRACHEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>COCO GAUFF</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>LIUDMILA SAMSONOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>BEATRIZ HADDAD MAIA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PEGULA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>JANICE TJEN</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ELENA RYBAKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA EALA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MARIE BOUZKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>LEYLAH FERNANDEZ</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BONDAR</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MIRRA ANDREEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>SONAY KARTAL</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>SORANA CIRSTEA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA KUDERMETOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ANNA KALINSKAYA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MADISON KEYS</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>JASMINE PAOLINI</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>SHUAI ZHANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>LAURA SIEGEMUND</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA SINIAKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>MAGDA LINETTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>KAROLINA PLISKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>EMMA NAVARRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>HAILEY BAPTISTE</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ELSA JACQUEMOT</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>ELISE MERTENS</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>PEYTON STEARNS</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>PANNA UDVARDY</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>BELINDA BENCIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>AMANDA ANISIMOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-10</td><td style="text-align:left; padding-left:20px;"><strong>IGA SWIATEK</strong> removed from Main Draw</td></tr></tbody></table></div></div>
@@ -3031,31 +2115,31 @@
       <td>1</td>
       <td>Xinyu Wang</td>
       <td>CHN</td>
-      <td>31</td>
+      <td>32</td>
     </tr>
     <tr>
       <td>2</td>
       <td>Ann Li</td>
       <td>USA</td>
-      <td>34</td>
+      <td>36</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>Alexandra Eala</td>
-      <td>PHI</td>
+      <td>Lois Boisson</td>
+      <td>FRA</td>
       <td>44</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>Lois Boisson</td>
-      <td>FRA</td>
-      <td>46</td>
+      <td>Alexandra Eala</td>
+      <td>PHI</td>
+      <td>45</td>
     </tr>
     <tr>
       <td>5</td>
       <td>Jessica Bouzas Maneiro</td>
       <td>ESP</td>
-      <td>50</td>
+      <td>47</td>
     </tr>
     <tr>
       <td>6</td>
@@ -3067,7 +2151,7 @@
       <td>7</td>
       <td>Anna Bondar</td>
       <td>HUN</td>
-      <td>63</td>
+      <td>65</td>
     </tr>
     <tr>
       <td>8</td>
@@ -3077,21 +2161,21 @@
     </tr>
     <tr>
       <td>9</td>
-      <td>Eva Lys</td>
-      <td>GER</td>
-      <td>72</td>
+      <td>Caty Mcnally</td>
+      <td>USA</td>
+      <td>71</td>
     </tr>
     <tr>
       <td>10</td>
-      <td>Caty Mcnally</td>
-      <td>USA</td>
-      <td>76</td>
+      <td>Oksana Selekhmeteva</td>
+      <td>RUS</td>
+      <td>75</td>
     </tr>
     <tr>
       <td>11</td>
-      <td>Oksana Selekhmeteva</td>
-      <td>RUS</td>
-      <td>77</td>
+      <td>Eva Lys</td>
+      <td>GER</td>
+      <td>78</td>
     </tr>
     <tr>
       <td>12</td>
@@ -3107,63 +2191,63 @@
     </tr>
     <tr>
       <td>14</td>
-      <td>Alycia Parks</td>
-      <td>USA</td>
-      <td>84</td>
+      <td>Moyuka Uchijima</td>
+      <td>JPN</td>
+      <td>86</td>
     </tr>
     <tr class="latam-row">
       <td>15</td>
       <td>Solana Sierra</td>
       <td>ARG</td>
-      <td>88</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Taylor Townsend</td>
-      <td>USA</td>
       <td>90</td>
     </tr>
     <tr>
-      <td>17</td>
-      <td>Lilli Tagger</td>
-      <td>AUT</td>
-      <td>91</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>Hanne Vandewinkel</td>
-      <td>BEL</td>
+      <td>16</td>
+      <td>Simona Waltert</td>
+      <td>SUI</td>
       <td>92</td>
     </tr>
     <tr>
-      <td>19</td>
-      <td>Moyuka Uchijima</td>
-      <td>JPN</td>
+      <td>17</td>
+      <td>Taylor Townsend</td>
+      <td>USA</td>
       <td>94</td>
     </tr>
     <tr>
-      <td>20</td>
-      <td>Veronika Erjavec</td>
-      <td>SLO</td>
-      <td>96</td>
+      <td>18</td>
+      <td>Alycia Parks</td>
+      <td>USA</td>
+      <td>95</td>
     </tr>
     <tr>
-      <td>21</td>
-      <td>Simona Waltert</td>
-      <td>SUI</td>
+      <td>19</td>
+      <td>Lilli Tagger</td>
+      <td>AUT</td>
       <td>97</td>
     </tr>
     <tr>
-      <td>22</td>
+      <td>20</td>
+      <td>Hanne Vandewinkel</td>
+      <td>BEL</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <td>21</td>
       <td>Julia Grabher</td>
       <td>AUT</td>
-      <td>107</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Veronika Erjavec</td>
+      <td>SLO</td>
+      <td>104</td>
     </tr>
     <tr>
       <td>23</td>
       <td>Mayar Sherif</td>
       <td>EGY</td>
-      <td>119</td>
+      <td>105</td>
     </tr>
   </tbody>
 </table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on April 24, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>SIMONA WALTERT</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>OKSANA SELEKHMETEVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>JULIA GRABHER</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>LILLI TAGGER</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>BARBORA KREJCIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>HANNE VANDEWINKEL</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA ERJAVEC</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>MAYAR SHERIF</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BONDAR</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>TAYLOR TOWNSEND</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>CAMILA OSORIO</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA EALA</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>LOIS BOISSON</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>SOLANA SIERRA</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Main Draw</td></tr><tr><td>2026-04-18</td><td style="text-align:left; padding-left:20px;"><strong>MOYUKA UCHIJIMA</strong> removed from Main Draw</td></tr></tbody></table></div></div>
@@ -3203,24 +2287,24 @@
       <td>2</td>
       <td>Emma Navarro</td>
       <td>USA</td>
-      <td>28</td>
+      <td>27</td>
     </tr>
     <tr>
       <td>3</td>
       <td>Maya Joint</td>
       <td>AUS</td>
-      <td>29</td>
+      <td>30</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>Hailey Baptiste</td>
-      <td>USA</td>
-      <td>32</td>
+      <td>Sara Bejlek</td>
+      <td>CZE</td>
+      <td>34</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>Sara Bejlek</td>
-      <td>CZE</td>
+      <td>Hailey Baptiste</td>
+      <td>USA</td>
       <td>35</td>
     </tr>
     <tr>
@@ -3239,7 +2323,7 @@
       <td>8</td>
       <td>Tereza Valentova</td>
       <td>CZE</td>
-      <td>51</td>
+      <td>50</td>
     </tr>
     <tr>
       <td>9</td>
@@ -3251,25 +2335,25 @@
       <td>10</td>
       <td>Talia Gibson</td>
       <td>AUS</td>
-      <td>58</td>
+      <td>57</td>
     </tr>
     <tr>
       <td>11</td>
-      <td>Katie Boulter</td>
-      <td>GBR</td>
-      <td>61</td>
+      <td>Elsa Jacquemot</td>
+      <td>FRA</td>
+      <td>60</td>
     </tr>
     <tr>
       <td>12</td>
-      <td>Elsa Jacquemot</td>
-      <td>FRA</td>
-      <td>62</td>
+      <td>Katie Boulter</td>
+      <td>GBR</td>
+      <td>64</td>
     </tr>
     <tr>
       <td>13</td>
       <td>Shuai Zhang</td>
       <td>CHN</td>
-      <td>65</td>
+      <td>66</td>
     </tr>
     <tr class="latam-row">
       <td>14</td>
@@ -3281,19 +2365,19 @@
       <td>15</td>
       <td>Kamilla Rakhimova</td>
       <td>UZB</td>
-      <td>73</td>
+      <td>74</td>
     </tr>
     <tr>
       <td>16</td>
       <td>Anastasia Zakharova</td>
       <td>RUS</td>
-      <td>79</td>
+      <td>76</td>
     </tr>
     <tr>
       <td>17</td>
       <td>Yulia Putintseva</td>
       <td>KAZ</td>
-      <td>80</td>
+      <td>77</td>
     </tr>
     <tr>
       <td>18</td>
@@ -3301,38 +2385,72 @@
       <td>AUS</td>
       <td>82</td>
     </tr>
-    <tr>
+    <tr class="latam-row">
       <td>19</td>
+      <td>Renata Zarazua</td>
+      <td>MEX</td>
+      <td>84</td>
+    </tr>
+    <tr>
+      <td>20</td>
       <td>Ajla Tomljanovic</td>
       <td>AUS</td>
       <td>85</td>
     </tr>
-    <tr class="latam-row">
-      <td>20</td>
-      <td>Renata Zarazua</td>
-      <td>MEX</td>
-      <td>87</td>
-    </tr>
     <tr>
       <td>21</td>
-      <td>Anna Blinkova</td>
-      <td>RUS</td>
+      <td>Katie Volynets</td>
+      <td>USA</td>
       <td>89</td>
     </tr>
     <tr>
       <td>22</td>
-      <td>Katie Volynets</td>
-      <td>USA</td>
-      <td>101</td>
+      <td>Anna Blinkova</td>
+      <td>RUS</td>
+      <td>91</td>
     </tr>
     <tr>
       <td>23</td>
       <td>Dalma Galfi</td>
       <td>HUN</td>
-      <td>117</td>
+      <td>93</td>
     </tr>
   </tbody>
 </table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on April 24, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_500_STRASBOURG" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_STRASBOURG')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Internationaux de Strasbourg presented by Mammotion</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_500_STRASBOURG')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on April 24, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on May 01, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_250_RABAT" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_RABAT')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Grand Prix Son Altesse Royale La Princesse Lalla Meryem</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_250_RABAT')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on April 24, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on May 01, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
                 <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
                 </div></div>
         <script>
