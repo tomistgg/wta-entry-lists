@@ -1075,7 +1075,6 @@
         "Laura Siegemund",
         "Barbora Krejcikova",
         "Yuliia Starodubtseva",
-        "Sonay Kartal",
         "Magda Linette",
         "Talia Gibson",
         "Antonia Ruzic",
@@ -1096,12 +1095,12 @@
         "Oksana Selekhmeteva",
         "Yulia Putintseva",
         "Eva Lys",
+        "Zeynep Sonmez",
         "Karolina Pliskova"
     ],
     "WTA_1000_ROME_QUALIFYING": [
         "Anastasia Potapova",
         "Elena-Gabriela Ruse",
-        "Zeynep Sonmez",
         "Petra Marcinko",
         "Viktorija Golubic",
         "Kimberly Birrell",
@@ -1127,7 +1126,6 @@
         "Tamara Korpatsch",
         "Veronika Erjavec",
         "Mayar Sherif",
-        "Paula Badosa",
         "Anhelina Kalinina",
         "Lulu Sun",
         "Ashlyn Krueger",
@@ -1137,6 +1135,8 @@
         "Darja Semenistaja",
         "Anastasia Pavlyuchenkova",
         "Suzan Lamens",
+        "Sinja Kraus",
+        "Alina Korneeva",
         "Irina-Camelia Begu",
         "Jil Teichmann",
         "Sara Sorribes Tormo",
@@ -1167,7 +1167,14 @@
         "Veronika Erjavec",
         "Mayar Sherif"
     ],
-    "WTA_125_PARMA_QUALIFYING": [],
+    "WTA_125_PARMA_QUALIFYING": [
+        "Kaja Juvan",
+        "Ashlyn Krueger",
+        "Yue Yuan",
+        "Victoria Jimenez Kasintseva",
+        "Anastasia Pavlyuchenkova",
+        "Dominika Salkova"
+    ],
     "WTA_125_PARIS_MAIN_DRAW": [
         "Leylah Fernandez",
         "Emma Navarro",
@@ -1193,8 +1200,35 @@
         "Anna Blinkova",
         "Dalma Galfi"
     ],
-    "WTA_125_PARIS_QUALIFYING": [],
-    "WTA_500_STRASBOURG_MAIN_DRAW": [],
+    "WTA_125_PARIS_QUALIFYING": [
+        "Nikola Bartunkova",
+        "Diane Parry",
+        "Daria Snigur",
+        "Tamara Korpatsch",
+        "Aliaksandra Sasnovich",
+        "Lanlana Tararudee"
+    ],
+    "WTA_500_STRASBOURG_MAIN_DRAW": [
+        "Ekaterina Alexandrova",
+        "Iva Jovic",
+        "Madison Keys",
+        "Clara Tauson",
+        "Liudmila Samsonova",
+        "Marta Kostyuk",
+        "Marie Bouzkova",
+        "Leylah Fernandez",
+        "Emma Navarro",
+        "Maya Joint",
+        "Cristina Bucsa",
+        "Xinyu Wang",
+        "Hailey Baptiste",
+        "Jaqueline  Cristian",
+        "Ann Li",
+        "Sara Bejlek",
+        "Maria Sakkari",
+        "Magdalena Frech",
+        "Elisabetta Cocciaretto"
+    ],
     "WTA_500_STRASBOURG_QUALIFYING": [],
     "WTA_250_RABAT_MAIN_DRAW": [],
     "WTA_250_RABAT_QUALIFYING": []
