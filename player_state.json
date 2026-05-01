@@ -1243,7 +1243,22 @@
         "Magdalena Frech",
         "Elisabetta Cocciaretto"
     ],
-    "WTA_500_STRASBOURG_QUALIFYING": [],
+    "WTA_500_STRASBOURG_QUALIFYING": [
+        "Katerina Siniakova",
+        "Peyton Stearns",
+        "Alexandra Eala",
+        "Mccartney Kessler",
+        "Barbora Krejcikova",
+        "Anastasia Potapova",
+        "Magda Linette",
+        "Talia Gibson",
+        "Antonia Ruzic",
+        "Elsa Jacquemot",
+        "Shuai Zhang",
+        "Sofia Kenin",
+        "Beatriz Haddad Maia",
+        "Oleksandra Oliynykova"
+    ],
     "WTA_250_RABAT_MAIN_DRAW": [
         "Janice Tjen",
         "Laura Siegemund",
@@ -1269,7 +1284,22 @@
         "Jil Teichmann",
         "Danka Kovinic"
     ],
-    "WTA_250_RABAT_QUALIFYING": [],
+    "WTA_250_RABAT_QUALIFYING": [
+        "Kaja Juvan",
+        "Julia Grabher",
+        "Dalma Galfi",
+        "Mayar Sherif",
+        "Teodora Kostovic",
+        "Carole Monnet",
+        "Whitney Osuigwe",
+        "Alice Rame",
+        "Harmony Tan",
+        "Claire Liu",
+        "Ana Sofia S\u00e1nchez",
+        "Anna Siskova",
+        "Sloane Stephens",
+        "Berfu Cengiz"
+    ],
     "GRAND_SLAM_PARIS_MAIN_DRAW": [],
     "GRAND_SLAM_PARIS_QUALIFYING": []
 }
