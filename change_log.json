@@ -16595,6 +16595,14 @@
     ],
     "WTA_125_PARMA": [
         {
+            "date": "2026-05-08",
+            "change": "<strong>DOMINIKA SALKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-05-08",
+            "change": "<strong>MOYUKA UCHIJIMA</strong> removed from Main Draw"
+        },
+        {
             "date": "2026-04-23",
             "change": "<strong>CATY MCNALLY</strong> removed from Main Draw"
         },
@@ -17241,6 +17249,18 @@
     ],
     "WTA_125_PARIS": [
         {
+            "date": "2026-05-08",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-05-08",
+            "change": "<strong>DARIA SNIGUR</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-05-08",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Main Draw"
+        },
+        {
             "date": "2026-05-06",
             "change": "<strong>TAMARA KORPATSCH</strong> removed from Qualifying"
         },
@@ -17729,6 +17749,16 @@
         {
             "date": "2026-05-08",
             "change": "<strong>MARTA KOSTYUK</strong> removed from Main Draw"
+        }
+    ],
+    "WTA_250_RABAT": [
+        {
+            "date": "2026-05-08",
+            "change": "<strong>TEODORA KOSTOVIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-05-08",
+            "change": "<strong>EMILIANA ARANGO</strong> removed from Main Draw"
         }
     ]
 }
