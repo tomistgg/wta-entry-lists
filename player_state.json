@@ -1614,7 +1614,28 @@
         "Linda Fruhvirtova",
         "Linda Klimovicova"
     ],
-    "WTA_125_ILKLEY_QUALIFYING": [],
+    "WTA_125_ILKLEY_QUALIFYING": [
+        "Elizabeth Mandlik",
+        "Mananchaya Sawangkaew",
+        "Jessika Ponchet",
+        "Akasha Urhobo",
+        "Iryna Shymanovich",
+        "Whitney Osuigwe",
+        "Kayla Cross",
+        "Vendula Valdmannova",
+        "Cadence Brace",
+        "Katie Swan",
+        "Celine Naef",
+        "Elena Pridankina",
+        "Harmony Tan",
+        "Tereza Martincova",
+        "Vivian Wolff",
+        "Mingge Xu",
+        "Hina Inoue",
+        "Alicia Dudeney",
+        "Clervie Ngounoue",
+        "Sayaka Ishii"
+    ],
     "WTA_125_MODENA_MAIN_DRAW": [
         "Anhelina Kalinina",
         "Victoria Jimenez Kasintseva",
@@ -1640,7 +1661,14 @@
         "Marina Bassols Ribera",
         "Jeline Vandromme"
     ],
-    "WTA_125_MODENA_QUALIFYING": [],
+    "WTA_125_MODENA_QUALIFYING": [
+        "Jazmin Ortenzi",
+        "Tiantsoa Rakotomanga Rajaonah",
+        "Xiaodi You",
+        "Fiona Ferro",
+        "Alice Tubello",
+        "Xinyu Gao"
+    ],
     "WTA_250_S_HERTOGENBOSCH_MAIN_DRAW": [
         "Ekaterina Alexandrova",
         "Clara Tauson",
@@ -1666,7 +1694,22 @@
         "Solana Sierra",
         "Renata Zarazua"
     ],
-    "WTA_250_S_HERTOGENBOSCH_QUALIFYING": [],
+    "WTA_250_S_HERTOGENBOSCH_QUALIFYING": [
+        "Nikola Bartunkova",
+        "Kimberly Birrell",
+        "Ajla Tomljanovic",
+        "Daria Snigur",
+        "Tamara Korpatsch",
+        "Ella Seidel",
+        "Emiliana Arango",
+        "Hanne Vandewinkel",
+        "Katie Volynets",
+        "Kaja Juvan",
+        "Yue Yuan",
+        "Maria Timofeeva",
+        "Suzan Lamens",
+        "Rebeka Masarova"
+    ],
     "WTA_250_NOTTINGHAM_MAIN_DRAW": [],
     "WTA_250_NOTTINGHAM_QUALIFYING": [],
     "WTA_125_BRESCIA_MAIN_DRAW": [],
