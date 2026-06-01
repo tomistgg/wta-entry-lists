@@ -20765,6 +20765,18 @@
     ],
     "WTA_250_S_HERTOGENBOSCH": [
         {
+            "date": "2026-06-01",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>KIMBERLY BIRRELL</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>TAMARA KORPATSCH</strong> added to Main Draw"
+        },
+        {
             "date": "2026-05-25",
             "change": "<strong>EMILIANA ARANGO</strong> removed from Qualifying"
         },
@@ -20866,6 +20878,30 @@
         }
     ],
     "WTA_500_LONDON": [
+        {
+            "date": "2026-06-01",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>YULIA PUTINTSEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>ALINA CHARAEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>OCEANE DODIN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-01",
+            "change": "<strong>POLINA KUDERMETOVA</strong> added to Qualifying"
+        },
         {
             "date": "2026-05-31",
             "change": "<strong>LINDA NOSKOVA</strong> removed from Main Draw"
