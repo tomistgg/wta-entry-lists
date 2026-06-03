@@ -21638,5 +21638,15 @@
             "date": "2026-05-30",
             "change": "<strong>TATIANA PROZOROVA</strong> added to Main Draw"
         }
+    ],
+    "WTA_250_NOTTINGHAM": [
+        {
+            "date": "2026-06-03",
+            "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-03",
+            "change": "<strong>OKSANA SELEKHMETEVA</strong> added to Qualifying"
+        }
     ]
 }
