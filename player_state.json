@@ -1933,10 +1933,7 @@
     "WTA_500_BERLIN_QUALIFYING": [
         "Elise Mertens",
         "Diana Shnaider",
-        "Anna Kalinskaya",
-        "Hailey Baptiste",
         "Anastasia Potapova",
-        "Cristina Bucsa",
         "Xinyu Wang",
         "Katerina Siniakova",
         "Alexandra Eala",
@@ -1950,6 +1947,9 @@
         "Renata Zarazua",
         "Alycia Parks",
         "Eva Lys",
+        "Diane Parry",
+        "Tamara Korpatsch",
+        "Ella Seidel",
         "Aoi Ito"
     ],
     "WTA_500_BAD_HOMBURG_MAIN_DRAW": [
@@ -1972,7 +1972,22 @@
         "Ann Li",
         "Anastasia Potapova"
     ],
-    "WTA_500_BAD_HOMBURG_QUALIFYING": [],
+    "WTA_500_BAD_HOMBURG_QUALIFYING": [
+        "Cristina Bucsa",
+        "Xinyu Wang",
+        "Katerina Siniakova",
+        "Alexandra Eala",
+        "Dayana Yastremska",
+        "Magdalena Frech",
+        "Qinwen Zheng",
+        "Shuai Zhang",
+        "Solana Sierra",
+        "Donna Vekic",
+        "Renata Zarazua",
+        "Taylor Townsend",
+        "Yulia Putintseva",
+        "Elena-Gabriela Ruse"
+    ],
     "WTA_250_EASTBOURNE_MAIN_DRAW": [
         "Jasmine Paolini",
         "Madison Keys",
@@ -1996,7 +2011,28 @@
         "Talia Gibson",
         "Karolina Pliskova"
     ],
-    "WTA_250_EASTBOURNE_QUALIFYING": [],
+    "WTA_250_EASTBOURNE_QUALIFYING": [
+        "Petra Marcinko",
+        "Panna Udvardy",
+        "Anhelina Kalinina",
+        "Caty Mcnally",
+        "Antonia Ruzic",
+        "Oleksandra Oliynykova",
+        "Zeynep Sonmez",
+        "Elsa Jacquemot",
+        "Nikola Bartunkova",
+        "Katie Boulter",
+        "Magda Linette",
+        "Peyton Stearns",
+        "Alycia Parks",
+        "Anastasia Zakharova",
+        "Viktorija Golubic",
+        "Kimberly Birrell",
+        "Veronika Erjavec",
+        "Camila Osorio",
+        "Sofia Kenin",
+        "Oksana Selekhmeteva"
+    ],
     "GRAND_SLAM_WIMBLEDON_MAIN_DRAW": [],
     "GRAND_SLAM_WIMBLEDON_QUALIFYING": []
 }

@@ -21654,5 +21654,31 @@
             "date": "2026-06-03",
             "change": "<strong>HAILEY BAPTISTE</strong> removed from Main Draw"
         }
+    ],
+    "WTA_500_BERLIN": [
+        {
+            "date": "2026-06-05",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-05",
+            "change": "<strong>HAILEY BAPTISTE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-05",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-05",
+            "change": "<strong>ELLA SEIDEL</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-05",
+            "change": "<strong>DIANE PARRY</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-05",
+            "change": "<strong>TAMARA KORPATSCH</strong> added to Qualifying"
+        }
     ]
 }
