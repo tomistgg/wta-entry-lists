@@ -22494,6 +22494,14 @@
     "WTA_125_FIGUEIRA_DA_FOZ": [
         {
             "date": "2026-06-06",
+            "change": "<strong>ALEVTINA IBRAGIMOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MANON LEONARD</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
             "change": "<strong>ALEVTINA IBRAGIMOVA</strong> removed from Qualifying"
         },
         {
@@ -22954,6 +22962,10 @@
         }
     ],
     "WTA_125_ILKLEY": [
+        {
+            "date": "2026-06-06",
+            "change": "<strong>HALEY GIAVARA</strong> added to Qualifying"
+        },
         {
             "date": "2026-06-06",
             "change": "<strong>HALEY GIAVARA</strong> removed from Qualifying"
