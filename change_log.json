@@ -21368,6 +21368,46 @@
     "WTA_500_LONDON": [
         {
             "date": "2026-06-06",
+            "change": "<strong>ANNA KALINSKAYA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>DIANA SHNAIDER</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>ANN LI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>FRANCESCA JONES</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>LAURA SIEGEMUND</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>KATIE BOULTER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>HARRIET DART</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MIKA STOJSAVLJEVIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MCCARTNEY KESSLER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MARIA SAKKARI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
             "change": "<strong>HANNAH KLUGMAN</strong> removed from Qualifying"
         },
         {
@@ -21808,6 +21848,46 @@
         }
     ],
     "WTA_125_MODENA": [
+        {
+            "date": "2026-06-06",
+            "change": "<strong>XIAODI YOU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>FIONA FERRO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>ALICE TUBELLO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>XINYU GAO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>BEATRICE RICCI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>NOEMI BASILETTI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>VICTORIA BOSIO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>FRANCESCA PACE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>VIOLA TURINI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>CHLOE PAQUET</strong> added to Qualifying"
+        },
         {
             "date": "2026-06-06",
             "change": "<strong>FIONA FERRO</strong> removed from Qualifying"
@@ -23874,6 +23954,110 @@
         }
     ],
     "WTA_125_ILKLEY": [
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MINGGE XU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>AKASHA URHOBO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>KATIE SWAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>HINA INOUE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MANANCHAYA SAWANGKAEW</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>ELIZABETH MANDLIK</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>CADENCE BRACE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>VIVIAN WOLFF</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>ALICIA DUDENEY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>HALEY GIAVARA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>WHITNEY OSUIGWE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>HIROKO KUWATA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>SAVANNAH DADA-MASCOLL</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>TEGAN BUSH</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>BROOKE BLACK</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>VICTORIA ALLEN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>EDIE GRIFFITHS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>EMILY APPLETON</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>NAIKTHA BAINS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>AMELIA RAJECKI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>RANAH STOIBER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MEGAN KNIGHT</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MARIIA KOZYREVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>ELLA MCDONALD</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>MOMOKO KOBORI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>KATY DUNNE</strong> added to Qualifying"
+        },
         {
             "date": "2026-06-06",
             "change": "<strong>WHITNEY OSUIGWE</strong> removed from Qualifying"
@@ -26162,6 +26346,14 @@
     "WTA_500_BERLIN": [
         {
             "date": "2026-06-06",
+            "change": "<strong>JASMINE PAOLINI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>ANNA KALINSKAYA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-06-06",
             "change": "<strong>TAMARA KORPATSCH</strong> removed from Qualifying"
         },
         {
@@ -27074,6 +27266,22 @@
         }
     ],
     "WTA_125_BRESCIA": [
+        {
+            "date": "2026-06-06",
+            "change": "<strong>KATRINA SCOTT</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>TESSA JOHANNA BROCKMANN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>AMARISSA TOTH</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-06",
+            "change": "<strong>VICTORIA BOSIO</strong> added to Qualifying"
+        },
         {
             "date": "2026-06-06",
             "change": "<strong>MIA RISTIC</strong> removed from Qualifying"
