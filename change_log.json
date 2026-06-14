@@ -23477,6 +23477,22 @@
     ],
     "WTA_125_FIGUEIRA_DA_FOZ": [
         {
+            "date": "2026-06-14",
+            "change": "<strong>ELENA MICIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-14",
+            "change": "<strong>MANON LEONARD</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-06-14",
+            "change": "<strong>POLINA ISAKOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-06-14",
+            "change": "<strong>SHUO FENG</strong> added to Qualifying"
+        },
+        {
             "date": "2026-06-13",
             "change": "<strong>AYLA AKSU</strong> removed from Qualifying"
         },
@@ -29660,6 +29676,10 @@
         }
     ],
     "WTA_500_BERLIN": [
+        {
+            "date": "2026-06-14",
+            "change": "<strong>AMANDA ANISIMOVA</strong> removed from Main Draw"
+        },
         {
             "date": "2026-06-13",
             "change": "<strong>MAGDALENA FRECH</strong> removed from Qualifying"
