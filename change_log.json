@@ -36657,6 +36657,22 @@
     ],
     "WTA_125_KITZBUHEL": [
         {
+            "date": "2026-07-01",
+            "change": "<strong>KATHINKA VON DEICHMANN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-01",
+            "change": "<strong>LEA BOSKOVIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-01",
+            "change": "<strong>KATARINA ZAVATSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-01",
+            "change": "<strong>KATHINKA VON DEICHMANN</strong> added to Main Draw"
+        },
+        {
             "date": "2026-06-26",
             "change": "<strong>KAJA JUVAN</strong> removed from Main Draw"
         },
@@ -36666,6 +36682,14 @@
         }
     ],
     "WTA_250_ATHENS": [
+        {
+            "date": "2026-07-01",
+            "change": "<strong>JESSIKA PONCHET</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-01",
+            "change": "<strong>MOMOKO KOBORI</strong> added to Qualifying"
+        },
         {
             "date": "2026-06-29",
             "change": "<strong>PRISCILLA HON</strong> removed from Qualifying"
