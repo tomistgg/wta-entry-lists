@@ -36519,6 +36519,154 @@
     ],
     "WTA_125_ISTANBUL_2": [
         {
+            "date": "2026-07-03",
+            "change": "<strong>RINA SAIGO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>MARIIA TKACHEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>AYLA AKSU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>VERA ZVONAREVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>XINYU GAO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>NATSUMI KAWAGUCHI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>TEREZA MARTINCOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ZHUOXUAN BAI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ISABELLA SHINIKOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>VARVARA PANSHINA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ALISA OKTIABREVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>VALENTINA RYSER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ERI SHIMIZU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>DARYA KHAMUTSIANSKAYA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>SUSAN BANDECCHI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>JOANNA GARLAND</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>LINDA KLIMOVICOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ANASTASIA GASANOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>YUE YUAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>LUCIE HAVLICKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ALIONA FALEI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>BIANCA ANDREESCU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>VENDULA VALDMANNOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>KARMAN THANDI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>VERONIKA PODREZ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>LANLANA TARARUDEE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>GABRIELA KNUTSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>CAROL YOUNG SUH LEE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>TATIANA PROZOROVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>POLINA IATCENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>HANNE VANDEWINKEL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>KYOKA OKAMURA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>HARMONY TAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>VIKTORIA HRUNCAKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>ALEXANDRA SHUBLADZE</strong> removed from Main Draw"
+        },
+        {
             "date": "2026-06-24",
             "change": "<strong>FANGRAN TIAN</strong> removed from Main Draw"
         },
@@ -36723,6 +36871,16 @@
         {
             "date": "2026-07-01",
             "change": "<strong>DARYA ASTAKHOVA</strong> added to Main Draw"
+        }
+    ],
+    "WTA_250_HAMBURG": [
+        {
+            "date": "2026-07-03",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-03",
+            "change": "<strong>KAITLIN QUEVEDO</strong> added to Main Draw"
         }
     ]
 }
