@@ -37883,6 +37883,22 @@
     ],
     "WTA_250_IASI": [
         {
+            "date": "2026-07-06",
+            "change": "<strong>DALMA GALFI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-06",
+            "change": "<strong>ALEVTINA IBRAGIMOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-06",
+            "change": "<strong>MAJA CHWALINSKA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-06",
+            "change": "<strong>DALMA GALFI</strong> added to Main Draw"
+        },
+        {
             "date": "2026-07-04",
             "change": "<strong>VARVARA LEPCHENKO</strong> removed from Qualifying"
         },
@@ -39429,6 +39445,16 @@
         {
             "date": "2026-07-04",
             "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        }
+    ],
+    "WTA_125_PALERMO": [
+        {
+            "date": "2026-07-06",
+            "change": "<strong>ANTONIA VERGARA RIVERA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-06",
+            "change": "<strong>DEBORAH CHIESA</strong> added to Qualifying"
         }
     ]
 }
