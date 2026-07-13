@@ -40133,6 +40133,22 @@
     ],
     "WTA_125_PALERMO": [
         {
+            "date": "2026-07-13",
+            "change": "<strong>ANASTASIA TIKHONOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-13",
+            "change": "<strong>ALESSANDRA MAZZOLA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-13",
+            "change": "<strong>ALICE TUBELLO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-13",
+            "change": "<strong>ANASTASIA TIKHONOVA</strong> added to Main Draw"
+        },
+        {
             "date": "2026-07-11",
             "change": "<strong>JAZMIN ORTENZI</strong> removed from Main Draw"
         },
@@ -40155,6 +40171,16 @@
         {
             "date": "2026-07-06",
             "change": "<strong>DEBORAH CHIESA</strong> added to Qualifying"
+        }
+    ],
+    "WTA_125_TARGU_MURES": [
+        {
+            "date": "2026-07-13",
+            "change": "<strong>ALIAKSANDRA SASNOVICH</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-13",
+            "change": "<strong>MIA RISTIC</strong> added to Main Draw"
         }
     ]
 }
