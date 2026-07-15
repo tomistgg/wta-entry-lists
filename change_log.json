@@ -40356,5 +40356,35 @@
             "date": "2026-07-15",
             "change": "<strong>EVA LYS</strong> added to Main Draw"
         }
+    ],
+    "WTA_500_WASHINGTON_DC": [
+        {
+            "date": "2026-07-15",
+            "change": "<strong>CLAIRE LIU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>MAGDALENA FRECH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>HEATHER WATSON</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>POLINA IATCENKO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>IVA JOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>JAQUELINE  CRISTIAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>MAGDALENA FRECH</strong> added to Main Draw"
+        }
     ]
 }
