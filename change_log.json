@@ -40346,5 +40346,15 @@
             "date": "2026-07-13",
             "change": "<strong>MIA RISTIC</strong> added to Main Draw"
         }
+    ],
+    "WTA_1000_TORONTO": [
+        {
+            "date": "2026-07-15",
+            "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-15",
+            "change": "<strong>EVA LYS</strong> added to Main Draw"
+        }
     ]
 }
