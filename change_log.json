@@ -40686,5 +40686,41 @@
             "date": "2026-07-15",
             "change": "<strong>MAGDALENA FRECH</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_VANCOUVER": [
+        {
+            "date": "2026-07-17",
+            "change": "<strong>HIBAH SHAIKH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-17",
+            "change": "<strong>NAO HIBINO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-07-17",
+            "change": "<strong>VALERIA SAVINYKH</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-17",
+            "change": "<strong>ARIANA ARSENEAULT</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-07-17",
+            "change": "<strong>KRISTINA MLADENOVIC</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-17",
+            "change": "<strong>NAO HIBINO</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_WARSAW": [
+        {
+            "date": "2026-07-17",
+            "change": "<strong>ZHUOXUAN BAI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-07-17",
+            "change": "<strong>JULIA AVDEEVA</strong> added to Main Draw"
+        }
     ]
 }
