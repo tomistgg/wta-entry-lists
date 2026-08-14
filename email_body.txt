@@ -1,0 +1,19 @@
+The following changes were detected:
+
+Tournament: WTA 125 Austin 1
+- WTA 125  - Austin 125 1 Main Draw list is now available.
+- WTA 125  - Austin 125 1 Qualifying list is now available.
+
+Tournament: WTA 125 Antalya 3
+- WTA 125  - Megasaray Hotels Open 3 Main Draw list is now available.
+- WTA 125  - Megasaray Hotels Open 3 Qualifying list is now available.
+
+Tournament: WTA 1000 Miami
+- WTA 1000  - Miami Open presented by Itaú Main Draw list is now available.
+- WTA 1000  - Miami Open presented by Itaú Qualifying list is now available.
+
+Tournament: WTA 125 Dubrovnik
+- WTA 125  - Dubrovnik Open Main Draw list is now available.
+
+Tournament: WTA 500 Charleston
+- WTA 500  - Credit One Charleston Open Main Draw list is now available.
