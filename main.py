@@ -4,6 +4,7 @@ import json
 import time
 import re
 import os
+import html as html_lib
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import unicodedata
@@ -173,9 +174,80 @@ LATAM_CODES = ["ARG", "BOL", "BRA", "CHI", "COL", "CRC", "CUB", "DOM", "ECU", "E
 STATE_FILE = "player_state.json"
 LOG_FILE = "change_log.json"
 
+# WTA country codes mostly follow the IOC's three-letter codes, while the
+# rectangular flag set shared with tenisfemarg uses ISO 3166-1 alpha-2 codes.
+COUNTRY_CODE_TO_ISO2 = {
+    "AFG": "AF", "ALB": "AL", "ALG": "DZ", "AND": "AD", "ANG": "AO",
+    "ARG": "AR", "ARM": "AM", "ARU": "AW", "ASA": "AS",
+    "AUS": "AU", "AUT": "AT", "AZE": "AZ", "BAH": "BS", "BAN": "BD",
+    "BAR": "BB", "BDI": "BI", "BEL": "BE", "BEN": "BJ", "BER": "BM",
+    "BHU": "BT", "BIH": "BA", "BIZ": "BZ", "BLR": "BY", "BOL": "BO",
+    "BOT": "BW", "BRA": "BR", "BRN": "BH", "BRU": "BN", "BUL": "BG",
+    "BUR": "BF", "CAF": "CF", "CAL": "NC", "CAM": "KH", "CAN": "CA",
+    "CAY": "KY", "CGO": "CG", "CHA": "TD", "CHI": "CL", "CHL": "CL",
+    "CHN": "CN", "CIV": "CI",
+    "CMR": "CM", "COD": "CD", "COK": "CK", "COL": "CO", "COM": "KM",
+    "CPV": "CV", "CRC": "CR", "CRO": "HR", "CUB": "CU", "CUW": "CW",
+    "CYP": "CY", "CZE": "CZ", "CZS": "CZ", "DEN": "DK", "DJI": "DJ",
+    "DMA": "DM", "DOM": "DO", "DZA": "DZ",
+    "ECU": "EC", "EGY": "EG", "ERI": "ER", "ESA": "SV", "ESP": "ES",
+    "EST": "EE", "ETH": "ET", "FIJ": "FJ", "FIN": "FI", "FRA": "FR",
+    "FRG": "DE", "FSM": "FM", "GAB": "GA", "GAM": "GM", "GBR": "GB",
+    "GBS": "GW", "GEO": "GE", "GEQ": "GQ", "GER": "DE", "GHA": "GH",
+    "GLP": "GP", "GRB": "GB", "GRE": "GR", "GRC": "GR", "GRN": "GD",
+    "GUA": "GT", "GUI": "GN", "GUM": "GU", "GUY": "GY", "HAI": "HT",
+    "HKG": "HK", "HON": "HN", "HRV": "HR", "HUN": "HU", "INA": "ID",
+    "IND": "IN", "IRI": "IR", "IRL": "IE", "IRN": "IR", "IRQ": "IQ",
+    "ISL": "IS",
+    "ISR": "IL", "ISV": "VI", "ITA": "IT", "IVB": "VG", "JAM": "JM",
+    "JOR": "JO", "JPN": "JP", "KAZ": "KZ", "KEN": "KE", "KGZ": "KG",
+    "KHM": "KH", "KIR": "KI", "KOR": "KR", "KOS": "XK", "KSA": "SA",
+    "KUW": "KW",
+    "LAO": "LA", "LAT": "LV", "LBA": "LY", "LBN": "LB", "LBR": "LR",
+    "LCA": "LC", "LES": "LS", "LIE": "LI", "LTU": "LT", "LUX": "LU",
+    "MAD": "MG", "MAR": "MA", "MAS": "MY", "MAW": "MW", "MDA": "MD",
+    "MDV": "MV", "MEX": "MX", "MGL": "MN", "MHL": "MH", "MKD": "MK",
+    "MLI": "ML", "MLT": "MT", "MNE": "ME", "MON": "MC", "MOZ": "MZ",
+    "MRI": "MU", "MTN": "MR", "MYA": "MM", "NAM": "NA", "NCA": "NI",
+    "NCD": "NC", "NED": "NL", "NEP": "NP", "NET": "NL", "NGA": "NG",
+    "NGR": "NG", "NIG": "NE", "NOR": "NO",
+    "NRU": "NR", "NZL": "NZ", "OMA": "OM", "OMN": "OM", "PAK": "PK",
+    "PAN": "PA",
+    "PAR": "PY", "PER": "PE", "PHI": "PH", "PLE": "PS", "PLW": "PW",
+    "PNG": "PG", "POL": "PL", "POR": "PT", "PRK": "KP", "PUR": "PR",
+    "QAT": "QA", "ROC": "RU", "ROM": "RO", "ROU": "RO", "RSA": "ZA",
+    "RUS": "RU", "RWA": "RW", "SAF": "ZA", "SAM": "WS", "SEN": "SN",
+    "SEY": "SC", "SGP": "SG", "SIN": "SG", "SKN": "KN", "SLE": "SL",
+    "SLO": "SI", "SMR": "SM", "SOL": "SB", "SOM": "SO",
+    "SRB": "RS", "SRI": "LK", "SSD": "SS", "STP": "ST", "SUD": "SD",
+    "SUI": "CH", "SUR": "SR", "SVK": "SK", "SWE": "SE", "SWZ": "SZ",
+    "SYR": "SY", "TAN": "TZ", "TCH": "CZ", "TGA": "TO", "THA": "TH",
+    "TJK": "TJ", "TKM": "TM", "TLS": "TL", "TOG": "TG", "TPE": "TW",
+    "TRI": "TT", "TTO": "TT",
+    "TUN": "TN", "TUR": "TR", "TUV": "TV", "UAE": "AE", "UGA": "UG",
+    "UKR": "UA", "URU": "UY", "USA": "US", "UZB": "UZ", "VAN": "VU",
+    "VEN": "VE", "VIE": "VN", "VIN": "VC", "XKX": "XK", "YEM": "YE",
+    "ZAM": "ZM", "ZIM": "ZW",
+}
+
 PLAYER_OVERRIDES = {
     "CATHERINE HARRISON": {"country": "USA"}
 }
+
+
+def country_flag_html(country_code):
+    code = str(country_code or "-").strip().upper()
+    iso2 = COUNTRY_CODE_TO_ISO2.get(code)
+    if not iso2:
+        return html_lib.escape(code or "-")
+
+    flag_code = iso2.upper()
+    escaped_code = html_lib.escape(code, quote=True)
+    return (
+        '<img class="country-flag" '
+        f'src="https://purecatamphetamine.github.io/country-flag-icons/3x2/{flag_code}.svg" '
+        f'width="20" height="14" alt="{escaped_code} flag" title="{escaped_code}">'
+    )
 
 def load_json(filename):
     if os.path.exists(filename):
@@ -202,7 +274,16 @@ def get_display_content(df, tid, draw_type, availability_date):
         return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on {pretty_date}</p>"
     
     def apply_highlights(table_df):
-        html = table_df.to_html(index=False, classes="entry-table", border=0)
+        safe_text = lambda value: html_lib.escape(str(value))
+        formatters = {column: safe_text for column in table_df.columns}
+        formatters['Country'] = country_flag_html
+        html = table_df.to_html(
+            index=False,
+            classes="entry-table",
+            border=0,
+            escape=False,
+            formatters=formatters,
+        )
         rows = html.split('<tr>')
         final_html = [rows[0]]
         for i, content in enumerate(rows[1:]):
@@ -537,6 +618,7 @@ def main():
             .entry-table {{ width: 100%; border-collapse: collapse; color: white; }}
             .entry-table th {{ background: rgba(255, 255, 255, 0.1); padding: 9px 9px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); text-align: center; font-size: 0.8rem; }}
             .entry-table td {{ padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 0.78rem; }}
+            .country-flag {{ display: block; width: 20px; height: 14px; margin: 0 auto; outline: 0.3px solid #000; }}
             .latam-row td {{ font-family: 'MontserratExtraBold' !important; color: #fff; }}
             .logo-container {{ text-align: center; margin-top: 25px; }}
             .pdf-container {{ flex: 1; display: flex; justify-content: flex-end; }}
