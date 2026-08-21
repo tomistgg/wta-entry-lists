@@ -3420,7 +3420,22 @@
         "Yasmine Kabbaj",
         "Eva Bennemann"
     ],
-    "WTA_125_ANTALYA_QUALIFYING": [],
+    "WTA_125_ANTALYA_QUALIFYING": [
+        "Samira De Stefano",
+        "Gina Feistel",
+        "Rositsa Dencheva",
+        "Weronika Falkowska",
+        "Alicia Herrero Linana",
+        "Raluka Serban",
+        "Radka Zelnickova",
+        "Miriana Tona",
+        "Dalila Jakupovic",
+        "Naiktha Bains",
+        "Sandra Samir",
+        "Lia Karatancheva",
+        "Zhibek Kulambayeva",
+        "Mariia Tkacheva"
+    ],
     "WTA_125_BARRANQUILLA_MAIN_DRAW": [
         "Tereza Valentova",
         "Tatjana Maria",
@@ -3447,7 +3462,14 @@
         "Luisina Giovannini",
         "Nadia Podoroska"
     ],
-    "WTA_125_BARRANQUILLA_QUALIFYING": [],
+    "WTA_125_BARRANQUILLA_QUALIFYING": [
+        "Elsa Jacquemot",
+        "Vendula Valdmannova",
+        "Elizabeth Mandlik",
+        "Iryna Shymanovich",
+        "Carole Monnet",
+        "Xiaodi You"
+    ],
     "WTA_500_GUADALAJARA_MAIN_DRAW": [],
     "WTA_500_GUADALAJARA_QUALIFYING": [],
     "WTA_125_CALDAS_DA_RAINHA_MAIN_DRAW": [],
