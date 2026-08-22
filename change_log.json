@@ -42348,6 +42348,90 @@
     "WTA_125_PHILADELPHIA": [
         {
             "date": "2026-08-22",
+            "change": "<strong>ROBIN MONTGOMERY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>KAJSA RINALDO PERSSON</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>HANNE VANDEWINKEL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>KAYLA DAY</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>EVA LYS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>MARY STOIANA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>CLAIRE LIU</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>ENA KOIKE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>MELL REASCO GONZALEZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>FANGRAN TIAN</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>JULIA GRABHER</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>MIA POHANKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>LOIS BOISSON</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>ANNA FREY</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>SLOANE STEPHENS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>HONG YI CODY WONG</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>FIONA CRAWLEY</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>LIZETTE CABRERA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>KYLIE COLLINS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>LUCCIANA PEREZ ALARCON</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-08-22",
             "change": "<strong>MIA POHANKOVA</strong> removed from Qualifying"
         },
         {
@@ -43033,6 +43117,16 @@
         {
             "date": "2026-08-21",
             "change": "<strong>TESSA JOHANNA BROCKMANN</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_BARRANQUILLA": [
+        {
+            "date": "2026-08-22",
+            "change": "<strong>JIL TEICHMANN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-08-22",
+            "change": "<strong>VARVARA LEPCHENKO</strong> added to Main Draw"
         }
     ]
 }
