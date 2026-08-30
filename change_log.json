@@ -43398,5 +43398,23 @@
             "date": "2026-08-28",
             "change": "<strong>STORM HUNTER</strong> added to Main Draw"
         }
+    ],
+    "WTA_250_SAO_PAULO": [
+        {
+            "date": "2026-08-30",
+            "change": "<strong>LUISINA GIOVANNINI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-08-30",
+            "change": "<strong>FANGRAN TIAN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-08-30",
+            "change": "<strong>CHLOE PAQUET</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-08-30",
+            "change": "<strong>ANASTASIA TIKHONOVA</strong> added to Qualifying"
+        }
     ]
 }
