@@ -3566,18 +3566,15 @@
         "Lucia Bronzetti",
         "Katarzyna Kawa",
         "Leyre Romero Gormaz",
-        "Ekaterine Gorgodze",
         "Elizara Yaneva",
         "Mia Ristic",
         "Elena Pridankina",
         "Eva Vedder",
-        "Arantxa Rus",
         "Julie Struplova",
         "Lina Gjorcheska",
         "Alevtina Ibragimova",
         "Maria Lourdes Carle",
         "Irene Burillo",
-        "Polona Hercog",
         "Miriam Bulgaru",
         "Sofya Lansere",
         "Aurora Zantedeschi",
@@ -3585,7 +3582,14 @@
         "Berfu Cengiz",
         "Ane Mintegi Del Olmo",
         "Yasmine Kabbaj",
-        "Eva Bennemann"
+        "Gina Feistel",
+        "Eva Bennemann",
+        "Weronika Falkowska",
+        "Alicia Herrero Linana",
+        "Raluka Serban",
+        "Radka Zelnickova",
+        "Cagla Buyukakcay",
+        "Zhibek Kulambayeva"
     ],
     "WTA_125_ANTALYA_QUALIFYING": [
         "Samira De Stefano",
@@ -3742,8 +3746,6 @@
         "Nadia Podoroska"
     ],
     "WTA_250_SAO_PAULO_QUALIFYING": [
-        "Suzan Lamens",
-        "Vendula Valdmannova",
         "Elizabeth Mandlik",
         "Laura Pigossi",
         "Xiaodi You",
@@ -3754,6 +3756,8 @@
         "Cadence Brace",
         "Anastasia Tikhonova",
         "Chloe Paquet",
+        "Lizette Cabrera",
+        "Carolina Alves",
         "Kristina Mladenovic",
         "Astra Sharma"
     ],
@@ -3793,7 +3797,6 @@
     "WTA_125_VALENCIA_MAIN_DRAW": [
         "Oksana Selekhmeteva",
         "Veronika Erjavec",
-        "Julia Grabher",
         "Katarzyna Kawa",
         "Marina Bassols Ribera",
         "Andrea Lazaro Garcia",
@@ -3812,12 +3815,12 @@
         "Ane Mintegi Del Olmo",
         "Yasmine Kabbaj",
         "Mina Hodzic",
+        "Eva Bennemann",
         "Clara Burel",
         "Ariana Geerlings"
     ],
     "WTA_125_VALENCIA_QUALIFYING": [
         "Alicia Herrero Linana",
-        "Eva Bennemann",
         "Martina Trevisan",
         "Mell Reasco Gonzalez",
         "Jessica Pieri",
@@ -3829,7 +3832,8 @@
         "Aran Teixido Garcia",
         "Dalila Spiteri",
         "Dalila Jakupovic",
-        "Nastasja Schunk"
+        "Nastasja Schunk",
+        "Diletta Cherubini"
     ],
     "WTA_500_SINGAPORE_MAIN_DRAW": [
         "Jessica Pegula",
