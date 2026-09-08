@@ -47478,5 +47478,47 @@
             "date": "2026-09-07",
             "change": "<strong>ANN LI</strong> removed from Main Draw"
         }
+    ],
+    "WTA_125_CALDAS_DA_RAINHA": [
+        {
+            "date": "2026-09-08",
+            "change": "<strong>FRANCISCA JORGE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>ANOUK KOEVERMANS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>ARIANA ARSENEAULT</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>AOI ITO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>ALEVTINA IBRAGIMOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>POLINA IATCENKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>SONAY KARTAL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>KAJSA RINALDO PERSSON</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>ANOUK KOEVERMANS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-08",
+            "change": "<strong>FRANCISCA JORGE</strong> added to Main Draw"
+        }
     ]
 }
