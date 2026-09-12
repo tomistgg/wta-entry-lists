@@ -43617,6 +43617,14 @@
     ],
     "WTA_250_SAO_PAULO": [
         {
+            "date": "2026-09-12",
+            "change": "<strong>ALANA SMITH</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-12",
+            "change": "<strong>MARIA URRUTIA</strong> added to Qualifying"
+        },
+        {
             "date": "2026-09-11",
             "change": "<strong>LAURA PIGOSSI</strong> removed from Qualifying"
         },
@@ -47903,6 +47911,16 @@
         {
             "date": "2026-09-08",
             "change": "<strong>FRANCISCA JORGE</strong> added to Main Draw"
+        }
+    ],
+    "WTA_250_SEOUL": [
+        {
+            "date": "2026-09-12",
+            "change": "<strong>NIKOLA BARTUNKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-12",
+            "change": "<strong>ANASTASIA ZAKHAROVA</strong> added to Main Draw"
         }
     ]
 }
