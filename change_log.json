@@ -44081,6 +44081,22 @@
     ],
     "WTA_1000_BEIJING": [
         {
+            "date": "2026-09-13",
+            "change": "<strong>SHUAI ZHANG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>KAROLINA PLISKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MAGDA LINETTE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARIA TIMOFEEVA</strong> added to Main Draw"
+        },
+        {
             "date": "2026-09-11",
             "change": "<strong>EMMA RADUCANU</strong> removed from Main Draw"
         },
@@ -47857,6 +47873,34 @@
     ],
     "WTA_125_VALENCIA": [
         {
+            "date": "2026-09-13",
+            "change": "<strong>FEDERICA URGESI</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARIA GARCIA CID</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>CHARO ESQUIVA BANULS</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>CARLOTA MARTINEZ CIREZ</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ALICIA HERRERO LINANA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>LUCIA CORTEZ LLORCA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARTINA TREVISAN</strong> added to Main Draw"
+        },
+        {
             "date": "2026-09-12",
             "change": "<strong>MARTINA TREVISAN</strong> removed from Qualifying"
         },
@@ -47906,6 +47950,22 @@
         }
     ],
     "WTA_500_SINGAPORE": [
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ALYCIA PARKS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>TALIA GIBSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>NAO HIBINO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ANNA-LENA FRIEDSAM</strong> added to Qualifying"
+        },
         {
             "date": "2026-09-13",
             "change": "<strong>SORANA CIRSTEA</strong> removed from Main Draw"
@@ -48081,6 +48141,24 @@
         {
             "date": "2026-09-12",
             "change": "<strong>ANASTASIA ZAKHAROVA</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_PORTO": [
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ANOUK KOEVERMANS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>KYLIE COLLINS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>LINDA KLIMOVICOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ANOUK KOEVERMANS</strong> added to Main Draw"
         }
     ]
 }
