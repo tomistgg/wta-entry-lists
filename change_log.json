@@ -43617,6 +43617,10 @@
     ],
     "WTA_250_SAO_PAULO": [
         {
+            "date": "2026-09-13",
+            "change": "<strong>LEOLIA JEANJEAN</strong> removed from Main Draw"
+        },
+        {
             "date": "2026-09-12",
             "change": "<strong>ELIZABETH MANDLIK</strong> removed from Main Draw"
         },
@@ -48029,6 +48033,74 @@
     ],
     "WTA_125_CALDAS_DA_RAINHA": [
         {
+            "date": "2026-09-13",
+            "change": "<strong>HANNE VANDEWINKEL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARIA TIMOFEEVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>LINDA KLIMOVICOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ELLA SEIDEL</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>HIMENO SAKATSUME</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>GREET MINNEN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ELENA MICIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>CARLA TOMAI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>XINYU GAO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>AOI ITO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>SANA GARAKANI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>AYANA AKLI</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MIA POHANKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARIIA NOZDRACHOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MATILDE JORGE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARIA MARTINEZ VAQUERO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>CAROLINE WERNER</strong> added to Main Draw"
+        },
+        {
             "date": "2026-09-12",
             "change": "<strong>XINYU GAO</strong> removed from Qualifying"
         },
@@ -48159,6 +48231,100 @@
         {
             "date": "2026-09-13",
             "change": "<strong>ANOUK KOEVERMANS</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_LJUBLJANA": [
+        {
+            "date": "2026-09-13",
+            "change": "<strong>SAMIRA DE STEFANO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>GIORGIA PEDONE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>GINA FEISTEL</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>FIONA FERRO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>WERONIKA FALKOWSKA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>LUCIJA CIRIC BAGARIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>RADKA ZELNICKOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>MARTINA COLMEGNA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>RALUKA SERBAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>KAJA NAJZER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>LEA BOSKOVIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>GABRIELLA PRICE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ALICE RAME</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>BRENDA FRUHVIRTOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>SIMONA WALTERT</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>KRISTINA NOVAK</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>GINA FEISTEL</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>WERONIKA FALKOWSKA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>GIORGIA PEDONE</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>PIA LOVRIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>SAMIRA DE STEFANO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>ALJA SENICA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-13",
+            "change": "<strong>DENISA ZOLDAKOVA</strong> added to Main Draw"
         }
     ]
 }
