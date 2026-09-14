@@ -44121,6 +44121,14 @@
     ],
     "WTA_1000_BEIJING": [
         {
+            "date": "2026-09-14",
+            "change": "<strong>MARIA TIMOFEEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-14",
+            "change": "<strong>DARYA ASTAKHOVA</strong> added to Qualifying"
+        },
+        {
             "date": "2026-09-13",
             "change": "<strong>SHUAI ZHANG</strong> removed from Main Draw"
         },
@@ -48393,6 +48401,24 @@
         {
             "date": "2026-09-13",
             "change": "<strong>DENISA ZOLDAKOVA</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_ANKARA": [
+        {
+            "date": "2026-09-14",
+            "change": "<strong>ZONGYU LI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-14",
+            "change": "<strong>KARMAN THANDI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-14",
+            "change": "<strong>DARIA EGOROVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-14",
+            "change": "<strong>ISABELLA SHINIKOVA</strong> added to Qualifying"
         }
     ]
 }
