@@ -47999,6 +47999,14 @@
     ],
     "WTA_500_SINGAPORE": [
         {
+            "date": "2026-09-15",
+            "change": "<strong>SARA BEJLEK</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-15",
+            "change": "<strong>TATIANA PROZOROVA</strong> added to Main Draw"
+        },
+        {
             "date": "2026-09-14",
             "change": "<strong>EKATERINA ALEXANDROVA</strong> removed from Main Draw"
         },
@@ -48266,6 +48274,14 @@
         }
     ],
     "WTA_250_SEOUL": [
+        {
+            "date": "2026-09-15",
+            "change": "<strong>DARJA VIDMANOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-15",
+            "change": "<strong>ELVINA KALIEVA</strong> added to Main Draw"
+        },
         {
             "date": "2026-09-14",
             "change": "<strong>YULIIA STARODUBTSEVA</strong> removed from Main Draw"
