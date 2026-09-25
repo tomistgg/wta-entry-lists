@@ -57639,6 +57639,98 @@
     ],
     "WTA_125_JINGSHAN": [
         {
+            "date": "2026-09-25",
+            "change": "<strong>JIA-JING LU</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>CHLOE PAQUET</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>VARVARA PANSHINA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>DARIA EGOROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>WERONIKA FALKOWSKA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>SIJIA WEI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>VIKTORIA MORVAYOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>YIDI YANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>ZONGYU LI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>MIHO KURAMOCHI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>HANNA CHANG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>EKATERINA YASHINA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>NATSUMI KAWAGUCHI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>POLINA LEYKINA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>CHENGYIYI YUAN</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>ARUZHAN SAGANDYKOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>MEIQI GUO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>NIKA RADISIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>KRISTIANA SIDOROVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>YUJIA HUANG</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>YING ZHANG</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>HIROKO KUWATA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>WUSHUANG ZHENG</strong> added to Qualifying"
+        },
+        {
             "date": "2026-09-19",
             "change": "<strong>YUFEI REN</strong> removed from Qualifying"
         },
@@ -57811,6 +57903,22 @@
     ],
     "WTA_125_SUZHOU": [
         {
+            "date": "2026-09-25",
+            "change": "<strong>TAYLAH PRESTON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>JELINE VANDROMME</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>ALEXANDRA SHUBLADZE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>LINDA FRUHVIRTOVA</strong> added to Qualifying"
+        },
+        {
             "date": "2026-09-20",
             "change": "<strong>JELINE VANDROMME</strong> removed from Qualifying"
         },
@@ -57967,6 +58075,24 @@
         {
             "date": "2026-09-23",
             "change": "<strong>LILLI TAGGER</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_SAMSUN": [
+        {
+            "date": "2026-09-25",
+            "change": "<strong>ZHUOXUAN BAI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>SUZAN LAMENS</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>ANASTASIA TIKHONOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-09-25",
+            "change": "<strong>ALICIA DUDENEY</strong> added to Qualifying"
         }
     ]
 }
