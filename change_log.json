@@ -58087,6 +58087,14 @@
     ],
     "WTA_125_SAMSUN": [
         {
+            "date": "2026-09-26",
+            "change": "<strong>DARJA SEMENISTAJA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-26",
+            "change": "<strong>SUZAN LAMENS</strong> added to Main Draw"
+        },
+        {
             "date": "2026-09-25",
             "change": "<strong>ZHUOXUAN BAI</strong> removed from Qualifying"
         },
@@ -58104,6 +58112,10 @@
         }
     ],
     "WTA_125_ADANA": [
+        {
+            "date": "2026-09-26",
+            "change": "<strong>ANNA SISKOVA</strong> removed from Qualifying"
+        },
         {
             "date": "2026-09-25",
             "change": "<strong>LUCIE HAVLICKOVA</strong> removed from Qualifying"
