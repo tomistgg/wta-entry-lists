@@ -58594,6 +58594,34 @@
     "WTA_125_ADANA": [
         {
             "date": "2026-09-27",
+            "change": "<strong>EKATERINE GORGODZE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>FIONA CRAWLEY</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>ANASTASIA TIKHONOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>ERIKA ANDREEVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>VIKTORIA HRUNCAKOVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>LOIS BOISSON</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>ELENA RUXANDRA BERTEA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-09-27",
             "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
         },
         {
@@ -58731,6 +58759,16 @@
         {
             "date": "2026-09-25",
             "change": "<strong>ADELINA LACINOVA</strong> added to Qualifying"
+        }
+    ],
+    "WTA_125_LISBON": [
+        {
+            "date": "2026-09-27",
+            "change": "<strong>SONJA ZHIYENBAYEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-09-27",
+            "change": "<strong>KATERINA TSYGOUROVA</strong> added to Qualifying"
         }
     ]
 }
