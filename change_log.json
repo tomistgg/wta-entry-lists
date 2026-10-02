@@ -58964,5 +58964,31 @@
             "date": "2026-10-02",
             "change": "<strong>KATARINA ZAVATSKA</strong> added to Qualifying"
         }
+    ],
+    "WTA_125_MALLORCA": [
+        {
+            "date": "2026-10-02",
+            "change": "<strong>CHLOE PAQUET</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-02",
+            "change": "<strong>YASMINE KABBAJ</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-02",
+            "change": "<strong>SAPFO SAKELLARIDI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-02",
+            "change": "<strong>ANETA LABOUTKOVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-02",
+            "change": "<strong>SOLANA SIERRA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-02",
+            "change": "<strong>YASMINE KABBAJ</strong> added to Main Draw"
+        }
     ]
 }
