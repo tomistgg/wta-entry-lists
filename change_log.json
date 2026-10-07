@@ -59458,5 +59458,25 @@
             "date": "2026-10-02",
             "change": "<strong>YASMINE KABBAJ</strong> added to Main Draw"
         }
+    ],
+    "WTA_500_NINGBO": [
+        {
+            "date": "2026-10-07",
+            "change": "<strong>PANNA UDVARDY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-07",
+            "change": "<strong>POLINA KUDERMETOVA</strong> added to Qualifying"
+        }
+    ],
+    "WTA_250_OSAKA": [
+        {
+            "date": "2026-10-07",
+            "change": "<strong>ELISABETTA COCCIARETTO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-07",
+            "change": "<strong>HIMENO SAKATSUME</strong> added to Qualifying"
+        }
     ]
 }
