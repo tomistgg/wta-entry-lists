@@ -60596,5 +60596,23 @@
             "date": "2026-10-09",
             "change": "<strong>ERI SHIMIZU</strong> removed from Main Draw"
         }
+    ],
+    "WTA_250_GUANGZHOU": [
+        {
+            "date": "2026-10-11",
+            "change": "<strong>MANANCHAYA SAWANGKAEW</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-11",
+            "change": "<strong>EKATERINE GORGODZE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-11",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-11",
+            "change": "<strong>MANANCHAYA SAWANGKAEW</strong> added to Main Draw"
+        }
     ]
 }
