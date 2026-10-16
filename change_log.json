@@ -60966,5 +60966,31 @@
             "date": "2026-10-16",
             "change": "<strong>KATERINA TSYGOUROVA</strong> added to Qualifying"
         }
+    ],
+    "WTA_125_QUERETARO": [
+        {
+            "date": "2026-10-16",
+            "change": "<strong>LINA GLUSHKO</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-16",
+            "change": "<strong>SOFIA JOHNSON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-16",
+            "change": "<strong>EMA BURGIC</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-16",
+            "change": "<strong>JESSICA HINOJOSA GOMEZ</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-16",
+            "change": "<strong>NAIKTHA BAINS</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-16",
+            "change": "<strong>SOFIA JOHNSON</strong> added to Main Draw"
+        }
     ]
 }
