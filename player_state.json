@@ -4682,10 +4682,6 @@
         "Diane Parry"
     ],
     "WTA_500_NINGBO_QUALIFYING": [
-        "Leylah Fernandez",
-        "Diane Parry",
-        "Cristina Bucsa",
-        "Xinyu Wang",
         "Yuliia Starodubtseva",
         "Daria Snigur",
         "Magdalena Frech",
@@ -4697,11 +4693,19 @@
         "Katie Volynets",
         "Kamilla Rakhimova",
         "Yulia Putintseva",
-        "Xiyu Wang",
-        "Daria Kasatkina",
         "Mananchaya Sawangkaew",
         "Simona Waltert",
-        "Polina Kudermetova"
+        "Polina Kudermetova",
+        "Anastasia Zakharova",
+        "Dayana Yastremska",
+        "Aliaksandra Sasnovich",
+        "Tatiana Prozorova",
+        "Jeline Vandromme",
+        "Katarzyna Kawa",
+        "Han Shi",
+        "Yu Jun Lin",
+        "Yihan Qu",
+        "Jiali Dong"
     ],
     "WTA_250_OSAKA_MAIN_DRAW": [
         "Ann Li",
@@ -4756,7 +4760,6 @@
     "WTA_125_RIO_DE_JANEIRO_QUALIFYING": [],
     "WTA_500_TOKYO_MAIN_DRAW": [
         "Elena Rybakina",
-        "Jessica Pegula",
         "Elina Svitolina",
         "Iga Swiatek",
         "Marta Kostyuk",
@@ -4769,12 +4772,11 @@
         "Elise Mertens",
         "Jasmine Paolini",
         "Maja Chwalinska",
-        "Anna Kalinskaya",
         "Leylah Fernandez",
-        "Ekaterina Alexandrova"
+        "Ekaterina Alexandrova",
+        "Ann Li"
     ],
     "WTA_500_TOKYO_QUALIFYING": [
-        "Ann Li",
         "Diane Parry",
         "Nikola Bartunkova",
         "Cristina Bucsa",
@@ -4783,7 +4785,6 @@
         "Xinyu Wang",
         "Liudmila Samsonova",
         "Kimberly Birrell",
-        "Clara Tauson",
         "Yuliia Starodubtseva",
         "Oleksandra Oliynykova",
         "Magdalena Frech",
@@ -4791,8 +4792,10 @@
         "Qinwen Zheng",
         "Katie Boulter",
         "Shuai Zhang",
-        "Elena-Gabriela Ruse",
         "Tereza Valentova",
+        "Viktorija Golubic",
+        "Alycia Parks",
+        "Caty Mcnally",
         "Sonay Kartal"
     ],
     "WTA_125_CURITIBA_MAIN_DRAW": [
@@ -4821,12 +4824,12 @@
         "Gina Feistel"
     ],
     "WTA_125_CURITIBA_QUALIFYING": [
-        "Gabriela Ce",
         "Antonia Vergara Rivera",
         "Justina Gonzalez Daniele",
         "Maria Urrutia",
         "Luiza Fullana",
-        "Marie Mettraux"
+        "Ana Candiotto",
+        "Nauhany Vitoria Leme Da Silva"
     ],
     "WTA_250_GUANGZHOU_MAIN_DRAW": [
         "Sara Bejlek",
@@ -4912,7 +4915,7 @@
         "Lucija Ciric Bagaric",
         "Yelyzaveta Kotliar",
         "Elena Milovanovic",
-        "Tena Lukas"
+        "Katerina Tsygourova"
     ],
     "WTA_125_QUERETARO_MAIN_DRAW": [
         "Tatjana Maria",
@@ -4980,7 +4983,14 @@
         "Bianca Andreescu",
         "Akasha Urhobo"
     ],
-    "WTA_125_CALI_QUALIFYING": [],
+    "WTA_125_CALI_QUALIFYING": [
+        "Varvara Lepchenko",
+        "Nadia Podoroska",
+        "Luisina Giovannini",
+        "Carole Monnet",
+        "Irene Burillo",
+        "Caroline Dolehide"
+    ],
     "WTA_250_CHENNAI_MAIN_DRAW": [
         "Janice Tjen",
         "Lilli Tagger",
@@ -5006,7 +5016,22 @@
         "Jil Teichmann",
         "Jodie Burrage"
     ],
-    "WTA_250_CHENNAI_QUALIFYING": [],
+    "WTA_250_CHENNAI_QUALIFYING": [
+        "Polina Iatcenko",
+        "Storm Hunter",
+        "Tyra Caterina Grant",
+        "Linda Fruhvirtova",
+        "Elsa Jacquemot",
+        "Mai Hontama",
+        "Erika Andreeva",
+        "Aliona Falei",
+        "Mia Pohankova",
+        "Noemi Basiletti",
+        "Kyoka Okamura",
+        "Mei Yamaguchi",
+        "Darya Khamutsianskaya",
+        "Mariia Tkacheva"
+    ],
     "WTA_250_HONG_KONG_MAIN_DRAW": [
         "Diana Shnaider",
         "Sorana Cirstea",
@@ -5032,7 +5057,22 @@
         "Anna Bondar",
         "Sonay Kartal"
     ],
-    "WTA_250_HONG_KONG_QUALIFYING": [],
+    "WTA_250_HONG_KONG_QUALIFYING": [
+        "Tereza Valentova",
+        "Maria Timofeeva",
+        "Alycia Parks",
+        "Ashlyn Krueger",
+        "Caty Mcnally",
+        "Viktorija Golubic",
+        "Alina Korneeva",
+        "Kaitlin Quevedo",
+        "Taylah Preston",
+        "Katie Volynets",
+        "Xiyu Wang",
+        "Maya Joint",
+        "Antonia Ruzic",
+        "Claire Liu"
+    ],
     "WTA_125_MIAMI_MAIN_DRAW": [],
     "WTA_125_MIAMI_QUALIFYING": [],
     "WTA_125_LUANDA_MAIN_DRAW": [
@@ -5060,9 +5100,46 @@
         "Victoria Milovanova",
         "Kristina Kroitor"
     ],
-    "WTA_125_LUANDA_QUALIFYING": [],
+    "WTA_125_LUANDA_QUALIFYING": [
+        "Yasmine Kabbaj",
+        "Franziska Sziedat",
+        "Celia Cervino Ruiz",
+        "Demi Tran",
+        "Kristina Novak",
+        "Maayan Laron",
+        "Raphaelle Lacasse",
+        "Darja Suvirdjonkova",
+        "Wozuko Mdlulwa",
+        "Jenna Defalco",
+        "Ellie Schoppe",
+        "Laura Bohner",
+        "Warona Mdlulwa",
+        "Ana Filipa Santos"
+    ],
     "FINALS_INDIAN_WELLS_MAIN_DRAW": [],
     "FINALS_INDIAN_WELLS_QUALIFYING": [],
-    "WTA_125_SOPO_MAIN_DRAW": [],
+    "WTA_125_SOPO_MAIN_DRAW": [
+        "Oleksandra Oliynykova",
+        "Tatjana Maria",
+        "Petra Marcinko",
+        "Renata Zarazua",
+        "Leolia Jeanjean",
+        "Julia Grabher",
+        "Jessica Bouzas Maneiro",
+        "Solana Sierra",
+        "Francesca Jones",
+        "Fiona Ferro",
+        "Elvina Kalieva",
+        "Laura Samson",
+        "Marina Bassols Ribera",
+        "Darja Semenistaja",
+        "Sloane Stephens",
+        "Lucia Bronzetti",
+        "Julia Riera",
+        "Leyre Romero Gormaz",
+        "Andrea Lazaro Garcia",
+        "Veronika Erjavec",
+        "Jazmin Ortenzi"
+    ],
     "WTA_125_SOPO_QUALIFYING": []
 }
