@@ -5007,8 +5007,8 @@
     ],
     "WTA_125_CALI_QUALIFYING": [
         "Varvara Lepchenko",
-        "Nadia Podoroska",
         "Luisina Giovannini",
+        "Nadia Podoroska",
         "Carole Monnet",
         "Irene Burillo",
         "Caroline Dolehide"
@@ -5047,12 +5047,12 @@
         "Mai Hontama",
         "Erika Andreeva",
         "Aliona Falei",
-        "Mia Pohankova",
         "Noemi Basiletti",
         "Kyoka Okamura",
         "Mei Yamaguchi",
         "Darya Khamutsianskaya",
-        "Mariia Tkacheva"
+        "Mariia Tkacheva",
+        "Mia Pohankova"
     ],
     "WTA_250_HONG_KONG_MAIN_DRAW": [
         "Diana Shnaider",
@@ -5080,17 +5080,17 @@
         "Sonay Kartal"
     ],
     "WTA_250_HONG_KONG_QUALIFYING": [
-        "Tereza Valentova",
-        "Maria Timofeeva",
-        "Alycia Parks",
         "Ashlyn Krueger",
         "Caty Mcnally",
-        "Viktorija Golubic",
-        "Alina Korneeva",
-        "Kaitlin Quevedo",
-        "Taylah Preston",
+        "Alycia Parks",
+        "Maria Timofeeva",
         "Katie Volynets",
+        "Kaitlin Quevedo",
+        "Alina Korneeva",
         "Xiyu Wang",
+        "Viktorija Golubic",
+        "Taylah Preston",
+        "Tereza Valentova",
         "Maya Joint",
         "Antonia Ruzic",
         "Claire Liu"
@@ -5124,19 +5124,19 @@
     ],
     "WTA_125_LUANDA_QUALIFYING": [
         "Yasmine Kabbaj",
-        "Franziska Sziedat",
         "Celia Cervino Ruiz",
+        "Franziska Sziedat",
         "Demi Tran",
         "Kristina Novak",
-        "Maayan Laron",
         "Raphaelle Lacasse",
+        "Maayan Laron",
         "Darja Suvirdjonkova",
         "Wozuko Mdlulwa",
         "Jenna Defalco",
         "Ellie Schoppe",
         "Laura Bohner",
-        "Warona Mdlulwa",
-        "Ana Filipa Santos"
+        "Ana Filipa Santos",
+        "Warona Mdlulwa"
     ],
     "FINALS_INDIAN_WELLS_MAIN_DRAW": [],
     "FINALS_INDIAN_WELLS_QUALIFYING": [],
@@ -5144,13 +5144,12 @@
         "Oleksandra Oliynykova",
         "Tatjana Maria",
         "Petra Marcinko",
-        "Renata Zarazua",
         "Leolia Jeanjean",
-        "Julia Grabher",
+        "Renata Zarazua",
         "Jessica Bouzas Maneiro",
-        "Solana Sierra",
         "Francesca Jones",
         "Fiona Ferro",
+        "Solana Sierra",
         "Elvina Kalieva",
         "Laura Samson",
         "Marina Bassols Ribera",
@@ -5161,7 +5160,8 @@
         "Leyre Romero Gormaz",
         "Andrea Lazaro Garcia",
         "Veronika Erjavec",
-        "Jazmin Ortenzi"
+        "Jazmin Ortenzi",
+        "Julia Grabher"
     ],
     "WTA_125_SOPO_QUALIFYING": []
 }
