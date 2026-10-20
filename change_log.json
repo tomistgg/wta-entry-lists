@@ -61144,5 +61144,55 @@
             "date": "2026-10-16",
             "change": "<strong>SOFIA JOHNSON</strong> added to Main Draw"
         }
+    ],
+    "WTA_250_HONG_KONG": [
+        {
+            "date": "2026-10-20",
+            "change": "<strong>CATY MCNALLY</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>TEREZA VALENTOVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>TAYLAH PRESTON</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>ALINA CHARAEVA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>MARY STOIANA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>DAYANA YASTREMSKA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>HIMENO SAKATSUME</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>QINWEN ZHENG</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>CRISTINA BUCSA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>VIKTORIJA GOLUBIC</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-10-20",
+            "change": "<strong>TEREZA VALENTOVA</strong> added to Main Draw"
+        }
     ]
 }
