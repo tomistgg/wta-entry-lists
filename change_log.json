@@ -61442,5 +61442,31 @@
             "date": "2026-10-20",
             "change": "<strong>TEREZA VALENTOVA</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_CALI": [
+        {
+            "date": "2026-10-23",
+            "change": "<strong>CAROLE MONNET</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-23",
+            "change": "<strong>ALICE TUBELLO</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-23",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-23",
+            "change": "<strong>AKASHA URHOBO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-23",
+            "change": "<strong>CAROLE MONNET</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-10-23",
+            "change": "<strong>DESPINA PAPAMICHAIL</strong> added to Main Draw"
+        }
     ]
 }
