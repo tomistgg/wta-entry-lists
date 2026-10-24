@@ -4782,11 +4782,7 @@
     "WTA_125_RIO_DE_JANEIRO_QUALIFYING": [],
     "WTA_500_TOKYO_MAIN_DRAW": [
         "Elena Rybakina",
-        "Elina Svitolina",
-        "Iga Swiatek",
-        "Marta Kostyuk",
         "Belinda Bencic",
-        "Iva Jovic",
         "Diana Shnaider",
         "Sorana Cirstea",
         "Naomi Osaka",
@@ -4796,7 +4792,17 @@
         "Maja Chwalinska",
         "Leylah Fernandez",
         "Ekaterina Alexandrova",
-        "Ann Li"
+        "Ann Li",
+        "Diane Parry",
+        "Maria Sakkari",
+        "Nikola Bartunkova",
+        "Cristina Bucsa",
+        "Talia Gibson",
+        "Xinyu Wang",
+        "Moyuka Uchijima",
+        "Himeno Sakatsume",
+        "Mia Pohankova",
+        "Mika Stojsavljevic"
     ],
     "WTA_500_TOKYO_QUALIFYING": [
         "Liudmila Samsonova",
@@ -4858,10 +4864,8 @@
         "Nauhany Vitoria Leme Da Silva"
     ],
     "WTA_250_GUANGZHOU_MAIN_DRAW": [
-        "Sara Bejlek",
         "Daria Snigur",
         "Janice Tjen",
-        "Anhelina Kalinina",
         "Katerina Siniakova",
         "Zeynep Sonmez",
         "Paula Badosa",
@@ -4869,7 +4873,6 @@
         "Lanlana Tararudee",
         "Anna Bondar",
         "Maria Timofeeva",
-        "Alina Korneeva",
         "Katie Volynets",
         "Kaitlin Quevedo",
         "Panna Udvardy",
@@ -4877,8 +4880,16 @@
         "Antonia Ruzic",
         "Xiyu Wang",
         "Mananchaya Sawangkaew",
+        "Sinja Kraus",
+        "Claire Liu",
+        "Simona Waltert",
+        "Polina Kudermetova",
+        "Sofia Kenin",
         "Jil Teichmann",
-        "Sara Sorribes Tormo"
+        "Sara Sorribes Tormo",
+        "Han Shi",
+        "Xinran Sun",
+        "Venus Williams"
     ],
     "WTA_250_GUANGZHOU_QUALIFYING": [
         "Anastasia Zakharova",
