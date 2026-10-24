@@ -61455,6 +61455,90 @@
     ],
     "WTA_125_COURMAYEUR": [
         {
+            "date": "2026-10-24",
+            "change": "<strong>KATARINA ZAVATSKA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>KATERINA TSYGOUROVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>GREET MINNEN</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>WERONIKA FALKOWSKA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>LIZETTE CABRERA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>JESSICA PIERI</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>CAROLINE WERNER</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>ERIKA ANDREEVA</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>ANGELINA VOLOSHCHUK</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>ELENA MILOVANOVIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>LUCIJA CIRIC BAGARIC</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>LISA ZAAR</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>GAIA  MADUZZI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>DARIA YESYPCHUK</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>ALJA SENICA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>SAPFO SAKELLARIDI</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>FINJA MATUELLA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>YANA MORDERGER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>TAYISIYA MORDERGER</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>ENOLA CHIESA</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>ADRIENN NAGY</strong> added to Qualifying"
+        },
+        {
             "date": "2026-10-16",
             "change": "<strong>TENA LUKAS</strong> removed from Qualifying"
         },
@@ -61603,6 +61687,24 @@
         {
             "date": "2026-10-23",
             "change": "<strong>DESPINA PAPAMICHAIL</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_SOPO": [
+        {
+            "date": "2026-10-24",
+            "change": "<strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>EMILIANA ARANGO</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-10-24",
+            "change": "<strong>SOFIA COSTOULAS</strong> added to Main Draw"
         }
     ]
 }
