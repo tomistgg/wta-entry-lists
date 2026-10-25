@@ -55,8 +55,3029 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
     <body>
-        <div class="sidebar"></div>
-        <div class="main-content"></div>
+        <div class="sidebar"><div class="week-title">Semana 26 Octubre</div><button class="tablinks active" onclick="openTourney(event, 'WTA_500_TOKYO')">WTA 500 Tokyo</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_QUERETARO')">WTA 125 Queretaro</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_GUANGZHOU')">WTA 250 Guangzhou</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_COURMAYEUR')">WTA 125 Courmayeur</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_CURITIBA')">WTA 125 Curitiba</button><div class="week-title">Semana 2 Noviembre</div><button class="tablinks " onclick="openTourney(event, 'WTA_250_HONG_KONG')">WTA 250 Hong Kong</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_CALI')">WTA 125 Cali</button><button class="tablinks " onclick="openTourney(event, 'WTA_250_CHENNAI')">WTA 250 Chennai</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_MIAMI')">WTA 125 Miami</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_LUANDA')">WTA 125 Luanda</button><div class="week-title">Semana 9 Noviembre</div><button class="tablinks " onclick="openTourney(event, 'FINALS_INDIAN_WELLS')">Finals Indian Wells</button><button class="tablinks " onclick="openTourney(event, 'WTA_125_SOPO')">WTA 125 Sopo</button><div class="week-title">Semana 16 Noviembre</div><button class="tablinks " onclick="openTourney(event, 'WTA_125_COLINA')">WTA 125 Colina</button></div>
+        <div class="main-content"><div id="WTA_500_TOKYO" class="tabcontent" style="display: block;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_500_TOKYO')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Toray Pan Pacific Open Tennis</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_500_TOKYO')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Elena Rybakina</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/KZ.svg" width="20" height="14" alt="KAZ flag" title="KAZ"></td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Belinda Bencic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Diana Shnaider</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Sorana Cirstea</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RO.svg" width="20" height="14" alt="ROU flag" title="ROU"></td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Naomi Osaka</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Alexandra Eala</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PH.svg" width="20" height="14" alt="PHI flag" title="PHI"></td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Elise Mertens</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Jasmine Paolini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Maja Chwalinska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Leylah Fernandez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Ekaterina Alexandrova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Ann Li</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Diane Parry</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Maria Sakkari</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GR.svg" width="20" height="14" alt="GRE flag" title="GRE"></td>
+      <td>33</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>Nikola Bartunkova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Cristina Bucsa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Talia Gibson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Xinyu Wang</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Tereza Valentova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Alycia Parks</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Maya Joint</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Yulia Putintseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/KZ.svg" width="20" height="14" alt="KAZ flag" title="KAZ"></td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Daria Kasatkina</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Moyuka Uchijima</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Himeno Sakatsume</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Aliaksandra Sasnovich</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BY.svg" width="20" height="14" alt="BLR flag" title="BLR"></td>
+      <td>121</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Mia Pohankova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SK.svg" width="20" height="14" alt="SVK flag" title="SVK"></td>
+      <td>193</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Mika Stojsavljevic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>276</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Liudmila Samsonova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Kimberly Birrell</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Yuliia Starodubtseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Oleksandra Oliynykova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Shuai Zhang</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Tereza Valentova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Viktorija Golubic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Alycia Parks</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Maya Joint</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Kamilla Rakhimova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UZ.svg" width="20" height="14" alt="UZB flag" title="UZB"></td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Yulia Putintseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/KZ.svg" width="20" height="14" alt="KAZ flag" title="KAZ"></td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Daria Kasatkina</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Kayla Day</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Aliaksandra Sasnovich</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BY.svg" width="20" height="14" alt="BLR flag" title="BLR"></td>
+      <td>121</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Yexin Ma</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>161</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Mai Hontama</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>177</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Hayu Kinoshita</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>216</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Kyoka Okamura</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>303</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>En-Shuo Liang</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TW.svg" width="20" height="14" alt="TPE flag" title="TPE"></td>
+      <td>312</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Aoi Ito</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>361</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Heather Watson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>394</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Ena Shibahara</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>580</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Sayaka Ishii</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>588</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Shiho Tsujioka</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>877</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ALIAKSANDRA SASNOVICH</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>IVA JOVIC</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ELINA SVITOLINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>IGA SWIATEK</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MARTA KOSTYUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>DIANE PARRY</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MIKA STOJSAVLJEVIC</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MIA POHANKOVA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MOYUKA UCHIJIMA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MARIA SAKKARI</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>HIMENO SAKATSUME</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>KYOKA OKAMURA</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>EN-SHUO LIANG</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>KATIE BOULTER</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>XINYU WANG</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>TALIA GIBSON</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>PEYTON STEARNS</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>DIANE PARRY</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>MAYAR SHERIF</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>NIKOLA BARTUNKOVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ASHLYN KRUEGER</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>DARIA KASATKINA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ALIAKSANDRA SASNOVICH</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>SHIHO TSUJIOKA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>AOI ITO</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>KAYLA DAY</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ENA SHIBAHARA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>YEXIN MA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>HAYU KINOSHITA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>HEATHER WATSON</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>SAYAKA ISHII</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>MAI HONTAMA</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>SONAY KARTAL</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>MAGDALENA FRECH</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>KAMILLA RAKHIMOVA</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>MAYA JOINT</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>YULIA PUTINTSEVA</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>ASHLYN KRUEGER</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>ELENA-GABRIELA RUSE</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>CLARA TAUSON</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>ANNA KALINSKAYA</strong> removed from Main Draw</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PEGULA</strong> removed from Main Draw</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>ANN LI</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_QUERETARO" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_QUERETARO')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Queretaro Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_QUERETARO')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Tatjana Maria</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>84</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Fiona Ferro</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>108</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Leolia Jeanjean</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>109</td>
+    </tr>
+    <tr class="latam-row">
+      <td>4</td>
+      <td>Emiliana Arango</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CO.svg" width="20" height="14" alt="COL flag" title="COL"></td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Tamara Zidansek</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>142</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Sofia Costoulas</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>159</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Bianca Andreescu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Elizabeth Mandlik</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>174</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Carole Monnet</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>202</td>
+    </tr>
+    <tr class="latam-row">
+      <td>10</td>
+      <td>Nadia Podoroska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>204</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Alicia Herrero Linana</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>224</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Polona Hercog</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>237</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Katrina Scott</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>242</td>
+    </tr>
+    <tr class="latam-row">
+      <td>14</td>
+      <td>Martina Capurro Taborda</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>257</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>Selena Janicijevic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>269</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Alice Rame</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>287</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Martina Colmegna</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>337</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Miriam Bulgaru</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RO.svg" width="20" height="14" alt="ROU flag" title="ROU"></td>
+      <td>344</td>
+    </tr>
+    <tr class="latam-row">
+      <td>19</td>
+      <td>Mell Reasco Gonzalez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/EC.svg" width="20" height="14" alt="ECU flag" title="ECU"></td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Zuzanna Pawlikowska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>366</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Sofia Johnson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>373</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Diletta Cherubini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>384</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Lan Mi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>433</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Ana Grubor</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Adriana Reami</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>962</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Katherine Hui</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>1127</td>
+    </tr>
+    <tr class="latam-row">
+      <td>27</td>
+      <td>Marian Gomez Pezuela Cano</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>1184</td>
+    </tr>
+    <tr class="latam-row">
+      <td>28</td>
+      <td>Carlota Garibay Romero</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Carmen Andreea  Herea</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RO.svg" width="20" height="14" alt="ROU flag" title="ROU"></td>
+      <td>485</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Valeriya Strakhova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>510</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Victoria Hu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>546</td>
+    </tr>
+    <tr class="latam-row">
+      <td>4</td>
+      <td>Victoria Rodriguez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>591</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Demi Tran</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/NL.svg" width="20" height="14" alt="NED flag" title="NED"></td>
+      <td>628</td>
+    </tr>
+    <tr class="latam-row">
+      <td>6</td>
+      <td>Maria Fernanda Navarro Oliva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>632</td>
+    </tr>
+    <tr class="latam-row">
+      <td>7</td>
+      <td>Jessica Hinojosa Gomez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>735</td>
+    </tr>
+    <tr class="latam-row">
+      <td>8</td>
+      <td>Maria Herazo</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CO.svg" width="20" height="14" alt="COL flag" title="COL"></td>
+      <td>783</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Dasha Plekhanova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>790</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Amelie Van Impe</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>878</td>
+    </tr>
+    <tr class="latam-row">
+      <td>11</td>
+      <td>Maria Torres Murcia</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CO.svg" width="20" height="14" alt="COL flag" title="COL"></td>
+      <td>892</td>
+    </tr>
+    <tr class="latam-row">
+      <td>12</td>
+      <td>Natalia Sousa Salazar</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>958</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Sophie Llewellyn</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>1049</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Alexandra Osborne</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>1097</td>
+    </tr>
+    <tr class="latam-row">
+      <td>15</td>
+      <td>Abril Cardenas Olivares</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Gabriela Vilar</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MARTINA TREVISAN</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>KATHERINE HUI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LAN MI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DILETTA CHERUBINI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ADRIANA REAMI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>CARLOTA GARIBAY ROMERO</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MARIAN GOMEZ PEZUELA CANO</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DASHA IVANOVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>EMA BURGIC</strong> removed from Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>FRANZISKA SZIEDAT</strong> removed from Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>SARA CAKAREVIC</strong> removed from Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LAN MI</strong> removed from Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MARIA HERAZO</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>SOPHIE LLEWELLYN</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>AMELIE VAN IMPE</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA OSBORNE</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ABRIL CARDENAS OLIVARES</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>GABRIELA VILAR</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>NATALIA SOUSA SALAZAR</strong> added to Qualifying</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MARIA TORRES MURCIA</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>LINA GLUSHKO</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA JOHNSON</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>EMA BURGIC</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA HINOJOSA GOMEZ</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>NAIKTHA BAINS</strong> removed from Main Draw</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA JOHNSON</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_250_GUANGZHOU" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_GUANGZHOU')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Guangzhou Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_250_GUANGZHOU')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Daria Snigur</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Janice Tjen</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ID.svg" width="20" height="14" alt="INA flag" title="INA"></td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Katerina Siniakova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Zeynep Sonmez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TR.svg" width="20" height="14" alt="TUR flag" title="TUR"></td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Paula Badosa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Lilli Tagger</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Lanlana Tararudee</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TH.svg" width="20" height="14" alt="THA flag" title="THA"></td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Anna Bondar</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HU.svg" width="20" height="14" alt="HUN flag" title="HUN"></td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Maria Timofeeva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UZ.svg" width="20" height="14" alt="UZB flag" title="UZB"></td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Katie Volynets</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Kaitlin Quevedo</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>78</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Panna Udvardy</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HU.svg" width="20" height="14" alt="HUN flag" title="HUN"></td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Magda Linette</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Antonia Ruzic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HR.svg" width="20" height="14" alt="CRO flag" title="CRO"></td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Mananchaya Sawangkaew</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TH.svg" width="20" height="14" alt="THA flag" title="THA"></td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Sinja Kraus</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>95</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>17</td>
+      <td>Claire Liu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Simona Waltert</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Polina Kudermetova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UZ.svg" width="20" height="14" alt="UZB flag" title="UZB"></td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Sofia Kenin</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>107</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Anastasia Zakharova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Dayana Yastremska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Harriet Dart</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Tatiana Prozorova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Teodora Kostovic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg" width="20" height="14" alt="SRB flag" title="SRB"></td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Carol Young Suh Lee</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>148</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Alevtina Ibragimova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>168</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Jil Teichmann</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>184</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>Sara Sorribes Tormo</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>194</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>Han Shi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>231</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>Xinran Sun</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>582</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>Venus Williams</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>599</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Anastasia Zakharova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Dayana Yastremska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Harriet Dart</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Tatiana Prozorova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>123</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Jeline Vandromme</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Emerson Jones</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Teodora Kostovic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg" width="20" height="14" alt="SRB flag" title="SRB"></td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Maddison Inglis</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Joanna Garland</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TW.svg" width="20" height="14" alt="TPE flag" title="TPE"></td>
+      <td>143</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Carol Young Suh Lee</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>148</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Ekaterine Gorgodze</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GE.svg" width="20" height="14" alt="GEO flag" title="GEO"></td>
+      <td>151</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Tyra Caterina Grant</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>156</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Polina Iatcenko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>160</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Alexandra Shubladze</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>163</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Alevtina Ibragimova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>168</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Linda Fruhvirtova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>181</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Elena Pridankina</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>196</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Xiaodi You</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>203</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Mei Yamaguchi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>259</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Rina Saigo</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>288</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Ruien Zhang</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>579</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Hong Yi Cody Wong</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HK.svg" width="20" height="14" alt="HKG flag" title="HKG"></td>
+      <td>612</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Cheuk Ying Shek</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HK.svg" width="20" height="14" alt="HKG flag" title="HKG"></td>
+      <td>650</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Yihan Qu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>1297</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ANASTASIA ZAKHAROVA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>TEODORA KOSTOVIC</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>CAROL YOUNG SUH LEE</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>HARRIET DART</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>TATIANA PROZOROVA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>XIYU WANG</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ANHELINA KALININA</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>SARA BEJLEK</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ALINA KORNEEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>POLINA KUDERMETOVA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>SINJA KRAUS</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>SIMONA WALTERT</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>VENUS WILLIAMS</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>CLAIRE LIU</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>XINRAN SUN</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>HAN SHI</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>KATARZYNA KAWA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>POLINA KUDERMETOVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MEI YAMAGUCHI</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>RINA SAIGO</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA KENIN</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>SINJA KRAUS</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ELINA AVANESYAN</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>YUE YUAN</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>MARY STOIANA</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>SIMONA WALTERT</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>CLAIRE LIU</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>CHEUK YING SHEK</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>HONG YI CODY WONG</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>YIHAN QU</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ALEVTINA IBRAGIMOVA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>POLINA IATCENKO</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>TYRA CATERINA GRANT</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>RUIEN ZHANG</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ALEXANDRA SHUBLADZE</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>LINDA FRUHVIRTOVA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ELENA PRIDANKINA</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>XIAODI YOU</strong> added to Qualifying</td></tr><tr><td>2026-10-14</td><td style="text-align:left; padding-left:20px;"><strong>EVA LYS</strong> removed from Qualifying</td></tr><tr><td>2026-10-14</td><td style="text-align:left; padding-left:20px;"><strong>ELINA AVANESYAN</strong> added to Qualifying</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>MANANCHAYA SAWANGKAEW</strong> removed from Qualifying</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>EKATERINE GORGODZE</strong> added to Qualifying</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>PETRA MARCINKO</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>MANANCHAYA SAWANGKAEW</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_COURMAYEUR" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_COURMAYEUR')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Valle D'Aosta Ladies Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_COURMAYEUR')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Anna Blinkova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Oksana Selekhmeteva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Lisa Pigato</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Alina Charaeva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AM.svg" width="20" height="14" alt="ARM flag" title="ARM"></td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Lucrezia Stefanini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>125</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Noma Noha Akugue</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Marina Bassols Ribera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>131</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Susan Bandecchi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>141</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Elizara Yaneva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BG.svg" width="20" height="14" alt="BUL flag" title="BUL"></td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Dalma Galfi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HU.svg" width="20" height="14" alt="HUN flag" title="HUN"></td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Gabriela Knutson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>164</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Elsa Jacquemot</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>165</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Robin Montgomery</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>171</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Martyna Kubka</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>173</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15</td>
+      <td>Victoria Jimenez Kasintseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AD.svg" width="20" height="14" alt="AND flag" title="AND"></td>
+      <td>176</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Anastasiia Sobolieva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>180</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Mia Ristic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg" width="20" height="14" alt="SRB flag" title="SRB"></td>
+      <td>183</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Rositsa Dencheva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BG.svg" width="20" height="14" alt="BUL flag" title="BUL"></td>
+      <td>205</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Linda Klimovicova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>206</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Ayla Aksu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TR.svg" width="20" height="14" alt="TUR flag" title="TUR"></td>
+      <td>210</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Erika Andreeva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>213</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Katarina Zavatska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>266</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Caroline Werner</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>273</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Lisa Zaar</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SE.svg" width="20" height="14" alt="SWE flag" title="SWE"></td>
+      <td>298</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>Jessica Pieri</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>323</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Laura Mair</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>434</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Isabella Maria Serban</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>465</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>Danka Kovinic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ME.svg" width="20" height="14" alt="MNE flag" title="MNE"></td>
+      <td>888</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Zongyu Li</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>311</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Yelyzaveta Kotliar</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>368</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Sapfo Sakellaridi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GR.svg" width="20" height="14" alt="GRE flag" title="GRE"></td>
+      <td>450</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Gaia  Maduzzi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>472</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Adrienn Nagy</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HU.svg" width="20" height="14" alt="HUN flag" title="HUN"></td>
+      <td>480</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Daria Yesypchuk</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>494</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Enola Chiesa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>536</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Alja Senica</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>656</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Tayisiya Morderger</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>1259</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Yana Morderger</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>1463</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Finja Matuella</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>SAMIRA DE STEFANO</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DOMINIKA SALKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LUCIE HAVLICKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DANKA KOVINIC</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PIERI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA MARIA SERBAN</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LISA ZAAR</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>CAROLINE WERNER</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>KATARINA ZAVATSKA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LAURA MAIR</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ERIKA ANDREEVA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>KATARINA ZAVATSKA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA TSYGOUROVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>GREET MINNEN</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>WERONIKA FALKOWSKA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>LIZETTE CABRERA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA PIERI</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>CAROLINE WERNER</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ERIKA ANDREEVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ELENA MILOVANOVIC</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>LUCIJA CIRIC BAGARIC</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>LISA ZAAR</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>GAIA  MADUZZI</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>DARIA YESYPCHUK</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ALJA SENICA</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>SAPFO SAKELLARIDI</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>FINJA MATUELLA</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>YANA MORDERGER</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>TAYISIYA MORDERGER</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ENOLA CHIESA</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ADRIENN NAGY</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>TENA LUKAS</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>KATERINA TSYGOUROVA</strong> added to Qualifying</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_CURITIBA" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_CURITIBA')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Curitiba Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_CURITIBA')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="latam-row">
+      <td>1</td>
+      <td>Solana Sierra</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Julia Grabher</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Francesca Jones</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Laura Samson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Lucia Bronzetti</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>132</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Leyre Romero Gormaz</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>146</td>
+    </tr>
+    <tr class="latam-row">
+      <td>7</td>
+      <td>Julia Riera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>147</td>
+    </tr>
+    <tr class="latam-row">
+      <td>8</td>
+      <td>Jazmin Ortenzi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>158</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Rebeka Masarova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>167</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Despina Papamichail</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GR.svg" width="20" height="14" alt="GRE flag" title="GRE"></td>
+      <td>192</td>
+    </tr>
+    <tr class="latam-row">
+      <td>11</td>
+      <td>Luisina Giovannini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>212</td>
+    </tr>
+    <tr class="latam-row">
+      <td>12</td>
+      <td>Maria Lourdes Carle</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>222</td>
+    </tr>
+    <tr class="latam-row">
+      <td>13</td>
+      <td>Laura Pigossi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>227</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Alice Tubello</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>228</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Yasmine Kabbaj</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MA.svg" width="20" height="14" alt="MAR flag" title="MAR"></td>
+      <td>264</td>
+    </tr>
+    <tr class="latam-row">
+      <td>16</td>
+      <td>Carolina Alves</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>305</td>
+    </tr>
+  </tbody>
+</table></div><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="latam-row">
+      <td>17</td>
+      <td>Victoria Bosio</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>309</td>
+    </tr>
+    <tr class="latam-row">
+      <td>18</td>
+      <td>Gabriela Ce</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>335</td>
+    </tr>
+    <tr class="latam-row">
+      <td>19</td>
+      <td>Antonia Vergara Rivera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CL.svg" width="20" height="14" alt="CHI flag" title="CHI"></td>
+      <td>395</td>
+    </tr>
+    <tr class="latam-row">
+      <td>20</td>
+      <td>Justina Gonzalez Daniele</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>440</td>
+    </tr>
+    <tr class="latam-row">
+      <td>21</td>
+      <td>Maria Urrutia</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>444</td>
+    </tr>
+    <tr class="latam-row">
+      <td>22</td>
+      <td>Fernanda Labrana</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CL.svg" width="20" height="14" alt="CHI flag" title="CHI"></td>
+      <td>462</td>
+    </tr>
+    <tr class="latam-row">
+      <td>23</td>
+      <td>Luiza Fullana</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>471</td>
+    </tr>
+    <tr class="latam-row">
+      <td>24</td>
+      <td>Ana Candiotto</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>534</td>
+    </tr>
+    <tr class="latam-row">
+      <td>25</td>
+      <td>Nauhany Vitoria Leme Da Silva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>548</td>
+    </tr>
+    <tr class="latam-row">
+      <td>26</td>
+      <td>Julia Konishi Camargo Silva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>639</td>
+    </tr>
+    <tr class="latam-row">
+      <td>27</td>
+      <td>Berta Bonardi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>675</td>
+    </tr>
+    <tr class="latam-row">
+      <td>28</td>
+      <td>Luna Maria Cinalli</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>694</td>
+    </tr>
+    <tr class="latam-row">
+      <td>29</td>
+      <td>Marjorie Souza</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>763</td>
+    </tr>
+    <tr class="latam-row">
+      <td>30</td>
+      <td>Lourdes Ayala</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>847</td>
+    </tr>
+    <tr class="latam-row">
+      <td>31</td>
+      <td>Rebeca Pereira</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>1075</td>
+    </tr>
+    <tr class="latam-row">
+      <td>32</td>
+      <td>Eduarda Gomes</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="latam-row">
+      <td>1</td>
+      <td>Fernanda Labrana</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CL.svg" width="20" height="14" alt="CHI flag" title="CHI"></td>
+      <td>462</td>
+    </tr>
+    <tr class="latam-row">
+      <td>2</td>
+      <td>Berta Bonardi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>675</td>
+    </tr>
+    <tr class="latam-row">
+      <td>3</td>
+      <td>Luna Maria Cinalli</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>694</td>
+    </tr>
+    <tr class="latam-row">
+      <td>4</td>
+      <td>Lourdes Ayala</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>847</td>
+    </tr>
+    <tr class="latam-row">
+      <td>5</td>
+      <td>Jennifer Dourado</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>1092</td>
+    </tr>
+    <tr class="latam-row">
+      <td>6</td>
+      <td>Catarina Mellei Ibiaraba Melleiro</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>1121</td>
+    </tr>
+    <tr class="latam-row">
+      <td>7</td>
+      <td>Georgia Gulin</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>-</td>
+    </tr>
+    <tr class="latam-row">
+      <td>8</td>
+      <td>Bianca Mendonca Bernardes</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BR.svg" width="20" height="14" alt="BRA flag" title="BRA"></td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>BERTA BONARDI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>FERNANDA LABRANA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LUNA MARIA CINALLI</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LOURDES AYALA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>GIORGIA PEDONE</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>AURORA ZANTEDESCHI</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>DARJA SEMENISTAJA</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>VERONIKA ERJAVEC</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>EDUARDA GOMES</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ANA CANDIOTTO</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA VERGARA RIVERA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>JULIA KONISHI CAMARGO SILVA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MARJORIE SOUZA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>NAUHANY VITORIA LEME DA SILVA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>MARIA URRUTIA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA GONZALEZ DANIELE</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>LUIZA FULLANA</strong> added to Main Draw</td></tr><tr><td>2026-10-25</td><td style="text-align:left; padding-left:20px;"><strong>REBECA PEREIRA</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ANTONIA VERGARA RIVERA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA GONZALEZ DANIELE</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>NAUHANY VITORIA LEME DA SILVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>ANA CANDIOTTO</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>LUIZA FULLANA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>MARIA URRUTIA</strong> removed from Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>LOURDES AYALA</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>FERNANDA LABRANA</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>BERTA BONARDI</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>LUNA MARIA CINALLI</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>BIANCA MENDONCA BERNARDES</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>JENNIFER DOURADO</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>GEORGIA GULIN</strong> added to Qualifying</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>CATARINA MELLEI IBIARABA MELLEIRO</strong> added to Qualifying</td></tr><tr><td>2026-10-17</td><td style="text-align:left; padding-left:20px;"><strong>NURIA BRANCACCIO</strong> removed from Main Draw</td></tr><tr><td>2026-10-17</td><td style="text-align:left; padding-left:20px;"><strong>GABRIELA CE</strong> added to Main Draw</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>GABRIELA CE</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>MARIE METTRAUX</strong> removed from Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>NAUHANY VITORIA LEME DA SILVA</strong> added to Qualifying</td></tr><tr><td>2026-10-16</td><td style="text-align:left; padding-left:20px;"><strong>ANA CANDIOTTO</strong> added to Qualifying</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_250_HONG_KONG" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_HONG_KONG')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Prudential Hong Kong Tennis Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_250_HONG_KONG')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Diana Shnaider</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Sorana Cirstea</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RO.svg" width="20" height="14" alt="ROU flag" title="ROU"></td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Alexandra Eala</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PH.svg" width="20" height="14" alt="PHI flag" title="PHI"></td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Jasmine Paolini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Leylah Fernandez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Ann Li</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Maria Sakkari</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GR.svg" width="20" height="14" alt="GRE flag" title="GRE"></td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Talia Gibson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Xinyu Wang</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Liudmila Samsonova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>39</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Kimberly Birrell</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Yuliia Starodubtseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Oleksandra Oliynykova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Mayar Sherif</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/EG.svg" width="20" height="14" alt="EGY flag" title="EGY"></td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Katie Boulter</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Zeynep Sonmez</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TR.svg" width="20" height="14" alt="TUR flag" title="TUR"></td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Paula Badosa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Anna Bondar</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HU.svg" width="20" height="14" alt="HUN flag" title="HUN"></td>
+      <td>64</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Tereza Valentova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Viktorija Golubic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Maria Timofeeva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UZ.svg" width="20" height="14" alt="UZB flag" title="UZB"></td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Alycia Parks</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Sonay Kartal</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>129</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Ashlyn Krueger</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Kaitlin Quevedo</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Katie Volynets</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Xiyu Wang</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Maya Joint</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Antonia Ruzic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HR.svg" width="20" height="14" alt="CRO flag" title="CRO"></td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Claire Liu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Alina Charaeva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AM.svg" width="20" height="14" alt="ARM flag" title="ARM"></td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Dayana Yastremska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UA.svg" width="20" height="14" alt="UKR flag" title="UKR"></td>
+      <td>103</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Mary Stoiana</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Himeno Sakatsume</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Tatiana Prozorova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>117</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Aliaksandra Sasnovich</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BY.svg" width="20" height="14" alt="BLR flag" title="BLR"></td>
+      <td>118</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Kayla Day</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>119</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> removed from Qualifying</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>ALINA KORNEEVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>MARIA TIMOFEEVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>TATIANA PROZOROVA</strong> added to Qualifying</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>ALIAKSANDRA SASNOVICH</strong> added to Qualifying</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>KAYLA DAY</strong> added to Qualifying</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>ANHELINA KALININA</strong> removed from Main Draw</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>DARIA SNIGUR</strong> removed from Main Draw</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>MARIA TIMOFEEVA</strong> added to Main Draw</td></tr><tr><td>2026-10-22</td><td style="text-align:left; padding-left:20px;"><strong>ALYCIA PARKS</strong> added to Main Draw</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>CATY MCNALLY</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>TAYLAH PRESTON</strong> removed from Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>ALINA CHARAEVA</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>MARY STOIANA</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>DAYANA YASTREMSKA</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>HIMENO SAKATSUME</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>QINWEN ZHENG</strong> removed from Main Draw</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>CRISTINA BUCSA</strong> removed from Main Draw</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>VIKTORIJA GOLUBIC</strong> added to Main Draw</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>TEREZA VALENTOVA</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_CALI" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_CALI')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Reto Win Tennis Cali Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_CALI')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="latam-row">
+      <td>1</td>
+      <td>Solana Sierra</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>93</td>
+    </tr>
+    <tr class="latam-row">
+      <td>2</td>
+      <td>Renata Zarazua</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Julia Grabher</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Francesca Jones</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Fiona Ferro</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>108</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Leolia Jeanjean</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Laura Samson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>113</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Elvina Kalieva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>117</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Darja Semenistaja</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/LV.svg" width="20" height="14" alt="LAT flag" title="LAT"></td>
+      <td>124</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Marina Bassols Ribera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>131</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Lucia Bronzetti</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>132</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Andrea Lazaro Garcia</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>137</td>
+    </tr>
+    <tr class="latam-row">
+      <td>13</td>
+      <td>Emiliana Arango</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CO.svg" width="20" height="14" alt="COL flag" title="COL"></td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Tamara Zidansek</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>142</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Leyre Romero Gormaz</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>146</td>
+    </tr>
+    <tr class="latam-row">
+      <td>16</td>
+      <td>Julia Riera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>147</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Veronika Erjavec</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>153</td>
+    </tr>
+    <tr class="latam-row">
+      <td>18</td>
+      <td>Jazmin Ortenzi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>158</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Sofia Costoulas</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>159</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Rebeka Masarova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>167</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Bianca Andreescu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>172</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Despina Papamichail</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GR.svg" width="20" height="14" alt="GRE flag" title="GRE"></td>
+      <td>192</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Carole Monnet</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>202</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Varvara Lepchenko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>192</td>
+    </tr>
+    <tr class="latam-row">
+      <td>2</td>
+      <td>Nadia Podoroska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>203</td>
+    </tr>
+    <tr class="latam-row">
+      <td>3</td>
+      <td>Luisina Giovannini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>205</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Irene Burillo</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>212</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Caroline Dolehide</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>215</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Alice Tubello</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>218</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>CAROLE MONNET</strong> removed from Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>ALICE TUBELLO</strong> added to Qualifying</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>AKASHA URHOBO</strong> removed from Main Draw</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>CAROLE MONNET</strong> added to Main Draw</td></tr><tr><td>2026-10-23</td><td style="text-align:left; padding-left:20px;"><strong>DESPINA PAPAMICHAIL</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_250_CHENNAI" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_250_CHENNAI')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Chennai Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_250_CHENNAI')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Janice Tjen</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ID.svg" width="20" height="14" alt="INA flag" title="INA"></td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Lilli Tagger</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Lanlana Tararudee</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TH.svg" width="20" height="14" alt="THA flag" title="THA"></td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Panna Udvardy</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HU.svg" width="20" height="14" alt="HUN flag" title="HUN"></td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Magda Linette</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Yulia Putintseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/KZ.svg" width="20" height="14" alt="KAZ flag" title="KAZ"></td>
+      <td>82</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Tatjana Maria</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>84</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Mananchaya Sawangkaew</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TH.svg" width="20" height="14" alt="THA flag" title="THA"></td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Simona Waltert</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Oksana Selekhmeteva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Polina Kudermetova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/UZ.svg" width="20" height="14" alt="UZB flag" title="UZB"></td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Moyuka Uchijima</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Anastasia Zakharova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Harriet Dart</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Lucrezia Stefanini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>125</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Jeline Vandromme</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Katarzyna Kawa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>133</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Teodora Kostovic</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg" width="20" height="14" alt="SRB flag" title="SRB"></td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Joanna Garland</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/TW.svg" width="20" height="14" alt="TPE flag" title="TPE"></td>
+      <td>143</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Rebecca Sramkova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SK.svg" width="20" height="14" alt="SVK flag" title="SVK"></td>
+      <td>152</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Robin Montgomery</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>171</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Jil Teichmann</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>184</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Jodie Burrage</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>741</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Polina Iatcenko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>142</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Storm Hunter</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AU.svg" width="20" height="14" alt="AUS flag" title="AUS"></td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Tyra Caterina Grant</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>151</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Linda Fruhvirtova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>157</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Elsa Jacquemot</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>158</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Mai Hontama</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>164</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Erika Andreeva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>181</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Aliona Falei</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BY.svg" width="20" height="14" alt="BLR flag" title="BLR"></td>
+      <td>197</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Mia Pohankova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SK.svg" width="20" height="14" alt="SVK flag" title="SVK"></td>
+      <td>202</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Noemi Basiletti</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>241</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Kyoka Okamura</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>244</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Mei Yamaguchi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/JP.svg" width="20" height="14" alt="JPN flag" title="JPN"></td>
+      <td>257</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Darya Khamutsianskaya</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BY.svg" width="20" height="14" alt="BLR flag" title="BLR"></td>
+      <td>275</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Mariia Tkacheva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>626</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-14</td><td style="text-align:left; padding-left:20px;"><strong>PETRA MARCINKO</strong> removed from Main Draw</td></tr><tr><td>2026-10-14</td><td style="text-align:left; padding-left:20px;"><strong>REBECCA SRAMKOVA</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_MIAMI" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_MIAMI')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">American Tennis Open Miami</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_MIAMI')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on October 09, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on October 16, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_LUANDA" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_LUANDA')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">Angola Ladies Open</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_LUANDA')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Anna Blinkova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Noma Noha Akugue</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Martyna Kubka</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>173</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Linda Klimovicova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>206</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Suzan Lamens</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/NL.svg" width="20" height="14" alt="NED flag" title="NED"></td>
+      <td>215</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Clara Burel</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>218</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Justina Mikulskyte</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/LT.svg" width="20" height="14" alt="LTU flag" title="LTU"></td>
+      <td>246</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Alicia Dudeney</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>251</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Sofya Lansere</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>281</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Sada Nahimana</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BI.svg" width="20" height="14" alt="BDI flag" title="BDI"></td>
+      <td>310</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Zongyu Li</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CN.svg" width="20" height="14" alt="CHN flag" title="CHN"></td>
+      <td>311</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Gina Feistel</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>331</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Varvara Panshina</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>356</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Isabella Shinikova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BG.svg" width="20" height="14" alt="BUL flag" title="BUL"></td>
+      <td>375</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Ksenia Zaytseva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>396</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Sandra Samir</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/EG.svg" width="20" height="14" alt="EGY flag" title="EGY"></td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Diana Martynov</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>411</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Angella Okutoyi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/KE.svg" width="20" height="14" alt="KEN flag" title="KEN"></td>
+      <td>430</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Tiphanie Lemaitre</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>431</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Victoria Milovanova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>449</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Kristina Kroitor</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg" width="20" height="14" alt="RUS flag" title="RUS"></td>
+      <td>508</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>Dune Vaissaud</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>561</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Kristina Novak</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>682</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Yasmine Kabbaj</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MA.svg" width="20" height="14" alt="MAR flag" title="MAR"></td>
+      <td>255</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Franziska Sziedat</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>520</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Demi Tran</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/NL.svg" width="20" height="14" alt="NED flag" title="NED"></td>
+      <td>637</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Maayan Laron</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IL.svg" width="20" height="14" alt="ISR flag" title="ISR"></td>
+      <td>762</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Raphaelle Lacasse</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>768</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Darja Suvirdjonkova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/RS.svg" width="20" height="14" alt="SRB flag" title="SRB"></td>
+      <td>784</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Wozuko Mdlulwa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ZA.svg" width="20" height="14" alt="RSA flag" title="RSA"></td>
+      <td>852</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Jenna Defalco</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>880</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Laura Bohner</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>1036</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Warona Mdlulwa</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ZA.svg" width="20" height="14" alt="RSA flag" title="RSA"></td>
+      <td>1106</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Ana Filipa Santos</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PT.svg" width="20" height="14" alt="POR flag" title="POR"></td>
+      <td>1122</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Madhurima Sawant</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IN.svg" width="20" height="14" alt="IND flag" title="IND"></td>
+      <td>1167</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Ashmitha Easwaramurthi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IN.svg" width="20" height="14" alt="IND flag" title="IND"></td>
+      <td>1359</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Saumya Vig</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IN.svg" width="20" height="14" alt="IND flag" title="IND"></td>
+      <td>1454</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-21</td><td style="text-align:left; padding-left:20px;"><strong>KRISTINA NOVAK</strong> removed from Qualifying</td></tr><tr><td>2026-10-21</td><td style="text-align:left; padding-left:20px;"><strong>ELLIE SCHOPPE</strong> removed from Qualifying</td></tr><tr><td>2026-10-21</td><td style="text-align:left; padding-left:20px;"><strong>CELIA CERVINO RUIZ</strong> removed from Qualifying</td></tr><tr><td>2026-10-21</td><td style="text-align:left; padding-left:20px;"><strong>SAUMYA VIG</strong> added to Qualifying</td></tr><tr><td>2026-10-21</td><td style="text-align:left; padding-left:20px;"><strong>MADHURIMA SAWANT</strong> added to Qualifying</td></tr><tr><td>2026-10-21</td><td style="text-align:left; padding-left:20px;"><strong>ASHMITHA EASWARAMURTHI</strong> added to Qualifying</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-20</td><td style="text-align:left; padding-left:20px;"><strong>KRISTINA NOVAK</strong> added to Main Draw</td></tr><tr><td>2026-10-18</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-18</td><td style="text-align:left; padding-left:20px;"><strong>DUNE VAISSAUD</strong> added to Main Draw</td></tr><tr><td>2026-10-14</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-14</td><td style="text-align:left; padding-left:20px;"><strong>KRISTINA KROITOR</strong> added to Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-11</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-10</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ANGELLA OKUTOYI</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ALICIA DUDENEY</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ISABELLA SHINIKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>DIANA MARTYNOV</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>SOFYA LANSERE</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>VICTORIA MILOVANOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>NOMA NOHA AKUGUE</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>KSENIA ZAYTSEVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>TIPHANIE LEMAITRE</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>VARVARA PANSHINA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>SADA NAHIMANA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>CLARA BUREL</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>SUZAN LAMENS</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>LINDA KLIMOVICOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ANGELINA VOLOSHCHUK</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>GINA FEISTEL</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>SANDRA SAMIR</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>JUSTINA MIKULSKYTE</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ANA GRUBOR</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>MARTYNA KUBKA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ZONGYU LI</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ANNA BLINKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-09</td><td style="text-align:left; padding-left:20px;"><strong>ERI SHIMIZU</strong> removed from Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="FINALS_INDIAN_WELLS" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'FINALS_INDIAN_WELLS')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">FAGE WTA Finals Indian Wells</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('FINALS_INDIAN_WELLS')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on October 16, 2026</p></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on October 23, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_SOPO" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_SOPO')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">DIRECTV Open Presentado por Compesar</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_SOPO')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Tatjana Maria</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/DE.svg" width="20" height="14" alt="GER flag" title="GER"></td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Petra Marcinko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HR.svg" width="20" height="14" alt="CRO flag" title="CRO"></td>
+      <td>78</td>
+    </tr>
+    <tr class="latam-row">
+      <td>3</td>
+      <td>Renata Zarazua</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/MX.svg" width="20" height="14" alt="MEX flag" title="MEX"></td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Leolia Jeanjean</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Julia Grabher</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>97</td>
+    </tr>
+    <tr class="latam-row">
+      <td>6</td>
+      <td>Solana Sierra</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Francesca Jones</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Fiona Ferro</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Elvina Kalieva</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Laura Samson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Marina Bassols Ribera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>129</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Darja Semenistaja</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/LV.svg" width="20" height="14" alt="LAT flag" title="LAT"></td>
+      <td>131</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Sloane Stephens</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>133</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Lucia Bronzetti</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>135</td>
+    </tr>
+    <tr class="latam-row">
+      <td>15</td>
+      <td>Julia Riera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Leyre Romero Gormaz</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>139</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Andrea Lazaro Garcia</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>143</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Veronika Erjavec</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>144</td>
+    </tr>
+    <tr class="latam-row">
+      <td>19</td>
+      <td>Jazmin Ortenzi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>155</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Sofia Costoulas</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>159</td>
+    </tr>
+    <tr class="latam-row">
+      <td>21</td>
+      <td>Emiliana Arango</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CO.svg" width="20" height="14" alt="COL flag" title="COL"></td>
+      <td>160</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Bianca Andreescu</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CA.svg" width="20" height="14" alt="CAN flag" title="CAN"></td>
+      <td>129</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Tamara Zidansek</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>141</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Rebeka Masarova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>158</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Varvara Lepchenko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>183</td>
+    </tr>
+    <tr class="latam-row">
+      <td>5</td>
+      <td>Luisina Giovannini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>199</td>
+    </tr>
+    <tr class="latam-row">
+      <td>6</td>
+      <td>Nadia Podoroska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>201</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="changes-view" style="display:none; justify-content: center;"><div class="table-column" style="max-width:550px; margin: 0 auto;"><table class="entry-table"><thead><tr><th>DATE</th><th style="text-align:left; padding-left:20px;">CHANGE</th></tr></thead><tbody><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>JESSICA BOUZAS MANEIRO</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>OLEKSANDRA OLIYNYKOVA</strong> removed from Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>EMILIANA ARANGO</strong> added to Main Draw</td></tr><tr><td>2026-10-24</td><td style="text-align:left; padding-left:20px;"><strong>SOFIA COSTOULAS</strong> added to Main Draw</td></tr></tbody></table></div></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div><div id="WTA_125_COLINA" class="tabcontent" style="display: none;">
+                <div class="top-row">
+                    <div class="header-controls">
+                        <button class="toggle-btn main-qual-toggle" onclick="toggleView(this)">Qualifying</button>
+                        <button class="toggle-btn changes-btn" onclick="showChanges(this, 'WTA_125_COLINA')">Changes</button>
+                        <button class="toggle-btn back-to-qual-btn" style="display:none;" onclick="showQualFromChanges(this)">Qualifying</button>
+                    </div>
+                    <div class="title-stack">
+                        <div class="sub-title">MAIN DRAW ENTRY LIST</div>
+                        <h1 class="main-title">LP Open by IND</h1>
+                    </div>
+                    <div class="pdf-container">
+                        <button class="toggle-btn pdf-btn" onclick="exportToPDF('WTA_125_COLINA')">PDF</button>
+                    </div>
+                </div>
+                <div class="main-draw-view"><div class="table-column"><table class="dataframe entry-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Pos.</th>
+      <th>Player</th>
+      <th>Country</th>
+      <th>Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Magda Linette</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" width="20" height="14" alt="POL flag" title="POL"></td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Petra Marcinko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/HR.svg" width="20" height="14" alt="CRO flag" title="CRO"></td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Francesca Jones</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" width="20" height="14" alt="GBR flag" title="GBR"></td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Laura Samson</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CZ.svg" width="20" height="14" alt="CZE flag" title="CZE"></td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Julia Grabher</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AT.svg" width="20" height="14" alt="AUT flag" title="AUT"></td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Leyre Romero Gormaz</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>131</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Lucia Bronzetti</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/IT.svg" width="20" height="14" alt="ITA flag" title="ITA"></td>
+      <td>132</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Andrea Lazaro Garcia</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>137</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Guiomar Maristany Zuleta De Reales</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/ES.svg" width="20" height="14" alt="ESP flag" title="ESP"></td>
+      <td>138</td>
+    </tr>
+    <tr class="latam-row">
+      <td>10</td>
+      <td>Julia Riera</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Tamara Zidansek</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>141</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Rebeka Masarova</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/CH.svg" width="20" height="14" alt="SUI flag" title="SUI"></td>
+      <td>158</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Veronika Erjavec</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/SI.svg" width="20" height="14" alt="SLO flag" title="SLO"></td>
+      <td>161</td>
+    </tr>
+    <tr class="latam-row">
+      <td>14</td>
+      <td>Jazmin Ortenzi</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>173</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Darja Semenistaja</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/LV.svg" width="20" height="14" alt="LAT flag" title="LAT"></td>
+      <td>175</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Sofia Costoulas</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/BE.svg" width="20" height="14" alt="BEL flag" title="BEL"></td>
+      <td>177</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>Varvara Lepchenko</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg" width="20" height="14" alt="USA flag" title="USA"></td>
+      <td>183</td>
+    </tr>
+    <tr class="latam-row">
+      <td>18</td>
+      <td>Luisina Giovannini</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>199</td>
+    </tr>
+    <tr class="latam-row">
+      <td>19</td>
+      <td>Nadia Podoroska</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/AR.svg" width="20" height="14" alt="ARG flag" title="ARG"></td>
+      <td>201</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Despina Papamichail</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/GR.svg" width="20" height="14" alt="GRE flag" title="GRE"></td>
+      <td>203</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Carole Monnet</td>
+      <td><img class="country-flag" src="https://purecatamphetamine.github.io/country-flag-icons/3x2/FR.svg" width="20" height="14" alt="FRA flag" title="FRA"></td>
+      <td>243</td>
+    </tr>
+  </tbody>
+</table></div></div><div class="qual-view" style="display:none;"><p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on October 30, 2026</p></div><div class="changes-view" style="display:none; justify-content: center;"><p style='text-align:center; padding:40px; opacity:0.6;'>No changes recorded yet.</p></div>
+                <div class="logo-container"><img src="LOGO.png" class="tournament-logo"></div>
+                </div></div>
         <script>
             function openTourney(evt, tid) {
                 const tc = document.getElementsByClassName("tabcontent");
