@@ -5090,20 +5090,22 @@
         "Jodie Burrage"
     ],
     "WTA_250_CHENNAI_QUALIFYING": [
-        "Polina Iatcenko",
-        "Storm Hunter",
-        "Tyra Caterina Grant",
-        "Linda Fruhvirtova",
-        "Elsa Jacquemot",
-        "Mai Hontama",
-        "Erika Andreeva",
         "Aliona Falei",
-        "Mia Pohankova",
-        "Noemi Basiletti",
         "Kyoka Okamura",
         "Mei Yamaguchi",
-        "Darya Khamutsianskaya",
-        "Mariia Tkacheva"
+        "Viktoria Morvayova",
+        "Weronika Falkowska",
+        "Rada Zolotareva",
+        "Yelyzaveta Kotliar",
+        "Momoko Kobori",
+        "Rinko Matsuda",
+        "Zhibek Kulambayeva",
+        "Ekaterina Yashina",
+        "Zeel Desai",
+        "Shrivalli Bhamidipaty",
+        "Mariia Tkacheva",
+        "Jensi Dipakbhai Kanabar",
+        "Diya Ramesh Ramesh"
     ],
     "WTA_250_HONG_KONG_MAIN_DRAW": [
         "Diana Shnaider",
@@ -5247,7 +5249,36 @@
         "Nadia Podoroska",
         "Carole Monnet"
     ],
-    "WTA_125_COLINA_QUALIFYING": [],
-    "WTA_125_BUENOS_AIRES_MAIN_DRAW": [],
+    "WTA_125_COLINA_QUALIFYING": [
+        "Polona Hercog",
+        "Victoria Jimenez Kasintseva",
+        "Irene Burillo",
+        "Nuria Brancaccio",
+        "Alicia Herrero Linana",
+        "Julieta Pareja"
+    ],
+    "WTA_125_BUENOS_AIRES_MAIN_DRAW": [
+        "Magda Linette",
+        "Petra Marcinko",
+        "Solana Sierra",
+        "Laura Samson",
+        "Leyre Romero Gormaz",
+        "Lucia Bronzetti",
+        "Guiomar Maristany Zuleta De Reales",
+        "Julia Riera",
+        "Elina Avanesyan",
+        "Rebeka Masarova",
+        "Veronika Erjavec",
+        "Jazmin Ortenzi",
+        "Sofia Costoulas",
+        "Varvara Lepchenko",
+        "Luisina Giovannini",
+        "Nadia Podoroska",
+        "Despina Papamichail",
+        "Polona Hercog",
+        "Victoria Jimenez Kasintseva",
+        "Irene Burillo",
+        "Nuria Brancaccio"
+    ],
     "WTA_125_BUENOS_AIRES_QUALIFYING": []
 }
