@@ -252,8 +252,10 @@ def country_flag_html(country_code):
 def load_json(filename):
     if os.path.exists(filename):
         with open(filename, "r", encoding="utf-8") as f:
-            try: return json.load(f)
-            except: return {}
+            try:
+                return json.load(f)
+            except Exception:
+                return {}
     return {}
 
 def save_json(filename, data):
@@ -264,17 +266,18 @@ def format_pretty_date(date_str):
     try:
         dt = datetime.strptime(date_str, "%Y-%m-%d")
         return dt.strftime("%B %d, %Y")
-    except: return date_str
+    except Exception:
+        return date_str
 
 def get_display_content(df, tid, draw_type, availability_date):
-    key = f"{tid.upper()}_{draw_type.replace(' ', '_').upper()}"
-    
     if df.empty:
         pretty_date = format_pretty_date(availability_date)
         return f"<p style='text-align:center; padding:40px; opacity:0.6;'>This list will most likely be available on the WTA website on {pretty_date}</p>"
     
     def apply_highlights(table_df):
-        safe_text = lambda value: html_lib.escape(str(value))
+        def safe_text(value):
+            return html_lib.escape(str(value))
+
         formatters = {column: safe_text for column in table_df.columns}
         formatters['Country'] = country_flag_html
         html = table_df.to_html(
@@ -288,8 +291,10 @@ def get_display_content(df, tid, draw_type, availability_date):
         final_html = [rows[0]]
         for i, content in enumerate(rows[1:]):
             country_val = str(table_df.iloc[i]['Country']).upper()
-            if country_val in LATAM_CODES: final_html.append('<tr class="latam-row">' + content)
-            else: final_html.append('<tr>' + content)
+            if country_val in LATAM_CODES:
+                final_html.append('<tr class="latam-row">' + content)
+            else:
+                final_html.append('<tr>' + content)
         return "".join(final_html)
 
     total_players = len(df)
@@ -331,7 +336,8 @@ def track_changes(tid, draw_type, current_names, t_name, skip_notifications=Fals
                     new_entries_for_web.append({"date": today, "change": msg})
 
     if new_entries_for_web:
-        if tid not in history: history[tid] = []
+        if tid not in history:
+            history[tid] = []
         history[tid] = new_entries_for_web + history[tid]
         save_json(LOG_FILE, history)
     
@@ -342,7 +348,8 @@ def track_changes(tid, draw_type, current_names, t_name, skip_notifications=Fals
     return []
 
 def process_players(players, rankings_df):
-    if not players: return pd.DataFrame(columns=['Pos.', 'Player', 'Country', 'Rank'])
+    if not players:
+        return pd.DataFrame(columns=['Pos.', 'Player', 'Country', 'Rank'])
 
     # Normalize: accept list of strings (cache) or list of dicts (API)
     if isinstance(players[0], str):
@@ -390,11 +397,13 @@ def get_rankings_from_api(date_str):
             r = requests.get(API_URL, params=params, headers=HEADERS, timeout=10)
             data = r.json()
             items = data.get('content', []) if isinstance(data, dict) else data
-            if not items: break
+            if not items:
+                break
             all_players.extend(items)
             page += 1
             time.sleep(0.05)
-        except: break
+        except Exception:
+            break
     return pd.DataFrame([{'ranking': p.get('ranking'), 'player': (p.get('player') or {}).get('fullName'), 'country': (p.get('player') or {}).get('countryCode')} for p in all_players if p])
 
 
@@ -420,7 +429,7 @@ def fetch_player_info(player_id):
         country = player.get("countryCode")
         if name:
             return {"name": name, "country": country}
-    except:
+    except Exception:
         pass
     return None
 
@@ -430,7 +439,8 @@ def scrape_tournament(url, tab_label, tid):
     try:
         r = requests.get(url, headers=HEADERS, timeout=15)
         soup = BeautifulSoup(r.text, 'html.parser')
-    except: return None
+    except Exception:
+        return None
     
     full_name = tab_label
     scripts = soup.find_all('script', type='application/ld+json')
@@ -473,9 +483,12 @@ def scrape_tournament(url, tab_label, tid):
     main_seen, qual_seen = set(), set()
     for tag in soup.find_all(True):
         attr = tag.get('data-ui-tab')
-        if attr == 'Qualifying': section = "QUAL"
-        elif attr == 'Doubles': section = "STOP"
-        if section == "STOP": continue
+        if attr == 'Qualifying':
+            section = "QUAL"
+        elif attr == 'Doubles':
+            section = "STOP"
+        if section == "STOP":
+            continue
         href = tag.get('href', '')
         m = re.match(r'/players/(\d+)/([^/]+)', href)
         if m:
@@ -547,8 +560,10 @@ def main():
             try:
                 old_html = f.read()
                 found = re.findall(r'<div id="(.*?)" class="tabcontent".*?>(.*?)', old_html, re.DOTALL)
-                for tid, content in found: old_content[tid] = content.strip()
-            except: pass
+                for tid, content in found:
+                    old_content[tid] = content.strip()
+            except Exception:
+                pass
 
     sidebar_html, content_html, is_first = "", "", True
 
@@ -595,6 +610,8 @@ def main():
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="refresh.css">
+        <script src="refresh.js" defer></script>
         <style>
             @font-face {{ font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }}
             @font-face {{ font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }}
@@ -647,7 +664,14 @@ def main():
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     </head>
     <body>
-        <div class="sidebar">{sidebar_html}</div>
+        <script type="application/json" id="country-flag-codes">{json.dumps(COUNTRY_CODE_TO_ISO2)}</script>
+        <div class="sidebar">
+            <div class="refresh-controls">
+                <button type="button" class="toggle-btn" id="refresh-lists">Refresh</button>
+                <span id="refresh-status" role="status">Fetch the latest entry lists from WTA.</span>
+            </div>
+            <div class="tournament-menu">{sidebar_html}</div>
+        </div>
         <div class="main-content">{content_html}</div>
         <script>
             function openTourney(evt, tid) {{
@@ -720,4 +744,5 @@ def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(full_site_html)
     
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()

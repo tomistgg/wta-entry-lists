@@ -1,0 +1,40 @@
+.tournament-menu {
+    display: contents;
+}
+
+.entry-note {
+    padding: 25px 10px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.previous-main-note {
+    flex-basis: 100%;
+    padding: 6px;
+}
+
+.refresh-controls {
+    padding: 8px 0;
+    flex-shrink: 0;
+}
+
+#refresh-lists:disabled {
+    opacity: 0.65;
+    cursor: default;
+}
+
+#refresh-status {
+    display: block;
+    max-width: 210px;
+    margin-top: 6px;
+    font-size: 0.65rem;
+    line-height: 1.4;
+    white-space: normal;
+}
+
+@media (max-width: 768px) {
+    .refresh-controls {
+        width: 145px;
+        margin-right: 10px;
+    }
+}
