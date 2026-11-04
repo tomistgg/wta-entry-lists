@@ -62682,5 +62682,33 @@
             "date": "2026-10-24",
             "change": "<strong>SOFIA COSTOULAS</strong> added to Main Draw"
         }
+    ],
+    "WTA_125_COLINA": [
+        {
+            "date": "2026-11-04",
+            "change": "<strong>POLONA HERCOG</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-11-04",
+            "change": "<strong>MARIA LOURDES CARLE</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-11-04",
+            "change": "<strong>FRANCESCA JONES</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-11-04",
+            "change": "<strong>POLONA HERCOG</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_BUENOS_AIRES": [
+        {
+            "date": "2026-11-04",
+            "change": "<strong>PETRA MARCINKO</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-11-04",
+            "change": "<strong>ALICIA HERRERO LINANA</strong> added to Main Draw"
+        }
     ]
 }

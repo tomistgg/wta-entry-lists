@@ -5262,7 +5262,6 @@
     "WTA_125_COLINA_MAIN_DRAW": [
         "Magda Linette",
         "Petra Marcinko",
-        "Francesca Jones",
         "Julia Grabher",
         "Laura Samson",
         "Leyre Romero Gormaz",
@@ -5280,19 +5279,19 @@
         "Despina Papamichail",
         "Luisina Giovannini",
         "Nadia Podoroska",
-        "Carole Monnet"
+        "Carole Monnet",
+        "Polona Hercog"
     ],
     "WTA_125_COLINA_QUALIFYING": [
-        "Polona Hercog",
         "Victoria Jimenez Kasintseva",
         "Irene Burillo",
         "Nuria Brancaccio",
         "Alicia Herrero Linana",
-        "Julieta Pareja"
+        "Julieta Pareja",
+        "Maria Lourdes Carle"
     ],
     "WTA_125_BUENOS_AIRES_MAIN_DRAW": [
         "Magda Linette",
-        "Petra Marcinko",
         "Solana Sierra",
         "Laura Samson",
         "Lucia Bronzetti",
@@ -5311,6 +5310,7 @@
         "Irene Burillo",
         "Luisina Giovannini",
         "Nuria Brancaccio",
+        "Alicia Herrero Linana",
         "Polona Hercog"
     ],
     "WTA_125_BUENOS_AIRES_QUALIFYING": [],
