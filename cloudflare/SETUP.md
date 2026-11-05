@@ -69,6 +69,50 @@ as an explicitly labelled fallback if a live WTA request fails.
 Run `node --test cloudflare/worker.test.mjs` from the WTA Tracker directory.
 These checks mock WTA responses; a deployed Worker still needs the live connectivity checks above.
 
+## Haute Cadence player photos from Google Drive
+
+The same Worker also serves a photo index at `/photos` and images at `/photos/{file-id}`.
+Only JPG, PNG and WebP files directly inside the configured folder are exposed (maximum 10 MiB each).
+Subfolders, shortcuts and other documents are excluded. Every included portrait is publicly readable
+through the Worker, even when the Drive folder itself is private.
+
+1. Enable the Google Drive API in the service account's Google Cloud project.
+2. Share the photo folder with the service account's email as **Viewer**. Set General access to
+   **Restricted**; visitors do not need Drive access, and should not have Editor access.
+3. In the Worker's **Settings → Variables and Secrets**, add:
+   - **Secret** `GOOGLE_SERVICE_ACCOUNT_JSON`: the complete service-account JSON file.
+   - **Text** `PLAYER_PHOTOS_FOLDER_ID`: `1VeZGNDHrzuMFwMx6hFI9qPmamGJG0tOF` for the current collection.
+4. Save/deploy the settings, then replace the deployed code with the complete updated `worker.mjs`
+   and click **Deploy**. Credentials belong only in the secret settings, never in this source file,
+   the browser, GitHub, or chat. If a key is exposed, revoke it in Google Cloud and replace the secret.
+5. Open `https://tennis-wta-api.schiter-tomas.workers.dev/photos`. Expect a JSON object containing
+   a `photos` array. A 503 means missing settings. A 502 means Google authentication, Drive API,
+   or folder access needs checking. `/health` alone does not test Drive access.
+6. Open one returned `path` on the same Worker host to check the actual image.
+7. Publish the reviewed Haute Cadence website changes separately to enable automatic portraits.
+
+Use WTA IDs such as `330332.png` for the most reliable matching. Full player names also work, e.g.
+`leylah_fernandez.png`, `Leylah Fernandez.jpg`, or `leylah-fernandez.webp`. Matching ignores case,
+accents and punctuation and checks the shared player aliases. An ID filename takes priority over a
+name filename; for duplicate matching filenames the most recently modified file wins.
+Manual uploads take priority over Drive photos. Missing/unavailable photos use the bundled portrait
+when available, otherwise initials. Tour Result's separate match-background upload is unchanged.
+
+The Worker caches folder metadata and image bytes for five minutes. Website tabs check the index on
+load, on focus when stale, and every five minutes. Allow up to ten minutes for folder changes in an
+already open tab; reloading after the Worker's five-minute cache expires picks them up sooner.
+Photo versions come from Drive's modification time, so replacements do not reuse old image bytes.
+No extra storage binding, Google login for visitors, or repository photo downloads are needed.
+
+Run `node --test cloudflare/worker.test.mjs cloudflare/photos.test.mjs` for the WTA and photo relay checks.
+These use generated test keys and mocked Google responses; real Drive access requires the deployed check above.
+
+Photo API references:
+
+- https://developers.google.com/identity/protocols/oauth2/service-account
+- https://developers.google.com/workspace/drive/api/reference/rest/v3/files/list
+- https://developers.cloudflare.com/workers/configuration/secrets/
+
 Official references:
 
 - https://developers.cloudflare.com/learning-paths/workers/get-started/first-worker/
