@@ -6,10 +6,11 @@ import re
 import os
 import html as html_lib
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import unicodedata
 
 _RANKINGS_CACHE = {}
+_CALENDAR_COMPLETE = False
 
 
 def _current_monday_str():
@@ -86,6 +87,8 @@ def format_week_label(monday_date):
     return f"Semana {monday_date.day} {months_es[monday_date.month]}"
 
 def build_tournament_groups():
+    global _CALENDAR_COMPLETE
+    _CALENDAR_COMPLETE = False
     next_monday = get_next_monday()
     four_weeks_later = next_monday + timedelta(weeks=4)
     
@@ -114,6 +117,16 @@ def build_tournament_groups():
     except Exception as e:
         print(f"Error fetching tournaments: {e}")
         return {}
+
+    entries = data.get("content", [])
+    page_info = data.get("pageInfo", {})
+    _CALENDAR_COMPLETE = (
+        isinstance(entries, list)
+        and isinstance(page_info, dict)
+        and type(page_info.get("numEntries")) is int
+        and page_info.get("page") == 0
+        and len(entries) == page_info["numEntries"]
+    )
     
     tournament_groups = {}
     
@@ -554,6 +567,7 @@ def scrape_tournament(url, tab_label, tid):
     return {"full_name": full_name, "content": main_draw_html + qual_html + f'<div class="changes-view" style="display:none; justify-content: center;">{changes_body}</div>', "notifications": run_notifications}
 
 def main():
+    source_fetched_at = datetime.now(timezone.utc).isoformat() if _CALENDAR_COMPLETE else ""
     old_content = {}
     if os.path.exists("index.html"):
         with open("index.html", "r", encoding="utf-8") as f:
@@ -597,7 +611,9 @@ def main():
                 '''
             elif tid in old_content: 
                 body = old_content[tid]
+                source_fetched_at = ""
             else: 
+                source_fetched_at = ""
                 continue
 
             active_btn, active_div = ("active", "display: block;") if is_first else ("", "display: none;")
@@ -609,6 +625,7 @@ def main():
     <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="entry-lists-published-at" content="{source_fetched_at}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="refresh.css">
         <script src="refresh.js" defer></script>

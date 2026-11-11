@@ -242,12 +242,12 @@ export function renderEntryLists(models, previousContent) {
         const main = keepMain ? previousMain.cloneNode(true) : element("div", "main-draw-view");
         const qual = element("div", "qual-view");
         main.style.display = "flex";
-        if (keepMain) {
+        if (keepMain || model.main_retained) {
             main.querySelector(".previous-main-note")?.remove();
             main.prepend(element("p", "entry-note previous-main-note", "WTA currently lists qualifying only. The previous main draw is shown."));
             main.style.flexWrap = "wrap";
         }
-        else main.append(drawTable(model.main, model.dates.mainAvailable, countryCodes));
+        if (!keepMain) main.append(drawTable(model.main, model.dates.mainAvailable, countryCodes));
         qual.append(drawTable(model.qualifying, model.dates.qualAvailable, countryCodes));
         qual.style.display = "none";
         const changes = oldPanel?.querySelector(".changes-view")?.cloneNode(true) || element("div", "changes-view");

@@ -4,6 +4,9 @@ This Worker relays live WTA calendar, match, ranking, player-identity, and entry
 It returns upstream responses without saving them to repository files. It does not trigger GitHub Actions.
 Both websites can keep their current GitHub Pages addresses.
 
+WTA Tracker's Refresh button also saves complete entry-list snapshots in Cloudflare D1. Follow
+[D1_SETUP.md](D1_SETUP.md) for its database, binding, background schedule, and publication steps.
+
 The current public Worker base URL is `https://tennis-wta-api.schiter-tomas.workers.dev`.
 Use this assigned address for checks, rather than copying a placeholder subdomain from an example.
 
@@ -47,17 +50,15 @@ singles brackets for Draw refreshes. Its existing player
 names, rankings, and calendar labels can still use the WTARG files. Failures should leave the
 currently displayed results in place and show an error.
 
-WTA Tracker's `entry-lists.mjs` discovers upcoming events through the calendar route, loads entry-list HTML from
-`/site/tournaments/{id}/{slug}/{year}/player-list`, parses only main-draw and qualifying singles
-entries, and attaches the relevant deadline-week rankings from `/api/tennis/players/ranked`.
-Player identities use ranking IDs and the singles entry cards. This moves the existing Python
-parsing/rendering into browser code; the live page cannot run `main.py`.
-The two-minute button cooldown is browser state; this simple relay does not impose a global
-cooldown across every visitor. A global cooldown needs shared server state in addition to this relay.
+WTA Tracker loads saved snapshots from `GET /entry-lists`. Its Refresh button advances
+`POST /entry-lists/refresh`; the Worker discovers upcoming events, parses only main-draw and qualifying
+singles entries, attaches deadline-week rankings, and saves a complete snapshot in D1. Player identities
+use ranking IDs and the singles entry cards. The browser renders the saved models with `entry-lists.mjs`.
+The two-minute cooldown is shared database state across visitors. Setup requires the `ENTRY_LISTS_DB`
+D1 binding and tables described in [D1_SETUP.md](D1_SETUP.md).
 
-Tracker's historical additions/removals still require a previous saved list. Live entries can be
-fetched without saving them, while the existing scheduled scraper retains the shared change log.
-An unsaved browser refresh alone cannot add changes to that shared history.
+Tracker's historical additions/removals still come from the scheduled scraper's shared change log.
+Saved live entry-list snapshots preserve that displayed history; they do not create GitHub commits.
 
 After integration, publish the website changes and verify Refresh from both live website origins.
 A direct visit to the Worker tests connectivity, but does not by itself test browser CORS.
