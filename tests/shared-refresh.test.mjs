@@ -36,6 +36,7 @@ function tab(handler, { publishedAt = "", view = "main" } = {}) {
     const listeners = {};
     const requests = [];
     const renderCalls = [];
+    const historyCalls = [];
     const status = { textContent: "Initial published page" };
     const button = { addEventListener(name, listener) { this[name] = listener; } };
     const content = {
@@ -55,6 +56,7 @@ function tab(handler, { publishedAt = "", view = "main" } = {}) {
                 : selector === ".main-content" ? content : menu,
         },
         testEntryModule: { BASE: "https://example.workers.dev", addDays, monday,
+            updateEntryChanges(models, content) { historyCalls.push({ models, content }); },
             renderEntryLists(models, previousContent) {
                 renderCalls.push({ models, previousContent });
                 return { menu: { buttons: models.map(model => ({ id: model.id })) },
@@ -77,7 +79,7 @@ function tab(handler, { publishedAt = "", view = "main" } = {}) {
         },
     };
     vm.runInNewContext(source, context);
-    return { status, button, requests, renderCalls, content, listeners,
+    return { status, button, requests, renderCalls, historyCalls, content, listeners,
         panels: () => panels,
         advance(ms) { now += ms; intervals.forEach(listener => listener()); },
     };
@@ -183,4 +185,52 @@ test("focus retrieves a newer shared version and keeps the selected Changes view
     assert.equal(browser.renderCalls.length, 2);
     assert.equal(browser.renderCalls[1].models[0].main_retained, true);
     assert.equal(browser.panels()[0].views.get(".changes-view").style.display, "flex");
+});
+
+const change = (extra = {}) => ({ id: "change-1", at: "2026-11-11T09:58:30Z", date: "2026-11-11",
+    draw: "main", action: "removed", player_id: "1", name: "Main Player", ...extra });
+
+test("saved Changes enrich a newer published page without replacing its entry lists", async () => {
+    const saved = snapshot([{ ...example, changes: [change()] }]);
+    const browser = tab(() => Response.json(state(saved)), { publishedAt: "2026-11-11T09:59:00Z", view: "changes" });
+    await settle();
+    assert.equal(browser.renderCalls.length, 0);
+    assert.equal(browser.historyCalls.length, 1);
+    assert.equal(browser.historyCalls[0].models[0].changes[0].id, "change-1");
+    assert.equal(browser.panels()[0].views.get(".changes-view").style.display, "flex");
+});
+
+test("reload restores saved Changes and same-entry-time history updates do not rebuild lists", async () => {
+    let current = snapshot([{ ...example, changes: [change()] }]);
+    const browser = tab(() => Response.json(state(current)), { view: "changes" });
+    await settle();
+    assert.equal(browser.renderCalls[0].models[0].changes[0].id, "change-1");
+    const reload = tab(() => Response.json(state(current)));
+    await settle();
+    assert.equal(reload.renderCalls[0].models[0].changes[0].id, "change-1");
+    current = snapshot([{ ...example, changes: [change({ id: "change-2", action: "added", at: "2026-11-11T09:59:15Z" }), change()] }]);
+    current.saved_at = "2026-11-11T09:59:30Z";
+    browser.advance(16000);
+    browser.listeners.focus();
+    await settle();
+    assert.equal(browser.renderCalls.length, 1);
+    assert.equal(browser.historyCalls.length, 2);
+    assert.equal(browser.historyCalls[1].models[0].changes.length, 2);
+    assert.equal(browser.panels()[0].views.get(".changes-view").style.display, "flex");
+    current = snapshot([{ ...example, changes: [change()] }]);
+    browser.advance(16000);
+    browser.listeners.focus();
+    await settle();
+    assert.equal(browser.historyCalls.length, 2, "older saved history must not erase newer events");
+});
+
+test("invalid saved Changes reject the whole snapshot before changing tables or history", async () => {
+    for (const changes of [[change({ draw: "doubles" })], [change({ action: "edited" })],
+        [change({ player_id: "not-a-player-id" })], [change({ at: "invalid" })], [change(), change()], "wrong"]) {
+        const browser = tab(() => Response.json(state(snapshot([{ ...example, changes }]))));
+        await settle();
+        assert.equal(browser.renderCalls.length, 0);
+        assert.equal(browser.historyCalls.length, 0);
+        assert.match(browser.status.textContent, /current lists are still shown/);
+    }
 });

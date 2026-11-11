@@ -729,6 +729,56 @@ async function advanceEntryJob(job, io) {
   return { job, done: false };
 }
 
+// cloudflare/entry-history.mjs
+var baseline = (players) => players.map(({ id, name }) => ({ id, name }));
+function previousEntryModels(snapshot) {
+  return [...snapshot?.hidden_models || [], ...snapshot?.models || []];
+}
+function retainHiddenModels(models, previous, start, end) {
+  const visible = new Set(models.map((model) => model.id + ":" + model.week));
+  return previousEntryModels(previous).filter((model) => model.week >= start && model.week < end && !visible.has(model.id + ":" + model.week));
+}
+function withEntryHistory(models, previous, detectedAt) {
+  const at = new Date(detectedAt).toISOString();
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en", {
+    timeZone: "Europe/Madrid",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date(at)).map((part) => [part.type, part.value]));
+  const date = `${parts.year}-${parts.month}-${parts.day}`;
+  const saved = new Map(previousEntryModels(previous).map((model) => [model.id + ":" + model.week, model]));
+  return models.map((model) => {
+    const old = saved.get(model.id + ":" + model.week);
+    const changes = [], baselines = {};
+    for (const draw of ["main", "qualifying"]) {
+      const before = old?.change_baselines?.[draw] || baseline(old?.[draw] || []);
+      const current = model[draw];
+      if (!current.length || draw === "main" && model.main_retained) {
+        baselines[draw] = before.length ? before : baseline(current);
+        continue;
+      }
+      if (before.length) {
+        const previousIds = new Set(before.map((player) => player.id));
+        const currentIds = new Set(current.map((player) => player.id));
+        const record = (player, action) => changes.push({
+          id: `${at}:${draw}:${action}:${player.id}`,
+          at,
+          date,
+          draw,
+          action,
+          player_id: player.id,
+          name: player.name
+        });
+        for (const player of before) if (!currentIds.has(player.id)) record(player, "removed");
+        for (const player of current) if (!previousIds.has(player.id)) record(player, "added");
+      }
+      baselines[draw] = baseline(current);
+    }
+    return { ...model, changes: [...changes, ...old?.changes || []], change_baselines: baselines };
+  });
+}
+
 // cloudflare/entry-store.mjs
 var COOLDOWN = 12e4;
 var LEASE = 9e4;
@@ -797,9 +847,9 @@ function collectionIO(db) {
   };
 }
 function retainPreviousMain(models, previous) {
-  const saved = new Map((previous?.models || []).map((model) => [model.id, model]));
+  const saved = new Map(previousEntryModels(previous).map((model) => [model.id + ":" + model.week, model]));
   return models.map((model) => {
-    const old = saved.get(model.id);
+    const old = saved.get(model.id + ":" + model.week);
     if (!model.main.length && model.qualifying.length && old?.main.length && old.week === model.week) {
       return { ...model, main: old.main, main_retained: true };
     }
@@ -830,13 +880,15 @@ async function advanceStoredRefresh(db) {
       validateCompleteModels(result.models, result.job);
       const completedAt = Date.now();
       const previous = claimed.snapshot ? JSON.parse(claimed.snapshot) : null;
+      const models = withEntryHistory(retainPreviousMain(result.models, previous), previous, completedAt);
       const snapshot = {
         schema_version: 1,
         fetched_at: result.job.started_at,
         saved_at: new Date(completedAt).toISOString(),
         window_start: result.job.window_start,
         window_end: result.job.window_end,
-        models: retainPreviousMain(result.models, previous)
+        models,
+        hidden_models: retainHiddenModels(models, previous, result.job.window_start, result.job.window_end)
       };
       await db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = ?, job = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?").bind(storedJSON(snapshot), completedAt + COOLDOWN, token).run();
       await db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ?").bind(completedAt).run().catch(() => {

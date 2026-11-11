@@ -16,10 +16,18 @@ Failed or incomplete requests retain the previous complete snapshot; short failu
 repeated failing requests. A one-minute Cron Trigger advances unfinished jobs and starts automatic
 updates when the saved data is at least 30 minutes old.
 
-The saved change history still comes from the scheduled scraper. Refreshes preserve that history;
-they do not create shared additions/removals in the repository. If WTA lists qualifying while removing
-its main-draw list, the previous main draw is retained with an explicit notice. Source timestamps keep
-an older D1 snapshot from hiding a newer scheduled publication.
+Every successful shared refresh also compares Main Draw and Qualifying entries by WTA player ID and
+saves detected additions/removals in D1 alongside the lists. Manual and background refreshes use the
+same history. The first observed list establishes its baseline; ranking or spelling changes do not
+create entry changes. Temporarily unavailable lists do not create mass withdrawals, and their last
+nonempty baselines are retained. History also survives a temporarily missing tournament within the
+current four-week window.
+
+The Changes view merges this shared history with the published GitHub scraper history, avoiding
+duplicate published records. GitHub continues maintaining its repository archive independently.
+If WTA lists qualifying while removing its main-draw list, the previous main draw is retained with
+an explicit notice. Source timestamps prevent older D1 lists from hiding a newer publication, while
+its saved Changes can still be displayed.
 
 `main.py` generates `index.html`. Keep the refresh controls and the references to `refresh.css`
 and `refresh.js` in its HTML template so scheduled updates retain the button.
@@ -28,3 +36,9 @@ Follow [the D1 setup guide](cloudflare/D1_SETUP.md) to create the database, bind
 deploy its code, add the schedule, and verify saved updates. See [the shared Worker guide](cloudflare/SETUP.md)
 for WTA relay and Haute Cadence photo setup. Build the standalone dashboard Worker with
 `npm run build:worker`; run the focused entry-list checks with `npm run test:entries`.
+
+Direct deployments are configured in [cloudflare/wrangler.json](cloudflare/wrangler.json) for the existing
+Worker, D1 database, and schedule. After a one-time Wrangler login, `npm run deploy:worker` builds,
+tests, and deploys the Worker. `npm run deploy:worker:dry-run` checks the upload without publishing.
+Dashboard variables and encrypted secrets are retained. Website changes publish separately through
+GitHub Pages after review. See [DEPLOY.md](cloudflare/DEPLOY.md).

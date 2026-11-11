@@ -19,6 +19,7 @@ const html = qualifyingOnly => `<html><body>
 
 test("D1 persists authoritative snapshots, coordinates visitors, and keeps the previous good update", async t => {
     let requests = 0, empty = false, qualifyingOnly = false, rankingCount = 2, failPage = null;
+    let mainId = 1, qualifierId = 2;
     let holdCalendar, enteredCalendar;
     const mf = new Miniflare({
         scriptPath: "cloudflare/worker.mjs", modules: true, compatibilityDate: "2026-07-30",
@@ -32,7 +33,9 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
                 if (holdCalendar) await holdCalendar;
                 return Response.json({ pageInfo: { page: 0, numEntries: empty ? 0 : 1 }, content: empty ? [] : [tournament] });
             }
-            if (url.hostname === "www.wtatennis.com") return new Response(html(qualifyingOnly));
+            if (url.hostname === "www.wtatennis.com") return new Response(html(qualifyingOnly)
+                .replace('/players/1/main-player', '/players/' + mainId + '/main-player')
+                .replace('/players/2/qualifier', '/players/' + qualifierId + '/qualifier'));
             assert.equal(url.pathname, "/tennis/players/ranked");
             assert.equal(url.searchParams.get("metric"), "SINGLES");
             const page = Number(url.searchParams.get("page"));
@@ -85,6 +88,7 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         firstSnapshot = result.state.snapshot;
         assert.equal(firstSnapshot.models[0].main[0].name, "Main Player");
         assert.equal(firstSnapshot.models[0].qualifying[0].id, "2");
+        assert.deepEqual(firstSnapshot.models[0].changes, []);
         assert.equal(JSON.stringify(firstSnapshot).includes("Doubles Only"), false);
         assert.ok(result.state.next_refresh_at >= Date.parse(firstSnapshot.saved_at) + 120000);
         const before = requests;
@@ -115,6 +119,22 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         assert.equal((await finish()).response.status, 200);
     });
 
+    await t.test("entry changes are saved with the snapshot and remain after reload and unchanged refreshes", async () => {
+        mainId = 3;
+        qualifierId = 5;
+        await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
+        const result = await finish();
+        assert.equal(result.response.status, 200);
+        const changes = result.state.snapshot.models[0].changes;
+        assert.deepEqual(changes.map(({ player_id, draw, action }) => [player_id, draw, action]), [
+            ["1", "main", "removed"], ["3", "main", "added"],
+            ["2", "qualifying", "removed"], ["5", "qualifying", "added"],
+        ]);
+        assert.deepEqual((await (await get()).json()).snapshot.models[0].changes, changes);
+        await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
+        assert.deepEqual((await finish()).state.snapshot.models[0].changes, changes);
+    });
+
     await t.test("partial failures never publish incomplete lists and retry backoff is shared", async () => {
         await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
         await db.prepare("DELETE FROM entry_ranking_cache").run();
@@ -142,9 +162,9 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
         const result = await finish();
         assert.equal(result.response.status, 200);
-        assert.equal(result.state.snapshot.models[0].main[0].name, "Main Player");
+        assert.equal(result.state.snapshot.models[0].main[0].id, String(mainId));
         assert.equal(result.state.snapshot.models[0].main_retained, true);
-        assert.equal(result.state.snapshot.models[0].qualifying[0].id, "2");
+        assert.equal(result.state.snapshot.models[0].qualifying[0].id, String(qualifierId));
     });
 
     await t.test("expired job state is discarded and a verified empty calendar can be saved", async () => {
@@ -154,6 +174,13 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         const result = await finish();
         assert.equal(result.response.status, 200);
         assert.deepEqual(result.state.snapshot.models, []);
+        assert.equal(result.state.snapshot.hidden_models[0].changes.length, 4);
+        empty = false;
+        qualifyingOnly = false;
+        await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
+        const restored = (await finish()).state.snapshot;
+        assert.equal(restored.models[0].changes.length, 4);
+        assert.deepEqual(restored.hidden_models, []);
     });
 
     await t.test("scheduled refresh skips fresh data and refreshes when thirty minutes stale", async () => {

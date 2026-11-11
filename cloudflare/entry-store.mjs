@@ -1,4 +1,5 @@
 import { createEntryJob, advanceEntryJob } from "./entry-collector.mjs";
+import { previousEntryModels, retainHiddenModels, withEntryHistory } from "./entry-history.mjs";
 
 const COOLDOWN = 120000;
 const LEASE = 90000;
@@ -69,9 +70,9 @@ function collectionIO(db) {
 }
 
 export function retainPreviousMain(models, previous) {
-    const saved = new Map((previous?.models || []).map(model => [model.id, model]));
+    const saved = new Map(previousEntryModels(previous).map(model => [model.id + ":" + model.week, model]));
     return models.map(model => {
-        const old = saved.get(model.id);
+        const old = saved.get(model.id + ":" + model.week);
         if (!model.main.length && model.qualifying.length && old?.main.length && old.week === model.week) {
             return { ...model, main: old.main, main_retained: true };
         }
@@ -109,9 +110,11 @@ async function advanceStoredRefresh(db) {
             validateCompleteModels(result.models, result.job);
             const completedAt = Date.now();
             const previous = claimed.snapshot ? JSON.parse(claimed.snapshot) : null;
+            const models = withEntryHistory(retainPreviousMain(result.models, previous), previous, completedAt);
             const snapshot = { schema_version: 1, fetched_at: result.job.started_at,
                 saved_at: new Date(completedAt).toISOString(), window_start: result.job.window_start,
-                window_end: result.job.window_end, models: retainPreviousMain(result.models, previous) };
+                window_end: result.job.window_end, models,
+                hidden_models: retainHiddenModels(models, previous, result.job.window_start, result.job.window_end) };
             await db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = ?, job = NULL, " +
                 "job_expires_at = 0, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?")
                 .bind(storedJSON(snapshot), completedAt + COOLDOWN, token).run();

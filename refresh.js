@@ -8,6 +8,7 @@
     const publishedAt = Date.parse(document.querySelector('meta[name="entry-lists-published-at"]')?.content || "") || 0;
     let displayedAt = publishedAt;
     let savedAt = 0;
+    let historySavedAt = 0;
     let nextRefresh = 0;
     let pending = false;
     let checking = false;
@@ -48,6 +49,19 @@
                 throw new Error("Invalid saved tournament");
             }
             ids.add(model.id);
+            if (model.changes !== undefined) {
+                if (!Array.isArray(model.changes)) throw new Error("Invalid saved changes");
+                const changes = new Set();
+                for (const change of model.changes) {
+                    if (!change || typeof change.id !== "string" || !change.id || changes.has(change.id) ||
+                        typeof change.at !== "string" || !Number.isFinite(Date.parse(change.at)) ||
+                        Date.parse(change.at) > Date.parse(snapshot.saved_at) || !validDate(change.date) ||
+                        !["main", "qualifying"].includes(change.draw) || !["added", "removed"].includes(change.action) ||
+                        typeof change.player_id !== "string" || !/^\d+$/.test(change.player_id) ||
+                        typeof change.name !== "string" || !change.name.trim()) throw new Error("Invalid saved change");
+                    changes.add(change.id);
+                }
+            }
             for (const draw of [model.main, model.qualifying]) {
                 if (!Array.isArray(draw)) throw new Error("Invalid saved draw");
                 const players = new Set();
@@ -87,6 +101,11 @@
         const live = await entryModule();
         if (!validateSnapshot(snapshot, live)) return "Saved lists cover an earlier period. Click Refresh for the upcoming tournaments.";
         const fetchedAt = Date.parse(snapshot.fetched_at);
+        const historyAt = Date.parse(snapshot.saved_at);
+        if (historyAt >= historySavedAt) {
+            live.updateEntryChanges(snapshot.models, content);
+            historySavedAt = historyAt;
+        }
         if (fetchedAt < displayedAt || fetchedAt === publishedAt && !savedAt) {
             return "Showing the newer published entry lists. Click Refresh to save a new update.";
         }
@@ -94,7 +113,7 @@
             renderModels(live, snapshot.models);
             displayedAt = fetchedAt;
             savedAt = Date.parse(snapshot.saved_at);
-        }
+        } else if (historyAt >= historySavedAt) savedAt = Math.max(savedAt, historyAt);
         return "Updated and saved at " + new Date(savedAt || snapshot.saved_at).toLocaleString([], {
             month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
         }) + ".";

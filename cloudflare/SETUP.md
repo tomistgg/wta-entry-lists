@@ -57,8 +57,9 @@ use ranking IDs and the singles entry cards. The browser renders the saved model
 The two-minute cooldown is shared database state across visitors. Setup requires the `ENTRY_LISTS_DB`
 D1 binding and tables described in [D1_SETUP.md](D1_SETUP.md).
 
-Tracker's historical additions/removals still come from the scheduled scraper's shared change log.
-Saved live entry-list snapshots preserve that displayed history; they do not create GitHub commits.
+Tracker saves detected Main Draw and Qualifying additions/removals with each complete D1 snapshot.
+The website merges them with the scheduled scraper's published history without duplicating matching
+records. GitHub's repository archive continues independently; saving in D1 does not create commits.
 
 After integration, publish the website changes and verify Refresh from both live website origins.
 A direct visit to the Worker tests connectivity, but does not by itself test browser CORS.

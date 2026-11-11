@@ -2,7 +2,8 @@
 
 The existing Worker saves the latest complete WTA entry-list snapshot in D1. Every visitor can load
 that snapshot, including after reloading the page or opening the website on another device.
-The database also coordinates the shared two-minute refresh cooldown.
+The database also saves detected additions/removals for the Changes view and coordinates the shared
+two-minute refresh cooldown.
 
 Use the existing Cloudflare account and Worker:
 
@@ -93,9 +94,24 @@ The first refresh can take longer while deadline-week rankings are cached. Later
 ranking dates. Incomplete or failed refreshes never replace a complete saved snapshot. The cooldown is
 shared across visitors; another visitor receives the saved update while that cooldown is active.
 
-The existing GitHub workflow still maintains repository files and the shared change history. The website
-compares source timestamps so an older saved snapshot cannot hide a newer scheduled publication.
+Every complete refresh saves detected Main Draw and Qualifying additions/removals, comparing WTA
+player IDs against the last observed list. The first observed list establishes its baseline. Missing
+lists do not imply that every player withdrew. The recorded date is when the change was detected in
+Europe/Madrid, not a claim about the exact withdrawal or entry time.
+
+The existing GitHub workflow still maintains its repository archive. The website merges published
+history with D1 Changes and compares source timestamps so older saved lists cannot hide a newer
+scheduled publication. Shared history can still be displayed alongside those newer published lists.
 Missing D1 data leaves the published page available with a refresh status explaining the problem.
+
+## Updating an existing D1 installation
+
+Changes history uses the existing snapshot storage, so no database migration or new binding is needed.
+Deploy the rebuilt `worker.mjs` and publish the updated `entry-lists.mjs` and `refresh.js` website files.
+The next successful refresh compares against the existing saved lists and starts saving change events.
+Earlier GitHub history remains visible; the Worker cannot infer changes that happened before its saved
+baseline. History and baselines are kept while each tournament remains in the upcoming four-week window,
+including across temporary calendar removals. The GitHub archive remains the longer-term record.
 
 ## Development and checks
 
