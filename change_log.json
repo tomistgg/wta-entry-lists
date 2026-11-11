@@ -62880,6 +62880,22 @@
     "WTA_125_BUENOS_AIRES": [
         {
             "date": "2026-11-11",
+            "change": "<strong>MARIA LOURDES CARLE</strong> removed from Qualifying"
+        },
+        {
+            "date": "2026-11-11",
+            "change": "<strong>ARIANA GEERLINGS</strong> added to Qualifying"
+        },
+        {
+            "date": "2026-11-11",
+            "change": "<strong>ELINA AVANESYAN</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-11-11",
+            "change": "<strong>CAROLE MONNET</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-11-11",
             "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
         },
         {
@@ -62893,6 +62909,24 @@
         {
             "date": "2026-11-04",
             "change": "<strong>ALICIA HERRERO LINANA</strong> added to Main Draw"
+        }
+    ],
+    "WTA_125_QUITO": [
+        {
+            "date": "2026-11-11",
+            "change": "<strong>MAGDA LINETTE</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-11-11",
+            "change": "<strong>YASMINE KABBAJ</strong> removed from Main Draw"
+        },
+        {
+            "date": "2026-11-11",
+            "change": "<strong>DARIA EGOROVA</strong> added to Main Draw"
+        },
+        {
+            "date": "2026-11-11",
+            "change": "<strong>LEA MA</strong> added to Main Draw"
         }
     ]
 }
