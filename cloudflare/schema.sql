@@ -16,3 +16,10 @@ CREATE TABLE IF NOT EXISTS entry_ranking_cache (
     rows_json TEXT NOT NULL,
     expires_at INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS entry_legacy_history (
+    tournament_id TEXT NOT NULL,
+    week TEXT NOT NULL,
+    rows_json TEXT NOT NULL,
+    PRIMARY KEY (tournament_id, week)
+);

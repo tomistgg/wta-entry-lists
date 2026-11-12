@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { updateEntryChanges } from "../entry-lists.mjs";
 
-// A small DOM fixture exercises safe element construction and history merging without a browser dependency.
+// A small DOM fixture exercises safe element construction without a browser dependency.
 class Node {
     constructor(tag = "div") {
         this.tagName = tag.toUpperCase(); this.childNodes = []; this.dataset = {}; this.style = {}; this.className = "";
@@ -57,12 +57,12 @@ const event = extra => ({ id: "event-1", at: "2026-11-11T10:32:00Z", date: "2026
 test.before(() => { globalThis.document = { createElement: tag => new Node(tag) }; });
 test.after(() => { delete globalThis.document; });
 
-test("D1 Changes merge published history, remove matching legacy duplicates and stay stable on repeated updates", () => {
+test("D1 Changes replace old DOM data and stay stable on repeated updates", () => {
     const { content, view } = fixture([
-        ["2026-11-11", "MAIN PLAYER removed from Main Draw"],
-        ["2026-11-10", "ANOTHER PLAYER added to Qualifying"],
+        ["2026-11-11", "STALE PLAYER removed from Main Draw"],
     ]);
-    const model = { id: "EVENT", changes: [event()] };
+    const model = { id: "EVENT", changes: [event(), event({ id: "legacy:record-1", player_id: null,
+        name: "Another Player", action: "added", draw: "qualifying", date: "2026-11-10", at: "2026-11-10T00:00:00.000Z" })] };
     updateEntryChanges([model], content);
     let rows = view.querySelectorAll("tbody tr");
     assert.equal(rows.length, 2);
@@ -86,21 +86,23 @@ test("distinct D1 events remain distinct and player names are inserted as text, 
     assert.equal(view.querySelectorAll("img").length, 0);
 });
 
-test("UTC-dated GitHub duplicates merge correctly with a Madrid event after midnight", () => {
-    const { content, view } = fixture([["2026-11-11", "LÉOLIA JEANJEAN added to Qualifying"]]);
-    updateEntryChanges([{ id: "EVENT", changes: [event({ name: "Leolia Jeanjean", draw: "qualifying", action: "added",
-        at: "2026-11-11T23:32:00Z", date: "2026-11-12" })] }], content);
+test("imported history displays its recorded date without implying an exact detection time", () => {
+    const { content, view } = fixture();
+    updateEntryChanges([{ id: "EVENT", changes: [event({ id: "legacy:record-1", player_id: null,
+        at: "2026-11-11T00:00:00.000Z", date: "2026-11-11" })] }], content);
     const rows = view.querySelectorAll("tbody tr");
     assert.equal(rows.length, 1);
-    assert.equal(rows[0].querySelector("td").textContent, "2026-11-12");
+    assert.equal(rows[0].querySelector("td").textContent, "2026-11-11");
+    assert.equal(rows[0].querySelector("td").title, "Recorded on 2026-11-11 (date only)");
 });
 
-test("old snapshots without Changes preserve published history and an explicit empty history adds no noise", () => {
+test("an explicit empty D1 history clears old rows and missing panels are ignored", () => {
     const { content, view } = fixture([["2026-11-10", "ANOTHER PLAYER added to Qualifying"]]);
     updateEntryChanges([{ id: "EVENT" }], content);
     assert.equal(view.querySelectorAll("tbody tr").length, 1);
     updateEntryChanges([{ id: "EVENT", changes: [] }], content);
-    assert.equal(view.querySelectorAll("tbody tr").length, 1);
+    assert.equal(view.querySelectorAll("tbody tr").length, 0);
+    assert.match(view.textContent, /No changes recorded yet/);
     updateEntryChanges([{ id: "MISSING", changes: [event()] }], content);
-    assert.equal(view.querySelectorAll("tbody tr").length, 1);
+    assert.equal(view.querySelectorAll("tbody tr").length, 0);
 });

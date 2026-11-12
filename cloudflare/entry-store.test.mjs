@@ -3,7 +3,7 @@ import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { Miniflare } from "miniflare";
 import { createEntryJob } from "./entry-collector.mjs";
-import { retainPreviousMain, scheduledEntryRefresh } from "./entry-store.mjs";
+import { pruneExpiredEntryData, retainPreviousMain, saveEntrySnapshot, scheduledEntryRefresh } from "./entry-store.mjs";
 
 const origin = "https://tomistgg.github.io";
 const request = (path, options = {}) => new Request("https://example.workers.dev" + path,
@@ -135,6 +135,41 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         assert.deepEqual((await finish()).state.snapshot.models[0].changes, changes);
     });
 
+    await t.test("imported history is served only for the matching active edition without entering snapshot baselines", async () => {
+        const saved = (await (await get()).json()).snapshot;
+        const current = saved.models[0];
+        const date = current.dates.main;
+        const legacy = { id: "legacy:imported", at: date + "T00:00:00.000Z", date, draw: "main", action: "added",
+            player_id: null, name: "Imported Player", source: "legacy" };
+        await db.prepare("INSERT INTO entry_legacy_history (tournament_id, week, rows_json) VALUES (?, ?, ?)")
+            .bind(current.id, current.week, JSON.stringify([legacy])).run();
+        const loaded = (await (await dispatch(request("/entry-lists?history=1"))).json()).snapshot;
+        assert.equal(loaded.models[0].changes.at(-1).id, legacy.id);
+        assert.equal((await (await get()).json()).snapshot.models[0].changes.some(change => change.player_id === null), false,
+            "cached clients must keep receiving numeric player IDs only");
+        const posted = await dispatch(request("/entry-lists/refresh?history=1", { method: "POST", headers: { Origin: origin } }));
+        assert.equal((await posted.json()).snapshot.models[0].changes.at(-1).id, legacy.id);
+        const raw = await db.prepare("SELECT snapshot FROM entry_list_state WHERE id = 1").first();
+        assert.equal(JSON.parse(raw.snapshot).models[0].changes.some(change => change.player_id === null), false);
+        assert.deepEqual(loaded.models[0].change_baselines, current.change_baselines);
+        await db.prepare("DELETE FROM entry_legacy_history").run();
+    });
+
+    await t.test("successful publication deletes imported history for absent and older editions", async () => {
+        const previous = (await (await get()).json()).snapshot;
+        const current = previous.models[0];
+        for (const [id, week] of [[current.id, current.week], [current.id, "2025-01-06"], ["ABSENT", current.week]]) {
+            await db.prepare("INSERT INTO entry_legacy_history (tournament_id, week, rows_json) VALUES (?, ?, '[]')")
+                .bind(id, week).run();
+        }
+        await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
+        const restored = (await finish()).state.snapshot;
+        assert.deepEqual(restored.models[0].changes, previous.models[0].changes);
+        assert.deepEqual(restored.models[0].change_baselines, previous.models[0].change_baselines);
+        const kept = await db.prepare("SELECT tournament_id, week FROM entry_legacy_history").all();
+        assert.deepEqual(kept.results, [{ tournament_id: current.id, week: current.week }]);
+    });
+
     await t.test("partial failures never publish incomplete lists and retry backoff is shared", async () => {
         await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
         await db.prepare("DELETE FROM entry_ranking_cache").run();
@@ -174,13 +209,14 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         const result = await finish();
         assert.equal(result.response.status, 200);
         assert.deepEqual(result.state.snapshot.models, []);
-        assert.equal(result.state.snapshot.hidden_models[0].changes.length, 4);
+        assert.equal(Object.hasOwn(result.state.snapshot, "hidden_models"), false);
+        assert.equal((await db.prepare("SELECT count(*) AS count FROM entry_legacy_history").first()).count, 0);
         empty = false;
         qualifyingOnly = false;
         await db.prepare("UPDATE entry_list_state SET next_refresh_at = 0 WHERE id = 1").run();
         const restored = (await finish()).state.snapshot;
-        assert.equal(restored.models[0].changes.length, 4);
-        assert.deepEqual(restored.hidden_models, []);
+        assert.deepEqual(restored.models[0].changes, [], "a returning tournament establishes a new baseline after deletion");
+        assert.equal(Object.hasOwn(restored, "hidden_models"), false);
     });
 
     await t.test("scheduled refresh skips fresh data and refreshes when thirty minutes stale", async () => {
@@ -205,4 +241,104 @@ test("retained main draws cannot leak into a different tournament week", () => {
     const old = { id: "same", week: "2026-01-05", main: [{ id: "1" }] };
     const current = { id: "same", week: "2027-01-04", main: [], qualifying: [{ id: "2" }] };
     assert.equal(retainPreviousMain([current], { models: [old] })[0].main.length, 0);
+});
+
+test("publication atomically deletes retired history and rejects an expired writer", async t => {
+    const mf = new Miniflare({ script: "export default { fetch() { return new Response('ok'); } }", modules: true,
+        compatibilityDate: "2026-07-30", d1Databases: { ENTRY_LISTS_DB: "retention-test" } });
+    t.after(() => mf.dispose());
+    const db = await mf.getD1Database("ENTRY_LISTS_DB");
+    const schema = await readFile("cloudflare/schema.sql", "utf8");
+    for (const sql of schema.split(";").filter(part => part.trim())) await db.prepare(sql).run();
+    const previous = { saved_at: "2026-11-11T10:00:00.000Z", models: [{ id: "OLD", week: "2026-11-16", changes: [] }] };
+    const current = { saved_at: "2026-11-18T10:00:00.000Z", models: [{ id: "NEW", week: "2026-11-23", changes: [] }] };
+    await db.prepare("UPDATE entry_list_state SET snapshot = ?, lease_token = 'owner' WHERE id = 1")
+        .bind(JSON.stringify(previous)).run();
+    for (const model of [...previous.models, ...current.models]) {
+        await db.prepare("INSERT INTO entry_legacy_history (tournament_id, week, rows_json) VALUES (?, ?, '[]')")
+            .bind(model.id, model.week).run();
+    }
+    await db.prepare("CREATE TRIGGER reject_snapshot BEFORE UPDATE ON entry_list_state " +
+        "WHEN NEW.snapshot != OLD.snapshot BEGIN SELECT RAISE(ABORT, 'snapshot unavailable'); END").run();
+    await assert.rejects(saveEntrySnapshot(db, current, "owner"), /snapshot unavailable/);
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM entry_legacy_history").first()).count, 2);
+    assert.deepEqual(JSON.parse((await db.prepare("SELECT snapshot FROM entry_list_state WHERE id = 1").first()).snapshot), previous);
+    await db.prepare("DROP TRIGGER reject_snapshot").run();
+    await saveEntrySnapshot(db, current, "stale-owner");
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM entry_legacy_history").first()).count, 2);
+    assert.deepEqual(JSON.parse((await db.prepare("SELECT snapshot FROM entry_list_state WHERE id = 1").first()).snapshot), previous);
+    await saveEntrySnapshot(db, current, "owner");
+    const records = await db.prepare("SELECT tournament_id, week FROM entry_legacy_history").all();
+    assert.deepEqual(records.results, [{ tournament_id: "NEW", week: "2026-11-23" }]);
+    assert.deepEqual(JSON.parse((await db.prepare("SELECT snapshot FROM entry_list_state WHERE id = 1").first()).snapshot), current);
+    const later = { saved_at: "2026-11-25T10:00:00.000Z", models: [] };
+    await db.prepare("UPDATE entry_list_state SET lease_token = 'next-owner' WHERE id = 1").run();
+    await saveEntrySnapshot(db, later, "next-owner");
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM entry_legacy_history").first()).count, 0);
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM sqlite_master WHERE name = 'entry_tournament_archive'").first()).count, 0);
+});
+
+test("scheduled cleanup removes expired data despite WTA failure and preserves active history", async t => {
+    const mf = new Miniflare({ script: "export default { fetch() { return new Response('ok'); } }", modules: true,
+        compatibilityDate: "2026-07-30", d1Databases: { ENTRY_LISTS_DB: "rollover-test" } });
+    t.after(() => mf.dispose());
+    const db = await mf.getD1Database("ENTRY_LISTS_DB");
+    const schema = await readFile("cloudflare/schema.sql", "utf8");
+    for (const sql of schema.split(";").filter(part => part.trim())) await db.prepare(sql).run();
+    const now = Date.parse("2026-11-22T23:00:00Z");
+    const expired = { id: "EXPIRED", week: "2026-11-23", main: [{ name: "Expired player" }], qualifying: [], changes: [{ name: "Expired change" }] };
+    const active = { id: "ACTIVE", week: "2026-11-30", main: [{ name: "Active player" }], qualifying: [], changes: [{ name: "Active change" }] };
+    const original = { fetched_at: "2026-11-22T22:50:00.000Z", saved_at: "2026-11-22T22:55:00.000Z",
+        window_start: "2026-11-23", window_end: "2026-12-21", models: [expired, active],
+        hidden_models: [{ id: "HIDDEN", week: "2026-12-07", changes: [{ name: "Hidden change" }] }] };
+    const oldJob = JSON.stringify({ window_start: original.window_start, stage: "entries", models: [expired] });
+    const writeOriginal = () => db.prepare("UPDATE entry_list_state SET snapshot = ?, job = ?, job_expires_at = ?, " +
+        "next_refresh_at = 0, lease_until = 0, lease_token = NULL, error = NULL WHERE id = 1")
+        .bind(JSON.stringify(original), oldJob, now + 600000).run();
+    await writeOriginal();
+    for (const model of [expired, active, ...original.hidden_models]) {
+        await db.prepare("INSERT INTO entry_legacy_history (tournament_id, week, rows_json) VALUES (?, ?, '[]')")
+            .bind(model.id, model.week).run();
+    }
+    await db.prepare("INSERT INTO entry_ranking_cache VALUES ('2026-10-01', '[]', ?), ('2026-10-08', '[]', ?)")
+        .bind(now - 1, now + 10000).run();
+    const clock = t.mock.method(Date, "now", () => now);
+    const fetchMock = t.mock.method(globalThis, "fetch", async () => new Response("WTA unavailable", { status: 503 }));
+    await scheduledEntryRefresh({ ENTRY_LISTS_DB: db });
+    fetchMock.mock.restore();
+    clock.mock.restore();
+    const row = await db.prepare("SELECT * FROM entry_list_state WHERE id = 1").first();
+    const saved = JSON.parse(row.snapshot);
+    assert.deepEqual(saved.models, [active]);
+    assert.equal(Object.hasOwn(saved, "hidden_models"), false);
+    assert.equal(saved.window_start, "2026-11-30");
+    assert.equal(saved.window_end, "2026-12-28");
+    assert.equal(saved.fetched_at, original.fetched_at);
+    assert.equal(saved.saved_at, original.saved_at);
+    assert.equal(row.job, null);
+    assert.match(row.error, /last saved lists/);
+    assert.doesNotMatch(row.snapshot, /Expired|Hidden/);
+    assert.deepEqual((await db.prepare("SELECT tournament_id FROM entry_legacy_history").all()).results, [{ tournament_id: "ACTIVE" }]);
+    assert.deepEqual((await db.prepare("SELECT ranking_date FROM entry_ranking_cache").all()).results, [{ ranking_date: "2026-10-08" }]);
+
+    await writeOriginal();
+    await db.prepare("UPDATE entry_list_state SET lease_until = ?, lease_token = 'current-owner' WHERE id = 1").bind(now + 90000).run();
+    const leased = await pruneExpiredEntryData(db, now);
+    assert.equal(leased.snapshot, JSON.stringify(original), "cleanup must not disturb a running collection");
+    await db.prepare("UPDATE entry_list_state SET lease_until = 0, lease_token = NULL WHERE id = 1").run();
+    const newer = { ...saved, models: [active, { ...active, id: "NEWLY_SAVED" }] };
+    const concurrentDB = {
+        prepare: sql => db.prepare(sql),
+        async batch(statements) {
+            await db.prepare("UPDATE entry_list_state SET snapshot = ?, job = NULL WHERE id = 1").bind(JSON.stringify(newer)).run();
+            return db.batch(statements);
+        },
+    };
+    const concurrent = await pruneExpiredEntryData(concurrentDB, now);
+    assert.deepEqual(JSON.parse(concurrent.snapshot), newer, "a stale cleanup must not overwrite a newer completed snapshot");
+
+    await db.prepare("UPDATE entry_list_state SET snapshot = NULL, job = NULL, lease_until = 0 WHERE id = 1").run();
+    await pruneExpiredEntryData(db, now);
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM entry_legacy_history").first()).count, 0,
+        "without displayed tournaments no imported history may remain");
 });

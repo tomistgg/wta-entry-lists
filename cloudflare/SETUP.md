@@ -58,13 +58,14 @@ The two-minute cooldown is shared database state across visitors. Setup requires
 D1 binding and tables described in [D1_SETUP.md](D1_SETUP.md).
 
 Tracker saves detected Main Draw and Qualifying additions/removals with each complete D1 snapshot.
-The website merges them with the scheduled scraper's published history without duplicating matching
-records. GitHub's repository archive continues independently; saving in D1 does not create commits.
+D1 retains only displayed tournament editions and their Changes, including any imported current-edition
+records from the retired scraper. Data is deleted when a tournament leaves the displayed window.
+The website reads all current data and Changes from D1; data updates do not create GitHub commits.
 
 After integration, publish the website changes and verify Refresh from both live website origins.
 A direct visit to the Worker tests connectivity, but does not by itself test browser CORS.
-Also verify failure behavior and the Tracker cooldown. The scheduled feeds can remain available
-as an explicitly labelled fallback if a live WTA request fails.
+Also verify failure behavior and the Tracker cooldown. Tracker keeps previously displayed lists
+when a later request fails and shows a clear unavailable state if its initial D1 load fails.
 
 ## Local checks of the relay code
 

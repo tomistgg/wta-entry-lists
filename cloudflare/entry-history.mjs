@@ -1,13 +1,23 @@
 const baseline = players => players.map(({ id, name }) => ({ id, name }));
 
-export function previousEntryModels(snapshot) {
-    return [...(snapshot?.hidden_models || []), ...(snapshot?.models || [])];
+function signature(date, change) {
+    const name = change.name.normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    return [date, change.draw, change.action, name].join("|");
 }
 
-export function retainHiddenModels(models, previous, start, end) {
-    const visible = new Set(models.map(model => model.id + ":" + model.week));
-    return previousEntryModels(previous).filter(model => model.week >= start && model.week < end &&
-        !visible.has(model.id + ":" + model.week));
+export function withLegacyHistory(model, legacy, savedAt) {
+    const changes = model.changes || [];
+    const known = new Set(changes.flatMap(change => [change.date, change.at.slice(0, 10)]
+        .map(date => signature(date, change))));
+    // The log's tournament IDs were reused; only this edition's deadline onward belongs to its history.
+    const imported = legacy.filter(change => change.date >= model.dates.main && change.at <= savedAt &&
+        !known.has(signature(change.date, change)));
+    return { ...model, changes: [...changes, ...imported].sort((a, b) => b.at.localeCompare(a.at)) };
+}
+
+export function previousEntryModels(snapshot) {
+    return snapshot?.models || [];
 }
 
 export function withEntryHistory(models, previous, detectedAt) {

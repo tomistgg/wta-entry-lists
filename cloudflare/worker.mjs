@@ -731,12 +731,18 @@ async function advanceEntryJob(job, io) {
 
 // cloudflare/entry-history.mjs
 var baseline = (players) => players.map(({ id, name }) => ({ id, name }));
-function previousEntryModels(snapshot) {
-  return [...snapshot?.hidden_models || [], ...snapshot?.models || []];
+function signature(date, change) {
+  const name = change.name.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  return [date, change.draw, change.action, name].join("|");
 }
-function retainHiddenModels(models, previous, start, end) {
-  const visible = new Set(models.map((model) => model.id + ":" + model.week));
-  return previousEntryModels(previous).filter((model) => model.week >= start && model.week < end && !visible.has(model.id + ":" + model.week));
+function withLegacyHistory(model, legacy, savedAt) {
+  const changes = model.changes || [];
+  const known = new Set(changes.flatMap((change) => [change.date, change.at.slice(0, 10)].map((date) => signature(date, change))));
+  const imported = legacy.filter((change) => change.date >= model.dates.main && change.at <= savedAt && !known.has(signature(change.date, change)));
+  return { ...model, changes: [...changes, ...imported].sort((a, b) => b.at.localeCompare(a.at)) };
+}
+function previousEntryModels(snapshot) {
+  return snapshot?.models || [];
 }
 function withEntryHistory(models, previous, detectedAt) {
   const at = new Date(detectedAt).toISOString();
@@ -806,6 +812,56 @@ async function readState(db) {
   const row = await db.prepare("SELECT * FROM entry_list_state WHERE id = 1").first();
   if (!row) throw new Error("Entry-list schema has not been initialized.");
   return row;
+}
+async function includeLegacyHistory(db, state) {
+  const snapshot = state.snapshot;
+  if (!snapshot?.models.length) return state;
+  const rows = await db.prepare("SELECT tournament_id, week, rows_json FROM entry_legacy_history WHERE (tournament_id, week) IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?))").bind(JSON.stringify(snapshot.models.map(({ id, week }) => ({ id, week })))).all();
+  const legacy = new Map(rows.results.map((row) => [row.tournament_id + ":" + row.week, JSON.parse(row.rows_json)]));
+  return { ...state, snapshot: { ...snapshot, models: snapshot.models.map((model) => withLegacyHistory(model, legacy.get(model.id + ":" + model.week) || [], snapshot.saved_at)) } };
+}
+async function saveEntrySnapshot(db, snapshot, token) {
+  const keys = JSON.stringify(snapshot.models.map(({ id, week }) => ({ id, week })));
+  await db.batch([
+    db.prepare("DELETE FROM entry_legacy_history WHERE (tournament_id, week) NOT IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?)) AND EXISTS (SELECT 1 FROM entry_list_state WHERE id = 1 AND lease_token = ?)").bind(keys, token),
+    db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = ?, job = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?").bind(storedJSON(snapshot), Date.parse(snapshot.saved_at) + COOLDOWN, token)
+  ]);
+}
+async function pruneExpiredEntryData(db, now = Date.now()) {
+  const row = await readState(db);
+  if (row.lease_until > now) return row;
+  const window2 = createEntryJob(now);
+  const snapshot = row.snapshot ? JSON.parse(row.snapshot) : null;
+  if (snapshot) {
+    snapshot.models = snapshot.models.filter((model) => model.week >= window2.window_start && model.week < window2.window_end);
+    snapshot.window_start = window2.window_start;
+    snapshot.window_end = window2.window_end;
+    delete snapshot.hidden_models;
+  }
+  const job = row.job ? JSON.parse(row.job) : null;
+  const keepJob = job && row.job_expires_at > now && job.window_start === window2.window_start;
+  const keys = JSON.stringify(snapshot?.models.map(({ id, week }) => ({ id, week })) || []);
+  const guard = "EXISTS (SELECT 1 FROM entry_list_state WHERE id = 1 AND lease_until <= ? AND snapshot IS ? AND job IS ?)";
+  await db.batch([
+    db.prepare("DELETE FROM entry_legacy_history WHERE (week < ? OR week >= ? OR (tournament_id, week) NOT IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?)) ) AND " + guard).bind(
+      window2.window_start,
+      window2.window_end,
+      keys,
+      now,
+      row.snapshot,
+      row.job
+    ),
+    db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ? AND " + guard).bind(now, now, row.snapshot, row.job),
+    db.prepare("UPDATE entry_list_state SET snapshot = ?, job = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0 WHERE id = 1 AND lease_until <= ? AND snapshot IS ? AND job IS ?").bind(
+      snapshot ? storedJSON(snapshot) : null,
+      keepJob ? row.job : null,
+      keepJob ? row.job_expires_at : 0,
+      now,
+      row.snapshot,
+      row.job
+    )
+  ]);
+  return readState(db);
 }
 async function wtaText(path, params = {}) {
   const api = path.startsWith("/api/");
@@ -887,10 +943,9 @@ async function advanceStoredRefresh(db) {
         saved_at: new Date(completedAt).toISOString(),
         window_start: result.job.window_start,
         window_end: result.job.window_end,
-        models,
-        hidden_models: retainHiddenModels(models, previous, result.job.window_start, result.job.window_end)
+        models
       };
-      await db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = ?, job = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?").bind(storedJSON(snapshot), completedAt + COOLDOWN, token).run();
+      await saveEntrySnapshot(db, snapshot, token);
       await db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ?").bind(completedAt).run().catch(() => {
       });
     } else {
@@ -905,10 +960,14 @@ async function advanceStoredRefresh(db) {
 async function entryListResponse(request, env, headers) {
   const json = (data, status = 200) => Response.json(data, { status, headers });
   if (!env.ENTRY_LISTS_DB) return json({ error: "Shared saving is not configured. Add the ENTRY_LISTS_DB D1 binding." }, 503);
+  const responseState = (state) => new URL(request.url).searchParams.get("history") === "1" ? includeLegacyHistory(env.ENTRY_LISTS_DB, state) : state;
   try {
-    if (request.method === "GET") return json(publicState(await readState(env.ENTRY_LISTS_DB)));
+    if (request.method === "GET") return json(await responseState(publicState(await readState(env.ENTRY_LISTS_DB))));
     const result = await advanceStoredRefresh(env.ENTRY_LISTS_DB);
-    return json(result.state, result.failed ? 502 : result.state.refreshing ? 202 : 200);
+    return json(
+      await responseState(result.state),
+      result.failed ? 502 : result.state.refreshing ? 202 : 200
+    );
   } catch {
     return json({ error: "Shared entry-list storage is unavailable. Check the D1 binding and schema." }, 503);
   }
@@ -916,9 +975,9 @@ async function entryListResponse(request, env, headers) {
 async function scheduledEntryRefresh(env) {
   if (!env.ENTRY_LISTS_DB) return;
   try {
-    const row = await readState(env.ENTRY_LISTS_DB);
+    const row = await pruneExpiredEntryData(env.ENTRY_LISTS_DB);
     const snapshot = row.snapshot ? JSON.parse(row.snapshot) : null;
-    if (row.job || (!snapshot || Date.now() - Date.parse(snapshot.saved_at) >= AUTO_REFRESH)) {
+    if (row.job || (!snapshot || createEntryJob(Date.parse(snapshot.fetched_at)).window_start !== createEntryJob().window_start || Date.now() - Date.parse(snapshot.saved_at) >= AUTO_REFRESH)) {
       if (row.next_refresh_at <= Date.now() || row.job) await advanceStoredRefresh(env.ENTRY_LISTS_DB);
     }
   } catch {
@@ -959,13 +1018,13 @@ async function googleAccessToken(credentials) {
       false,
       ["sign"]
     );
-    const signature = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", key, new TextEncoder().encode(unsigned));
+    const signature2 = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", key, new TextEncoder().encode(unsigned));
     const response = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
         grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-        assertion: unsigned + "." + base64url(new Uint8Array(signature))
+        assertion: unsigned + "." + base64url(new Uint8Array(signature2))
       }),
       redirect: "manual",
       signal: AbortSignal.timeout(2e4)

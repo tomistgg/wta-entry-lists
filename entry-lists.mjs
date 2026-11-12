@@ -209,22 +209,13 @@ function drawTable(players, available, countryCodes) {
     return view;
 }
 
-function changeSignature(date, draw, action, name) {
-    const normalized = name.normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
-        .toUpperCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
-    return [date, draw, action, normalized].join("|");
-}
-
-function changeHistory(events, previousView) {
-    if (events === undefined) return previousView?.cloneNode(true) || element("div", "changes-view");
+function changeHistory(events = []) {
     const view = element("div", "changes-view");
-    const signatures = new Set(events.flatMap(event => [event.date, event.at.slice(0, 10)]
-        .map(date => changeSignature(date, event.draw, event.action, event.name))));
     const rows = events.map(event => {
         const row = element("tr");
         row.dataset.changeId = event.id;
         const date = element("td", "", event.date), description = element("td");
-        date.title = event.at;
+        date.title = event.id.startsWith("legacy:") ? "Recorded on " + event.date + " (date only)" : event.at;
         description.style.textAlign = "left";
         description.style.paddingLeft = "20px";
         description.append(element("strong", "", event.name.toUpperCase()),
@@ -232,19 +223,6 @@ function changeHistory(events, previousView) {
         row.append(date, description);
         return { row, time: Date.parse(event.at) };
     });
-    for (const oldRow of previousView?.querySelectorAll("tbody tr") || []) {
-        if (oldRow.dataset.changeId) continue;
-        const cells = oldRow.querySelectorAll("td");
-        const date = cells[0]?.textContent.trim() || "";
-        const description = cells[1]?.textContent.trim() || "";
-        const parsed = /^(.*?)\s+(added to|removed from)\s+(Main Draw|Qualifying)\s*$/i.exec(description);
-        if (parsed) {
-            const action = parsed[2].toLowerCase().startsWith("added") ? "added" : "removed";
-            const draw = parsed[3].toLowerCase() === "main draw" ? "main" : "qualifying";
-            if (signatures.has(changeSignature(date, draw, action, parsed[1]))) continue;
-        }
-        rows.push({ row: oldRow.cloneNode(true), time: Date.parse(date) || 0 });
-    }
     if (!rows.length) {
         view.append(element("p", "entry-note", "No changes recorded yet."));
         return view;
@@ -268,7 +246,7 @@ export function updateEntryChanges(models, content) {
         const panel = panels.get(model.id);
         if (!panel) continue;
         const previous = panel.querySelector(".changes-view");
-        const next = changeHistory(model.changes, previous);
+        const next = changeHistory(model.changes);
         if (previous) previous.replaceChildren(...next.childNodes);
         else {
             next.style.display = "none";
@@ -277,7 +255,7 @@ export function updateEntryChanges(models, content) {
     }
 }
 
-export function renderEntryLists(models, previousContent) {
+export function renderEntryLists(models) {
     const menu = document.createDocumentFragment(), content = document.createDocumentFragment();
     const countryCodes = JSON.parse(document.getElementById("country-flag-codes")?.textContent || "{}");
     let week = "";
@@ -304,22 +282,17 @@ export function renderEntryLists(models, previousContent) {
             <div class="pdf-container"><button type="button" class="toggle-btn pdf-btn">PDF</button></div>
         </div>`;
         panel.querySelector(".main-title").textContent = model.name;
-        const oldPanel = [...previousContent.querySelectorAll(".tabcontent")].find(item => item.id === model.id);
-        const previousMain = oldPanel?.querySelector(".main-draw-view");
-        const keepMain = !model.main.length && model.qualifying.length && previousMain?.querySelector("tbody tr");
-        const main = keepMain ? previousMain.cloneNode(true) : element("div", "main-draw-view");
+        const main = element("div", "main-draw-view");
         const qual = element("div", "qual-view");
         main.style.display = "flex";
-        if (keepMain || model.main_retained) {
-            main.querySelector(".previous-main-note")?.remove();
+        if (model.main_retained) {
             main.prepend(element("p", "entry-note previous-main-note", "WTA currently lists qualifying only. The previous main draw is shown."));
             main.style.flexWrap = "wrap";
         }
-        if (!keepMain) main.append(drawTable(model.main, model.dates.mainAvailable, countryCodes));
+        main.append(drawTable(model.main, model.dates.mainAvailable, countryCodes));
         qual.append(drawTable(model.qualifying, model.dates.qualAvailable, countryCodes));
         qual.style.display = "none";
-        const changes = changeHistory(model.changes, oldPanel?.querySelector(".changes-view"));
-        if (!changes.childNodes.length) changes.append(element("p", "entry-note", "No changes recorded yet."));
+        const changes = changeHistory(model.changes);
         changes.style.display = "none";
         panel.append(main, qual, changes);
         const logo = element("div", "logo-container"), image = element("img", "tournament-logo");

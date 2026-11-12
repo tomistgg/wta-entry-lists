@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { retainHiddenModels, withEntryHistory } from "./entry-history.mjs";
+import { previousEntryModels, withEntryHistory, withLegacyHistory } from "./entry-history.mjs";
 
 const time = Date.parse("2026-11-11T12:00:00Z");
 const player = (id, name = "Player " + id) => ({ id: String(id), name, country: "ARG", rank: Number(id) });
@@ -77,13 +77,35 @@ test("history uses the Madrid detection date and does not mutate the previous sn
     assert.deepEqual(old, untouched);
 });
 
-test("temporarily missing tournaments and empty calendars preserve history until the week leaves the window", () => {
+test("removed and hidden tournaments do not retain history or player baselines", () => {
     const models = withEntryHistory([model([player(3)])], snapshot([model()]), time);
-    const hidden = retainHiddenModels([], snapshot(models), "2026-11-16", "2026-12-14");
-    const emptySnapshot = { models: [], hidden_models: hidden };
-    assert.equal(hidden.length, 1);
+    const emptySnapshot = { models: [], hidden_models: models };
+    assert.deepEqual(previousEntryModels(emptySnapshot), []);
     const restored = withEntryHistory([model([player(3)])], emptySnapshot, time + 1000);
-    assert.deepEqual(restored[0].changes, models[0].changes);
-    assert.deepEqual(retainHiddenModels(restored, emptySnapshot, "2026-11-16", "2026-12-14"), []);
-    assert.deepEqual(retainHiddenModels([], emptySnapshot, "2026-11-23", "2026-12-21"), []);
+    assert.deepEqual(restored[0].changes, []);
+    assert.deepEqual(restored[0].change_baselines.main, [{ id: "3", name: "Player 3" }]);
+});
+
+test("legacy history merges by edition and never changes player baselines", () => {
+    const current = withEntryHistory([{ ...model(), dates: { main: "2026-10-19" } }], null, time)[0];
+    const unchanged = structuredClone(current);
+    const imported = (id, date) => ({ id: "legacy:" + id, at: date + "T00:00:00.000Z", date,
+        draw: "main", action: "added", player_id: null, name: "Old Entry", source: "legacy" });
+    const result = withLegacyHistory(current, [imported("old-edition", "2025-11-01"),
+        imported("first", "2026-11-01"), imported("repeat", "2026-11-01"), imported("future", "2026-11-12")],
+    new Date(time).toISOString());
+    assert.deepEqual(result.changes.map(change => change.id), ["legacy:first", "legacy:repeat"]);
+    assert.deepEqual(result.change_baselines, current.change_baselines);
+    assert.deepEqual(current, unchanged);
+});
+
+test("legacy duplicates use both Madrid and UTC dates while distinct real transitions remain", () => {
+    const real = (id, at) => ({ id, at, date: "2026-11-12", draw: "qualifying", action: "added",
+        player_id: "3", name: "Leolia Jeanjean" });
+    const current = { ...model(), dates: { main: "2026-10-19" },
+        changes: [real("one", "2026-11-11T23:30:00.000Z"), real("two", "2026-11-11T23:40:00.000Z")] };
+    const legacy = [{ id: "legacy:duplicate", at: "2026-11-11T00:00:00.000Z", date: "2026-11-11",
+        draw: "qualifying", action: "added", player_id: null, name: "Léolia Jeanjean", source: "legacy" }];
+    assert.deepEqual(withLegacyHistory(current, legacy, "2026-11-12T01:00:00.000Z").changes.map(change => change.id),
+        ["two", "one"]);
 });

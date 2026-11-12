@@ -5,7 +5,7 @@ import vm from "node:vm";
 import { addDays, monday } from "../entry-lists.mjs";
 
 const source = fs.readFileSync(new URL("../refresh.js", import.meta.url), "utf8")
-    .replace('import("./entry-lists.mjs")', "Promise.resolve(testEntryModule)");
+    .replace('import("./entry-lists.mjs?v=2")', "Promise.resolve(testEntryModule)");
 const tick = () => new Promise(resolve => setImmediate(resolve));
 const settle = async () => { for (let count = 0; count < 5; count++) await tick(); };
 const referenceTime = Date.parse("2026-11-11T10:00:00Z");
@@ -28,16 +28,18 @@ function panel(id, view = "main") {
     return { id, style: { display: "block" }, querySelector: key => views.get(key) || { id, selector: key }, views };
 }
 
-function tab(handler, { publishedAt = "", view = "main" } = {}) {
+function tab(handler, { view = null } = {}) {
     let now = referenceTime;
-    let panels = [panel(example.id, view)];
+    let panels = view ? [panel(example.id, view)] : [];
     let buttons = [];
     const intervals = [];
     const listeners = {};
     const requests = [];
     const renderCalls = [];
     const historyCalls = [];
-    const status = { textContent: "Initial published page" };
+    const status = { textContent: "Loading saved entry lists" };
+    const initialNote = { textContent: "Loading saved entry lists" };
+    const initialMenu = { textContent: "Loading tournaments" };
     const button = { addEventListener(name, listener) { this[name] = listener; } };
     const content = {
         querySelectorAll: () => panels,
@@ -51,20 +53,21 @@ function tab(handler, { publishedAt = "", view = "main" } = {}) {
             static now() { return now; }
         },
         document: {
-            getElementById: id => id === "refresh-lists" ? button : id === "refresh-status" ? status : panels.find(item => item.id === id),
-            querySelector: selector => selector.startsWith("meta") ? { content: publishedAt }
-                : selector === ".main-content" ? content : menu,
+            getElementById: id => id === "refresh-lists" ? button : id === "refresh-status" ? status
+                : id === "entry-state" ? initialNote : id === "menu-state" ? initialMenu : panels.find(item => item.id === id),
+            querySelector: selector => selector === ".main-content" ? content : menu,
         },
         testEntryModule: { BASE: "https://example.workers.dev", addDays, monday,
             updateEntryChanges(models, content) { historyCalls.push({ models, content }); },
-            renderEntryLists(models, previousContent) {
-                renderCalls.push({ models, previousContent });
+            renderEntryLists(models) {
+                renderCalls.push({ models });
                 return { menu: { buttons: models.map(model => ({ id: model.id })) },
                     content: { panels: models.map(model => panel(model.id)) } };
             },
         },
         fetch: async (url, options) => {
             requests.push({ url, options });
+            assert.equal(new URL(url).searchParams.get("history"), "1", "the current client requests imported history");
             assert.equal(options.body, undefined, "the client must never submit its own player data");
             return handler(options.method, requests.length);
         },
@@ -79,7 +82,7 @@ function tab(handler, { publishedAt = "", view = "main" } = {}) {
         },
     };
     vm.runInNewContext(source, context);
-    return { status, button, requests, renderCalls, historyCalls, content, listeners,
+    return { status, initialNote, initialMenu, button, requests, renderCalls, historyCalls, content, listeners,
         panels: () => panels,
         advance(ms) { now += ms; intervals.forEach(listener => listener()); },
     };
@@ -98,6 +101,7 @@ test("manual refresh saves server results and another page load restores them wi
     const first = tab(service, { view: "qualifying" });
     await settle();
     assert.equal(first.renderCalls.length, 0);
+    assert.match(first.initialNote.textContent, /No entry lists have been saved/);
     await first.button.click();
     assert.equal(posts, 2);
     assert.match(first.status.textContent, /^Updated and saved at /);
@@ -131,11 +135,35 @@ test("reload joins an existing refresh, while ordinary opening only reads the sa
     assert.deepEqual(idle.requests.map(request => request.options.method), ["GET"]);
 });
 
-test("a newer published page cannot be overwritten by an older shared snapshot", async () => {
-    const browser = tab(() => Response.json(state(snapshot())), { publishedAt: "2026-11-11T09:59:00Z" });
+test("older shared responses cannot replace newer D1 lists or history", async () => {
+    let current = snapshot();
+    const browser = tab(() => Response.json(state(current)));
     await settle();
-    assert.equal(browser.renderCalls.length, 0);
-    assert.match(browser.status.textContent, /newer published/);
+    assert.equal(browser.renderCalls.length, 1);
+    current = snapshot([{ ...example, name: "Old tournament data" }], "2026-11-11T09:57:00Z");
+    browser.advance(16000);
+    browser.listeners.focus();
+    await settle();
+    assert.equal(browser.renderCalls.length, 1);
+    assert.equal(browser.historyCalls.length, 0);
+    assert.match(browser.status.textContent, /^Updated and saved at /);
+});
+
+test("retention removes expired tournaments even when WTA freshness timestamps have not changed", async () => {
+    const next = { ...example, id: "WTA_125_NEXT", week: "2026-11-23" };
+    let current = snapshot([example, next]);
+    const browser = tab(() => Response.json(state(current)));
+    await settle();
+    assert.equal(browser.renderCalls[0].models.length, 2);
+    current = snapshot([next]);
+    current.window_start = "2026-11-23";
+    current.window_end = "2026-12-21";
+    browser.advance(7 * 86400000);
+    browser.listeners.focus();
+    await settle();
+    assert.equal(browser.renderCalls.length, 2);
+    assert.deepEqual(browser.renderCalls[1].models.map(model => model.id), ["WTA_125_NEXT"]);
+    assert.equal(browser.historyCalls.length, 0);
 });
 
 test("stale periods and corrupt player data preserve the current page; a valid empty calendar is rendered", async () => {
@@ -151,7 +179,8 @@ test("stale periods and corrupt player data preserve the current page; a valid e
     const broken = tab(() => Response.json(state(corrupt)));
     await settle();
     assert.equal(broken.renderCalls.length, 0);
-    assert.match(broken.status.textContent, /current lists are still shown/);
+    assert.match(broken.status.textContent, /Click Refresh to try again/);
+    assert.equal(broken.initialNote.textContent, broken.status.textContent);
     const empty = tab(() => Response.json(state(snapshot([]))));
     await settle();
     assert.equal(empty.renderCalls.length, 1);
@@ -170,7 +199,12 @@ test("failed refresh keeps the previous saved result and honors the server retry
     const unavailable = tab(() => Response.json({ error: "D1 not configured" }, { status: 503 }));
     await settle();
     assert.equal(unavailable.renderCalls.length, 0);
-    assert.match(unavailable.status.textContent, /current lists are still shown/);
+    assert.match(unavailable.status.textContent, /Click Refresh to try again/);
+    assert.equal(unavailable.initialNote.textContent, unavailable.status.textContent);
+    const savedDuringError = tab(() => Response.json(state(snapshot(), { error: "WTA unavailable" }), { status: 502 }));
+    await settle();
+    assert.equal(savedDuringError.renderCalls.length, 1, "a provider failure can still carry the last good D1 snapshot");
+    assert.match(savedDuringError.status.textContent, /current lists are still shown/);
 });
 
 test("focus retrieves a newer shared version and keeps the selected Changes view", async () => {
@@ -190,14 +224,14 @@ test("focus retrieves a newer shared version and keeps the selected Changes view
 const change = (extra = {}) => ({ id: "change-1", at: "2026-11-11T09:58:30Z", date: "2026-11-11",
     draw: "main", action: "removed", player_id: "1", name: "Main Player", ...extra });
 
-test("saved Changes enrich a newer published page without replacing its entry lists", async () => {
-    const saved = snapshot([{ ...example, changes: [change()] }]);
-    const browser = tab(() => Response.json(state(saved)), { publishedAt: "2026-11-11T09:59:00Z", view: "changes" });
+test("D1 provides imported Changes on a clean page load without any embedded player data", async () => {
+    const imported = change({ id: "legacy:record-1", player_id: null, source: "legacy", at: "2026-11-10T00:00:00.000Z", date: "2026-11-10" });
+    const saved = snapshot([{ ...example, changes: [change(), imported] }]);
+    const browser = tab(() => Response.json(state(saved)));
     await settle();
-    assert.equal(browser.renderCalls.length, 0);
-    assert.equal(browser.historyCalls.length, 1);
-    assert.equal(browser.historyCalls[0].models[0].changes[0].id, "change-1");
-    assert.equal(browser.panels()[0].views.get(".changes-view").style.display, "flex");
+    assert.equal(browser.renderCalls.length, 1);
+    assert.equal(browser.renderCalls[0].models[0].changes[1].id, "legacy:record-1");
+    assert.match(browser.status.textContent, /^Updated and saved at /);
 });
 
 test("reload restores saved Changes and same-entry-time history updates do not rebuild lists", async () => {
@@ -214,23 +248,24 @@ test("reload restores saved Changes and same-entry-time history updates do not r
     browser.listeners.focus();
     await settle();
     assert.equal(browser.renderCalls.length, 1);
-    assert.equal(browser.historyCalls.length, 2);
-    assert.equal(browser.historyCalls[1].models[0].changes.length, 2);
+    assert.equal(browser.historyCalls.length, 1);
+    assert.equal(browser.historyCalls[0].models[0].changes.length, 2);
     assert.equal(browser.panels()[0].views.get(".changes-view").style.display, "flex");
     current = snapshot([{ ...example, changes: [change()] }]);
     browser.advance(16000);
     browser.listeners.focus();
     await settle();
-    assert.equal(browser.historyCalls.length, 2, "older saved history must not erase newer events");
+    assert.equal(browser.historyCalls.length, 1, "older saved history must not erase newer events");
 });
 
 test("invalid saved Changes reject the whole snapshot before changing tables or history", async () => {
     for (const changes of [[change({ draw: "doubles" })], [change({ action: "edited" })],
-        [change({ player_id: "not-a-player-id" })], [change({ at: "invalid" })], [change(), change()], "wrong"]) {
+        [change({ player_id: "not-a-player-id" })], [change({ player_id: null })],
+        [change({ at: "invalid" })], [change(), change()], "wrong"]) {
         const browser = tab(() => Response.json(state(snapshot([{ ...example, changes }]))));
         await settle();
         assert.equal(browser.renderCalls.length, 0);
         assert.equal(browser.historyCalls.length, 0);
-        assert.match(browser.status.textContent, /current lists are still shown/);
+        assert.match(browser.status.textContent, /Click Refresh to try again/);
     }
 });

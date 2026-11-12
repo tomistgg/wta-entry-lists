@@ -1,136 +1,93 @@
-# Save refreshed entry lists with Cloudflare D1
+# Cloudflare as the only entry-list data source
 
-The existing Worker saves the latest complete WTA entry-list snapshot in D1. Every visitor can load
-that snapshot, including after reloading the page or opening the website on another device.
-The database also saves detected additions/removals for the Changes view and coordinates the shared
-two-minute refresh cooldown.
+GitHub Pages hosts the static website. The existing Cloudflare Worker collects the tournament menu,
+entry lists, rankings, and Changes, saves them in D1, and serves them to visitors. The Python scraper
+and GitHub update schedule have been removed.
 
-Use the existing Cloudflare account and Worker:
-
-- Worker: `tennis-wta-api`
-- Address: `https://tennis-wta-api.schiter-tomas.workers.dev`
-- Database name: `wta-entry-lists`
-- Binding name: `ENTRY_LISTS_DB`
-
-No new account, GitHub token, or Google credential is required for D1. Keep the Worker's existing
-Google photo secrets and folder setting. D1 has a Free allowance; both D1 and Worker usage remain
-subject to the account's limits. See [D1 pricing](https://developers.cloudflare.com/d1/platform/pricing/).
-
-## 1. Create the database
-
-In the [Cloudflare dashboard](https://dash.cloudflare.com/), open **Storage & databases → D1 SQL database**
-and choose **Create Database**. Name it `wta-entry-lists` and create it in the same account as the Worker.
-Cloudflare documents database creation and binding in its [D1 setup guide](https://developers.cloudflare.com/d1/get-started/).
-
-## 2. Create the tables
-
-Open `wta-entry-lists`, select **Console**, and paste the entire contents of [schema.sql](schema.sql).
-Select **Execute**. This creates two tables for saved snapshots, refresh coordination, and the ranking cache.
-Do not paste a service-account JSON or any private key into the SQL console.
-
-## 3. Connect D1 to the existing Worker
-
-Open **Workers & Pages → tennis-wta-api → Bindings → Add binding**. Choose **D1 database** and set:
-
-| Setting | Value |
+| Resource | Value |
 | --- | --- |
-| Variable name | `ENTRY_LISTS_DB` |
+| Worker | `tennis-wta-api` |
+| Public address | `https://tennis-wta-api.schiter-tomas.workers.dev` |
 | D1 database | `wta-entry-lists` |
+| Worker binding | `ENTRY_LISTS_DB` |
 
-Select **Add binding** and save/deploy any pending configuration change. This must be a D1 binding,
-not a Text variable with the same name. Leave the database's default primary-read configuration in place.
+## Retention
 
-## 4. Deploy the updated Worker code
+Only tournaments in the website's upcoming four-week view are stored. Its window starts next Monday,
+as before. Entry lists, Changes, baselines, and imported history are deleted when their tournament
+leaves that view. A successful complete calendar update also removes tournaments no longer listed.
+There is no permanent tournament archive or repository history feed.
 
-Open **Edit code** on `tennis-wta-api`. Replace the editor's code with the entire contents of the generated
-[worker.mjs](worker.mjs), then select **Deploy**. Use this complete file; the source modules and test files
-are not standalone dashboard deployments.
+The one-minute scheduled task cleans up expired data before contacting WTA, so an upstream outage
+does not keep past tournaments indefinitely. Cleanup preserves valid remaining lists and the real
+WTA fetch timestamps. It respects an active refresh lease rather than racing another visitor.
+The browser rebuilds the menu when the retained window changes, even without a newer WTA fetch.
 
-The generated Worker includes the existing WTA relay and Google photo routes as well as the D1 routes.
-Pushing the repository to GitHub does not deploy this Worker code to Cloudflare.
-
-## 5. Add the background schedule
-
-Open the Worker's **Settings → Triggers → Cron Triggers** and add this custom schedule:
-
-```text
-* * * * *
-```
-
-This wakes the Worker once per minute. It advances an unfinished refresh in bounded stages and starts
-an automatic update when the saved data is at least 30 minutes old. It does not scrape every list on
-every tick. The browser advances these same stages while someone is waiting for Refresh to finish.
-
-Save the trigger. Cloudflare notes that [Cron Trigger changes](https://developers.cloudflare.com/workers/configuration/cron-triggers/)
-can take up to 15 minutes to propagate. The button works independently of that propagation; the schedule
-also lets a refresh continue after its initiating page closes.
-
-## 6. Check the Worker
-
-Open [the saved entry-list endpoint](https://tennis-wta-api.schiter-tomas.workers.dev/entry-lists).
-A working installation returns JSON containing `snapshot`, `refreshing`, `next_refresh_at`, `progress`, and `error`.
-`snapshot: null` is normal before the first complete refresh. `/health` checks the Worker itself and does
-not prove that the D1 tables and binding are ready.
-
-| Response | What to check |
+| Table | Purpose |
 | --- | --- |
-| 404 / unknown endpoint | Deploy the current complete `worker.mjs` to the production Worker. |
-| 503 / database unavailable | Confirm the D1 binding name and run `schema.sql` in that database. |
-| 502 during refresh | WTA collection failed; the previous successful snapshot remains saved. Inspect Worker logs. |
+| `entry_list_state` | Current visible models, Changes, baselines, refresh job, lease, and shared cooldown. |
+| `entry_ranking_cache` | Temporary deadline-week rankings with a 24-hour expiry. |
+| `entry_legacy_history` | Imported Changes keyed by active tournament and week; deleted with that edition. |
 
-## 7. Publish and verify the website
+## Existing installation: publish the migration
 
-Review and publish the WTA Tracker website changes through the repository's usual GitHub Pages deployment.
-Worker deployment and website deployment are separate steps.
-
-On the live WTA Tracker website:
-
-1. Click **Refresh** and wait for **Updated and saved at …**.
-2. Reload the page. The saved lists and shared cooldown should remain.
-3. Open the website in another browser/device. It should load the same saved update.
-4. Open `/entry-lists` again. Its snapshot should now contain `models`, `fetched_at`, and `saved_at`.
-
-The first refresh can take longer while deadline-week rankings are cached. Later refreshes reuse completed
-ranking dates. Incomplete or failed refreshes never replace a complete saved snapshot. The cooldown is
-shared across visitors; another visitor receives the saved update while that cooldown is active.
-
-Every complete refresh saves detected Main Draw and Qualifying additions/removals, comparing WTA
-player IDs against the last observed list. The first observed list establishes its baseline. Missing
-lists do not imply that every player withdrew. The recorded date is when the change was detected in
-Europe/Madrid, not a claim about the exact withdrawal or entry time.
-
-The existing GitHub workflow still maintains its repository archive. The website merges published
-history with D1 Changes and compares source timestamps so older saved lists cannot hide a newer
-scheduled publication. Shared history can still be displayed alongside those newer published lists.
-Missing D1 data leaves the published page available with a refresh status explaining the problem.
-
-## Updating an existing D1 installation
-
-Changes history uses the existing snapshot storage, so no database migration or new binding is needed.
-Deploy the rebuilt `worker.mjs` and publish the updated `entry-lists.mjs` and `refresh.js` website files.
-The next successful refresh compares against the existing saved lists and starts saving change events.
-Earlier GitHub history remains visible; the Worker cannot infer changes that happened before its saved
-baseline. History and baselines are kept while each tournament remains in the upcoming four-week window,
-including across temporary calendar removals. The GitHub archive remains the longer-term record.
-
-## Development and checks
-
-The dashboard steps above use the generated Worker file and do not require a terminal. When editing
-the Worker source locally, run these commands from the `wta-tracker` directory:
+Apply the additive schema before deploying the Worker. Existing current lists and D1 Changes remain
+in their snapshot; the schema does not reset them.
 
 ```powershell
-npm ci
-npm run build:worker
-npm run test:entries
+npm.cmd exec --yes --package=wrangler@4.160.1 -- wrangler d1 execute wta-entry-lists --remote --config cloudflare/wrangler.json --file cloudflare/schema.sql
 ```
 
-If PowerShell blocks `npm.ps1`, use `npm.cmd` instead of `npm` in those commands.
+The completed migration imported 22 older Changes across three currently shown editions, using a
+temporary ignored `.wrangler/active-legacy-history.json` seed. The complete old history file, temporary
+seed, and generated import SQL have been removed. They are not website or repository data feeds.
+For a similar one-time import with a separately prepared active-edition seed, the commands are:
 
-Edit `cloudflare/worker-source.mjs` and its modules, then rebuild `cloudflare/worker.mjs` before copying it
-into the dashboard. The build does not deploy anything. Local checks cannot verify the production D1
-binding or real WTA connectivity; complete the deployed checks above after configuration.
+```powershell
+node cloudflare/import-legacy-history.mjs .wrangler/active-legacy-history.json .wrangler/active-history-import.sql
+npm.cmd exec --yes --package=wrangler@4.160.1 -- wrangler d1 execute wta-entry-lists --remote --config cloudflare/wrangler.json --file .wrangler/active-history-import.sql
+```
 
-The public refresh endpoint accepts an empty `POST /entry-lists/refresh` from the website. It fetches
-authoritative WTA data itself and does not accept player lists supplied by visitors. Each call advances
-a small part of the job, keeping collection within Workers request limits. The database lease prevents
-simultaneous visitors from publishing competing updates.
+The importer validates dates, names, and markup, preserves repeated records with stable IDs, and
+escapes SQL values. It excludes editions outside the current window and only inserts when the exact
+tournament/week remains in the current D1 snapshot. Rerunning it cannot revive a past edition or replace
+newer D1 events. A fresh checkout has no legacy seed; skip this optional one-time import in that case.
+
+Deploy the rebuilt Worker and publish the reviewed website changes following [DEPLOY.md](DEPLOY.md).
+Removing `.github/workflows/update_list.yml` stops both scheduled and manual GitHub scraping after
+publication. Once an optional import is verified, delete its temporary seed and generated SQL.
+
+## New installation
+
+1. Create `wta-entry-lists` in Cloudflare D1 and run [schema.sql](schema.sql).
+2. Add a **D1 database binding** named `ENTRY_LISTS_DB` to `tennis-wta-api`.
+3. Build and deploy the complete [worker.mjs](worker.mjs), or use the direct deployment command.
+4. Set the Cron Trigger to `* * * * *`; the Wrangler configuration already includes it.
+5. Publish the static website through GitHub Pages and verify its saved-data loading and Refresh.
+
+Keep the existing `GOOGLE_SERVICE_ACCOUNT_JSON` secret and `PLAYER_PHOTOS_FOLDER_ID` setting.
+The shared Worker still serves Haute Cadence photos and WTA relay requests.
+
+## Updates and verification
+
+A successful refresh starts a shared two-minute cooldown. Incomplete or failed requests preserve
+valid current data. The one-minute trigger advances unfinished jobs and starts automatic updates
+when saved data is at least 30 minutes old or the displayed window rolls over. Browser Refresh
+advances that same job while waiting. Ordinary data updates create no GitHub commits.
+
+1. Check `/health`, `/entry-lists?history=1`, and `/photos` on the public Worker.
+2. Open the website and verify that its menu, lists, and Changes load without clicking Refresh.
+3. Refresh, then reload or open another browser. Verify the saved update and shared cooldown.
+4. Check that expired editions and imported history are removed, while active histories remain.
+5. Check loading, empty data, unavailable data, and failed refresh behavior locally.
+
+The current client opts into imported date-only history using `?history=1` on GET and POST. The bare
+endpoint retains numeric player IDs for cached older clients. Imported dates do not imply exact
+detection times. Versioned assets load the new renderer.
+
+`snapshot: null` is normal before the first completed collection. The website offers Refresh instead
+of showing obsolete embedded lists. Existing valid lists stay visible if a later request fails.
+The public refresh endpoint accepts only an empty website-origin POST, not visitor-supplied players.
+
+Run `npm.cmd run build:worker` and `npm.cmd run test:entries` before deployments. Mocked checks do not
+prove production bindings or WTA connectivity; complete the deployed checks after publication.

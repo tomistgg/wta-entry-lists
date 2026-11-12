@@ -1,44 +1,49 @@
 # WTA entry lists
 
-The public site starts with WTA singles entry lists collected by `.github/workflows/update_list.yml`,
-which runs on a 30-minute schedule and can also be started manually in GitHub Actions. It also loads
-newer complete snapshots saved by the shared Cloudflare Worker in D1.
+Cloudflare is the website's only data updater. GitHub Pages hosts the permanent `index.html`
+shell, styles, fonts, images, and JavaScript. Opening the site loads the saved tournament menu,
+Main Draw and Qualifying lists, deadline-week singles rankings, and Changes from Cloudflare D1.
+There is no Python scraper, scheduled GitHub data workflow, or generated tournament HTML.
 
-The menu's **Refresh** button asks the Worker at `https://tennis-wta-api.schiter-tomas.workers.dev`
-to fetch and save current WTA singles entry lists. It discovers the next four weeks of events,
-reads Singles and Qualifying separately, and attaches each list's deadline-week singles rankings.
-Doubles players never enter these lists. Collection runs in bounded server-side stages, reusing
-completed ranking dates. A complete snapshot is saved in D1 before success is reported.
+The menu's **Refresh** button asks `https://tennis-wta-api.schiter-tomas.workers.dev` to fetch
+and save current WTA singles entry lists for the next four weeks. Collection runs in bounded
+server-side stages, reusing completed ranking dates. Doubles players never enter these lists.
+A complete snapshot is saved before success is reported, with a global two-minute cooldown.
+Other visitors and page reloads use that same saved update.
 
-The selected tournament and view are retained when available. Saved lists survive page reloads and
-are shared with other visitors. A successful refresh starts a global two-minute cooldown stored in D1.
-Failed or incomplete requests retain the previous complete snapshot; short failure backoff prevents
-repeated failing requests. A one-minute Cron Trigger advances unfinished jobs and starts automatic
-updates when the saved data is at least 30 minutes old.
+A one-minute Cloudflare Cron Trigger advances unfinished jobs and starts an automatic refresh
+when the saved data is at least 30 minutes old. It does not collect every tournament every minute.
+Failed requests preserve the previous complete snapshot. The page shows loading and unavailable
+states when it cannot initially obtain saved data, and keeps already displayed lists on a failure.
+The selected tournament and Main Draw, Qualifying, or Changes view survive refreshes when available.
 
-Every successful shared refresh also compares Main Draw and Qualifying entries by WTA player ID and
-saves detected additions/removals in D1 alongside the lists. Manual and background refreshes use the
-same history. The first observed list establishes its baseline; ranking or spelling changes do not
-create entry changes. Temporarily unavailable lists do not create mass withdrawals, and their last
-nonempty baselines are retained. History also survives a temporarily missing tournament within the
-current four-week window.
+Each successful refresh compares WTA player IDs and records additions/removals separately for each
+draw. The first observed list establishes its baseline; ranking and spelling changes do not create
+entry events. Missing lists do not imply mass withdrawals. If WTA publishes qualifying while removing
+the main draw, the previous main draw is retained with an explanatory notice.
 
-The Changes view merges this shared history with the published GitHub scraper history, avoiding
-duplicate published records. GitHub continues maintaining its repository archive independently.
-If WTA lists qualifying while removing its main-draw list, the previous main draw is retained with
-an explicit notice. Source timestamps prevent older D1 lists from hiding a newer publication, while
-its saved Changes can still be displayed.
+Only tournaments in the displayed upcoming four-week window are retained. Their entry lists, Changes,
+and comparison baselines are deleted when they leave that view; no permanent archive is maintained.
+Scheduled cleanup also runs when WTA is unavailable, without discarding valid remaining tournaments.
+Temporarily missing tournaments are removed from storage after a successful complete calendar update.
 
-`main.py` generates `index.html`. Keep the refresh controls and the references to `refresh.css`
-and `refresh.js` in its HTML template so scheduled updates retain the button.
+The one-time migration keeps only the old Changes belonging to currently displayed tournament editions.
+Imported records are deleted with their tournament and never carried into another year's edition.
+They have dates only; their placeholder timestamps do not represent exact detection times. The old
+full-history JSON is removed. Current Changes avoid duplicates of matching D1 events.
 
-Follow [the D1 setup guide](cloudflare/D1_SETUP.md) to create the database, bind it to the existing Worker,
-deploy its code, add the schedule, and verify saved updates. See [the shared Worker guide](cloudflare/SETUP.md)
-for WTA relay and Haute Cadence photo setup. Build the standalone dashboard Worker with
-`npm run build:worker`; run the focused entry-list checks with `npm run test:entries`.
+See [D1_SETUP.md](cloudflare/D1_SETUP.md) for initial setup and migration from the old scraper,
+[DEPLOY.md](cloudflare/DEPLOY.md) for direct deployments, and [SETUP.md](cloudflare/SETUP.md)
+for the shared WTA relay and Haute Cadence photo routes.
 
-Direct deployments are configured in [cloudflare/wrangler.json](cloudflare/wrangler.json) for the existing
-Worker, D1 database, and schedule. After a one-time Wrangler login, `npm run deploy:worker` builds,
-tests, and deploys the Worker. `npm run deploy:worker:dry-run` checks the upload without publishing.
-Dashboard variables and encrypted secrets are retained. Website changes publish separately through
-GitHub Pages after review. See [DEPLOY.md](cloudflare/DEPLOY.md).
+```powershell
+npm.cmd ci
+npm.cmd run build:worker
+npm.cmd run test:entries
+npm.cmd run deploy:worker:dry-run
+npm.cmd run deploy:worker
+```
+
+Edit `cloudflare/worker-source.mjs` and its modules, then rebuild the standalone `cloudflare/worker.mjs`.
+Website releases and Worker deployments are separate. Publishing code changes still uses GitHub Pages;
+ordinary data updates only write to D1 and never create repository commits.

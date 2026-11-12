@@ -5,10 +5,11 @@
     const status = document.getElementById("refresh-status");
     const menu = document.querySelector(".tournament-menu");
     const content = document.querySelector(".main-content");
-    const publishedAt = Date.parse(document.querySelector('meta[name="entry-lists-published-at"]')?.content || "") || 0;
-    let displayedAt = publishedAt;
+    const initialNote = document.getElementById("entry-state");
+    const initialMenu = document.getElementById("menu-state");
+    let displayedAt = 0;
+    let displayedWindow = "";
     let savedAt = 0;
-    let historySavedAt = 0;
     let nextRefresh = 0;
     let pending = false;
     let checking = false;
@@ -17,12 +18,18 @@
     let module;
 
     function entryModule() {
-        return module ||= import("./entry-lists.mjs");
+        return module ||= import("./entry-lists.mjs?v=2");
     }
 
     function validDate(value) {
         return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) &&
             Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+    }
+
+    function showInitial(message) {
+        if (displayedAt) return;
+        if (initialNote) initialNote.textContent = message;
+        if (initialMenu) initialMenu.textContent = "";
     }
 
     function validateSnapshot(snapshot, live) {
@@ -57,7 +64,8 @@
                         typeof change.at !== "string" || !Number.isFinite(Date.parse(change.at)) ||
                         Date.parse(change.at) > Date.parse(snapshot.saved_at) || !validDate(change.date) ||
                         !["main", "qualifying"].includes(change.draw) || !["added", "removed"].includes(change.action) ||
-                        typeof change.player_id !== "string" || !/^\d+$/.test(change.player_id) ||
+                        !(change.player_id === null && change.id.startsWith("legacy:") ||
+                            typeof change.player_id === "string" && /^\d+$/.test(change.player_id)) ||
                         typeof change.name !== "string" || !change.name.trim()) throw new Error("Invalid saved change");
                     changes.add(change.id);
                 }
@@ -83,7 +91,7 @@
         const activeId = active?.id;
         const previousView = active?.querySelector(".changes-view")?.style.display === "flex" ? "changes"
             : active?.querySelector(".qual-view")?.style.display === "flex" ? "qualifying" : "main";
-        const rendered = live.renderEntryLists(models, content);
+        const rendered = live.renderEntryLists(models);
         menu.replaceChildren(rendered.menu);
         content.replaceChildren(rendered.content);
         const activeIndex = Array.from(content.querySelectorAll(".tabcontent")).findIndex(tab => tab.id === activeId);
@@ -97,24 +105,30 @@
     }
 
     async function applySnapshot(snapshot) {
-        if (snapshot === null) return "No shared update has been saved yet. Click Refresh to fetch and save the entry lists.";
+        if (snapshot === null) {
+            const message = "No entry lists have been saved yet. Click Refresh to fetch and save them.";
+            showInitial(message);
+            return message;
+        }
         const live = await entryModule();
-        if (!validateSnapshot(snapshot, live)) return "Saved lists cover an earlier period. Click Refresh for the upcoming tournaments.";
+        if (!validateSnapshot(snapshot, live)) {
+            const message = "Saved lists cover an earlier period. Click Refresh for the upcoming tournaments.";
+            showInitial(message);
+            return message;
+        }
         const fetchedAt = Date.parse(snapshot.fetched_at);
         const historyAt = Date.parse(snapshot.saved_at);
-        if (historyAt >= historySavedAt) {
-            live.updateEntryChanges(snapshot.models, content);
-            historySavedAt = historyAt;
-        }
-        if (fetchedAt < displayedAt || fetchedAt === publishedAt && !savedAt) {
-            return "Showing the newer published entry lists. Click Refresh to save a new update.";
-        }
-        if (fetchedAt > displayedAt) {
+        if (fetchedAt > displayedAt || fetchedAt === displayedAt && historyAt >= savedAt &&
+            snapshot.window_start !== displayedWindow) {
             renderModels(live, snapshot.models);
             displayedAt = fetchedAt;
-            savedAt = Date.parse(snapshot.saved_at);
-        } else if (historyAt >= historySavedAt) savedAt = Math.max(savedAt, historyAt);
-        return "Updated and saved at " + new Date(savedAt || snapshot.saved_at).toLocaleString([], {
+            displayedWindow = snapshot.window_start;
+            savedAt = historyAt;
+        } else if (fetchedAt === displayedAt && historyAt > savedAt) {
+            live.updateEntryChanges(snapshot.models, content);
+            savedAt = historyAt;
+        }
+        return "Updated and saved at " + new Date(savedAt).toLocaleString([], {
             month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
         }) + ".";
     }
@@ -133,7 +147,7 @@
 
     async function requestState(method) {
         const live = await entryModule();
-        const response = await fetch(live.BASE + "/entry-lists" + (method === "POST" ? "/refresh" : ""), {
+        const response = await fetch(live.BASE + "/entry-lists" + (method === "POST" ? "/refresh" : "") + "?history=1", {
             method, cache: "no-store", signal: AbortSignal.timeout(method === "POST" ? 90000 : 20000),
         });
         const state = await response.json();
@@ -145,6 +159,7 @@
         if (Object.hasOwn(state, "snapshot")) {
             const message = await applySnapshot(state.snapshot);
             status.textContent = state.refreshing ? state.progress || "Updating entry lists\u2026" : message;
+            if (state.refreshing) showInitial(status.textContent);
         } else if (response.ok) throw new Error("Missing saved entry lists");
         if (!response.ok || state.error) throw new Error("Shared refresh unavailable");
         if (typeof state.refreshing !== "boolean") throw new Error("Invalid refresh status");
@@ -163,7 +178,9 @@
                 if (state.refreshing) await new Promise(resolve => window.setTimeout(resolve, 250));
             } while (state.refreshing);
         } catch {
-            status.textContent = "Refresh failed. Your current lists are still shown. Please try again.";
+            status.textContent = displayedAt ? "Refresh failed. Your current lists are still shown. Please try again."
+                : "Refresh failed. Please try again.";
+            showInitial(status.textContent);
         } finally {
             pending = false;
             lastChecked = Date.now();
@@ -179,7 +196,9 @@
         try {
             resume = (await requestState("GET")).refreshing;
         } catch {
-            status.textContent = "Saved updates are unavailable. Your current lists are still shown.";
+            status.textContent = displayedAt ? "Saved updates are unavailable. Your current lists are still shown."
+                : "Entry lists could not be loaded. Click Refresh to try again.";
+            showInitial(status.textContent);
         } finally {
             checking = false;
             lastChecked = Date.now();
