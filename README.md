@@ -47,3 +47,7 @@ npm.cmd run deploy:worker
 Edit `cloudflare/worker-source.mjs` and its modules, then rebuild the standalone `cloudflare/worker.mjs`.
 Website releases and Worker deployments are separate. Publishing code changes still uses GitHub Pages;
 ordinary data updates only write to D1 and never create repository commits.
+
+The shared-data backend for Haute Cadence is deployed. Its read/refresh
+routes, jobs, and shared-cache behavior are documented in [SHARED_DATA.md](cloudflare/SHARED_DATA.md).
+Haute Cadence reads the shared saved feeds; WTA Tracker keeps its entry-list routes and shares the source caches.

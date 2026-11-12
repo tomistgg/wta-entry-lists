@@ -1,4 +1,5 @@
 import { entryListResponse, scheduledEntryRefresh } from "./entry-store.mjs";
+import { getSharedRoute, sharedDataResponse, scheduledSharedRefresh } from "./shared-store.mjs";
 
 // Both GitHub Pages websites share this origin, even though their paths differ.
 const ALLOWED_ORIGIN = "https://tomistgg.github.io";
@@ -141,7 +142,8 @@ export default {
         const origin = request.headers.get("Origin");
         const url = new URL(request.url);
         const entryRoute = ["/entry-lists", "/entry-lists/refresh"].includes(url.pathname);
-        const methods = url.pathname === "/entry-lists/refresh" ? "POST, OPTIONS" : "GET, OPTIONS";
+        const sharedRoute = getSharedRoute(url.pathname);
+        const methods = url.pathname === "/entry-lists/refresh" || sharedRoute?.refresh ? "POST, OPTIONS" : "GET, OPTIONS";
         const headers = {
             "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
             "Access-Control-Allow-Methods": methods,
@@ -162,7 +164,7 @@ export default {
             return new Response(null, { status: 405, headers: { ...headers, Allow: methods } });
         }
 
-        if (entryRoute) {
+        if (entryRoute || sharedRoute) {
             if (request.method === "POST" && origin !== ALLOWED_ORIGIN) {
                 return json({ error: "Website origin is required for refresh." }, 403);
             }
@@ -174,7 +176,7 @@ export default {
                     return json({ error: "Refresh accepts an empty request only." }, 400);
                 }
             }
-            return entryListResponse(request, env, headers);
+            return entryRoute ? entryListResponse(request, env, headers) : sharedDataResponse(request, env, headers);
         }
         if (url.pathname === "/health") {
             return json({ ok: true });
@@ -229,6 +231,9 @@ export default {
         }
     },
     async scheduled(controller, env, ctx) {
-        ctx.waitUntil(scheduledEntryRefresh(env));
+        ctx.waitUntil((async () => {
+            await scheduledSharedRefresh(env);
+            await scheduledEntryRefresh(env);
+        })());
     },
 };

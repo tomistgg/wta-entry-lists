@@ -1,5 +1,6 @@
 import { createEntryJob, advanceEntryJob } from "./entry-collector.mjs";
 import { previousEntryModels, withEntryHistory, withLegacyHistory } from "./entry-history.mjs";
+import { createSharedIO } from "./shared-io.mjs";
 
 const COOLDOWN = 120000;
 const LEASE = 90000;
@@ -107,19 +108,23 @@ async function wtaText(path, params = {}) {
 }
 
 function collectionIO(db) {
+    const shared = createSharedIO(db);
     return {
-        fetchJSON: async (path, params) => JSON.parse(await wtaText(path, params)),
+        async fetchJSON(path, params) {
+            if (path === "/api/tennis/tournaments/") {
+                const source = await shared.cachedCalendar(params.from, params.to);
+                if (source) {
+                    const items = source.items.filter(item => String(item.startDate).slice(0, 10) <= params.to &&
+                        String(item.endDate).slice(0, 10) >= params.from);
+                    const page = Number(params.page), size = Number(params.pageSize);
+                    return { pageInfo: { page, numEntries: items.length }, content: items.slice(page * size, (page + 1) * size) };
+                }
+            }
+            return shared.fetchJSON(path, params);
+        },
         fetchHTML: path => wtaText(path),
-        async loadRankings(date) {
-            const cached = await db.prepare("SELECT rows_json FROM entry_ranking_cache WHERE ranking_date = ? AND expires_at > ?")
-                .bind(date, Date.now()).first();
-            return cached ? JSON.parse(cached.rows_json) : null;
-        },
-        async saveRankings(date, rows) {
-            await db.prepare("INSERT INTO entry_ranking_cache (ranking_date, rows_json, expires_at) VALUES (?, ?, ?) " +
-                "ON CONFLICT(ranking_date) DO UPDATE SET rows_json = excluded.rows_json, expires_at = excluded.expires_at")
-                .bind(date, storedJSON(rows), Date.now() + 86400000).run();
-        },
+        loadRankings: date => shared.loadRankings(date),
+        saveRankings: (date, rows) => shared.saveRankings(date, rows),
     };
 }
 

@@ -3,16 +3,16 @@
 // entry-lists.mjs
 var DAY = 864e5;
 var LATAM = new Set("ARG BOL BRA CHI COL CRC CUB DOM ECU ESA GUA HON MEX NCA PAN PAR PER PUR URU VEN".split(" "));
-var dateString = (date) => new Date(date).toISOString().slice(0, 10);
-var addDays = (date, days) => dateString(Date.parse(date) + days * DAY);
-function monday(date) {
-  return addDays(date, -((new Date(date).getUTCDay() + 6) % 7));
+var dateString = (date2) => new Date(date2).toISOString().slice(0, 10);
+var addDays = (date2, days) => dateString(Date.parse(date2) + days * DAY);
+function monday(date2) {
+  return addDays(date2, -((new Date(date2).getUTCDay() + 6) % 7));
 }
-function rankingDates(start, today) {
+function rankingDates(start, today2) {
   const weekend = [0, 6].includes(new Date(start).getUTCDay());
   const main = addDays(monday(start), -7 * (weekend ? 3 : 4));
   const qualifying = addDays(monday(start), -7 * (weekend ? 2 : 3));
-  const current = monday(today);
+  const current = monday(today2);
   return {
     main: main < current ? main : current,
     qualifying: qualifying < current ? qualifying : current,
@@ -453,7 +453,7 @@ var EncodingMode;
 var LEVELS = /* @__PURE__ */ new Set(["WTA 125", "WTA 250", "WTA 500", "WTA 1000", "Finals", "WTA Finals", "Grand Slam"]);
 var titleCase = (value) => String(value).toLowerCase().replace(/(^|[\s'-])\p{L}/gu, (letter) => letter.toUpperCase());
 var legacyId = (label) => label.replaceAll(" ", "_").replaceAll(".", "").replaceAll("-", "_").replaceAll("'", "").toUpperCase();
-var validDate = (date) => /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(date));
+var validDate = (date2) => /^\d{4}-\d{2}-\d{2}$/.test(date2) && Number.isFinite(Date.parse(date2));
 function createEntryJob(nowMs = Date.now()) {
   const parts = Object.fromEntries(new Intl.DateTimeFormat("en", {
     timeZone: "Europe/Madrid",
@@ -461,11 +461,11 @@ function createEntryJob(nowMs = Date.now()) {
     month: "2-digit",
     day: "2-digit"
   }).formatToParts(new Date(nowMs)).map((part) => [part.type, part.value]));
-  const today = `${parts.year}-${parts.month}-${parts.day}`;
-  const start = addDays(monday(today), 7);
+  const today2 = `${parts.year}-${parts.month}-${parts.day}`;
+  const start = addDays(monday(today2), 7);
   return {
     started_at: new Date(nowMs).toISOString(),
-    today,
+    today: today2,
     window_start: start,
     window_end: addDays(start, 28),
     stage: "calendar",
@@ -483,10 +483,10 @@ function createEntryJob(nowMs = Date.now()) {
     ranking_total: null
   };
 }
-async function parseWorkerEntryList(html, tournament) {
+async function parseWorkerEntryList(html, tournament2) {
   const lists = { Singles: /* @__PURE__ */ new Map(), Qualifying: /* @__PURE__ */ new Map() };
   const events = [];
-  let section = null, card = null, link = null, jsonText = null, recognized = false;
+  let section = null, card = null, link = null, jsonText2 = null, recognized = false;
   const save = (item, target, country) => {
     const match = /^\/players\/(\d+)\/([^/?#]+)/.exec(item.href || "");
     if (!match || !lists[target]) return;
@@ -539,48 +539,48 @@ async function parseWorkerEntryList(html, tournament) {
     }
   }).on('script[type="application/ld+json"]', {
     element(element) {
-      jsonText = "";
+      jsonText2 = "";
       element.onEndTag(() => {
         try {
-          const event2 = JSON.parse(jsonText);
-          if (event2?.["@type"] === "SportsEvent" && String(event2["@id"] || "").includes(`/tournaments/${tournament.tournamentGroup.id}/`)) events.push(event2);
+          const event2 = JSON.parse(jsonText2);
+          if (event2?.["@type"] === "SportsEvent" && String(event2["@id"] || "").includes(`/tournaments/${tournament2.tournamentGroup.id}/`)) events.push(event2);
         } catch {
         }
-        jsonText = null;
+        jsonText2 = null;
       });
     },
     text(chunk) {
-      if (jsonText !== null) jsonText += chunk.text;
+      if (jsonText2 !== null) jsonText2 += chunk.text;
     }
   });
   await rewriter.transform(new Response(html, { headers: { "Content-Type": "text/html; charset=utf-8" } })).text();
   if (!recognized) throw new Error("WTA returned an unrecognized entry-list page.");
   const event = events.find((item) => !String(item["@id"]).includes("player-list")) || events[0];
-  const start = String(event?.startDate || tournament.startDate).slice(0, 10);
+  const start = String(event?.startDate || tournament2.startDate).slice(0, 10);
   if (!validDate(start)) throw new Error("WTA returned an invalid tournament date.");
   return {
     main: [...lists.Singles.values()],
     qualifying: [...lists.Qualifying.values()],
     start,
-    name: event?.name || tournament.title || tournament.tournamentGroup.name
+    name: event?.name || tournament2.title || tournament2.tournamentGroup.name
   };
 }
-function calendarTournament(tournament, job) {
-  if (!LEVELS.has(tournament?.level)) return null;
-  const group = tournament.tournamentGroup;
-  if (!group || !/^\d+$/.test(String(group.id)) || typeof group.name !== "string" || !/^\d{4}$/.test(String(tournament.year))) throw new Error("WTA returned an invalid tournament identity.");
-  if (String(group.metadata?.cancelledSeasons || "").includes(String(tournament.year))) return null;
-  const start = String(tournament.startDate).slice(0, 10);
+function calendarTournament(tournament2, job) {
+  if (!LEVELS.has(tournament2?.level)) return null;
+  const group = tournament2.tournamentGroup;
+  if (!group || !/^\d+$/.test(String(group.id)) || typeof group.name !== "string" || !/^\d{4}$/.test(String(tournament2.year))) throw new Error("WTA returned an invalid tournament identity.");
+  if (String(group.metadata?.cancelledSeasons || "").includes(String(tournament2.year))) return null;
+  const start = String(tournament2.startDate).slice(0, 10);
   if (!validDate(start)) throw new Error("WTA returned an invalid tournament date.");
   const week = [0, 6].includes(new Date(start).getUTCDay()) ? addDays(monday(start), 7) : monday(start);
   if (week < job.window_start || week >= job.window_end) return null;
   return {
     tournamentGroup: { id: group.id, name: group.name },
-    year: tournament.year,
-    level: tournament.level,
+    year: tournament2.year,
+    level: tournament2.level,
     startDate: start,
-    title: tournament.title || group.name,
-    city: tournament.city || "",
+    title: tournament2.title || group.name,
+    city: tournament2.city || "",
     week
   };
 }
@@ -596,7 +596,7 @@ function compactRanking(row) {
     rank: Number(row.ranking) > 0 ? Number(row.ranking) : null
   };
 }
-function applyRankings(job, date, rows) {
+function applyRankings(job, date2, rows) {
   if (!Array.isArray(rows) || !rows.length) throw new Error("The WTA deadline-week rankings are unavailable.");
   const ranked = new Map(rows.map((row) => [row.id, row]));
   if (ranked.size !== rows.length || rows.some((row) => !/^\d+$/.test(row.id) || typeof row.name !== "string" || typeof row.country !== "string" || row.rank !== null && !(Number.isFinite(row.rank) && row.rank > 0))) {
@@ -604,7 +604,7 @@ function applyRankings(job, date, rows) {
   }
   for (const model of job.models) {
     for (const side of ["main", "qualifying"]) {
-      if (model.dates[side] !== date) continue;
+      if (model.dates[side] !== date2) continue;
       model[side] = model[side].map((player) => {
         const row = ranked.get(player.id);
         const name = row?.name || player.name;
@@ -636,8 +636,8 @@ async function advanceEntryJob(job, io) {
         throw new Error("The WTA calendar response is incomplete.");
       }
       for (const item of data.content) {
-        const tournament = calendarTournament(item, job);
-        if (tournament) job.tournaments.push(tournament);
+        const tournament2 = calendarTournament(item, job);
+        if (tournament2) job.tournaments.push(tournament2);
       }
       job.calendar_page++;
       if (job.calendar_count === total) {
@@ -650,16 +650,16 @@ async function advanceEntryJob(job, io) {
         job.stage = "rankings";
         continue;
       }
-      const tournament = job.tournaments[job.entry_index], group = tournament.tournamentGroup;
-      const path = `/site/tournaments/${group.id}/${slug(group.name)}/${tournament.year}/player-list`;
-      const parsed = await parseWorkerEntryList(await io.fetchHTML(path), tournament);
+      const tournament2 = job.tournaments[job.entry_index], group = tournament2.tournamentGroup;
+      const path = `/site/tournaments/${group.id}/${slug(group.name)}/${tournament2.year}/player-list`;
+      const parsed = await parseWorkerEntryList(await io.fetchHTML(path), tournament2);
       requests++;
       const edition = /#\s*(\S+)/.exec(group.name)?.[1];
-      const label = tournament.level + " " + titleCase(tournament.city || group.name) + (edition ? " " + edition : "");
+      const label = tournament2.level + " " + titleCase(tournament2.city || group.name) + (edition ? " " + edition : "");
       job.models.push({
         id: legacyId(label),
         label,
-        week: tournament.week,
+        week: tournament2.week,
         name: parsed.name,
         dates: rankingDates(parsed.start, job.today),
         main: parsed.main,
@@ -675,11 +675,11 @@ async function advanceEntryJob(job, io) {
         job.progress = "Entry lists are ready to save.";
         return { job, done: true, models: job.models };
       }
-      const date = job.ranking_dates[job.ranking_index];
+      const date2 = job.ranking_dates[job.ranking_index];
       if (!job.ranking_page) {
-        const cached = await io.loadRankings(date);
+        const cached = await io.loadRankings(date2);
         if (cached) {
-          applyRankings(job, date, cached);
+          applyRankings(job, date2, cached);
           job.ranking_index++;
           continue;
         }
@@ -690,7 +690,7 @@ async function advanceEntryJob(job, io) {
         metric: "SINGLES",
         type: "rankSingles",
         sort: "asc",
-        at: date,
+        at: date2,
         pageSize: 100,
         page
       });
@@ -716,8 +716,8 @@ async function advanceEntryJob(job, io) {
       job.ranking_page++;
       job.progress = `Loading deadline-week rankings (${job.ranking_index + 1}/${job.ranking_dates.length}, page ${job.ranking_page})\u2026`;
       if (rows.length < 100 || count === job.ranking_total) {
-        await io.saveRankings(date, job.ranking_rows);
-        applyRankings(job, date, job.ranking_rows);
+        await io.saveRankings(date2, job.ranking_rows);
+        applyRankings(job, date2, job.ranking_rows);
         job.ranking_index++;
         job.ranking_page = 0;
         job.ranking_rows = [];
@@ -731,13 +731,13 @@ async function advanceEntryJob(job, io) {
 
 // cloudflare/entry-history.mjs
 var baseline = (players) => players.map(({ id, name }) => ({ id, name }));
-function signature(date, change) {
+function signature(date2, change) {
   const name = change.name.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
-  return [date, change.draw, change.action, name].join("|");
+  return [date2, change.draw, change.action, name].join("|");
 }
 function withLegacyHistory(model, legacy, savedAt) {
   const changes = model.changes || [];
-  const known = new Set(changes.flatMap((change) => [change.date, change.at.slice(0, 10)].map((date) => signature(date, change))));
+  const known = new Set(changes.flatMap((change) => [change.date, change.at.slice(0, 10)].map((date2) => signature(date2, change))));
   const imported = legacy.filter((change) => change.date >= model.dates.main && change.at <= savedAt && !known.has(signature(change.date, change)));
   return { ...model, changes: [...changes, ...imported].sort((a, b) => b.at.localeCompare(a.at)) };
 }
@@ -752,7 +752,7 @@ function withEntryHistory(models, previous, detectedAt) {
     month: "2-digit",
     day: "2-digit"
   }).formatToParts(new Date(at)).map((part) => [part.type, part.value]));
-  const date = `${parts.year}-${parts.month}-${parts.day}`;
+  const date2 = `${parts.year}-${parts.month}-${parts.day}`;
   const saved = new Map(previousEntryModels(previous).map((model) => [model.id + ":" + model.week, model]));
   return models.map((model) => {
     const old = saved.get(model.id + ":" + model.week);
@@ -770,7 +770,7 @@ function withEntryHistory(models, previous, detectedAt) {
         const record = (player, action) => changes.push({
           id: `${at}:${draw}:${action}:${player.id}`,
           at,
-          date,
+          date: date2,
           draw,
           action,
           player_id: player.id,
@@ -783,6 +783,254 @@ function withEntryHistory(models, previous, detectedAt) {
     }
     return { ...model, changes: [...changes, ...old?.changes || []], change_baselines: baselines };
   });
+}
+
+// cloudflare/shared-io.mjs
+var SOURCE_TTL = 12e4;
+var CALENDAR_TTL = 18e5;
+var HISTORICAL_TTL = 864e5;
+var MAX_CACHE_BYTES = 19e5;
+var MAX_RESPONSE_BYTES = 8e6;
+var date = (value) => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+var object = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+var numericId = (value) => /^\d+$/.test(String(value ?? ""));
+var bytes = (value) => new TextEncoder().encode(value).length;
+function monday2(now) {
+  const today2 = new Date(now);
+  today2.setUTCDate(today2.getUTCDate() - (today2.getUTCDay() + 6) % 7);
+  return today2.toISOString().slice(0, 10);
+}
+function requestDetails(path, params, now) {
+  const canonical = String(path).replace(/^\/api(?=\/tennis\/)/, "").replace(/\/$/, "");
+  let kind, allowed;
+  if (canonical === "/tennis/tournaments") {
+    kind = "calendar";
+    allowed = ["from", "to", "page", "pageSize", "excludeLevels"];
+  } else if (canonical === "/tennis/players/ranked") {
+    kind = "rankings";
+    allowed = ["metric", "type", "sort", "at", "page", "pageSize"];
+  } else if (/^\/tennis\/tournaments\/\d+\/\d{4}\/matches$/.test(canonical)) {
+    kind = "matches";
+    allowed = ["states"];
+  } else if (/^\/tennis\/players\/\d+\/matches$/.test(canonical)) {
+    kind = "history";
+    allowed = ["year", "type", "page", "pageSize"];
+  } else throw new Error("Unknown shared WTA source.");
+  if (!object(params) && !(params instanceof URLSearchParams)) throw new Error("Invalid WTA query parameters.");
+  const entries = params instanceof URLSearchParams ? [...params] : Object.entries(params);
+  const query = new URLSearchParams();
+  for (const [key, value] of entries) {
+    if (!allowed.includes(key) || query.has(key) || !["string", "number"].includes(typeof value)) {
+      throw new Error("Invalid WTA query parameter.");
+    }
+    query.set(key, String(value));
+  }
+  if (kind !== "matches") {
+    if (!query.has("page")) query.set("page", "0");
+    if (!query.has("pageSize")) query.set("pageSize", "100");
+    if (!/^\d+$/.test(query.get("page")) || Number(query.get("page")) > 1e4 || !/^\d+$/.test(query.get("pageSize")) || Number(query.get("pageSize")) < 1 || Number(query.get("pageSize")) > 1e3) throw new Error("Invalid WTA pagination.");
+  }
+  if (kind === "calendar" && (!date(query.get("from")) || !date(query.get("to")) || query.get("from") > query.get("to") || query.has("excludeLevels") && query.get("excludeLevels") !== "ITF")) {
+    throw new Error("Invalid WTA calendar window.");
+  }
+  if (kind === "rankings") {
+    for (const [key, value] of [["metric", "SINGLES"], ["type", "rankSingles"], ["sort", "asc"]]) {
+      if (query.has(key) && query.get(key) !== value) throw new Error("Only singles rankings are supported.");
+      query.set(key, value);
+    }
+    if (!date(query.get("at"))) throw new Error("A ranking date is required.");
+  }
+  if (kind === "history") {
+    if (query.has("type") && query.get("type") !== "S") throw new Error("Only singles history is supported.");
+    query.set("type", "S");
+    if (!/^\d{4}$/.test(query.get("year") || "")) throw new Error("A player history year is required.");
+  }
+  if (kind === "matches" && query.has("states") && query.get("states") !== "C") {
+    throw new Error("Unknown WTA match state filter.");
+  }
+  query.sort();
+  const url = new URL("https://api.wtatennis.com");
+  url.pathname = canonical + (kind === "calendar" ? "/" : "");
+  url.search = query.toString();
+  return {
+    kind,
+    query,
+    url,
+    scope: url.pathname + url.search,
+    ttl: kind === "rankings" && query.get("at") < monday2(now) ? HISTORICAL_TTL : SOURCE_TTL
+  };
+}
+function validatePage(data, query) {
+  if (!object(data) || !Array.isArray(data.content) || !object(data.pageInfo) || !Number.isInteger(data.pageInfo.numEntries) || data.pageInfo.numEntries < 0 || Number(data.pageInfo.page) !== Number(query.get("page"))) throw new Error("Incomplete WTA page.");
+  const size = Number(query.get("pageSize")), start = Number(query.get("page")) * size;
+  if (data.content.length > size || start + data.content.length > data.pageInfo.numEntries || data.content.length < size && start + data.content.length < data.pageInfo.numEntries) {
+    throw new Error("Incomplete WTA page.");
+  }
+  return data.content;
+}
+function validateResponse(data, details) {
+  if (details.kind === "calendar") {
+    const rows = validatePage(data, details.query);
+    if (rows.some((row) => !validTournament(row, false))) {
+      throw new Error("Invalid WTA tournament identity.");
+    }
+  } else if (details.kind === "rankings") {
+    const rows = Array.isArray(data) ? data : validatePage(data, details.query);
+    if (!Number(details.query.get("page")) && !rows.length || rows.length > Number(details.query.get("pageSize")) || rows.some((row) => !object(row) || !numericId(row.player?.id))) {
+      throw new Error("Invalid WTA ranking response.");
+    }
+  } else {
+    if (!object(data) || !Array.isArray(data.matches) || data.matches.some((row) => !object(row))) {
+      throw new Error("Invalid WTA match response.");
+    }
+    if (object(data.pageInfo) && (Number(data.pageInfo.page) !== Number(details.query.get("page") || 0) || !Number.isInteger(data.pageInfo.numEntries) || data.pageInfo.numEntries < data.matches.length || details.kind === "matches" && data.pageInfo.numEntries !== data.matches.length)) {
+      throw new Error("Incomplete WTA match response.");
+    }
+  }
+  return data;
+}
+function validTournament(row, requireEnd = true) {
+  if (!object(row) || !numericId(row.tournamentGroup?.id) || typeof row.tournamentGroup?.name !== "string" || !row.tournamentGroup.name.trim() || !/^\d{4}$/.test(String(row.year)) || typeof row.level !== "string" || !row.level.trim() || typeof row.startDate !== "string" || requireEnd && typeof row.endDate !== "string") return false;
+  const start = row.startDate.slice(0, 10), end = typeof row.endDate === "string" ? row.endDate.slice(0, 10) : "";
+  return date(start) && (!requireEnd && row.endDate == null || date(end) && start <= end);
+}
+function compactRankings(rows) {
+  const seen = /* @__PURE__ */ new Set();
+  if (!Array.isArray(rows) || !rows.length || rows.some((row) => {
+    if (!object(row) || typeof row.id !== "string" || !numericId(row.id) || seen.has(row.id) || typeof row.name !== "string" || typeof row.country !== "string" || row.rank !== null && !(Number.isSafeInteger(row.rank) && row.rank > 0)) return true;
+    seen.add(row.id);
+    return false;
+  })) throw new Error("Invalid completed singles ranking cache.");
+  return rows;
+}
+async function responseJSON(response) {
+  if (Number(response.headers.get("Content-Length")) > MAX_RESPONSE_BYTES) throw new Error("WTA response exceeds the collection limit.");
+  const reader = response.body?.getReader(), chunks = [];
+  let length = 0;
+  if (reader) {
+    for (; ; ) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      length += value.byteLength;
+      if (length > MAX_RESPONSE_BYTES) {
+        await reader.cancel();
+        throw new Error("WTA response exceeds the collection limit.");
+      }
+      chunks.push(value);
+    }
+  }
+  const data = new Uint8Array(length);
+  let offset = 0;
+  for (const chunk of chunks) {
+    data.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  let text;
+  try {
+    text = new TextDecoder("utf-8", { fatal: true }).decode(data);
+  } catch {
+    text = new TextDecoder("windows-1252").decode(data);
+  }
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error("WTA returned invalid JSON.");
+  }
+}
+function createSharedIO(db, { now = Date.now, fetch: upstream = globalThis.fetch } = {}) {
+  async function cached(kind, scope, ttl) {
+    try {
+      const row = await db.prepare("SELECT payload_json, fetched_at, expires_at FROM wta_snapshots WHERE kind = ? AND scope = ? AND expires_at > ?").bind(kind, scope, now()).first();
+      const fetched = Date.parse(row?.fetched_at);
+      if (!row || !Number.isFinite(fetched) || fetched > now() + 1e3 || now() - fetched >= ttl) return null;
+      return JSON.parse(row.payload_json);
+    } catch {
+      return null;
+    }
+  }
+  async function cache(kind, scope, payload, ttl) {
+    const json = JSON.stringify(payload);
+    if (bytes(json) > MAX_CACHE_BYTES) return false;
+    try {
+      const fetched = now();
+      await db.prepare("INSERT INTO wta_snapshots (kind, scope, payload_json, fetched_at, expires_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(kind, scope) DO UPDATE SET payload_json = excluded.payload_json, fetched_at = excluded.fetched_at, expires_at = excluded.expires_at").bind(kind, scope, json, new Date(fetched).toISOString(), fetched + ttl).run();
+      return true;
+    } catch (error) {
+      return /no such table: wta_snapshots/i.test(String(error?.message)) ? null : false;
+    }
+  }
+  return {
+    async fetchJSON(path, params = {}) {
+      const details = requestDetails(path, params, now());
+      const saved = await cached("source", details.scope, details.ttl);
+      if (saved !== null) {
+        try {
+          return validateResponse(saved, details);
+        } catch {
+        }
+      }
+      const response = await upstream(details.url, {
+        headers: {
+          Accept: "application/json",
+          account: "wta",
+          Origin: "https://www.wtatennis.com",
+          Referer: "https://www.wtatennis.com/"
+        },
+        redirect: "manual",
+        signal: AbortSignal.timeout(12e3),
+        cache: "no-store"
+      });
+      if (!response.ok) throw new Error("WTA returned an unsuccessful collection response.");
+      const data = validateResponse(await responseJSON(response), details);
+      await cache("source", details.scope, data, details.ttl);
+      return data;
+    },
+    async cachedCalendar(from, to) {
+      if (!date(from) || !date(to) || from > to) throw new Error("Invalid WTA calendar window.");
+      const saved = await cached("calendar_source", "global", CALENDAR_TTL);
+      if (!object(saved) || !date(saved.from) || !date(saved.to) || saved.from > from || saved.to < to || !Array.isArray(saved.items)) return null;
+      const seen = /* @__PURE__ */ new Set();
+      if (saved.items.some((row) => {
+        const key = row?.tournamentGroup?.id + ":" + row?.year;
+        if (!validTournament(row) || seen.has(key)) return true;
+        seen.add(key);
+        return false;
+      })) return null;
+      return saved;
+    },
+    async loadRankings(at) {
+      if (!date(at)) throw new Error("Invalid singles ranking date.");
+      const ttl = at < monday2(now()) ? HISTORICAL_TTL : SOURCE_TTL;
+      const saved = await cached("rankings", "singles:" + at, ttl);
+      if (saved !== null) {
+        try {
+          return compactRankings(saved);
+        } catch {
+        }
+      }
+      if (at >= monday2(now())) return null;
+      try {
+        const row = await db.prepare("SELECT rows_json FROM entry_ranking_cache WHERE ranking_date = ? AND expires_at > ?").bind(at, now()).first();
+        return row ? compactRankings(JSON.parse(row.rows_json)) : null;
+      } catch {
+        return null;
+      }
+    },
+    async saveRankings(at, rows) {
+      if (!date(at)) throw new Error("Invalid singles ranking date.");
+      compactRankings(rows);
+      const ttl = at < monday2(now()) ? HISTORICAL_TTL : SOURCE_TTL;
+      if (await cache("rankings", "singles:" + at, rows, ttl) === null && at < monday2(now())) {
+        const json = JSON.stringify(rows);
+        if (bytes(json) <= MAX_CACHE_BYTES) {
+          try {
+            await db.prepare("INSERT INTO entry_ranking_cache VALUES (?, ?, ?) ON CONFLICT(ranking_date) DO UPDATE SET rows_json = excluded.rows_json, expires_at = excluded.expires_at").bind(at, json, now() + ttl).run();
+          } catch {
+          }
+        }
+      }
+    }
+  };
 }
 
 // cloudflare/entry-store.mjs
@@ -882,24 +1130,30 @@ async function wtaText(path, params = {}) {
     cache: "no-store"
   });
   if (!response.ok) throw new Error("WTA returned an unsuccessful collection response.");
-  const bytes = await response.arrayBuffer();
+  const bytes2 = await response.arrayBuffer();
   try {
-    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes2);
   } catch {
-    return new TextDecoder("windows-1252").decode(bytes);
+    return new TextDecoder("windows-1252").decode(bytes2);
   }
 }
 function collectionIO(db) {
+  const shared = createSharedIO(db);
   return {
-    fetchJSON: async (path, params) => JSON.parse(await wtaText(path, params)),
-    fetchHTML: (path) => wtaText(path),
-    async loadRankings(date) {
-      const cached = await db.prepare("SELECT rows_json FROM entry_ranking_cache WHERE ranking_date = ? AND expires_at > ?").bind(date, Date.now()).first();
-      return cached ? JSON.parse(cached.rows_json) : null;
+    async fetchJSON(path, params) {
+      if (path === "/api/tennis/tournaments/") {
+        const source = await shared.cachedCalendar(params.from, params.to);
+        if (source) {
+          const items = source.items.filter((item) => String(item.startDate).slice(0, 10) <= params.to && String(item.endDate).slice(0, 10) >= params.from);
+          const page = Number(params.page), size = Number(params.pageSize);
+          return { pageInfo: { page, numEntries: items.length }, content: items.slice(page * size, (page + 1) * size) };
+        }
+      }
+      return shared.fetchJSON(path, params);
     },
-    async saveRankings(date, rows) {
-      await db.prepare("INSERT INTO entry_ranking_cache (ranking_date, rows_json, expires_at) VALUES (?, ?, ?) ON CONFLICT(ranking_date) DO UPDATE SET rows_json = excluded.rows_json, expires_at = excluded.expires_at").bind(date, storedJSON(rows), Date.now() + 864e5).run();
-    }
+    fetchHTML: (path) => wtaText(path),
+    loadRankings: (date2) => shared.loadRankings(date2),
+    saveRankings: (date2, rows) => shared.saveRankings(date2, rows)
   };
 }
 function retainPreviousMain(models, previous) {
@@ -934,19 +1188,19 @@ async function advanceStoredRefresh(db) {
     const result = await advanceEntryJob(job, collectionIO(db));
     if (result.done) {
       validateCompleteModels(result.models, result.job);
-      const completedAt = Date.now();
+      const completedAt2 = Date.now();
       const previous = claimed.snapshot ? JSON.parse(claimed.snapshot) : null;
-      const models = withEntryHistory(retainPreviousMain(result.models, previous), previous, completedAt);
+      const models = withEntryHistory(retainPreviousMain(result.models, previous), previous, completedAt2);
       const snapshot = {
         schema_version: 1,
         fetched_at: result.job.started_at,
-        saved_at: new Date(completedAt).toISOString(),
+        saved_at: new Date(completedAt2).toISOString(),
         window_start: result.job.window_start,
         window_end: result.job.window_end,
         models
       };
       await saveEntrySnapshot(db, snapshot, token);
-      await db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ?").bind(completedAt).run().catch(() => {
+      await db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ?").bind(completedAt2).run().catch(() => {
       });
     } else {
       await db.prepare("UPDATE entry_list_state SET job = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?").bind(storedJSON(result.job), Date.now() + JOB_LIFETIME, token).run();
@@ -985,13 +1239,826 @@ async function scheduledEntryRefresh(env) {
   }
 }
 
+// cloudflare/shared-models.mjs
+var DAY2 = 864e5;
+var LEVELS2 = /* @__PURE__ */ new Set(["WTA 125", "WTA 250", "WTA 500", "WTA 1000", "Finals", "WTA Finals", "Grand Slam"]);
+var ROUNDS = {
+  "1": ["1st Round", "premier"],
+  "2": ["2nd Round", "deuxieme"],
+  "3": ["3rd Round", "troisieme"],
+  Q: ["Quarterfinals", "quartdefinale"],
+  S: ["Semifinals", "demifinale"],
+  F: ["Final", "finale"]
+};
+var EXTRA = { "4": "QUATRI\xC8ME TOUR", "5": "CINQUI\xC8ME TOUR", R: "PHASE DE GROUPES", RR: "PHASE DE GROUPES" };
+function eligibleTournament(tournament2) {
+  const group = tournament2.tournamentGroup;
+  return LEVELS2.has(tournament2.level) && group?.id && !String(group.metadata?.cancelledSeasons || "").includes(String(tournament2.year));
+}
+function person(match, side) {
+  const first = String(match["PlayerNameFirst" + side] || "").trim();
+  const last = String(match["PlayerNameLast" + side] || "").trim();
+  return {
+    id: String(match["PlayerID" + side] || ""),
+    first_name: first,
+    last_name: last,
+    name: [first, last].filter(Boolean).join(" "),
+    country: String(match["PlayerCountry" + side] || "").toUpperCase()
+  };
+}
+function completedAt(match) {
+  const duration = /^(\d+):(\d{2}):(\d{2})$/.exec(String(match.MatchTimeTotal || ""));
+  const start = Date.parse(match.MatchTimeStamp);
+  if (Number.isFinite(start) && duration && Number(duration[2]) < 60 && Number(duration[3]) < 60) {
+    return start + (Number(duration[1]) * 3600 + Number(duration[2]) * 60 + Number(duration[3])) * 1e3;
+  }
+  return Date.parse(match.LastUpdated);
+}
+function parseMatch(match, tournament2, now) {
+  const code = String(match.Winner || "");
+  if (match.DrawMatchType !== "S" || match.MatchState !== "F" || !["2", "3", "4", "5"].includes(code)) return null;
+  const finished = completedAt(match);
+  if (!Number.isFinite(finished) || finished < now - DAY2 || finished > now) return null;
+  const [a, b] = ["2", "4"].includes(code) ? ["A", "B"] : ["B", "A"];
+  const winner = person(match, a), loser = person(match, b);
+  if (!winner.id || !winner.name || !loser.id || !loser.name || !match.MatchID) {
+    throw new Error("A completed WTA singles match has missing player or match details.");
+  }
+  const sets = [];
+  for (let n = 1; n <= 3; n += 1) {
+    const x = match["ScoreSet" + n + a], y = match["ScoreSet" + n + b];
+    if ([null, void 0, ""].includes(x) && [null, void 0, ""].includes(y)) continue;
+    if (!/^\d+$/.test(String(x)) || !/^\d+$/.test(String(y))) throw new Error("WTA returned an invalid set score.");
+    sets.push({ winner: Number(x), loser: Number(y), tiebreak: String(match["ScoreTbSet" + n] ?? "") });
+  }
+  if (!sets.length) return null;
+  const round = String(match.RoundID || ""), qualifying = match.DrawLevelType === "Q";
+  const [name, art] = ROUNDS[round] || [EXTRA[round] || "Round " + round, "premier"];
+  const group = tournament2.tournamentGroup;
+  return {
+    id: `${group.id}:${tournament2.year}:${match.MatchID}`,
+    completed_at: new Date(finished).toISOString(),
+    round: (qualifying ? "Qualifying \xB7 " : "") + name,
+    round_art: art,
+    round_heading: qualifying ? "QUALIFICATIONS" : ROUNDS[round] ? "" : name.toUpperCase(),
+    tournament: {
+      id: String(group.id),
+      name: tournament2.title || group.name || "WTA",
+      city: tournament2.city || group.name || "",
+      category: tournament2.level,
+      surface: tournament2.surface || ""
+    },
+    winner,
+    loser,
+    sets,
+    status: /def/i.test(String(match.ScoreString || "")) ? "DEF." : ["4", "5"].includes(code) ? "RET." : ""
+  };
+}
+function bracketRounds(matches) {
+  if (!Array.isArray(matches)) throw new Error("The WTA bracket response is incomplete.");
+  const nodes = /* @__PURE__ */ new Map();
+  for (const match of matches) {
+    if (match.DrawMatchType !== "S" || match.DrawLevelType !== "M" || ["R", "RR"].includes(String(match.RoundID))) continue;
+    const number = /^LS0*([1-9]\d*)$/.exec(String(match.MatchID || ""));
+    if (number) nodes.set(Number(number[1]), match);
+  }
+  const player = (match, side) => {
+    const value = person(match, side);
+    return value.id && value.id !== "0" && value.name && !["BYE", "TBD"].includes(value.name.toUpperCase()) ? value : null;
+  };
+  const winner = (number) => {
+    const match = nodes.get(number) || {}, code = String(match.Winner || "");
+    return match.MatchState === "F" && ["2", "3", "4", "5"].includes(code) ? player(match, ["2", "4"].includes(code) ? "A" : "B") : null;
+  };
+  const rounds = {};
+  for (const [round, start, end] of [["F", 1, 2], ["S", 2, 4], ["Q", 4, 8]]) {
+    rounds[round] = [];
+    for (let n = start; n < end; n += 1) {
+      const match = nodes.get(n) || {};
+      rounds[round].push({
+        id: "LS" + String(n).padStart(3, "0"),
+        position: n - start,
+        players: [player(match, "A") || winner(n * 2), player(match, "B") || winner(n * 2 + 1)],
+        state: match.MatchState || "U"
+      });
+    }
+  }
+  return rounds;
+}
+function mergePlayerForm(playerId, history, draws, now = Date.now()) {
+  playerId = String(playerId);
+  const cutoff = new Date(now);
+  cutoff.setUTCFullYear(cutoff.getUTCFullYear() - 1);
+  cutoff.setUTCHours(0, 0, 0, 0);
+  const activeEvents = new Set(draws.map(({ tournament: t }) => t.tournamentGroup.id + ":" + t.year));
+  const matches = /* @__PURE__ */ new Map();
+  for (const match of history) {
+    const event = match.tourn_nbr + ":" + match.tourn_year;
+    const side = String(match.player_1) === playerId ? 1 : String(match.player_2) === playerId ? 2 : 0;
+    const time = Date.parse(match.StartDate);
+    if (activeEvents.has(event) || match.s_d_flag !== "S" || !side || ![1, 2].includes(Number(match.winner)) || !Number.isFinite(time) || time < cutoff.getTime() || time > now || !/\d/.test(match.scores || "") || /w\s*\/\s*o|walkover|bye/i.test(match.scores || "")) continue;
+    const round = Number(match.tourn_round) || ({ Q: 90, S: 91, F: 92 }[match.round_name] || 0);
+    const order = (match.qpm_flag === "Q" ? 0 : 100) + round;
+    const key = [event, match.qpm_flag, match.round_name, match.tourn_round, match.player_1, match.player_2].join(":");
+    matches.set(key, { time, order, result: Number(match.winner) === side ? "win" : "loss" });
+  }
+  for (const { tournament: tournament2, matches: rows } of draws) {
+    for (const match of rows) {
+      const side = String(match.PlayerIDA) === playerId ? "A" : String(match.PlayerIDB) === playerId ? "B" : "";
+      const code = String(match.Winner || ""), time = completedAt(match);
+      if (!side || match.DrawMatchType !== "S" || match.MatchState !== "F" || !["2", "3", "4", "5"].includes(code) || !match.MatchID || !Number.isFinite(time) || time < cutoff.getTime() || time > now) continue;
+      const key = tournament2.tournamentGroup.id + ":" + tournament2.year + ":" + match.MatchID;
+      matches.set(key, { time, order: 0, result: (["2", "4"].includes(code) ? "A" : "B") === side ? "win" : "loss" });
+    }
+  }
+  const results = [...matches.values()].sort((a, b) => a.time - b.time || a.order - b.order).slice(-10).map((match) => match.result);
+  return [...Array(10 - results.length).fill(""), ...results];
+}
+function drawChampion(tournament2, matches, now = Date.now()) {
+  const finals = matches.filter((match2) => match2.DrawMatchType === "S" && match2.DrawLevelType === "M" && !["R", "RR"].includes(String(match2.RoundID)) && (String(match2.RoundID) === "F" || /^LS0*1$/.test(String(match2.MatchID))) && match2.MatchState === "F");
+  if (!finals.length) return null;
+  if (finals.length !== 1) throw new Error("WTA returned multiple completed singles finals.");
+  const match = finals[0], code = String(match.Winner || "");
+  if (completedAt(match) > now) return null;
+  let side = { "2": "A", "3": "B", "6": "A", "7": "B" }[code];
+  if (["4", "5"].includes(code)) {
+    const message = /\{11\|([^}]+)\}/.exec(match.Message || "");
+    const sides = message ? ["A", "B"].filter((s) => match["PlayerNameLast" + s] && message[1].toLocaleLowerCase().endsWith(match["PlayerNameLast" + s].toLocaleLowerCase())) : [];
+    if (sides.length === 1) side = sides[0];
+  }
+  if (!side) return null;
+  const player = person(match, side);
+  if (!player.id || player.id === "0" || !player.name) throw new Error("A WTA singles champion has missing player details.");
+  const group = tournament2.tournamentGroup;
+  return {
+    tournament_id: String(group.id),
+    year: tournament2.year,
+    start_date: tournament2.startDate.slice(0, 10),
+    end_date: tournament2.endDate.slice(0, 10),
+    name: tournament2.title || group.name || "WTA",
+    city: tournament2.city || group.name || "WTA",
+    category: tournament2.level,
+    surface: tournament2.surface || "",
+    champion: { id: player.id, name: player.name, country: player.country }
+  };
+}
+function mergeCalendar(existing, source) {
+  if (!source || !Array.isArray(source.items)) throw new Error("The shared WTA calendar is incomplete.");
+  const fields = [.../* @__PURE__ */ new Set([
+    ...existing?.fields || ["column", "name", "level", "startDate", "endDate", "calendarKey"],
+    "city",
+    "year",
+    "source",
+    "surface",
+    "country",
+    "tournamentKey",
+    "tournamentId"
+  ])];
+  const rows = /* @__PURE__ */ new Map();
+  for (const batch of Object.values(existing?.weeks || {})) {
+    for (const row of batch) {
+      if (!Array.isArray(row) || row.length !== existing.fields.length) throw new Error("The saved calendar has an invalid row.");
+      const item = Object.fromEntries(existing.fields.map((field, index) => [field, row[index]]));
+      rows.set(item.calendarKey, item);
+    }
+  }
+  const active = new Set(source.items.filter((t) => !String(t.tournamentGroup.metadata?.cancelledSeasons || "").includes(String(t.year))).map((t) => `wta:${t.tournamentGroup.id}:${t.year}`));
+  for (const [key, row] of rows) {
+    const mainKey = String(key).replace(/\|qualifying$/, "");
+    if (String(key).startsWith("wta:") && String(row.startDate).slice(0, 10) >= source.from && String(row.startDate).slice(0, 10) <= source.to && !active.has(mainKey)) rows.delete(key);
+  }
+  for (const tournament2 of source.items) {
+    if (tournament2.level === "ITF") continue;
+    const group = tournament2.tournamentGroup, key = `wta:${group.id}:${tournament2.year}`;
+    if (String(group.metadata?.cancelledSeasons || "").includes(String(tournament2.year))) {
+      rows.delete(key);
+      rows.delete(key + "|qualifying");
+      continue;
+    }
+    rows.set(key, {
+      ...rows.get(key),
+      column: tournament2.level === "WTA 125" ? "wta_125" : tournament2.level.includes("Grand Slam") ? "gs" : "wta_tour",
+      name: tournament2.title || group.name,
+      level: tournament2.level,
+      startDate: tournament2.startDate,
+      endDate: tournament2.endDate,
+      calendarKey: key,
+      city: tournament2.city || group.name,
+      year: tournament2.year,
+      source: "WTA",
+      surface: tournament2.surface || "",
+      country: tournament2.country || "",
+      tournamentId: group.id
+    });
+  }
+  const weeks = {};
+  for (const row of [...rows.values()].sort((a, b) => String(a.startDate).localeCompare(String(b.startDate)) || String(a.calendarKey).localeCompare(String(b.calendarKey)))) {
+    const week = String(row.startDate).slice(0, 10);
+    (weeks[week] ||= []).push(fields.map((field) => row[field] ?? ""));
+  }
+  return { fields, weeks };
+}
+var MATCH_FIELDS = [
+  "MatchID",
+  "DrawMatchType",
+  "DrawLevelType",
+  "RoundID",
+  "MatchState",
+  "Winner",
+  "Message",
+  "MatchTimeStamp",
+  "MatchTimeTotal",
+  "LastUpdated",
+  "ScoreString",
+  ...["A", "B"].flatMap((side) => ["PlayerID", "PlayerNameFirst", "PlayerNameLast", "PlayerCountry"].map((field) => field + side)),
+  ...[1, 2, 3].flatMap((number) => ["ScoreSet" + number + "A", "ScoreSet" + number + "B", "ScoreTbSet" + number])
+];
+function compactMatches(matches) {
+  if (!Array.isArray(matches) || matches.some((match) => !match || typeof match !== "object" || Array.isArray(match))) {
+    throw new Error("The WTA match response is incomplete.");
+  }
+  return matches.filter((match) => match.DrawMatchType === "S").map((match) => Object.fromEntries(MATCH_FIELDS.filter((field) => Object.hasOwn(match, field)).map((field) => [field, match[field]])));
+}
+
+// cloudflare/shared-collector.mjs
+var DAY3 = 864e5;
+var KINDS = /* @__PURE__ */ new Set(["calendar", "players", "matches", "player_form"]);
+var validDate2 = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+var isoDate = (value) => new Date(value).toISOString().slice(0, 10);
+var monday3 = (value) => {
+  const date2 = new Date(value);
+  date2.setUTCDate(date2.getUTCDate() - (date2.getUTCDay() + 6) % 7);
+  return isoDate(date2);
+};
+function madridDate(now) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en", {
+    timeZone: "Europe/Madrid",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date(now)).map((part) => [part.type, part.value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+function tournament(item) {
+  const group = item?.tournamentGroup, start = String(item?.startDate || "").slice(0, 10), end = String(item?.endDate || "").slice(0, 10);
+  if (!group || !/^[1-9]\d*$/.test(String(group.id)) || typeof group.name !== "string" || !group.name.trim() || !/^\d{4}$/.test(String(item.year)) || typeof item.level !== "string" || !item.level || !validDate2(start) || !validDate2(end) || start > end) throw new Error("WTA returned an invalid tournament.");
+  return {
+    tournamentGroup: { id: group.id, name: group.name, metadata: { cancelledSeasons: group.metadata?.cancelledSeasons || "" } },
+    year: Number(item.year),
+    level: item.level,
+    startDate: start,
+    endDate: end,
+    title: item.title || group.name,
+    city: item.city || "",
+    surface: item.surface || "",
+    country: item.country || ""
+  };
+}
+function rankedPlayer(row, expectedDate) {
+  const player = row?.player, id = String(player?.id || ""), name = player?.fullName || [player?.firstName, player?.lastName].filter(Boolean).join(" ");
+  if (!/^[1-9]\d*$/.test(id) || typeof name !== "string" || !name.trim() || !Number.isInteger(row.ranking) || row.ranking <= 0 || !Number.isInteger(row.points) || row.points < 0 || row.rankedAt && String(row.rankedAt).slice(0, 10) !== expectedDate || player.countryCode != null && typeof player.countryCode !== "string") throw new Error("WTA returned an invalid ranked player.");
+  const dob = player.dateOfBirth ? String(player.dateOfBirth).slice(0, 10) : null;
+  if (dob && !validDate2(dob)) throw new Error("WTA returned an invalid player birth date.");
+  return { id, name: name.trim(), country: player.countryCode || "", dob, rank: row.ranking, points: row.points };
+}
+function createSharedJob(kind, scope = "global", nowMs = Date.now()) {
+  if (!KINDS.has(kind) || (kind === "player_form" ? !/^[1-9]\d*$/.test(String(scope)) : scope !== "global") || !Number.isFinite(nowMs)) throw new Error("Unknown shared WTA collection job.");
+  const today2 = madridDate(nowMs), year = Number(today2.slice(0, 4));
+  const job = {
+    kind,
+    scope: String(scope),
+    started_at: new Date(nowMs).toISOString(),
+    now_ms: nowMs,
+    today: today2,
+    stage: kind === "players" ? "rankings" : kind === "calendar" ? "calendar" : "calendar_lookup",
+    progress: "Starting shared WTA refresh\u2026"
+  };
+  if (kind === "players") return { ...job, ranking_date: monday3(today2), page: 0, total: null, rankings: [] };
+  return {
+    ...job,
+    from: kind === "calendar" ? isoDate(Date.UTC(year, 0, 1) - 14 * DAY3) : isoDate(nowMs - 30 * DAY3),
+    to: kind === "calendar" ? `${year + 1}-12-31` : isoDate(nowMs + 2 * DAY3),
+    page: 0,
+    total: null,
+    calendar_items: [],
+    event_matches: [],
+    index: 0,
+    ...kind === "player_form" ? {
+      history: [],
+      history_years: [
+        new Date(nowMs).getUTCFullYear() - 1,
+        new Date(nowMs).getUTCFullYear()
+      ],
+      history_index: 0,
+      history_page: 0,
+      history_pages: [],
+      history_total: null,
+      history_count: 0
+    } : {}
+  };
+}
+function selectEvents(job, source) {
+  const firstDay = isoDate(job.now_ms - 2 * DAY3), weekStart = monday3(isoDate(job.now_ms));
+  const earliest = firstDay < weekStart ? firstDay : weekStart;
+  return source.items.map(tournament).filter((item) => eligibleTournament(item) && item.startDate <= job.to && item.endDate >= earliest);
+}
+function completeMatches(job) {
+  const now = job.now_ms, today2 = isoDate(now), matches = /* @__PURE__ */ new Map(), champions = [];
+  const tournaments = [];
+  for (const event of job.event_matches) {
+    for (const row of event.matches) {
+      const match = parseMatch(row, event.tournament, now);
+      if (match) matches.set(match.id, match);
+    }
+    const title = drawChampion(event.tournament, event.matches, now);
+    if (title) champions.push(title);
+    const item = event.tournament;
+    if (item.startDate <= today2 && item.endDate >= today2) tournaments.push({
+      id: item.tournamentGroup.id + ":" + item.year,
+      wta_id: String(item.tournamentGroup.id),
+      year: item.year,
+      name: item.title || item.tournamentGroup.name,
+      city: item.city || item.tournamentGroup.name,
+      category: item.level,
+      surface: item.surface,
+      start_date: item.startDate,
+      end_date: item.endDate,
+      rounds: bracketRounds(event.matches)
+    });
+  }
+  tournaments.sort((a, b) => a.category.localeCompare(b.category) || a.city.localeCompare(b.city) || a.id.localeCompare(b.id));
+  return {
+    results: {
+      updated_at: job.started_at,
+      window_start: new Date(now - DAY3).toISOString(),
+      matches: [...matches.values()].sort((a, b) => b.completed_at.localeCompare(a.completed_at) || b.id.localeCompare(a.id))
+    },
+    draws: { updated_at: job.started_at, date: today2, tournaments },
+    champions,
+    event_matches: job.event_matches
+  };
+}
+function compactHistory(rows) {
+  const fields = [
+    "tourn_nbr",
+    "tourn_year",
+    "player_1",
+    "player_2",
+    "StartDate",
+    "s_d_flag",
+    "winner",
+    "scores",
+    "tourn_round",
+    "round_name",
+    "qpm_flag"
+  ];
+  if (!Array.isArray(rows) || rows.some((row) => !row || typeof row !== "object" || Array.isArray(row))) {
+    throw new Error("The WTA player history response is incomplete.");
+  }
+  return rows.map((row) => Object.fromEntries(fields.filter((field) => Object.hasOwn(row, field)).map((field) => [field, row[field]])));
+}
+async function advanceSharedJob(job, io) {
+  let requests = 0;
+  while (requests < 4) {
+    if (job.stage === "calendar_lookup") {
+      const cached = await io.cachedCalendar?.(job.from, job.to);
+      if (cached && cached.from <= job.from && cached.to >= job.to && Array.isArray(cached.items)) {
+        job.tournaments = selectEvents(job, cached);
+        job.stage = job.kind === "player_form" ? "history" : "events";
+      } else job.stage = "calendar";
+    } else if (job.stage === "calendar") {
+      const data = await io.fetchJSON("/api/tennis/tournaments/", {
+        from: job.from,
+        to: job.to,
+        excludeLevels: "ITF",
+        page: job.page,
+        pageSize: 100
+      });
+      requests++;
+      const total = data?.pageInfo?.numEntries;
+      if (!Array.isArray(data?.content) || !Number.isInteger(total) || total < 0 || total > 1e4 || Number(data.pageInfo.page) !== job.page || job.total !== null && total !== job.total || data.content.length > 100 || !data.content.length && job.calendar_items.length !== total) {
+        throw new Error("The WTA calendar response is incomplete.");
+      }
+      job.total = total;
+      const seen = new Set(job.calendar_items.map((item) => item.tournamentGroup.id + ":" + item.year));
+      for (const row of data.content) {
+        const item = tournament(row), key = item.tournamentGroup.id + ":" + item.year;
+        if (seen.has(key)) throw new Error("WTA repeated a calendar tournament.");
+        seen.add(key);
+        job.calendar_items.push(item);
+      }
+      if (job.calendar_items.length > total) throw new Error("The WTA calendar response is incomplete.");
+      job.page++;
+      job.progress = `Loading shared WTA calendar (page ${job.page})\u2026`;
+      if (job.calendar_items.length === total) {
+        if (job.kind === "calendar") {
+          job.stage = "complete";
+          return { job, done: true, result: { calendar_source: { from: job.from, to: job.to, items: job.calendar_items } } };
+        }
+        job.tournaments = selectEvents(job, { items: job.calendar_items });
+        job.calendar_items = [];
+        job.stage = job.kind === "player_form" ? "history" : "events";
+      }
+    } else if (job.stage === "rankings") {
+      if (job.page >= 100) throw new Error("The WTA rankings response is incomplete.");
+      const data = await io.fetchJSON("/api/tennis/players/ranked", {
+        metric: "SINGLES",
+        type: "rankSingles",
+        sort: "asc",
+        at: job.ranking_date,
+        page: job.page,
+        pageSize: 100
+      });
+      requests++;
+      const rows = Array.isArray(data) ? data : data?.content;
+      if (!Array.isArray(rows) || rows.length > 100 || !job.page && !rows.length) throw new Error("The WTA rankings are unavailable.");
+      if (data?.pageInfo) {
+        if (Number(data.pageInfo.page) !== job.page || !Number.isInteger(data.pageInfo.numEntries) || data.pageInfo.numEntries < 0 || job.total !== null && data.pageInfo.numEntries !== job.total) {
+          throw new Error("The WTA rankings response is incomplete.");
+        }
+        job.total = data.pageInfo.numEntries;
+      }
+      const found = new Set(job.rankings.map((row) => row.id));
+      for (const row of rows) {
+        const player = rankedPlayer(row, job.ranking_date);
+        if (found.has(player.id)) throw new Error("WTA repeated a ranking page.");
+        found.add(player.id);
+        job.rankings.push(player);
+      }
+      if (job.total !== null && (job.rankings.length > job.total || rows.length < 100 && job.rankings.length !== job.total)) {
+        throw new Error("The WTA rankings response is incomplete.");
+      }
+      job.page++;
+      job.progress = `Loading shared singles rankings (page ${job.page})\u2026`;
+      if (rows.length < 100 || job.rankings.length === job.total) {
+        job.stage = "complete";
+        return { job, done: true, result: { ranking_date: job.ranking_date, rankings: job.rankings } };
+      }
+    } else if (job.stage === "history") {
+      if (job.history_index === job.history_years.length) {
+        job.stage = "events";
+        continue;
+      }
+      if (job.history_page >= 100) throw new Error("The WTA player history response is incomplete.");
+      const year = job.history_years[job.history_index];
+      const data = await io.fetchJSON(`/api/tennis/players/${job.scope}/matches`, {
+        year,
+        type: "S",
+        page: job.history_page,
+        pageSize: 1e3
+      });
+      requests++;
+      const rows = compactHistory(data?.matches);
+      if (rows.length > 1e3) throw new Error("The WTA player history response is incomplete.");
+      if (data?.pageInfo) {
+        const total = data.pageInfo.numEntries;
+        if (Number(data.pageInfo.page) !== job.history_page || !Number.isInteger(total) || total < 0 || job.history_total !== null && total !== job.history_total) {
+          throw new Error("The WTA player history response is incomplete.");
+        }
+        job.history_total = total;
+      }
+      job.history_count += rows.length;
+      if (job.history_total !== null && (job.history_count > job.history_total || !rows.length && job.history_count !== job.history_total)) throw new Error("The WTA player history response is incomplete.");
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(JSON.stringify(rows)));
+      const signature2 = [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
+      if (job.history_pages.includes(signature2)) throw new Error("WTA repeated a player history page.");
+      job.history_pages.push(signature2);
+      job.history.push(...rows);
+      job.history_page++;
+      job.progress = `Loading player form (${year}, page ${job.history_page})\u2026`;
+      if (job.history_total === null ? rows.length < 1e3 : job.history_count === job.history_total) {
+        job.history_index++;
+        job.history_page = 0;
+        job.history_pages = [];
+        job.history_total = null;
+        job.history_count = 0;
+      }
+    } else if (job.stage === "events") {
+      if (job.index === job.tournaments.length) {
+        job.stage = "complete";
+        return { job, done: true, result: job.kind === "matches" ? completeMatches(job) : {
+          updated_at: job.started_at,
+          player_id: job.scope,
+          results: mergePlayerForm(job.scope, job.history, job.event_matches, job.now_ms)
+        } };
+      }
+      const item = job.tournaments[job.index];
+      const data = await io.fetchJSON(`/api/tennis/tournaments/${item.tournamentGroup.id}/${item.year}/matches`);
+      requests++;
+      job.event_matches.push({ tournament: item, matches: compactMatches(data?.matches) });
+      job.index++;
+      job.progress = `Loading shared singles matches (${job.index}/${job.tournaments.length})\u2026`;
+    } else if (job.stage === "complete") {
+      throw new Error("A completed shared job must be published before starting another.");
+    } else throw new Error("Invalid shared WTA collection stage.");
+  }
+  return { job, done: false };
+}
+
+// cloudflare/shared-store.mjs
+var DAY4 = 864e5;
+var COOLDOWN2 = 12e4;
+var LEASE2 = 9e4;
+var JOB_LIFETIME2 = 9e5;
+var BACKOFF = 15e3;
+var encoder = new TextEncoder();
+var iso = (value) => new Date(value).toISOString();
+var today = (value) => iso(value).slice(0, 10);
+var stateKey = (route) => [route.kind, route.scope];
+function jsonText(value) {
+  const text = JSON.stringify(value);
+  if (encoder.encode(text).length > 19e5) throw new Error("Shared data exceeds the D1 row limit.");
+  return text;
+}
+function getSharedRoute(pathname) {
+  const form = /^\/data\/players\/([1-9]\d{0,9})\/form(\/refresh)?$/.exec(pathname);
+  if (form) return { kind: "player_form", scope: form[1], view: "player_form", refresh: !!form[2] };
+  const match = /^\/data\/(players|calendar|results|draws|champions)(\/refresh)?$/.exec(pathname);
+  if (!match) return null;
+  return {
+    kind: ["results", "draws", "champions"].includes(match[1]) ? "matches" : match[1],
+    scope: "global",
+    view: match[1],
+    refresh: !!match[2]
+  };
+}
+var snapshotRow = (db, kind, scope = "global") => db.prepare(
+  "SELECT * FROM wta_snapshots WHERE kind = ? AND scope = ?"
+).bind(kind, scope).first();
+var readState2 = (db, route) => db.prepare(
+  "SELECT * FROM wta_refresh_state WHERE kind = ? AND scope = ?"
+).bind(...stateKey(route)).first();
+async function readPlayers(db) {
+  const [metadata, names, rows, titles] = await Promise.all([
+    snapshotRow(db, "players", "metadata"),
+    snapshotRow(db, "player_names"),
+    db.prepare("SELECT profile_json FROM wta_players").all(),
+    db.prepare("SELECT champion_id, title_json FROM wta_titles ORDER BY end_date, json_extract(title_json, '$.start_date'), tournament_id").all()
+  ]);
+  if (!metadata) return null;
+  const date2 = JSON.parse(metadata.payload_json).snapshot_date;
+  const cutoff = /* @__PURE__ */ new Date(date2 + "T00:00:00Z");
+  const cutoffMonth = cutoff.getUTCMonth();
+  cutoff.setUTCFullYear(cutoff.getUTCFullYear() - 2);
+  if (cutoff.getUTCMonth() !== cutoffMonth) cutoff.setUTCDate(0);
+  const summaries = /* @__PURE__ */ new Map();
+  for (const row of titles.results) {
+    const title = JSON.parse(row.title_json);
+    const summary = summaries.get(row.champion_id) || { count: 0, ids: [], tour: null, wta125: null };
+    if (["WTA 125", "125K"].includes(title.category)) summary.wta125 = title;
+    else {
+      summary.count++;
+      summary.ids.push(String(title.tournament_id) + ":" + title.year);
+      summary.tour = title;
+    }
+    summaries.set(row.champion_id, summary);
+  }
+  const players = rows.results.map((row) => JSON.parse(row.profile_json)).filter((player) => player.last_rank_date >= today(cutoff.getTime())).map((player) => {
+    const title = summaries.get(String(player.id));
+    return {
+      ...player,
+      previous_rank: player.rank === null ? null : player.previous_rank,
+      tour_title_count: title?.count || 0,
+      tour_title_ids: title?.ids || [],
+      latest_title: title?.tour || title?.wta125 || null
+    };
+  }).sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity) || a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+  return { snapshot_date: date2, players, player_names: names ? JSON.parse(names.payload_json) : { by_wta_id: {}, by_name: {} } };
+}
+async function readChampions(db) {
+  const [metadata, records] = await Promise.all([
+    snapshotRow(db, "champions", "metadata"),
+    db.prepare("SELECT title_json FROM wta_titles ORDER BY end_date, json_extract(title_json, '$.start_date'), tournament_id").all()
+  ]);
+  if (!metadata && !records.results.length) return null;
+  const champions = records.results.map((row) => JSON.parse(row.title_json));
+  return { ...metadata ? JSON.parse(metadata.payload_json) : {}, champion_count: champions.length, champions };
+}
+async function readSnapshot(db, route, now = Date.now()) {
+  if (route.view === "players") return readPlayers(db);
+  if (route.view === "champions") return readChampions(db);
+  const row = await snapshotRow(db, route.view, route.scope);
+  if (!row || row.expires_at !== null && row.expires_at <= now) return null;
+  const payload = JSON.parse(row.payload_json);
+  if (route.view === "results") return {
+    ...payload,
+    matches: payload.matches.filter((match) => Date.parse(match.completed_at) >= now - DAY4 && Date.parse(match.completed_at) <= now)
+  };
+  if (route.view === "draws") return { ...payload, tournaments: payload.tournaments.filter((tournament2) => tournament2.start_date.slice(0, 10) <= today(now) && tournament2.end_date.slice(0, 10) >= today(now)) };
+  return payload;
+}
+async function publicState2(db, route, now = Date.now()) {
+  const [row, snapshot] = await Promise.all([readState2(db, route), readSnapshot(db, route, now)]);
+  const job = row?.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : null;
+  return {
+    snapshot,
+    refreshing: !!job || (row?.lease_until || 0) > now,
+    next_refresh_at: row?.next_refresh_at || 0,
+    progress: job?.progress || "",
+    error: row?.error || null
+  };
+}
+function snapshotStatement(db, route, token, kind, scope, payload, fetchedAt, expiresAt = null) {
+  return db.prepare("INSERT INTO wta_snapshots (kind, scope, payload_json, fetched_at, expires_at) SELECT ?, ?, ?, ?, ? WHERE EXISTS (SELECT 1 FROM wta_refresh_state WHERE kind = ? AND scope = ? AND lease_token = ?) ON CONFLICT(kind, scope) DO UPDATE SET payload_json = excluded.payload_json, fetched_at = excluded.fetched_at, expires_at = excluded.expires_at").bind(kind, scope, jsonText(payload), fetchedAt, expiresAt, ...stateKey(route), token);
+}
+function playerUpdates(previous, rankings, rankingDate, previousDate, nameIndex) {
+  const ranked = new Map(rankings.map((row) => [String(row.id), row]));
+  const profiles = new Map(previous.map((profile) => [String(profile.id), profile]));
+  for (const row of rankings) if (!profiles.has(String(row.id))) profiles.set(String(row.id), {
+    id: String(row.id),
+    name: row.name,
+    display_name: nameIndex.by_wta_id?.[row.id] || row.name,
+    aliases: [row.name],
+    country: row.country || "",
+    dob: row.dob || "",
+    rank: null,
+    previous_rank: null,
+    points: 0,
+    last_rank: row.rank,
+    last_rank_date: rankingDate,
+    best_rank: null,
+    best_rank_year: null
+  });
+  return [...profiles.values()].map((old) => {
+    const row = ranked.get(String(old.id));
+    const name = row?.name || old.name;
+    const advanced = previousDate < rankingDate;
+    const best = row && old.best_rank && row.rank <= old.best_rank ? row.rank : old.best_rank;
+    return {
+      ...old,
+      name,
+      display_name: nameIndex.by_wta_id?.[old.id] || (old.display_name && old.display_name !== old.name ? old.display_name : name),
+      aliases: [...new Set([...old.aliases || [], old.name, name].filter(Boolean))],
+      country: row?.country || old.country || "",
+      dob: row?.dob || old.dob || "",
+      rank: row?.rank ?? null,
+      points: row?.points ?? 0,
+      previous_rank: advanced ? old.rank ?? null : old.previous_rank ?? null,
+      last_rank: row?.rank ?? old.last_rank,
+      last_rank_date: row ? rankingDate : old.last_rank_date,
+      best_rank: best ?? null,
+      best_rank_year: row && old.best_rank && row.rank <= old.best_rank ? Number(rankingDate.slice(0, 4)) : old.best_rank_year ?? null
+    };
+  });
+}
+async function publishResult(db, route, token, result, job, now) {
+  const fetchedAt = job.started_at || iso(now);
+  const statements = [];
+  const add = (kind, scope, payload, expiry = null) => statements.push(snapshotStatement(
+    db,
+    route,
+    token,
+    kind,
+    scope,
+    payload,
+    fetchedAt,
+    expiry
+  ));
+  if (route.kind === "calendar") {
+    const old = await snapshotRow(db, "calendar");
+    add("calendar_source", "global", result.calendar_source, now + 18e5);
+    add("calendar", "global", mergeCalendar(old ? JSON.parse(old.payload_json) : null, result.calendar_source));
+  } else if (route.kind === "players") {
+    const [old, metadata, names] = await Promise.all([
+      db.prepare("SELECT profile_json FROM wta_players").all(),
+      snapshotRow(db, "players", "metadata"),
+      snapshotRow(db, "player_names")
+    ]);
+    const previousDate = metadata ? JSON.parse(metadata.payload_json).snapshot_date : "";
+    if (previousDate > result.ranking_date) throw new Error("Refusing an older WTA ranking week.");
+    const profiles = playerUpdates(
+      old.results.map((row) => JSON.parse(row.profile_json)),
+      result.rankings,
+      result.ranking_date,
+      previousDate,
+      names ? JSON.parse(names.payload_json) : {}
+    );
+    for (const profile of profiles) statements.push(db.prepare(
+      "INSERT INTO wta_players (player_id, profile_json, updated_at) SELECT ?, ?, ? WHERE EXISTS (SELECT 1 FROM wta_refresh_state WHERE kind = ? AND scope = ? AND lease_token = ?) ON CONFLICT(player_id) DO UPDATE SET profile_json = excluded.profile_json, updated_at = excluded.updated_at"
+    ).bind(profile.id, jsonText(profile), fetchedAt, ...stateKey(route), token));
+    add("players", "metadata", { snapshot_date: result.ranking_date });
+    add("rankings", "singles:" + result.ranking_date, result.rankings.map((row) => ({ id: String(row.id), name: row.name, country: row.country || "-", rank: row.rank })), now + DAY4);
+  } else if (route.kind === "matches") {
+    add("results", "global", result.results, now + DAY4);
+    const drawExpiry = result.draws.tournaments.reduce((latest, tournament2) => Math.max(
+      latest,
+      Date.parse(tournament2.end_date.slice(0, 10) + "T00:00:00Z") + DAY4
+    ), now + 3e5);
+    add("draws", "global", result.draws, drawExpiry);
+    add("event_matches", "global", result.event_matches, now + 3e5);
+    for (const title of result.champions) statements.push(db.prepare(
+      "INSERT INTO wta_titles (tournament_id, year, champion_id, end_date, title_json) SELECT ?, ?, ?, ?, ? WHERE EXISTS (SELECT 1 FROM wta_refresh_state WHERE kind = ? AND scope = ? AND lease_token = ?) ON CONFLICT(tournament_id, year) DO UPDATE SET champion_id = excluded.champion_id, end_date = excluded.end_date, title_json = json_patch(wta_titles.title_json, excluded.title_json)"
+    ).bind(
+      String(title.tournament_id),
+      title.year,
+      String(title.champion.id),
+      title.end_date,
+      jsonText(title),
+      ...stateKey(route),
+      token
+    ));
+    const previous = await snapshotRow(db, "champions", "metadata");
+    const metadata = previous ? JSON.parse(previous.payload_json) : {};
+    if (Array.isArray(metadata.missing_champions)) {
+      const complete = new Set(result.champions.map((title) => String(title.tournament_id) + ":" + title.year));
+      metadata.missing_champions = metadata.missing_champions.filter((title) => !complete.has(String(title.tournament_id) + ":" + title.year));
+      metadata.missing_champion_count = metadata.missing_champions.length;
+    }
+    const latestTitleDate = result.champions.reduce((latest, title) => title.end_date > latest ? title.end_date : latest, "");
+    if (latestTitleDate && (!metadata.through || latestTitleDate > metadata.through)) metadata.through = latestTitleDate;
+    add("champions", "metadata", { ...metadata, updated_at: iso(now) });
+  } else add("player_form", route.scope, result, now + 3e5);
+  statements.push(db.prepare("UPDATE wta_refresh_state SET next_refresh_at = ?, job_json = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, last_success_at = ?, error = NULL WHERE kind = ? AND scope = ? AND lease_token = ?").bind(now + COOLDOWN2, iso(now), ...stateKey(route), token));
+  await db.batch(statements);
+}
+async function advanceRefresh(db, route, ioFactory, now = Date.now()) {
+  await db.prepare("INSERT OR IGNORE INTO wta_refresh_state (kind, scope) VALUES (?, ?)").bind(...stateKey(route)).run();
+  const token = crypto.randomUUID();
+  const row = await db.prepare("UPDATE wta_refresh_state SET lease_token = ?, lease_until = ? WHERE kind = ? AND scope = ? AND lease_until <= ? AND (job_json IS NOT NULL OR next_refresh_at <= ?) RETURNING *").bind(token, now + LEASE2, ...stateKey(route), now, now).first();
+  if (!row) return { state: await publicState2(db, route), failed: false };
+  try {
+    const job = row.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : createSharedJob(route.kind, route.scope, now);
+    const collected = await advanceSharedJob(job, ioFactory(db));
+    if (collected.done) await publishResult(db, route, token, collected.result, collected.job, Date.now());
+    else await db.prepare("UPDATE wta_refresh_state SET job_json = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0, error = NULL WHERE kind = ? AND scope = ? AND lease_token = ?").bind(jsonText(collected.job), Date.now() + JOB_LIFETIME2, ...stateKey(route), token).run();
+    return { state: await publicState2(db, route), failed: false };
+  } catch {
+    await db.prepare("UPDATE wta_refresh_state SET job_json = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, next_refresh_at = ?, error = ? WHERE kind = ? AND scope = ? AND lease_token = ?").bind(Date.now() + BACKOFF, "WTA could not be refreshed. The last saved data is still available.", ...stateKey(route), token).run();
+    return { state: await publicState2(db, route), failed: true };
+  }
+}
+async function sharedDataResponse(request, env, headers = {}, ioFactory = createSharedIO) {
+  const json = (payload, status = 200) => Response.json(payload, { status, headers });
+  const route = getSharedRoute(new URL(request.url).pathname);
+  if (!route) return json({ error: "Unknown shared data endpoint." }, 404);
+  if (request.method !== (route.refresh ? "POST" : "GET")) return json({ error: "Method not allowed." }, 405);
+  if (!env.ENTRY_LISTS_DB) return json({ error: "Shared data storage is not configured." }, 503);
+  try {
+    if (!route.refresh) return json(await publicState2(env.ENTRY_LISTS_DB, route));
+    const result = await advanceRefresh(env.ENTRY_LISTS_DB, route, ioFactory);
+    return json(result.state, result.failed ? 502 : result.state.refreshing ? 202 : 200);
+  } catch {
+    return json({ error: "Shared data storage is unavailable. Check the shared schema and baseline import." }, 503);
+  }
+}
+async function pruneSharedData(db, now = Date.now()) {
+  const expired = await db.prepare("SELECT kind, scope, payload_json FROM wta_snapshots WHERE kind IN ('results', 'draws')").all();
+  for (const row of expired.results) {
+    const route = { kind: "matches", scope: "global", view: row.kind };
+    const payload = await readSnapshot(db, route, now);
+    if (payload && jsonText(payload) !== row.payload_json) await db.prepare(
+      "UPDATE wta_snapshots SET payload_json = ? WHERE kind = ? AND scope = ? AND payload_json = ? AND NOT EXISTS (SELECT 1 FROM wta_refresh_state WHERE kind = 'matches' AND scope = 'global' AND lease_until > ?)"
+    ).bind(jsonText(payload), row.kind, row.scope, row.payload_json, now).run();
+  }
+  await db.batch([
+    db.prepare("DELETE FROM wta_snapshots WHERE expires_at IS NOT NULL AND expires_at <= ?").bind(now),
+    db.prepare("UPDATE wta_refresh_state SET job_json = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0 WHERE job_expires_at <= ? AND lease_until <= ? AND job_json IS NOT NULL").bind(now, now),
+    db.prepare("DELETE FROM wta_refresh_state WHERE kind = 'player_form' AND job_json IS NULL AND lease_until <= ? AND next_refresh_at <= ? AND NOT EXISTS (SELECT 1 FROM wta_snapshots WHERE kind = 'player_form' AND wta_snapshots.scope = wta_refresh_state.scope)").bind(now, now)
+  ]);
+}
+async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
+  if (!env.ENTRY_LISTS_DB) return false;
+  const db = env.ENTRY_LISTS_DB;
+  try {
+    await pruneSharedData(db);
+    const now = Date.now();
+    const inflight = await db.prepare("SELECT kind, scope FROM wta_refresh_state WHERE job_json IS NOT NULL AND lease_until <= ? ORDER BY job_expires_at LIMIT 1").bind(now).first();
+    if (inflight) {
+      await advanceRefresh(db, { ...inflight, view: inflight.kind === "matches" ? "results" : inflight.kind }, ioFactory);
+      return true;
+    }
+    const candidates = [];
+    for (const [kind, view, snapshotKind, scope, interval] of [
+      ["calendar", "calendar", "calendar_source", "global", 18e5],
+      ["matches", "results", "results", "global", 3e5],
+      ["players", "players", "players", "metadata", 7 * DAY4]
+    ]) {
+      const route = { kind, scope: "global", view };
+      const [saved, gate] = await Promise.all([snapshotRow(db, snapshotKind, scope), readState2(db, route)]);
+      const sourceDate = kind === "players" && saved ? JSON.parse(saved.payload_json).snapshot_date : null;
+      const due = kind === "players" ? !sourceDate || sourceDate < createSharedJob("players", "global", now).ranking_date : !saved || now - Date.parse(saved.fetched_at) >= interval;
+      if (due && (gate?.lease_until || 0) <= now && (gate?.next_refresh_at || 0) <= now) {
+        candidates.push({ route, nextRefresh: gate?.next_refresh_at || 0 });
+      }
+    }
+    candidates.sort((a, b) => a.nextRefresh - b.nextRefresh);
+    if (candidates.length) {
+      await advanceRefresh(db, candidates[0].route, ioFactory);
+      return true;
+    }
+  } catch {
+    console.error("Shared data refresh is unavailable; check the shared schema and baseline import.");
+  }
+  return false;
+}
+
 // cloudflare/worker-source.mjs
 var ALLOWED_ORIGIN = "https://tomistgg.github.io";
 var PHOTO_TYPES = /* @__PURE__ */ new Set(["image/jpeg", "image/png", "image/webp"]);
 var MAX_PHOTO_BYTES = 10 * 1024 * 1024;
 var driveToken;
-function base64url(bytes) {
-  return btoa(String.fromCharCode(...bytes)).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+function base64url(bytes2) {
+  return btoa(String.fromCharCode(...bytes2)).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
 async function googleAccessToken(credentials) {
   if (driveToken?.credentials === credentials && driveToken.expires > Date.now()) return driveToken.promise;
@@ -1117,14 +2184,14 @@ async function playerPhotos(request, env, ctx, headers) {
     if (type !== file.mimeType || !PHOTO_TYPES.has(type) || Number(response.headers.get("Content-Length")) > MAX_PHOTO_BYTES) {
       throw new Error("Unsupported player image");
     }
-    const bytes = new Uint8Array(await response.arrayBuffer());
-    const png = bytes[0] === 137 && bytes[1] === 80 && bytes[2] === 78 && bytes[3] === 71;
-    const jpeg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
-    const webp = String.fromCharCode(...bytes.slice(0, 4)) === "RIFF" && String.fromCharCode(...bytes.slice(8, 12)) === "WEBP";
-    if (bytes.length > MAX_PHOTO_BYTES || !{ "image/png": png, "image/jpeg": jpeg, "image/webp": webp }[type]) {
+    const bytes2 = new Uint8Array(await response.arrayBuffer());
+    const png = bytes2[0] === 137 && bytes2[1] === 80 && bytes2[2] === 78 && bytes2[3] === 71;
+    const jpeg = bytes2[0] === 255 && bytes2[1] === 216 && bytes2[2] === 255;
+    const webp = String.fromCharCode(...bytes2.slice(0, 4)) === "RIFF" && String.fromCharCode(...bytes2.slice(8, 12)) === "WEBP";
+    if (bytes2.length > MAX_PHOTO_BYTES || !{ "image/png": png, "image/jpeg": jpeg, "image/webp": webp }[type]) {
       throw new Error("Invalid player image");
     }
-    const photo = new Response(bytes, { headers: {
+    const photo = new Response(bytes2, { headers: {
       ...headers,
       "Content-Type": type,
       "Cache-Control": "public, max-age=300"
@@ -1140,7 +2207,8 @@ var worker_source_default = {
     const origin = request.headers.get("Origin");
     const url = new URL(request.url);
     const entryRoute = ["/entry-lists", "/entry-lists/refresh"].includes(url.pathname);
-    const methods = url.pathname === "/entry-lists/refresh" ? "POST, OPTIONS" : "GET, OPTIONS";
+    const sharedRoute = getSharedRoute(url.pathname);
+    const methods = url.pathname === "/entry-lists/refresh" || sharedRoute?.refresh ? "POST, OPTIONS" : "GET, OPTIONS";
     const headers = {
       "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
       "Access-Control-Allow-Methods": methods,
@@ -1159,7 +2227,7 @@ var worker_source_default = {
     if (!methods.split(", ").includes(request.method)) {
       return new Response(null, { status: 405, headers: { ...headers, Allow: methods } });
     }
-    if (entryRoute) {
+    if (entryRoute || sharedRoute) {
       if (request.method === "POST" && origin !== ALLOWED_ORIGIN) {
         return json({ error: "Website origin is required for refresh." }, 403);
       }
@@ -1171,7 +2239,7 @@ var worker_source_default = {
           return json({ error: "Refresh accepts an empty request only." }, 400);
         }
       }
-      return entryListResponse(request, env, headers);
+      return entryRoute ? entryListResponse(request, env, headers) : sharedDataResponse(request, env, headers);
     }
     if (url.pathname === "/health") {
       return json({ ok: true });
@@ -1217,7 +2285,10 @@ var worker_source_default = {
     }
   },
   async scheduled(controller, env, ctx) {
-    ctx.waitUntil(scheduledEntryRefresh(env));
+    ctx.waitUntil((async () => {
+      await scheduledSharedRefresh(env);
+      await scheduledEntryRefresh(env);
+    })());
   }
 };
 export {
