@@ -65,6 +65,95 @@ test("calendar refresh preserves ITF/custom and uncovered rows while removing ca
     assert.equal(previous.weeks["2026-11-09"][0][1], "Old name");
 });
 
+test("walkovers advance either singles player in the bracket without adding a played result or form slot", () => {
+    for (const [code, expected] of [["6", "1"], ["7", "2"]]) {
+        const walkover = match({ MatchID: "LS002", RoundID: "S", Winner: code });
+        assert.equal(bracketRounds([walkover]).F[0].players[0].id, expected);
+        assert.equal(parseMatch(walkover, event(), now), null);
+        assert.deepEqual(mergePlayerForm(expected, [], [{ tournament: event(), matches: [walkover] }], now), Array(10).fill(""));
+    }
+    assert.equal(bracketRounds([match({ MatchID: "LS002", Winner: "6", MatchState: "U" })]).F[0].players[0], null);
+});
+
+test("title catch-up finds a Sunday final after Wednesday without expanding the live results window", async () => {
+    const wednesday = Date.parse("2026-11-18T12:00:00Z");
+    const job = createSharedJob("matches", "global", wednesday,
+        { checked_through: "2026-11-12", pending: [], known: [] });
+    const paths = [];
+    const { result } = await finish(job, {
+        cachedCalendar: async () => ({ from: "2026-01-01", to: "2027-12-31", items: [event()] }),
+        fetchJSON: async path => {
+            paths.push(path);
+            return { matches: [match({ MatchTimeStamp: "2026-11-15T10:00:00Z" })] };
+        },
+    });
+    assert.deepEqual(paths, ["/api/tennis/tournaments/1/2026/matches"]);
+    assert.equal(result.champions[0].tournament_id, "1");
+    assert.deepEqual(result.results.matches, []);
+    assert.deepEqual(result.draws.tournaments, []);
+    assert.deepEqual(result.event_matches, [], "old draw bodies are not stored with current event responses");
+    assert.deepEqual(result.title_tracking, { version: 1, checked_through: "2026-11-18", pending: [] });
+});
+
+test("title discovery resumes across a long outage and year boundary rather than trusting title coverage metadata", async () => {
+    const timestamp = Date.parse("2027-02-10T12:00:00Z");
+    const ended = event(8, { startDate: "2026-12-21", endDate: "2026-12-27" });
+    const job = createSharedJob("matches", "global", timestamp,
+        { checked_through: "2026-11-12", pending: [], known: [] });
+    assert.equal(job.from, "2026-10-13");
+    let calendarCalls = 0;
+    const { result } = await finish(job, {
+        cachedCalendar: async () => ({ from: "2027-01-01", to: "2028-12-31", items: [] }),
+        fetchJSON: async (path, params) => {
+            if (!path.endsWith("/matches")) {
+                calendarCalls++;
+                assert.equal(params.from, "2026-10-13");
+                return { content: [ended], pageInfo: { page: 0, numEntries: 1 } };
+            }
+            return { matches: [match({ MatchTimeStamp: "2026-12-27T10:00:00Z" })] };
+        },
+    });
+    assert.equal(calendarCalls, 1, "a current-season-only calendar cannot cover the outage");
+    assert.equal(result.champions[0].tournament_id, "8");
+    assert.equal(result.title_tracking.checked_through, "2027-02-10");
+});
+
+test("title bootstrap scans missing editions in the current season and rotates unavailable old finals", async () => {
+    const old = [1, 2, 3].map(id => event(id, { startDate: "2026-02-02", endDate: "2026-02-08" }));
+    const current = event(10);
+    const tracking = { pending: [], known: ["3:2026"] };
+    let failing = true;
+    const calls = [];
+    const io = {
+        cachedCalendar: async () => ({ from: "2025-12-01", to: "2027-12-31", items: [...old, current] }),
+        fetchJSON: async path => {
+            calls.push(path);
+            if (!path.includes("/10/") && failing) throw new Error("Old final unavailable");
+            return { matches: [match()] };
+        },
+    };
+    const first = await finish(createSharedJob("matches", "global", now, tracking), io);
+    assert.equal(first.result.results.matches.length, 1, "old source failures do not prevent publishing current results");
+    assert.equal(first.result.draws.tournaments.length, 1);
+    assert.deepEqual(first.result.title_tracking.pending.map(item => item.tournamentGroup.id), [1, 2]);
+    assert.equal(calls.some(path => path.includes("/3/")), false, "confirmed past titles need no historical fetch");
+    failing = false;
+    calls.length = 0;
+    const recovered = await finish(createSharedJob("matches", "global", now + 120001,
+        { ...first.result.title_tracking, known: ["3:2026", "10:2026"] }), io);
+    assert.deepEqual(recovered.result.champions.map(title => title.tournament_id).sort(), ["1", "10", "2"]);
+    assert.deepEqual(recovered.result.title_tracking.pending, []);
+    assert.equal(calls.length, 3, "pending finals survive a resumed job even though they predate the new checkpoint");
+
+    const queue = old.concat(event(4, { startDate: "2026-03-02", endDate: "2026-03-08" }));
+    const rotated = await finish(createSharedJob("matches", "global", now,
+        { checked_through: "2026-11-11", pending: queue, known: [] }), { ...io,
+        cachedCalendar: async () => ({ from: "2025-12-01", to: "2027-12-31", items: [] }),
+        fetchJSON: async () => { throw new Error("Not available yet"); } });
+    assert.deepEqual(rotated.result.title_tracking.pending.map(item => item.tournamentGroup.id), [3, 4, 1, 2],
+        "only two old editions are tried per update, and failures move behind untried editions");
+});
+
 test("calendar pagination resumes bounded jobs and rejects repeated/truncated responses", async () => {
     let calls = 0;
     const io = { async fetchJSON(path, params) {

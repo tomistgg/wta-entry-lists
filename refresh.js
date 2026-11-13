@@ -16,9 +16,16 @@
     let lastChecked = 0;
     let checkedExpiry = 0;
     let module;
+    let moduleRetry = 0;
 
     function entryModule() {
-        return module ||= import("./entry-lists.mjs?v=2");
+        // Browsers remember failed module URLs, so a retry needs a fresh URL.
+        const moduleURL = "./entry-lists.mjs?v=3" + (moduleRetry ? "&retry=" + moduleRetry : "");
+        return module ||= import(moduleURL).catch(error => {
+            module = undefined;
+            moduleRetry++;
+            throw error;
+        });
     }
 
     function validDate(value) {

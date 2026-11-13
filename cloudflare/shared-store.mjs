@@ -7,6 +7,7 @@ const COOLDOWN = 120000;
 const LEASE = 90000;
 const JOB_LIFETIME = 900000;
 const BACKOFF = 15000;
+const MAX_FORM_JOBS = 4;
 const encoder = new TextEncoder();
 const iso = value => new Date(value).toISOString();
 const today = value => iso(value).slice(0, 10);
@@ -155,6 +156,7 @@ async function publishResult(db, route, token, result, job, now) {
             Date.parse(tournament.end_date.slice(0, 10) + "T00:00:00Z") + DAY), now + 300000);
         add("draws", "global", result.draws, drawExpiry);
         add("event_matches", "global", result.event_matches, now + 300000);
+        add("title_tracking", "global", result.title_tracking);
         for (const title of result.champions) statements.push(db.prepare(
             "INSERT INTO wta_titles (tournament_id, year, champion_id, end_date, title_json) SELECT ?, ?, ?, ?, ? " +
             "WHERE EXISTS (SELECT 1 FROM wta_refresh_state WHERE kind = ? AND scope = ? AND lease_token = ?) " +
@@ -180,14 +182,38 @@ async function publishResult(db, route, token, result, job, now) {
 }
 
 async function advanceRefresh(db, route, ioFactory, now = Date.now()) {
+    if (route.kind === "player_form" && !await db.prepare("SELECT player_id FROM wta_players WHERE player_id = ?")
+        .bind(route.scope).first()) return { status: 404, state: { snapshot: null, refreshing: false,
+        next_refresh_at: 0, progress: "", error: "This player is not in the saved WTA directory." } };
     await db.prepare("INSERT OR IGNORE INTO wta_refresh_state (kind, scope) VALUES (?, ?)").bind(...stateKey(route)).run();
     const token = crypto.randomUUID();
     const row = await db.prepare("UPDATE wta_refresh_state SET lease_token = ?, lease_until = ? " +
-        "WHERE kind = ? AND scope = ? AND lease_until <= ? AND (job_json IS NOT NULL OR next_refresh_at <= ?) RETURNING *")
-        .bind(token, now + LEASE, ...stateKey(route), now, now).first();
-    if (!row) return { state: await publicState(db, route), failed: false };
+        "WHERE kind = ? AND scope = ? AND lease_until <= ? AND (job_json IS NOT NULL OR next_refresh_at <= ?) " +
+        "AND (kind != 'player_form' OR (job_json IS NOT NULL AND job_expires_at > ?) OR " +
+        "(SELECT count(*) FROM wta_refresh_state WHERE kind = 'player_form' AND " +
+        "(lease_until > ? OR (job_json IS NOT NULL AND job_expires_at > ?))) < ?) RETURNING *")
+        .bind(token, now + LEASE, ...stateKey(route), now, now, now, now, now, MAX_FORM_JOBS).first();
+    if (!row) {
+        const state = await publicState(db, route);
+        if (route.kind === "player_form" && !state.refreshing && state.next_refresh_at <= now) {
+            return { status: 429, state: { ...state, next_refresh_at: now + BACKOFF,
+                error: "Several player forms are updating. Please try again shortly." } };
+        }
+        return { state, failed: false };
+    }
     try {
-        const job = row.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : createSharedJob(route.kind, route.scope, now);
+        let job = row.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : null;
+        if (!job || (route.kind === "matches" && job.title_scan?.version !== 1)) {
+            let titles = null;
+            if (route.kind === "matches") {
+                const [tracking, known] = await Promise.all([
+                    snapshotRow(db, "title_tracking"), db.prepare("SELECT tournament_id, year FROM wta_titles").all(),
+                ]);
+                titles = { ...(tracking ? JSON.parse(tracking.payload_json) : { pending: [] }),
+                    known: known.results.map(title => String(title.tournament_id) + ":" + title.year) };
+            }
+            job = createSharedJob(route.kind, route.scope, now, titles);
+        }
         const collected = await advanceSharedJob(job, ioFactory(db));
         if (collected.done) await publishResult(db, route, token, collected.result, collected.job, Date.now());
         else await db.prepare("UPDATE wta_refresh_state SET job_json = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0, " +
@@ -211,7 +237,9 @@ export async function sharedDataResponse(request, env, headers = {}, ioFactory =
     try {
         if (!route.refresh) return json(await publicState(env.ENTRY_LISTS_DB, route));
         const result = await advanceRefresh(env.ENTRY_LISTS_DB, route, ioFactory);
-        return json(result.state, result.failed ? 502 : result.state.refreshing ? 202 : 200);
+        const response = json(result.state, result.status || (result.failed ? 502 : result.state.refreshing ? 202 : 200));
+        if (result.status === 429) response.headers.set("Retry-After", String(BACKOFF / 1000));
+        return response;
     } catch {
         return json({ error: "Shared data storage is unavailable. Check the shared schema and baseline import." }, 503);
     }
@@ -234,6 +262,8 @@ export async function pruneSharedData(db, now = Date.now()) {
         db.prepare("DELETE FROM wta_refresh_state WHERE kind = 'player_form' AND job_json IS NULL AND lease_until <= ? " +
             "AND next_refresh_at <= ? AND NOT EXISTS (SELECT 1 FROM wta_snapshots WHERE kind = 'player_form' " +
             "AND wta_snapshots.scope = wta_refresh_state.scope)").bind(now, now),
+        db.prepare("DELETE FROM wta_refresh_state WHERE kind = 'player_form' AND lease_until <= ? " +
+            "AND NOT EXISTS (SELECT 1 FROM wta_players WHERE player_id = wta_refresh_state.scope)").bind(now),
     ]);
 }
 
@@ -243,13 +273,11 @@ export async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
     try {
         await pruneSharedData(db);
         const now = Date.now();
-        const inflight = await db.prepare("SELECT kind, scope FROM wta_refresh_state WHERE job_json IS NOT NULL " +
-            "AND lease_until <= ? ORDER BY job_expires_at LIMIT 1").bind(now).first();
-        if (inflight) {
-            await advanceRefresh(db, { ...inflight, view: inflight.kind === "matches" ? "results" : inflight.kind }, ioFactory);
-            return true;
-        }
-        const candidates = [];
+        const inflight = await db.prepare("SELECT kind, scope, job_expires_at FROM wta_refresh_state WHERE job_json IS NOT NULL " +
+            "AND lease_until <= ? AND job_expires_at > ?").bind(now, now).all();
+        // Job expiry is renewed after each stage; subtracting its lifetime gives the last stage's turn.
+        const candidates = inflight.results.map(row => ({ route: { kind: row.kind, scope: row.scope,
+            view: row.kind === "matches" ? "results" : row.kind }, nextRefresh: row.job_expires_at - JOB_LIFETIME }));
         for (const [kind, view, snapshotKind, scope, interval] of [
             ["calendar", "calendar", "calendar_source", "global", 1800000],
             ["matches", "results", "results", "global", 300000],
@@ -261,7 +289,8 @@ export async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
             const due = kind === "players"
                 ? (!sourceDate || sourceDate < createSharedJob("players", "global", now).ranking_date)
                 : (!saved || now - Date.parse(saved.fetched_at) >= interval);
-            if (due && (gate?.lease_until || 0) <= now && (gate?.next_refresh_at || 0) <= now) {
+            if (due && (gate?.lease_until || 0) <= now && (gate?.next_refresh_at || 0) <= now &&
+                !candidates.some(candidate => candidate.route.kind === kind && candidate.route.scope === "global")) {
                 candidates.push({ route, nextRefresh: gate?.next_refresh_at || 0 });
             }
         }

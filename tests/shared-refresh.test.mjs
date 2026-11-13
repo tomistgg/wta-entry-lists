@@ -5,7 +5,7 @@ import vm from "node:vm";
 import { addDays, monday } from "../entry-lists.mjs";
 
 const source = fs.readFileSync(new URL("../refresh.js", import.meta.url), "utf8")
-    .replace('import("./entry-lists.mjs?v=2")', "Promise.resolve(testEntryModule)");
+    .replace("import(moduleURL)", "testImport(moduleURL)");
 const tick = () => new Promise(resolve => setImmediate(resolve));
 const settle = async () => { for (let count = 0; count < 5; count++) await tick(); };
 const referenceTime = Date.parse("2026-11-11T10:00:00Z");
@@ -28,13 +28,14 @@ function panel(id, view = "main") {
     return { id, style: { display: "block" }, querySelector: key => views.get(key) || { id, selector: key }, views };
 }
 
-function tab(handler, { view = null } = {}) {
+function tab(handler, { view = null, loadModule } = {}) {
     let now = referenceTime;
     let panels = view ? [panel(example.id, view)] : [];
     let buttons = [];
     const intervals = [];
     const listeners = {};
     const requests = [];
+    const moduleRequests = [];
     const renderCalls = [];
     const historyCalls = [];
     const status = { textContent: "Loading saved entry lists" };
@@ -65,6 +66,10 @@ function tab(handler, { view = null } = {}) {
                     content: { panels: models.map(model => panel(model.id)) } };
             },
         },
+        testImport(url) {
+            moduleRequests.push(url);
+            return loadModule ? loadModule(url, context.testEntryModule) : Promise.resolve(context.testEntryModule);
+        },
         fetch: async (url, options) => {
             requests.push({ url, options });
             assert.equal(new URL(url).searchParams.get("history"), "1", "the current client requests imported history");
@@ -82,7 +87,7 @@ function tab(handler, { view = null } = {}) {
         },
     };
     vm.runInNewContext(source, context);
-    return { status, initialNote, initialMenu, button, requests, renderCalls, historyCalls, content, listeners,
+    return { status, initialNote, initialMenu, button, requests, moduleRequests, renderCalls, historyCalls, content, listeners,
         panels: () => panels,
         advance(ms) { now += ms; intervals.forEach(listener => listener()); },
     };
@@ -133,6 +138,28 @@ test("reload joins an existing refresh, while ordinary opening only reads the sa
     const idle = tab(() => Response.json(state(snapshot())));
     await settle();
     assert.deepEqual(idle.requests.map(request => request.options.method), ["GET"]);
+});
+
+test("Refresh retries a failed module download without reusing the browser's failed module URL", async () => {
+    let attempts = 0;
+    const browser = tab(() => Response.json(state(snapshot())), {
+        loadModule(url, module) {
+            attempts++;
+            return attempts === 1 ? Promise.reject(new Error("Network unavailable")) : Promise.resolve(module);
+        },
+    });
+    await settle();
+    assert.equal(browser.requests.length, 0);
+    assert.match(browser.status.textContent, /Click Refresh to try again/);
+    assert.equal(browser.button.disabled, false);
+    await browser.button.click();
+    assert.equal(browser.renderCalls.length, 1);
+    assert.match(browser.status.textContent, /^Updated and saved at /);
+    assert.equal(browser.moduleRequests.length, 2);
+    assert.match(browser.moduleRequests[0], /^\.\/entry-lists\.mjs\?v=\d+$/);
+    assert.equal(browser.moduleRequests[1], browser.moduleRequests[0] + "&retry=1");
+    await browser.button.click();
+    assert.equal(attempts, 2, "a successful module is reused without further cache busting");
 });
 
 test("older shared responses cannot replace newer D1 lists or history", async () => {

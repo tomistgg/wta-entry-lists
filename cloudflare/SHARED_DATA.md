@@ -25,6 +25,11 @@ An incomplete refresh returns 202 with progress; further POSTs advance the same 
 cooldown because one event response supplies all three. Calendar and rankings have separate global
 jobs, while form jobs are scoped by WTA player ID.
 
+Form refresh accepts only IDs already present in the saved WTA player profiles. Unknown IDs return
+404 before collection or job creation. At most four form jobs can be active or queued at once;
+another new job returns 429 with a 15-second retry delay. Visitors can still advance an existing
+job when all slots are occupied. Admission and lease acquisition are one atomic database update.
+
 ## Collection and storage
 
 Each shared step has at most four upstream-request opportunities, counting cache hits. Jobs and
@@ -50,16 +55,65 @@ twice in the same week. Newly discovered players can have unknown historical fie
 not invented as a career high. `wta_titles` remains authoritative for title counts and latest titles.
 Finals upsert by edition, retain saved metadata, and correct changed winners without duplicating titles.
 
+Match jobs also save a durable title-discovery checkpoint and a queue of unconfirmed ended editions
+in the existing `wta_snapshots` table. After an outage, calendar discovery resumes from that checkpoint
+instead of relying on the rolling results window or the imported title coverage date. The checkpoint,
+queue, titles and public feeds publish in one transaction. A failed or incomplete update cannot skip
+the gap. An older in-progress match job restarts with this tracking when the new Worker is installed.
+
+Each update tries at most two queued past finals in addition to the normal current events. Unavailable
+finals move to the back of the queue, allowing current results and draws to publish while they wait.
+Only compact tournament metadata stays queued; old full draw responses are not retained. Confirmed
+old editions leave the queue. Recently completed editions still get the normal correction rereads.
+On first use, discovery covers missing titles in the current season. Unknown gaps before that season
+still need an explicit historical backfill; the imported baseline remains available.
+
+Completed walkovers advance the appropriate player into unresolved parent bracket slots. They do
+not count as played matches in recent results or player form.
+
 ## Background updates and expiry
 
 The existing one-minute trigger advances one bounded shared job step and then the existing Entry Lists
-step. Due shared feeds are selected fairly so one failing source does not prevent other updates.
+step. Due shared feeds and resumable jobs share the same queue, ordered by their eligibility or last
+stage time. Long-running form or match jobs yield between stages, so they cannot hold overdue
+rankings, results, or calendars behind them. No new scheduler table or schema migration is needed.
 Calendars refresh after 30 minutes, match feeds after five minutes, and rankings when a new Madrid
 ranking week is due. Form caches are collected on request, not by scanning every player.
 
 Reads filter expired result matches and inactive draws. Scheduled cleanup trims old feeds, expires
 source/form caches and abandoned jobs, and retains career/title statistics and curated names.
 Active brackets remain available through tournament end dates if a later request fails.
+
+## Local preview
+
+The tracked preview launchers use a temporary local D1 database; restarting the backend resets its
+preview data. They need no Cloudflare login or production write access. Public WTA source requests
+and the initial saved entry-list copy use GET through the deployed relay. Refresh writes stay local.
+
+If the baseline plan is not already present, prepare it from the sibling checkouts:
+
+```powershell
+cd ../haute_cadence
+python -B -m cloudflare.prepare_import
+cd ../wta-tracker
+npm.cmd ci
+node cloudflare/prepare-shared-import.mjs ../haute_cadence/cloudflare/.local/import-bundle.json .wrangler/shared-import
+```
+
+Start these in separate terminals, leaving the backend running:
+
+```powershell
+# From wta-tracker: shared local backend at 8787
+npm.cmd run preview:backend
+# From wta-tracker: WTA Tracker at 8766
+npm.cmd run preview:site
+# From haute_cadence: Haute Cadence at 8765
+python -B serve_site.py --port 8765
+```
+
+Open <http://127.0.0.1:8766/> and <http://127.0.0.1:8765/>. The launchers listen only on the local
+machine and serve the public website assets, not repository files or credentials. Haute Cadence's
+photo preview still reads the existing photo relay. Stop old launchers before starting replacements.
 
 ## Validation and publication
 

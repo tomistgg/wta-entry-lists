@@ -4,6 +4,9 @@
   "scripts": {
     "build:worker": "node cloudflare/build-worker.mjs",
     "test:entries": "node --test tests/*.test.mjs cloudflare/*.test.mjs",
+    "check": "npm run build:worker && npm run test:entries",
+    "preview:backend": "npm run build:worker && node cloudflare/preview-backend.mjs",
+    "preview:site": "node cloudflare/serve-local.mjs",
     "deploy:worker:dry-run": "npm run build:worker && npx --yes wrangler@4.160.1 deploy --config cloudflare/wrangler.json --dry-run --outdir .wrangler/deploy-preview",
     "deploy:worker": "npm run build:worker && npm run test:entries && npx --yes wrangler@4.160.1 deploy --config cloudflare/wrangler.json --strict"
   },
