@@ -23,13 +23,17 @@
     cursor: default;
 }
 
-#refresh-status {
+#refresh-status, #pdf-status {
     display: block;
     max-width: 210px;
     margin-top: 6px;
     font-size: 0.65rem;
     line-height: 1.4;
     white-space: normal;
+}
+
+#pdf-status:empty {
+    margin-top: 0;
 }
 
 @media (max-width: 768px) {

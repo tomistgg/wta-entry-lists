@@ -39,7 +39,7 @@ function rankedPlayer(row, expectedDate) {
     return { id, name: name.trim(), country: player.countryCode || "", dob, rank: row.ranking, points: row.points };
 }
 
-export function createSharedJob(kind, scope = "global", nowMs = Date.now()) {
+export function createSharedJob(kind, scope = "global", nowMs = Date.now(), titles = null) {
     if (!KINDS.has(kind) || (kind === "player_form" ? !/^[1-9]\d*$/.test(String(scope)) : scope !== "global") ||
         !Number.isFinite(nowMs)) throw new Error("Unknown shared WTA collection job.");
     const today = madridDate(nowMs), year = Number(today.slice(0, 4));
@@ -47,22 +47,47 @@ export function createSharedJob(kind, scope = "global", nowMs = Date.now()) {
         stage: kind === "players" ? "rankings" : kind === "calendar" ? "calendar" : "calendar_lookup",
         progress: "Starting shared WTA refresh…" };
     if (kind === "players") return { ...job, ranking_date: monday(today), page: 0, total: null, rankings: [] };
-    return { ...job, from: kind === "calendar" ? isoDate(Date.UTC(year, 0, 1) - 14 * DAY) : isoDate(nowMs - 30 * DAY),
+    const created = { ...job, from: kind === "calendar" ? isoDate(Date.UTC(year, 0, 1) - 14 * DAY) : isoDate(nowMs - 30 * DAY),
         to: kind === "calendar" ? `${year + 1}-12-31` : isoDate(nowMs + 2 * DAY),
         page: 0, total: null, calendar_items: [], event_matches: [], index: 0,
         ...(kind === "player_form" ? { history: [], history_years: [new Date(nowMs).getUTCFullYear() - 1,
             new Date(nowMs).getUTCFullYear()], history_index: 0, history_page: 0, history_pages: [],
         history_total: null, history_count: 0 } : {}) };
+    if (kind === "matches" && titles) {
+        const since = titles.checked_through || `${year}-01-01`;
+        if (!validDate(since) || since > today || !Array.isArray(titles.pending) || !Array.isArray(titles.known)) {
+            throw new Error("The saved title checkpoint is invalid.");
+        }
+        const from = isoDate(Date.parse(since + "T00:00:00Z") - 30 * DAY);
+        if (from < created.from) created.from = from;
+        created.title_scan = { version: 1, since, pending: titles.pending.map(tournament), known: titles.known,
+            work: [], index: 0, champions: [], attempted: [] };
+    }
+    return created;
 }
+
+const edition = item => String(item.tournamentGroup.id) + ":" + item.year;
+const titleEdition = title => String(title.tournament_id) + ":" + title.year;
 
 function selectEvents(job, source) {
     const firstDay = isoDate(job.now_ms - 2 * DAY), weekStart = monday(isoDate(job.now_ms));
     const earliest = firstDay < weekStart ? firstDay : weekStart;
-    return source.items.map(tournament).filter(item => eligibleTournament(item) && item.startDate <= job.to && item.endDate >= earliest);
+    const items = source.items.map(tournament);
+    if (job.title_scan) {
+        const scan = job.title_scan, known = new Set(scan.known);
+        const pending = new Map(scan.pending.filter(item => !known.has(edition(item))).map(item => [edition(item), item]));
+        for (const item of items) {
+            const key = edition(item);
+            if (!eligibleTournament(item) || item.endDate > job.today || known.has(key)) pending.delete(key);
+            else if (pending.has(key) || item.endDate >= scan.since) pending.set(key, item);
+        }
+        scan.pending = [...pending.values()];
+    }
+    return items.filter(item => eligibleTournament(item) && item.startDate <= job.to && item.endDate >= earliest);
 }
 
 function completeMatches(job) {
-    const now = job.now_ms, today = isoDate(now), matches = new Map(), champions = [];
+    const now = job.now_ms, today = isoDate(now), matches = new Map(), champions = [...(job.title_scan?.champions || [])];
     const tournaments = [];
     for (const event of job.event_matches) {
         for (const row of event.matches) {
@@ -78,9 +103,17 @@ function completeMatches(job) {
             start_date: item.startDate, end_date: item.endDate, rounds: bracketRounds(event.matches) });
     }
     tournaments.sort((a, b) => a.category.localeCompare(b.category) || a.city.localeCompare(b.city) || a.id.localeCompare(b.id));
-    return { results: { updated_at: job.started_at, window_start: new Date(now - DAY).toISOString(),
+    const result = { results: { updated_at: job.started_at, window_start: new Date(now - DAY).toISOString(),
         matches: [...matches.values()].sort((a, b) => b.completed_at.localeCompare(a.completed_at) || b.id.localeCompare(a.id)) },
     draws: { updated_at: job.started_at, date: today, tournaments }, champions, event_matches: job.event_matches };
+    if (job.title_scan) {
+        const scan = job.title_scan, confirmed = new Set([...scan.known, ...champions.map(titleEdition)]);
+        const attempted = new Set(scan.attempted);
+        const pending = scan.pending.filter(item => !confirmed.has(edition(item)));
+        result.title_tracking = { version: 1, checked_through: job.today,
+            pending: [...pending.filter(item => !attempted.has(edition(item))), ...pending.filter(item => attempted.has(edition(item)))] };
+    }
+    return result;
 }
 
 function compactHistory(rows) {
@@ -194,6 +227,13 @@ export async function advanceSharedJob(job, io) {
             }
         } else if (job.stage === "events") {
             if (job.index === job.tournaments.length) {
+                if (job.title_scan) {
+                    const current = new Set(job.tournaments.map(edition));
+                    // Two past editions per update keep missing old finals from delaying current feeds.
+                    job.title_scan.work = job.title_scan.pending.filter(item => !current.has(edition(item))).slice(0, 2);
+                    job.stage = "titles";
+                    continue;
+                }
                 job.stage = "complete";
                 return { job, done: true, result: job.kind === "matches" ? completeMatches(job)
                     : { updated_at: job.started_at, player_id: job.scope,
@@ -205,6 +245,21 @@ export async function advanceSharedJob(job, io) {
             job.event_matches.push({ tournament: item, matches: compactMatches(data?.matches) });
             job.index++;
             job.progress = `Loading shared singles matches (${job.index}/${job.tournaments.length})…`;
+        } else if (job.stage === "titles") {
+            const scan = job.title_scan;
+            if (scan.index === scan.work.length) {
+                job.stage = "complete";
+                return { job, done: true, result: completeMatches(job) };
+            }
+            const item = scan.work[scan.index++];
+            scan.attempted.push(edition(item));
+            requests++;
+            try {
+                const data = await io.fetchJSON(`/api/tennis/tournaments/${item.tournamentGroup.id}/${item.year}/matches`);
+                const title = drawChampion(item, compactMatches(data?.matches), job.now_ms);
+                if (title) scan.champions.push(title);
+            } catch { /* Keep unavailable or unconfirmed old editions queued without losing current feeds. */ }
+            job.progress = `Checking saved title history (${scan.index}/${scan.work.length})…`;
         } else if (job.stage === "complete") {
             throw new Error("A completed shared job must be published before starting another.");
         } else throw new Error("Invalid shared WTA collection stage.");

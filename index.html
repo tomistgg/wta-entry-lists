@@ -2,9 +2,10 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="refresh.css?v=2">
-        <script src="refresh.js?v=2" defer></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WTA Entry Lists</title>
+        <link rel="stylesheet" href="refresh.css?v=3">
+        <script src="refresh.js?v=4" defer></script>
         <style>
             @font-face { font-family: 'MontserratExtraBold'; src: url('Montserrat-ExtraBold.ttf'); }
             @font-face { font-family: 'MontserratSemiBold'; src: url('Montserrat-SemiBold.ttf'); }
@@ -54,7 +55,7 @@
                 .title-stack { order: 2 !important; flex: 0 0 100% !important; width: 100%; text-align: center; margin-top: 10px;}
             }
         </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <script src="assets/vendor/html2pdf-0.10.1.bundle.min.js" defer></script>
     </head>
     <body>
         <script type="application/json" id="country-flag-codes">{"AFG": "AF", "ALB": "AL", "ALG": "DZ", "AND": "AD", "ANG": "AO", "ARG": "AR", "ARM": "AM", "ARU": "AW", "ASA": "AS", "AUS": "AU", "AUT": "AT", "AZE": "AZ", "BAH": "BS", "BAN": "BD", "BAR": "BB", "BDI": "BI", "BEL": "BE", "BEN": "BJ", "BER": "BM", "BHU": "BT", "BIH": "BA", "BIZ": "BZ", "BLR": "BY", "BOL": "BO", "BOT": "BW", "BRA": "BR", "BRN": "BH", "BRU": "BN", "BUL": "BG", "BUR": "BF", "CAF": "CF", "CAL": "NC", "CAM": "KH", "CAN": "CA", "CAY": "KY", "CGO": "CG", "CHA": "TD", "CHI": "CL", "CHL": "CL", "CHN": "CN", "CIV": "CI", "CMR": "CM", "COD": "CD", "COK": "CK", "COL": "CO", "COM": "KM", "CPV": "CV", "CRC": "CR", "CRO": "HR", "CUB": "CU", "CUW": "CW", "CYP": "CY", "CZE": "CZ", "CZS": "CZ", "DEN": "DK", "DJI": "DJ", "DMA": "DM", "DOM": "DO", "DZA": "DZ", "ECU": "EC", "EGY": "EG", "ERI": "ER", "ESA": "SV", "ESP": "ES", "EST": "EE", "ETH": "ET", "FIJ": "FJ", "FIN": "FI", "FRA": "FR", "FRG": "DE", "FSM": "FM", "GAB": "GA", "GAM": "GM", "GBR": "GB", "GBS": "GW", "GEO": "GE", "GEQ": "GQ", "GER": "DE", "GHA": "GH", "GLP": "GP", "GRB": "GB", "GRE": "GR", "GRC": "GR", "GRN": "GD", "GUA": "GT", "GUI": "GN", "GUM": "GU", "GUY": "GY", "HAI": "HT", "HKG": "HK", "HON": "HN", "HRV": "HR", "HUN": "HU", "INA": "ID", "IND": "IN", "IRI": "IR", "IRL": "IE", "IRN": "IR", "IRQ": "IQ", "ISL": "IS", "ISR": "IL", "ISV": "VI", "ITA": "IT", "IVB": "VG", "JAM": "JM", "JOR": "JO", "JPN": "JP", "KAZ": "KZ", "KEN": "KE", "KGZ": "KG", "KHM": "KH", "KIR": "KI", "KOR": "KR", "KOS": "XK", "KSA": "SA", "KUW": "KW", "LAO": "LA", "LAT": "LV", "LBA": "LY", "LBN": "LB", "LBR": "LR", "LCA": "LC", "LES": "LS", "LIE": "LI", "LTU": "LT", "LUX": "LU", "MAD": "MG", "MAR": "MA", "MAS": "MY", "MAW": "MW", "MDA": "MD", "MDV": "MV", "MEX": "MX", "MGL": "MN", "MHL": "MH", "MKD": "MK", "MLI": "ML", "MLT": "MT", "MNE": "ME", "MON": "MC", "MOZ": "MZ", "MRI": "MU", "MTN": "MR", "MYA": "MM", "NAM": "NA", "NCA": "NI", "NCD": "NC", "NED": "NL", "NEP": "NP", "NET": "NL", "NGA": "NG", "NGR": "NG", "NIG": "NE", "NOR": "NO", "NRU": "NR", "NZL": "NZ", "OMA": "OM", "OMN": "OM", "PAK": "PK", "PAN": "PA", "PAR": "PY", "PER": "PE", "PHI": "PH", "PLE": "PS", "PLW": "PW", "PNG": "PG", "POL": "PL", "POR": "PT", "PRK": "KP", "PUR": "PR", "QAT": "QA", "ROC": "RU", "ROM": "RO", "ROU": "RO", "RSA": "ZA", "RUS": "RU", "RWA": "RW", "SAF": "ZA", "SAM": "WS", "SEN": "SN", "SEY": "SC", "SGP": "SG", "SIN": "SG", "SKN": "KN", "SLE": "SL", "SLO": "SI", "SMR": "SM", "SOL": "SB", "SOM": "SO", "SRB": "RS", "SRI": "LK", "SSD": "SS", "STP": "ST", "SUD": "SD", "SUI": "CH", "SUR": "SR", "SVK": "SK", "SWE": "SE", "SWZ": "SZ", "SYR": "SY", "TAN": "TZ", "TCH": "CZ", "TGA": "TO", "THA": "TH", "TJK": "TJ", "TKM": "TM", "TLS": "TL", "TOG": "TG", "TPE": "TW", "TRI": "TT", "TTO": "TT", "TUN": "TN", "TUR": "TR", "TUV": "TV", "UAE": "AE", "UGA": "UG", "UKR": "UA", "URU": "UY", "USA": "US", "UZB": "UZ", "VAN": "VU", "VEN": "VE", "VIE": "VN", "VIN": "VC", "XKX": "XK", "YEM": "YE", "ZAM": "ZM", "ZIM": "ZW"}</script>
@@ -62,6 +63,7 @@
             <div class="refresh-controls">
                 <button type="button" class="toggle-btn" id="refresh-lists">Refresh</button>
                 <span id="refresh-status" role="status">Loading saved entry lists&hellip;</span>
+                <span id="pdf-status" role="status" aria-live="polite"></span>
             </div>
             <div class="tournament-menu"><p id="menu-state" class="entry-note">Loading tournaments&hellip;</p></div>
         </div>
@@ -114,24 +116,34 @@
                 activeTab.querySelector('.changes-btn').style.display = "block";
                 activeTab.querySelector('.main-qual-toggle').innerText = "Main Draw";
             }
-            function exportToPDF() {
-                const element = document.querySelector('.main-content');
-                document.body.classList.add('is-exporting');
-                
-                const title = document.querySelector('.main-title').innerText;
-                const subTitle = document.querySelector('.sub-title').innerText;
-                
-                const opt = {
-                    margin:       0,
-                    filename:     'entry-list.pdf',
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 1.5, useCORS: true, backgroundColor: '#000000' }, 
-                    jsPDF:        { unit: 'mm', format: [418, 244], orientation: 'landscape' }
-                };
-
-                html2pdf().set(opt).from(element).save().then(() => {
+            let exportingPDF = false;
+            async function exportToPDF() {
+                if (exportingPDF) return;
+                exportingPDF = true;
+                const status = document.getElementById('pdf-status');
+                try {
+                    if (typeof html2pdf !== 'function') {
+                        status.textContent = 'PDF export is unavailable. Reload the page and try again.';
+                        return;
+                    }
+                    status.textContent = 'Preparing PDF\u2026';
+                    const element = document.querySelector('.main-content');
+                    document.body.classList.add('is-exporting');
+                    const opt = {
+                        margin:       0,
+                        filename:     'entry-list.pdf',
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { scale: 1.5, useCORS: true, backgroundColor: '#000000' },
+                        jsPDF:        { unit: 'mm', format: [418, 244], orientation: 'landscape' }
+                    };
+                    await html2pdf().set(opt).from(element).save();
+                    status.textContent = 'PDF saved.';
+                } catch {
+                    status.textContent = 'PDF could not be created. Please try again.';
+                } finally {
                     document.body.classList.remove('is-exporting');
-                });
+                    exportingPDF = false;
+                }
             }
         </script>
     </body>

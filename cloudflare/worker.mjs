@@ -453,7 +453,7 @@ var EncodingMode;
 var LEVELS = /* @__PURE__ */ new Set(["WTA 125", "WTA 250", "WTA 500", "WTA 1000", "Finals", "WTA Finals", "Grand Slam"]);
 var titleCase = (value) => String(value).toLowerCase().replace(/(^|[\s'-])\p{L}/gu, (letter) => letter.toUpperCase());
 var legacyId = (label) => label.replaceAll(" ", "_").replaceAll(".", "").replaceAll("-", "_").replaceAll("'", "").toUpperCase();
-var validDate = (date2) => /^\d{4}-\d{2}-\d{2}$/.test(date2) && Number.isFinite(Date.parse(date2));
+var validDate = (date2) => /^\d{4}-\d{2}-\d{2}$/.test(date2) && Number.isFinite(Date.parse(date2)) && new Date(date2).toISOString().slice(0, 10) === date2;
 function createEntryJob(nowMs = Date.now()) {
   const parts = Object.fromEntries(new Intl.DateTimeFormat("en", {
     timeZone: "Europe/Madrid",
@@ -654,8 +654,8 @@ async function advanceEntryJob(job, io) {
       const path = `/site/tournaments/${group.id}/${slug(group.name)}/${tournament2.year}/player-list`;
       const parsed = await parseWorkerEntryList(await io.fetchHTML(path), tournament2);
       requests++;
-      const edition = /#\s*(\S+)/.exec(group.name)?.[1];
-      const label = tournament2.level + " " + titleCase(tournament2.city || group.name) + (edition ? " " + edition : "");
+      const edition2 = /#\s*(\S+)/.exec(group.name)?.[1];
+      const label = tournament2.level + " " + titleCase(tournament2.city || group.name) + (edition2 ? " " + edition2 : "");
       job.models.push({
         id: legacyId(label),
         label,
@@ -1328,7 +1328,7 @@ function bracketRounds(matches) {
   };
   const winner = (number) => {
     const match = nodes.get(number) || {}, code = String(match.Winner || "");
-    return match.MatchState === "F" && ["2", "3", "4", "5"].includes(code) ? player(match, ["2", "4"].includes(code) ? "A" : "B") : null;
+    return match.MatchState === "F" && ["2", "3", "4", "5", "6", "7"].includes(code) ? player(match, ["2", "4", "6"].includes(code) ? "A" : "B") : null;
   };
   const rounds = {};
   for (const [round, start, end] of [["F", 1, 2], ["S", 2, 4], ["Q", 4, 8]]) {
@@ -1521,7 +1521,7 @@ function rankedPlayer(row, expectedDate) {
   if (dob && !validDate2(dob)) throw new Error("WTA returned an invalid player birth date.");
   return { id, name: name.trim(), country: player.countryCode || "", dob, rank: row.ranking, points: row.points };
 }
-function createSharedJob(kind, scope = "global", nowMs = Date.now()) {
+function createSharedJob(kind, scope = "global", nowMs = Date.now(), titles = null) {
   if (!KINDS.has(kind) || (kind === "player_form" ? !/^[1-9]\d*$/.test(String(scope)) : scope !== "global") || !Number.isFinite(nowMs)) throw new Error("Unknown shared WTA collection job.");
   const today2 = madridDate(nowMs), year = Number(today2.slice(0, 4));
   const job = {
@@ -1534,7 +1534,7 @@ function createSharedJob(kind, scope = "global", nowMs = Date.now()) {
     progress: "Starting shared WTA refresh\u2026"
   };
   if (kind === "players") return { ...job, ranking_date: monday3(today2), page: 0, total: null, rankings: [] };
-  return {
+  const created = {
     ...job,
     from: kind === "calendar" ? isoDate(Date.UTC(year, 0, 1) - 14 * DAY3) : isoDate(nowMs - 30 * DAY3),
     to: kind === "calendar" ? `${year + 1}-12-31` : isoDate(nowMs + 2 * DAY3),
@@ -1556,14 +1556,46 @@ function createSharedJob(kind, scope = "global", nowMs = Date.now()) {
       history_count: 0
     } : {}
   };
+  if (kind === "matches" && titles) {
+    const since = titles.checked_through || `${year}-01-01`;
+    if (!validDate2(since) || since > today2 || !Array.isArray(titles.pending) || !Array.isArray(titles.known)) {
+      throw new Error("The saved title checkpoint is invalid.");
+    }
+    const from = isoDate(Date.parse(since + "T00:00:00Z") - 30 * DAY3);
+    if (from < created.from) created.from = from;
+    created.title_scan = {
+      version: 1,
+      since,
+      pending: titles.pending.map(tournament),
+      known: titles.known,
+      work: [],
+      index: 0,
+      champions: [],
+      attempted: []
+    };
+  }
+  return created;
 }
+var edition = (item) => String(item.tournamentGroup.id) + ":" + item.year;
+var titleEdition = (title) => String(title.tournament_id) + ":" + title.year;
 function selectEvents(job, source) {
   const firstDay = isoDate(job.now_ms - 2 * DAY3), weekStart = monday3(isoDate(job.now_ms));
   const earliest = firstDay < weekStart ? firstDay : weekStart;
-  return source.items.map(tournament).filter((item) => eligibleTournament(item) && item.startDate <= job.to && item.endDate >= earliest);
+  const items = source.items.map(tournament);
+  if (job.title_scan) {
+    const scan = job.title_scan, known = new Set(scan.known);
+    const pending = new Map(scan.pending.filter((item) => !known.has(edition(item))).map((item) => [edition(item), item]));
+    for (const item of items) {
+      const key = edition(item);
+      if (!eligibleTournament(item) || item.endDate > job.today || known.has(key)) pending.delete(key);
+      else if (pending.has(key) || item.endDate >= scan.since) pending.set(key, item);
+    }
+    scan.pending = [...pending.values()];
+  }
+  return items.filter((item) => eligibleTournament(item) && item.startDate <= job.to && item.endDate >= earliest);
 }
 function completeMatches(job) {
-  const now = job.now_ms, today2 = isoDate(now), matches = /* @__PURE__ */ new Map(), champions = [];
+  const now = job.now_ms, today2 = isoDate(now), matches = /* @__PURE__ */ new Map(), champions = [...job.title_scan?.champions || []];
   const tournaments = [];
   for (const event of job.event_matches) {
     for (const row of event.matches) {
@@ -1587,7 +1619,7 @@ function completeMatches(job) {
     });
   }
   tournaments.sort((a, b) => a.category.localeCompare(b.category) || a.city.localeCompare(b.city) || a.id.localeCompare(b.id));
-  return {
+  const result = {
     results: {
       updated_at: job.started_at,
       window_start: new Date(now - DAY3).toISOString(),
@@ -1597,6 +1629,17 @@ function completeMatches(job) {
     champions,
     event_matches: job.event_matches
   };
+  if (job.title_scan) {
+    const scan = job.title_scan, confirmed = /* @__PURE__ */ new Set([...scan.known, ...champions.map(titleEdition)]);
+    const attempted = new Set(scan.attempted);
+    const pending = scan.pending.filter((item) => !confirmed.has(edition(item)));
+    result.title_tracking = {
+      version: 1,
+      checked_through: job.today,
+      pending: [...pending.filter((item) => !attempted.has(edition(item))), ...pending.filter((item) => attempted.has(edition(item)))]
+    };
+  }
+  return result;
 }
 function compactHistory(rows) {
   const fields = [
@@ -1735,6 +1778,12 @@ async function advanceSharedJob(job, io) {
       }
     } else if (job.stage === "events") {
       if (job.index === job.tournaments.length) {
+        if (job.title_scan) {
+          const current = new Set(job.tournaments.map(edition));
+          job.title_scan.work = job.title_scan.pending.filter((item2) => !current.has(edition(item2))).slice(0, 2);
+          job.stage = "titles";
+          continue;
+        }
         job.stage = "complete";
         return { job, done: true, result: job.kind === "matches" ? completeMatches(job) : {
           updated_at: job.started_at,
@@ -1748,6 +1797,22 @@ async function advanceSharedJob(job, io) {
       job.event_matches.push({ tournament: item, matches: compactMatches(data?.matches) });
       job.index++;
       job.progress = `Loading shared singles matches (${job.index}/${job.tournaments.length})\u2026`;
+    } else if (job.stage === "titles") {
+      const scan = job.title_scan;
+      if (scan.index === scan.work.length) {
+        job.stage = "complete";
+        return { job, done: true, result: completeMatches(job) };
+      }
+      const item = scan.work[scan.index++];
+      scan.attempted.push(edition(item));
+      requests++;
+      try {
+        const data = await io.fetchJSON(`/api/tennis/tournaments/${item.tournamentGroup.id}/${item.year}/matches`);
+        const title = drawChampion(item, compactMatches(data?.matches), job.now_ms);
+        if (title) scan.champions.push(title);
+      } catch {
+      }
+      job.progress = `Checking saved title history (${scan.index}/${scan.work.length})\u2026`;
     } else if (job.stage === "complete") {
       throw new Error("A completed shared job must be published before starting another.");
     } else throw new Error("Invalid shared WTA collection stage.");
@@ -1761,6 +1826,7 @@ var COOLDOWN2 = 12e4;
 var LEASE2 = 9e4;
 var JOB_LIFETIME2 = 9e5;
 var BACKOFF = 15e3;
+var MAX_FORM_JOBS = 4;
 var encoder = new TextEncoder();
 var iso = (value) => new Date(value).toISOString();
 var today = (value) => iso(value).slice(0, 10);
@@ -1946,6 +2012,7 @@ async function publishResult(db, route, token, result, job, now) {
     ), now + 3e5);
     add("draws", "global", result.draws, drawExpiry);
     add("event_matches", "global", result.event_matches, now + 3e5);
+    add("title_tracking", "global", result.title_tracking);
     for (const title of result.champions) statements.push(db.prepare(
       "INSERT INTO wta_titles (tournament_id, year, champion_id, end_date, title_json) SELECT ?, ?, ?, ?, ? WHERE EXISTS (SELECT 1 FROM wta_refresh_state WHERE kind = ? AND scope = ? AND lease_token = ?) ON CONFLICT(tournament_id, year) DO UPDATE SET champion_id = excluded.champion_id, end_date = excluded.end_date, title_json = json_patch(wta_titles.title_json, excluded.title_json)"
     ).bind(
@@ -1972,12 +2039,43 @@ async function publishResult(db, route, token, result, job, now) {
   await db.batch(statements);
 }
 async function advanceRefresh(db, route, ioFactory, now = Date.now()) {
+  if (route.kind === "player_form" && !await db.prepare("SELECT player_id FROM wta_players WHERE player_id = ?").bind(route.scope).first()) return { status: 404, state: {
+    snapshot: null,
+    refreshing: false,
+    next_refresh_at: 0,
+    progress: "",
+    error: "This player is not in the saved WTA directory."
+  } };
   await db.prepare("INSERT OR IGNORE INTO wta_refresh_state (kind, scope) VALUES (?, ?)").bind(...stateKey(route)).run();
   const token = crypto.randomUUID();
-  const row = await db.prepare("UPDATE wta_refresh_state SET lease_token = ?, lease_until = ? WHERE kind = ? AND scope = ? AND lease_until <= ? AND (job_json IS NOT NULL OR next_refresh_at <= ?) RETURNING *").bind(token, now + LEASE2, ...stateKey(route), now, now).first();
-  if (!row) return { state: await publicState2(db, route), failed: false };
+  const row = await db.prepare("UPDATE wta_refresh_state SET lease_token = ?, lease_until = ? WHERE kind = ? AND scope = ? AND lease_until <= ? AND (job_json IS NOT NULL OR next_refresh_at <= ?) AND (kind != 'player_form' OR (job_json IS NOT NULL AND job_expires_at > ?) OR (SELECT count(*) FROM wta_refresh_state WHERE kind = 'player_form' AND (lease_until > ? OR (job_json IS NOT NULL AND job_expires_at > ?))) < ?) RETURNING *").bind(token, now + LEASE2, ...stateKey(route), now, now, now, now, now, MAX_FORM_JOBS).first();
+  if (!row) {
+    const state = await publicState2(db, route);
+    if (route.kind === "player_form" && !state.refreshing && state.next_refresh_at <= now) {
+      return { status: 429, state: {
+        ...state,
+        next_refresh_at: now + BACKOFF,
+        error: "Several player forms are updating. Please try again shortly."
+      } };
+    }
+    return { state, failed: false };
+  }
   try {
-    const job = row.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : createSharedJob(route.kind, route.scope, now);
+    let job = row.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : null;
+    if (!job || route.kind === "matches" && job.title_scan?.version !== 1) {
+      let titles = null;
+      if (route.kind === "matches") {
+        const [tracking, known] = await Promise.all([
+          snapshotRow(db, "title_tracking"),
+          db.prepare("SELECT tournament_id, year FROM wta_titles").all()
+        ]);
+        titles = {
+          ...tracking ? JSON.parse(tracking.payload_json) : { pending: [] },
+          known: known.results.map((title) => String(title.tournament_id) + ":" + title.year)
+        };
+      }
+      job = createSharedJob(route.kind, route.scope, now, titles);
+    }
     const collected = await advanceSharedJob(job, ioFactory(db));
     if (collected.done) await publishResult(db, route, token, collected.result, collected.job, Date.now());
     else await db.prepare("UPDATE wta_refresh_state SET job_json = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0, error = NULL WHERE kind = ? AND scope = ? AND lease_token = ?").bind(jsonText(collected.job), Date.now() + JOB_LIFETIME2, ...stateKey(route), token).run();
@@ -1996,7 +2094,9 @@ async function sharedDataResponse(request, env, headers = {}, ioFactory = create
   try {
     if (!route.refresh) return json(await publicState2(env.ENTRY_LISTS_DB, route));
     const result = await advanceRefresh(env.ENTRY_LISTS_DB, route, ioFactory);
-    return json(result.state, result.failed ? 502 : result.state.refreshing ? 202 : 200);
+    const response = json(result.state, result.status || (result.failed ? 502 : result.state.refreshing ? 202 : 200));
+    if (result.status === 429) response.headers.set("Retry-After", String(BACKOFF / 1e3));
+    return response;
   } catch {
     return json({ error: "Shared data storage is unavailable. Check the shared schema and baseline import." }, 503);
   }
@@ -2013,7 +2113,8 @@ async function pruneSharedData(db, now = Date.now()) {
   await db.batch([
     db.prepare("DELETE FROM wta_snapshots WHERE expires_at IS NOT NULL AND expires_at <= ?").bind(now),
     db.prepare("UPDATE wta_refresh_state SET job_json = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0 WHERE job_expires_at <= ? AND lease_until <= ? AND job_json IS NOT NULL").bind(now, now),
-    db.prepare("DELETE FROM wta_refresh_state WHERE kind = 'player_form' AND job_json IS NULL AND lease_until <= ? AND next_refresh_at <= ? AND NOT EXISTS (SELECT 1 FROM wta_snapshots WHERE kind = 'player_form' AND wta_snapshots.scope = wta_refresh_state.scope)").bind(now, now)
+    db.prepare("DELETE FROM wta_refresh_state WHERE kind = 'player_form' AND job_json IS NULL AND lease_until <= ? AND next_refresh_at <= ? AND NOT EXISTS (SELECT 1 FROM wta_snapshots WHERE kind = 'player_form' AND wta_snapshots.scope = wta_refresh_state.scope)").bind(now, now),
+    db.prepare("DELETE FROM wta_refresh_state WHERE kind = 'player_form' AND lease_until <= ? AND NOT EXISTS (SELECT 1 FROM wta_players WHERE player_id = wta_refresh_state.scope)").bind(now)
   ]);
 }
 async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
@@ -2022,12 +2123,12 @@ async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
   try {
     await pruneSharedData(db);
     const now = Date.now();
-    const inflight = await db.prepare("SELECT kind, scope FROM wta_refresh_state WHERE job_json IS NOT NULL AND lease_until <= ? ORDER BY job_expires_at LIMIT 1").bind(now).first();
-    if (inflight) {
-      await advanceRefresh(db, { ...inflight, view: inflight.kind === "matches" ? "results" : inflight.kind }, ioFactory);
-      return true;
-    }
-    const candidates = [];
+    const inflight = await db.prepare("SELECT kind, scope, job_expires_at FROM wta_refresh_state WHERE job_json IS NOT NULL AND lease_until <= ? AND job_expires_at > ?").bind(now, now).all();
+    const candidates = inflight.results.map((row) => ({ route: {
+      kind: row.kind,
+      scope: row.scope,
+      view: row.kind === "matches" ? "results" : row.kind
+    }, nextRefresh: row.job_expires_at - JOB_LIFETIME2 }));
     for (const [kind, view, snapshotKind, scope, interval] of [
       ["calendar", "calendar", "calendar_source", "global", 18e5],
       ["matches", "results", "results", "global", 3e5],
@@ -2037,7 +2138,7 @@ async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
       const [saved, gate] = await Promise.all([snapshotRow(db, snapshotKind, scope), readState2(db, route)]);
       const sourceDate = kind === "players" && saved ? JSON.parse(saved.payload_json).snapshot_date : null;
       const due = kind === "players" ? !sourceDate || sourceDate < createSharedJob("players", "global", now).ranking_date : !saved || now - Date.parse(saved.fetched_at) >= interval;
-      if (due && (gate?.lease_until || 0) <= now && (gate?.next_refresh_at || 0) <= now) {
+      if (due && (gate?.lease_until || 0) <= now && (gate?.next_refresh_at || 0) <= now && !candidates.some((candidate) => candidate.route.kind === kind && candidate.route.scope === "global")) {
         candidates.push({ route, nextRefresh: gate?.next_refresh_at || 0 });
       }
     }

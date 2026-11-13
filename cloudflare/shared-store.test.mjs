@@ -3,11 +3,12 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { Miniflare } from "miniflare";
 import { getSharedRoute, pruneSharedData, scheduledSharedRefresh, sharedDataResponse } from "./shared-store.mjs";
+import { createSharedJob } from "./shared-collector.mjs";
 
 const now = Date.parse("2026-11-12T12:00:00Z");
 const tournament = { tournamentGroup: { id: 100, name: "Example" }, year: 2026, level: "WTA 250",
     title: "Example Open", city: "Example", startDate: "2026-11-09", endDate: "2026-11-15" };
-const source = { from: "2025-12-18", to: "2027-12-31", items: [tournament] };
+const source = { from: "2025-12-01", to: "2027-12-31", items: [tournament] };
 const final = { DrawMatchType: "S", DrawLevelType: "M", RoundID: "F", MatchID: "LS001", MatchState: "F", Winner: "2",
     MatchTimeStamp: "2026-11-12T10:00:00Z", MatchTimeTotal: "00:30:00", PlayerIDA: "1", PlayerIDB: "2",
     PlayerNameFirstA: "Main", PlayerNameLastA: "Player", PlayerNameFirstB: "Other", PlayerNameLastB: "Player",
@@ -155,6 +156,57 @@ test("ranking refresh preserves curated details and career bests without shiftin
     assert.equal(player.best_rank_year, 2026);
 });
 
+test("title checkpoint and pending finals survive reloads, source failures, pruning and an old saved job", async t => {
+    let current = Date.parse("2026-11-18T12:00:00Z");
+    const { db, save } = await setup(t, () => current);
+    const ended = { ...tournament, tournamentGroup: { id: 101, name: "Missed final" } };
+    const active = { ...tournament, startDate: "2026-11-16", endDate: "2026-11-22" };
+    await save("title_tracking", "global", { version: 1, checked_through: "2026-11-12", pending: [] });
+    let failing = true;
+    const calls = [];
+    const factory = () => ({ cachedCalendar: async () => ({ ...source, items: [ended, active] }),
+        fetchJSON: async path => {
+            calls.push(path);
+            if (path.includes("/101/") && failing) throw new Error("Final not published yet");
+            return { matches: [{ ...final, MatchTimeStamp: path.includes("/101/") ? "2026-11-15T10:00:00Z" : "2026-11-18T10:00:00Z" }] };
+        } });
+    // An update installed mid-job must rediscover titles instead of accepting the old rolling-window-only job.
+    await db.prepare("INSERT INTO wta_refresh_state (kind, scope, job_json, job_expires_at) VALUES ('matches', 'global', ?, ?)")
+        .bind(JSON.stringify({ kind: "matches", scope: "global", stage: "events", tournaments: [], index: 0,
+            event_matches: [], started_at: new Date(current).toISOString(), now_ms: current, today: "2026-11-18" }), current + 900000).run();
+    let refreshed = await service(db, factory()).finish("/data/results/refresh");
+    assert.equal(refreshed.response.status, 200, JSON.stringify(refreshed.data));
+    assert.equal(refreshed.data.snapshot.matches.length, 1);
+    assert.ok(calls.some(path => path.includes("/101/")), "old in-flight jobs restart with title tracking");
+    let tracking = JSON.parse((await db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind = 'title_tracking'").first()).payload_json);
+    assert.equal(tracking.checked_through, "2026-11-18");
+    assert.equal(tracking.pending[0].tournamentGroup.id, 101);
+
+    await pruneSharedData(db, current + 86400001);
+    assert.equal((await db.prepare("SELECT expires_at FROM wta_snapshots WHERE kind = 'title_tracking'").first()).expires_at, null,
+        "title retry metadata survives temporary-feed cleanup");
+    current += 120001;
+    const before = (await db.prepare("SELECT * FROM wta_snapshots WHERE kind = 'title_tracking'").first());
+    const failed = await service(db, { ...factory(), fetchJSON: async () => { throw new Error("Current source unavailable"); } })
+        .finish("/data/results/refresh");
+    assert.equal(failed.response.status, 502);
+    assert.deepEqual(await db.prepare("SELECT * FROM wta_snapshots WHERE kind = 'title_tracking'").first(), before,
+        "a failed current refresh cannot advance the discovery checkpoint or discard pending editions");
+
+    current += 15001;
+    failing = false;
+    refreshed = await service(db, factory()).finish("/data/champions/refresh");
+    assert.equal(refreshed.response.status, 200, JSON.stringify(refreshed.data));
+    assert.equal(refreshed.data.snapshot.champions.filter(title => title.tournament_id === "101").length, 1);
+    tracking = JSON.parse((await db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind = 'title_tracking'").first()).payload_json);
+    assert.deepEqual(tracking.pending, []);
+    current += 120001;
+    calls.length = 0;
+    await service(db, factory()).finish("/data/champions/refresh");
+    assert.equal(calls.some(path => path.includes("/101/")), false, "resolved old editions are not fetched again");
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_titles WHERE tournament_id = '101'").first()).count, 1);
+});
+
 test("the two-year player directory includes the February 28 leap-year boundary", async t => {
     const { db, save } = await setup(t);
     await save("players", "metadata", { snapshot_date: "2024-02-29" });
@@ -206,6 +258,7 @@ test("simultaneous refreshes share a lease and failed publication keeps all prev
     assert.equal((await running).status, 200);
     assert.equal(requests, 1);
     const before = (await db.prepare("SELECT * FROM wta_snapshots WHERE kind IN ('results', 'draws') ORDER BY kind").all()).results;
+    const trackingBefore = await db.prepare("SELECT * FROM wta_snapshots WHERE kind = 'title_tracking'").first();
     await db.prepare("UPDATE wta_refresh_state SET next_refresh_at = 0 WHERE kind = 'matches'").run();
     const failed = await service(db, io({ fail: true })).finish("/data/results/refresh");
     assert.equal(failed.response.status, 502);
@@ -219,6 +272,8 @@ test("simultaneous refreshes share a lease and failed publication keeps all prev
     assert.equal(aborted.response.status, 502);
     assert.deepEqual((await db.prepare("SELECT * FROM wta_snapshots WHERE kind IN ('results', 'draws') ORDER BY kind").all()).results, before);
     assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_titles").first()).count, 2);
+    assert.deepEqual(await db.prepare("SELECT * FROM wta_snapshots WHERE kind = 'title_tracking'").first(), trackingBefore,
+        "a publication rollback keeps the title checkpoint in the same transaction as feeds and titles");
 });
 
 test("expiry removes old feeds and form jobs without deleting player or title statistics", async t => {
@@ -237,6 +292,58 @@ test("expiry removes old feeds and form jobs without deleting player or title st
     assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_refresh_state WHERE kind = 'player_form'").first()).count, 0);
     assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_players").first()).count, 1);
     assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_titles").first()).count, 1);
+});
+
+test("unknown form IDs cannot create jobs, source caches or upstream requests", async t => {
+    const { db } = await setup(t);
+    let requests = 0;
+    const api = service(db, io({ count: () => requests++ }));
+    for (const id of ["999", "1234567890"]) {
+        const response = await api.call(`/data/players/${id}/form/refresh`, "POST");
+        assert.equal(response.status, 404);
+        assert.match((await response.json()).error, /saved WTA directory/);
+    }
+    assert.equal(requests, 0);
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_refresh_state").first()).count, 0);
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_snapshots WHERE kind = 'source'").first()).count, 0);
+    await db.prepare("INSERT INTO wta_refresh_state (kind, scope, job_json, job_expires_at) " +
+        "VALUES ('player_form', '999', '{}', ?)").bind(now + 900000).run();
+    await pruneSharedData(db);
+    assert.equal((await db.prepare("SELECT count(*) AS count FROM wta_refresh_state").first()).count, 0,
+        "pre-upgrade unknown-player jobs cannot keep occupying scheduler turns");
+});
+
+test("form admission is atomic across visitors, bounds queued work and allows existing jobs to resume", async t => {
+    const { db } = await setup(t);
+    for (const id of ["2", "3", "4", "5", "6"]) await db.prepare("INSERT INTO wta_players VALUES (?, ?, ?)")
+        .bind(id, JSON.stringify({ ...profile, id }), new Date(now).toISOString()).run();
+    for (const id of ["2", "3", "4", "6"]) await db.prepare(
+        "INSERT INTO wta_refresh_state (kind, scope, job_json, job_expires_at) VALUES ('player_form', ?, ?, ?)")
+        .bind(id, JSON.stringify(createSharedJob("player_form", id, now)), now + 900000).run();
+    const api = service(db, io());
+    const full = await api.call("/data/players/1/form/refresh", "POST");
+    assert.equal(full.status, 429);
+    assert.equal(full.headers.get("Retry-After"), "15");
+    assert.match((await full.json()).error, /Several player forms/);
+    assert.equal((await api.finish("/data/players/2/form/refresh")).response.status, 200,
+        "a saved job can finish while all four slots are occupied");
+
+    let release;
+    const held = new Promise(resolve => { release = resolve; });
+    const base = io();
+    const racing = service(db, { ...base, async fetchJSON(path, params) {
+        await held;
+        return base.fetchJSON(path, params);
+    } });
+    const fallback = setTimeout(release, 1000);
+    t.after(() => { clearTimeout(fallback); release(); });
+    const responses = await Promise.all(["1", "5"].map(async id => {
+        const response = await racing.call(`/data/players/${id}/form/refresh`, "POST");
+        if (response.status === 429) release();
+        return response;
+    }));
+    assert.deepEqual(responses.map(response => response.status).sort(), [200, 429],
+        "concurrent visitors cannot both claim the final form-job slot");
 });
 
 test("scheduled work advances only one bounded job and calendar merge preserves non-WTA rows", async t => {
@@ -276,7 +383,7 @@ test("a failing calendar job cannot starve healthy scheduled matches and ranking
     assert.ok((await db.prepare("SELECT last_success_at FROM wta_refresh_state WHERE kind = 'players'").first()).last_success_at);
 });
 
-test("a slow completed match job gives overdue weekly rankings their scheduled turn", async t => {
+test("overdue weekly rankings run between stages of a slow match job", async t => {
     let current = now;
     const { db, save } = await setup(t, () => current);
     await save("players", "metadata", { snapshot_date: "2026-11-09" });
@@ -288,8 +395,36 @@ test("a slow completed match job gives overdue weekly rankings their scheduled t
     await save("players", "metadata", { snapshot_date: "2026-11-02" });
     current += 6 * 60000;
     assert.equal(await scheduledSharedRefresh({ ENTRY_LISTS_DB: db }, factory), true);
-    assert.equal((await db.prepare("SELECT job_json FROM wta_refresh_state WHERE kind = 'matches'").first()).job_json, null);
-    current += 120001;
-    assert.equal(await scheduledSharedRefresh({ ENTRY_LISTS_DB: db }, factory), true);
     assert.ok((await db.prepare("SELECT last_success_at FROM wta_refresh_state WHERE kind = 'players'").first()).last_success_at);
+    assert.ok((await db.prepare("SELECT job_json FROM wta_refresh_state WHERE kind = 'matches'").first()).job_json,
+        "a ranking turn preserves the interrupted match job");
+    current += 60000;
+    assert.equal(await scheduledSharedRefresh({ ENTRY_LISTS_DB: db }, factory), true);
+    assert.equal((await db.prepare("SELECT job_json FROM wta_refresh_state WHERE kind = 'matches'").first()).job_json, null);
+});
+
+test("queued player forms share scheduler turns with overdue global feeds and each other", async t => {
+    let current = now;
+    const { db } = await setup(t, () => current);
+    await db.prepare("INSERT INTO wta_players VALUES ('2', ?, ?)")
+        .bind(JSON.stringify({ ...profile, id: "2" }), new Date(now).toISOString()).run();
+    for (const id of ["1", "2"]) {
+        const job = { ...createSharedJob("player_form", id, now), stage: "events",
+            tournaments: Array.from({ length: 10 }, (_, index) => ({ ...tournament,
+                tournamentGroup: { id: index + 10, name: "Event " + index } })) };
+        await db.prepare("INSERT INTO wta_refresh_state (kind, scope, job_json, job_expires_at) VALUES ('player_form', ?, ?, ?)")
+            .bind(id, JSON.stringify(job), now + 900000).run();
+    }
+    for (let step = 0; step < 4; step++) {
+        assert.equal(await scheduledSharedRefresh({ ENTRY_LISTS_DB: db }, () => io()), true);
+        current += 60000;
+    }
+    assert.ok((await db.prepare("SELECT last_success_at FROM wta_refresh_state WHERE kind = 'matches'").first()).last_success_at,
+        "queued form jobs do not delay missing results");
+    assert.ok((await db.prepare("SELECT last_success_at FROM wta_refresh_state WHERE kind = 'players'").first()).last_success_at,
+        "queued form jobs do not delay a new ranking week");
+    const forms = (await db.prepare("SELECT job_json FROM wta_refresh_state WHERE kind = 'player_form'").all()).results;
+    assert.equal(forms.length, 2);
+    assert.deepEqual(forms.map(row => JSON.parse(row.job_json).index), [4, 4],
+        "every interrupted form gets a bounded turn before the first form runs again");
 });

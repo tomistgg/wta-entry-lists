@@ -80,8 +80,8 @@ export function bracketRounds(matches) {
     };
     const winner = number => {
         const match = nodes.get(number) || {}, code = String(match.Winner || "");
-        return match.MatchState === "F" && ["2", "3", "4", "5"].includes(code)
-            ? player(match, ["2", "4"].includes(code) ? "A" : "B") : null;
+        return match.MatchState === "F" && ["2", "3", "4", "5", "6", "7"].includes(code)
+            ? player(match, ["2", "4", "6"].includes(code) ? "A" : "B") : null;
     };
     const rounds = {};
     for (const [round, start, end] of [["F", 1, 2], ["S", 2, 4], ["Q", 4, 8]]) {

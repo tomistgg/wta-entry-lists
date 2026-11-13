@@ -38,8 +38,7 @@ for the shared WTA relay and Haute Cadence photo routes.
 
 ```powershell
 npm.cmd ci
-npm.cmd run build:worker
-npm.cmd run test:entries
+npm.cmd run check
 npm.cmd run deploy:worker:dry-run
 npm.cmd run deploy:worker
 ```
@@ -47,6 +46,12 @@ npm.cmd run deploy:worker
 Edit `cloudflare/worker-source.mjs` and its modules, then rebuild the standalone `cloudflare/worker.mjs`.
 Website releases and Worker deployments are separate. Publishing code changes still uses GitHub Pages;
 ordinary data updates only write to D1 and never create repository commits.
+
+Pull requests and pushes run the website and Worker checks automatically. The checks also reject a
+generated Worker that differs from its source modules. They do not deploy or update production data.
+
+For the local review sites, see [Local preview](cloudflare/SHARED_DATA.md#local-preview).
+The PDF library and country flags are bundled locally, including their license notices.
 
 The shared-data backend for Haute Cadence is deployed. Its read/refresh
 routes, jobs, and shared-cache behavior are documented in [SHARED_DATA.md](cloudflare/SHARED_DATA.md).

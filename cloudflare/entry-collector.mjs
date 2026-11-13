@@ -4,7 +4,8 @@ import { decodeHTML } from "entities";
 const LEVELS = new Set(["WTA 125", "WTA 250", "WTA 500", "WTA 1000", "Finals", "WTA Finals", "Grand Slam"]);
 const titleCase = value => String(value).toLowerCase().replace(/(^|[\s'-])\p{L}/gu, letter => letter.toUpperCase());
 const legacyId = label => label.replaceAll(" ", "_").replaceAll(".", "").replaceAll("-", "_").replaceAll("'", "").toUpperCase();
-const validDate = date => /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(date));
+const validDate = date => /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(date)) &&
+    new Date(date).toISOString().slice(0, 10) === date;
 
 export function createEntryJob(nowMs = Date.now()) {
     const parts = Object.fromEntries(new Intl.DateTimeFormat("en", {

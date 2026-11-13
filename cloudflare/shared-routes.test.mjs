@@ -48,7 +48,8 @@ async function setup(t, shared = true) {
         { method, headers, ...(body === undefined ? {} : { body }) });
     if (shared) {
         await db.prepare("INSERT INTO wta_snapshots VALUES ('calendar_source','global',?,?,?)")
-            .bind(JSON.stringify({ from: isoDate(now - 40 * DAY), to: isoDate(now + 50 * DAY), items: [current, future] }),
+            .bind(JSON.stringify({ from: isoDate(Date.UTC(current.year, 0, 1) - 30 * DAY),
+                to: isoDate(now + 50 * DAY), items: [current, future] }),
                 new Date(now).toISOString(), now + 1800000).run();
     }
     return { db, call, requests };

@@ -88,6 +88,22 @@ test("native parser decodes player-name attributes and text references consisten
     assert.equal(result.main[1].name, "Ana & María");
 });
 
+test("impossible calendar and page dates fail instead of silently moving an event into another week", async () => {
+    const structured = `<script type="application/ld+json">${JSON.stringify({ "@type": "SportsEvent",
+        "@id": "/tournaments/1/example/2026", startDate: "2026-02-30" })}</script>`;
+    const parsed = await run({ action: "parse", tournament, html: structured + html });
+    assert.equal(parsed.status, 422);
+    assert.match(parsed.error, /invalid tournament date/);
+    const calendar = await run({ job: createEntryJob(Date.parse("2026-02-26T12:00:00Z")), html,
+        calendarPages: [page([{ ...tournament, startDate: "2026-02-30" }])] });
+    assert.equal(calendar.status, 422);
+    assert.match(calendar.error, /invalid tournament date/);
+    assert.equal(calendar.calls.length, 1, "invalid dates are rejected before fetching entry lists or rankings");
+    const leapDay = await run({ action: "parse", tournament: { ...tournament, startDate: "2024-02-29" }, html });
+    assert.equal(leapDay.status, 200);
+    assert.equal(leapDay.start, "2024-02-29");
+});
+
 test("Madrid date boundaries and weekend tournament weeks use the same four-week window", async () => {
     const job = createEntryJob(Date.parse("2026-11-08T23:15:00Z"));
     assert.equal(job.today, "2026-11-09");
