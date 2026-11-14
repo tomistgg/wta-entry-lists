@@ -8,11 +8,6 @@
     opacity: 0.8;
 }
 
-.previous-main-note {
-    flex-basis: 100%;
-    padding: 6px;
-}
-
 .refresh-controls {
     padding: 8px 0;
     flex-shrink: 0;
