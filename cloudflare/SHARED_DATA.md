@@ -86,6 +86,11 @@ Active brackets remain available through tournament end dates if a later request
 
 ## Local preview
 
+`npm run check` needs only this checkout. WTARG tests and previews use the local
+`wtarg-schema.sql` mirror of `tenis-fem-arg/cloudflare/schema.sql`; keep it synchronized
+when that schema changes. `tests/fixtures/wtarg-source-files.json` records the sorted
+source filenames from `tenis-fem-arg/cloudflare/import-map.json` for synthetic test manifests.
+
 The tracked preview launchers use a temporary local D1 database; restarting the backend resets its
 preview data. They need no Cloudflare login or production write access. Public WTA source requests
 and the initial saved entry-list copy use GET through the deployed relay. Refresh writes stay local.

@@ -44,14 +44,14 @@ async function setup(t) {
         outboundService() { throw new Error("No provider requests are allowed."); } });
     t.after(() => mf.dispose());
     const db = await mf.getD1Database("ENTRY_LISTS_DB");
-    for (const path of [new URL("shared-schema.sql", import.meta.url), new URL("../../tenis-fem-arg/cloudflare/schema.sql", import.meta.url)]) {
+    for (const path of [new URL("shared-schema.sql", import.meta.url), new URL("wtarg-schema.sql", import.meta.url)]) {
         for (const sql of (await readFile(path, "utf8")).replace(/^--.*$/gm, "").split(";").filter(value => value.trim())) await db.prepare(sql).run();
     }
     const save = (kind, scope, payload) => db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES(?,?,?,?,NULL) " +
         "ON CONFLICT(kind,scope) DO UPDATE SET payload_json=excluded.payload_json").bind(kind, scope, json(payload), new Date(now).toISOString()).run();
     const raw = Buffer.from("{}"), gzip = gzipSync(raw), part = { sha256: hash(gzip), bytes: gzip.length };
-    const map = JSON.parse(await readFile(new URL("../../tenis-fem-arg/cloudflare/import-map.json", import.meta.url), "utf8"));
-    const files = Object.keys(map.sources).sort().map(name => ({ name, rawSha256: hash(raw), rawBytes: raw.length,
+    const sourceFiles = JSON.parse(await readFile(new URL("../tests/fixtures/wtarg-source-files.json", import.meta.url), "utf8"));
+    const files = sourceFiles.map(name => ({ name, rawSha256: hash(raw), rawBytes: raw.length,
         gzipSha256: hash(gzip), gzipBytes: gzip.length, parts: [part] }));
     const source = { schemaVersion: 1, sourceVersion: hash(json(files.map(file => ({ name: file.name, bytes: file.rawBytes, sha256: file.rawSha256 })))),
         sourceRevision: "a".repeat(40), files, totalRawBytes: raw.length * files.length, totalGzipBytes: gzip.length * files.length };

@@ -18,7 +18,7 @@ async function setup(t) {
     t.after(() => mf.dispose());
     const db = await mf.getD1Database("ENTRY_LISTS_DB");
     for (const path of [new URL("./shared-schema.sql", import.meta.url),
-        new URL("../../tenis-fem-arg/cloudflare/schema.sql", import.meta.url)]) {
+        new URL("./wtarg-schema.sql", import.meta.url)]) {
         const schema = (await readFile(path, "utf8")).replace(/^\s*--.*$/gm, "");
         for (const sql of schema.split(";").filter(value => value.trim())) await db.prepare(sql).run();
     }

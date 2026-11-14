@@ -101,10 +101,10 @@ test("collector preview loads a private baseline, forwards authenticated bodies 
     await mkdir(resolve(release, "assets"), { recursive: true });
     await mkdir(site); await mkdir(seed);
     const { plan } = preparedPlan();
-    const map = JSON.parse(await readFile(new URL("../../tenis-fem-arg/cloudflare/import-map.json", import.meta.url), "utf8"));
+    const sourceFiles = JSON.parse(await readFile(new URL("../tests/fixtures/wtarg-source-files.json", import.meta.url), "utf8"));
     const raw = Buffer.from("{}"), compressed = gzipSync(raw);
     const blob = { sha256: hash(compressed), bytes: compressed.length, base64: compressed.toString("base64") };
-    const files = Object.keys(map.sources).sort().map(name => ({ name, rawSha256: hash(raw), rawBytes: raw.length,
+    const files = sourceFiles.map(name => ({ name, rawSha256: hash(raw), rawBytes: raw.length,
         gzipSha256: blob.sha256, gzipBytes: blob.bytes, parts: [{ sha256: blob.sha256, bytes: blob.bytes }] }));
     const source = { schemaVersion: 1, sourceVersion: hash(JSON.stringify(files.map(file => ({ name: file.name, bytes: file.rawBytes, sha256: file.rawSha256 })))),
         sourceRevision: "a".repeat(40), files, totalRawBytes: raw.length * files.length, totalGzipBytes: compressed.length * files.length };

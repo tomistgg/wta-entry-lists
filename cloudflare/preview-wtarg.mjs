@@ -224,7 +224,7 @@ export async function createWtargPreview({ release, site, port = 8766, collector
     let server;
     try {
         const db = await mf.getD1Database("ENTRY_LISTS_DB");
-        for (const path of [resolve(trackerRoot, "cloudflare/shared-schema.sql"), resolve(trackerRoot, "../tenis-fem-arg/cloudflare/schema.sql")]) {
+        for (const path of [resolve(trackerRoot, "cloudflare/shared-schema.sql"), resolve(trackerRoot, "cloudflare/wtarg-schema.sql")]) {
             const schema = (await readFile(path, "utf8")).replace(/^--.*$/gm, "");
             for (const statement of schema.split(";").filter(value => value.trim())) await db.prepare(statement).run();
         }
