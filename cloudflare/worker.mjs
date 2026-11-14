@@ -652,7 +652,7 @@ async function advanceEntryJob(job, io) {
       }
       const tournament2 = job.tournaments[job.entry_index], group = tournament2.tournamentGroup;
       const path = `/site/tournaments/${group.id}/${slug(group.name)}/${tournament2.year}/player-list`;
-      const parsed = await parseWorkerEntryList(await io.fetchHTML(path), tournament2);
+      const parsed2 = await parseWorkerEntryList(await io.fetchHTML(path), tournament2);
       requests++;
       const edition2 = /#\s*(\S+)/.exec(group.name)?.[1];
       const label = tournament2.level + " " + titleCase(tournament2.city || group.name) + (edition2 ? " " + edition2 : "");
@@ -660,10 +660,10 @@ async function advanceEntryJob(job, io) {
         id: legacyId(label),
         label,
         week: tournament2.week,
-        name: parsed.name,
-        dates: rankingDates(parsed.start, job.today),
-        main: parsed.main,
-        qualifying: parsed.qualifying
+        name: parsed2.name,
+        dates: rankingDates(parsed2.start, job.today),
+        main: parsed2.main,
+        qualifying: parsed2.qualifying
       });
       job.entry_index++;
       job.progress = `Loading WTA entry lists (${job.entry_index}/${job.tournaments.length})\u2026`;
@@ -741,8 +741,8 @@ function withLegacyHistory(model, legacy, savedAt) {
   const imported = legacy.filter((change) => change.date >= model.dates.main && change.at <= savedAt && !known.has(signature(change.date, change)));
   return { ...model, changes: [...changes, ...imported].sort((a, b) => b.at.localeCompare(a.at)) };
 }
-function previousEntryModels(snapshot) {
-  return snapshot?.models || [];
+function previousEntryModels(snapshot2) {
+  return snapshot2?.models || [];
 }
 function withEntryHistory(models, previous, detectedAt) {
   const at = new Date(detectedAt).toISOString();
@@ -949,11 +949,11 @@ function createSharedIO(db, { now = Date.now, fetch: upstream = globalThis.fetch
     }
   }
   async function cache(kind, scope, payload, ttl) {
-    const json = JSON.stringify(payload);
-    if (bytes(json) > MAX_CACHE_BYTES) return false;
+    const json3 = JSON.stringify(payload);
+    if (bytes(json3) > MAX_CACHE_BYTES) return false;
     try {
       const fetched = now();
-      await db.prepare("INSERT INTO wta_snapshots (kind, scope, payload_json, fetched_at, expires_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(kind, scope) DO UPDATE SET payload_json = excluded.payload_json, fetched_at = excluded.fetched_at, expires_at = excluded.expires_at").bind(kind, scope, json, new Date(fetched).toISOString(), fetched + ttl).run();
+      await db.prepare("INSERT INTO wta_snapshots (kind, scope, payload_json, fetched_at, expires_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(kind, scope) DO UPDATE SET payload_json = excluded.payload_json, fetched_at = excluded.fetched_at, expires_at = excluded.expires_at").bind(kind, scope, json3, new Date(fetched).toISOString(), fetched + ttl).run();
       return true;
     } catch (error) {
       return /no such table: wta_snapshots/i.test(String(error?.message)) ? null : false;
@@ -1021,10 +1021,10 @@ function createSharedIO(db, { now = Date.now, fetch: upstream = globalThis.fetch
       compactRankings(rows);
       const ttl = at < monday2(now()) ? HISTORICAL_TTL : SOURCE_TTL;
       if (await cache("rankings", "singles:" + at, rows, ttl) === null && at < monday2(now())) {
-        const json = JSON.stringify(rows);
-        if (bytes(json) <= MAX_CACHE_BYTES) {
+        const json3 = JSON.stringify(rows);
+        if (bytes(json3) <= MAX_CACHE_BYTES) {
           try {
-            await db.prepare("INSERT INTO entry_ranking_cache VALUES (?, ?, ?) ON CONFLICT(ranking_date) DO UPDATE SET rows_json = excluded.rows_json, expires_at = excluded.expires_at").bind(at, json, now() + ttl).run();
+            await db.prepare("INSERT INTO entry_ranking_cache VALUES (?, ?, ?) ON CONFLICT(ranking_date) DO UPDATE SET rows_json = excluded.rows_json, expires_at = excluded.expires_at").bind(at, json3, now() + ttl).run();
           } catch {
           }
         }
@@ -1041,15 +1041,15 @@ var ERROR_BACKOFF = 15e3;
 var AUTO_REFRESH = 18e5;
 var MAX_JSON_BYTES = 15e5;
 function storedJSON(value) {
-  const json = JSON.stringify(value);
-  if (new TextEncoder().encode(json).length > MAX_JSON_BYTES) throw new Error("Entry-list data exceeds the storage limit.");
-  return json;
+  const json3 = JSON.stringify(value);
+  if (new TextEncoder().encode(json3).length > MAX_JSON_BYTES) throw new Error("Entry-list data exceeds the storage limit.");
+  return json3;
 }
 function publicState(row, now = Date.now()) {
-  const snapshot = row.snapshot ? JSON.parse(row.snapshot) : null;
+  const snapshot2 = row.snapshot ? JSON.parse(row.snapshot) : null;
   const job = row.job && row.job_expires_at > now ? JSON.parse(row.job) : null;
   return {
-    snapshot,
+    snapshot: snapshot2,
     refreshing: !!job || row.lease_until > now,
     next_refresh_at: row.next_refresh_at,
     progress: job?.progress || (row.lease_until > now ? "Starting shared refresh\u2026" : ""),
@@ -1062,33 +1062,33 @@ async function readState(db) {
   return row;
 }
 async function includeLegacyHistory(db, state) {
-  const snapshot = state.snapshot;
-  if (!snapshot?.models.length) return state;
-  const rows = await db.prepare("SELECT tournament_id, week, rows_json FROM entry_legacy_history WHERE (tournament_id, week) IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?))").bind(JSON.stringify(snapshot.models.map(({ id, week }) => ({ id, week })))).all();
+  const snapshot2 = state.snapshot;
+  if (!snapshot2?.models.length) return state;
+  const rows = await db.prepare("SELECT tournament_id, week, rows_json FROM entry_legacy_history WHERE (tournament_id, week) IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?))").bind(JSON.stringify(snapshot2.models.map(({ id, week }) => ({ id, week })))).all();
   const legacy = new Map(rows.results.map((row) => [row.tournament_id + ":" + row.week, JSON.parse(row.rows_json)]));
-  return { ...state, snapshot: { ...snapshot, models: snapshot.models.map((model) => withLegacyHistory(model, legacy.get(model.id + ":" + model.week) || [], snapshot.saved_at)) } };
+  return { ...state, snapshot: { ...snapshot2, models: snapshot2.models.map((model) => withLegacyHistory(model, legacy.get(model.id + ":" + model.week) || [], snapshot2.saved_at)) } };
 }
-async function saveEntrySnapshot(db, snapshot, token) {
-  const keys = JSON.stringify(snapshot.models.map(({ id, week }) => ({ id, week })));
+async function saveEntrySnapshot(db, snapshot2, token) {
+  const keys = JSON.stringify(snapshot2.models.map(({ id, week }) => ({ id, week })));
   await db.batch([
     db.prepare("DELETE FROM entry_legacy_history WHERE (tournament_id, week) NOT IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?)) AND EXISTS (SELECT 1 FROM entry_list_state WHERE id = 1 AND lease_token = ?)").bind(keys, token),
-    db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = ?, job = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?").bind(storedJSON(snapshot), Date.parse(snapshot.saved_at) + COOLDOWN, token)
+    db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = ?, job = NULL, job_expires_at = 0, lease_token = NULL, lease_until = 0, error = NULL WHERE id = 1 AND lease_token = ?").bind(storedJSON(snapshot2), Date.parse(snapshot2.saved_at) + COOLDOWN, token)
   ]);
 }
 async function pruneExpiredEntryData(db, now = Date.now()) {
   const row = await readState(db);
   if (row.lease_until > now) return row;
   const window2 = createEntryJob(now);
-  const snapshot = row.snapshot ? JSON.parse(row.snapshot) : null;
-  if (snapshot) {
-    snapshot.models = snapshot.models.filter((model) => model.week >= window2.window_start && model.week < window2.window_end);
-    snapshot.window_start = window2.window_start;
-    snapshot.window_end = window2.window_end;
-    delete snapshot.hidden_models;
+  const snapshot2 = row.snapshot ? JSON.parse(row.snapshot) : null;
+  if (snapshot2) {
+    snapshot2.models = snapshot2.models.filter((model) => model.week >= window2.window_start && model.week < window2.window_end);
+    snapshot2.window_start = window2.window_start;
+    snapshot2.window_end = window2.window_end;
+    delete snapshot2.hidden_models;
   }
   const job = row.job ? JSON.parse(row.job) : null;
   const keepJob = job && row.job_expires_at > now && job.window_start === window2.window_start;
-  const keys = JSON.stringify(snapshot?.models.map(({ id, week }) => ({ id, week })) || []);
+  const keys = JSON.stringify(snapshot2?.models.map(({ id, week }) => ({ id, week })) || []);
   const guard = "EXISTS (SELECT 1 FROM entry_list_state WHERE id = 1 AND lease_until <= ? AND snapshot IS ? AND job IS ?)";
   await db.batch([
     db.prepare("DELETE FROM entry_legacy_history WHERE (week < ? OR week >= ? OR (tournament_id, week) NOT IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?)) ) AND " + guard).bind(
@@ -1101,7 +1101,7 @@ async function pruneExpiredEntryData(db, now = Date.now()) {
     ),
     db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ? AND " + guard).bind(now, now, row.snapshot, row.job),
     db.prepare("UPDATE entry_list_state SET snapshot = ?, job = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0 WHERE id = 1 AND lease_until <= ? AND snapshot IS ? AND job IS ?").bind(
-      snapshot ? storedJSON(snapshot) : null,
+      snapshot2 ? storedJSON(snapshot2) : null,
       keepJob ? row.job : null,
       keepJob ? row.job_expires_at : 0,
       now,
@@ -1130,11 +1130,11 @@ async function wtaText(path, params = {}) {
     cache: "no-store"
   });
   if (!response.ok) throw new Error("WTA returned an unsuccessful collection response.");
-  const bytes2 = await response.arrayBuffer();
+  const bytes3 = await response.arrayBuffer();
   try {
-    return new TextDecoder("utf-8", { fatal: true }).decode(bytes2);
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes3);
   } catch {
-    return new TextDecoder("windows-1252").decode(bytes2);
+    return new TextDecoder("windows-1252").decode(bytes3);
   }
 }
 function collectionIO(db) {
@@ -1191,7 +1191,7 @@ async function advanceStoredRefresh(db) {
       const completedAt2 = Date.now();
       const previous = claimed.snapshot ? JSON.parse(claimed.snapshot) : null;
       const models = withEntryHistory(retainPreviousMain(result.models, previous), previous, completedAt2);
-      const snapshot = {
+      const snapshot2 = {
         schema_version: 1,
         fetched_at: result.job.started_at,
         saved_at: new Date(completedAt2).toISOString(),
@@ -1199,7 +1199,7 @@ async function advanceStoredRefresh(db) {
         window_end: result.job.window_end,
         models
       };
-      await saveEntrySnapshot(db, snapshot, token);
+      await saveEntrySnapshot(db, snapshot2, token);
       await db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ?").bind(completedAt2).run().catch(() => {
       });
     } else {
@@ -1212,26 +1212,26 @@ async function advanceStoredRefresh(db) {
   }
 }
 async function entryListResponse(request, env, headers) {
-  const json = (data, status = 200) => Response.json(data, { status, headers });
-  if (!env.ENTRY_LISTS_DB) return json({ error: "Shared saving is not configured. Add the ENTRY_LISTS_DB D1 binding." }, 503);
+  const json3 = (data, status = 200) => Response.json(data, { status, headers });
+  if (!env.ENTRY_LISTS_DB) return json3({ error: "Shared saving is not configured. Add the ENTRY_LISTS_DB D1 binding." }, 503);
   const responseState = (state) => new URL(request.url).searchParams.get("history") === "1" ? includeLegacyHistory(env.ENTRY_LISTS_DB, state) : state;
   try {
-    if (request.method === "GET") return json(await responseState(publicState(await readState(env.ENTRY_LISTS_DB))));
+    if (request.method === "GET") return json3(await responseState(publicState(await readState(env.ENTRY_LISTS_DB))));
     const result = await advanceStoredRefresh(env.ENTRY_LISTS_DB);
-    return json(
+    return json3(
       await responseState(result.state),
       result.failed ? 502 : result.state.refreshing ? 202 : 200
     );
   } catch {
-    return json({ error: "Shared entry-list storage is unavailable. Check the D1 binding and schema." }, 503);
+    return json3({ error: "Shared entry-list storage is unavailable. Check the D1 binding and schema." }, 503);
   }
 }
 async function scheduledEntryRefresh(env) {
   if (!env.ENTRY_LISTS_DB) return;
   try {
     const row = await pruneExpiredEntryData(env.ENTRY_LISTS_DB);
-    const snapshot = row.snapshot ? JSON.parse(row.snapshot) : null;
-    if (row.job || (!snapshot || createEntryJob(Date.parse(snapshot.fetched_at)).window_start !== createEntryJob().window_start || Date.now() - Date.parse(snapshot.saved_at) >= AUTO_REFRESH)) {
+    const snapshot2 = row.snapshot ? JSON.parse(row.snapshot) : null;
+    if (row.job || (!snapshot2 || createEntryJob(Date.parse(snapshot2.fetched_at)).window_start !== createEntryJob().window_start || Date.now() - Date.parse(snapshot2.saved_at) >= AUTO_REFRESH)) {
       if (row.next_refresh_at <= Date.now() || row.job) await advanceStoredRefresh(env.ENTRY_LISTS_DB);
     }
   } catch {
@@ -1762,8 +1762,8 @@ async function advanceSharedJob(job, io) {
       }
       job.history_count += rows.length;
       if (job.history_total !== null && (job.history_count > job.history_total || !rows.length && job.history_count !== job.history_total)) throw new Error("The WTA player history response is incomplete.");
-      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(JSON.stringify(rows)));
-      const signature2 = [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join("");
+      const digest2 = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(JSON.stringify(rows)));
+      const signature2 = [...new Uint8Array(digest2)].map((value) => value.toString(16).padStart(2, "0")).join("");
       if (job.history_pages.includes(signature2)) throw new Error("WTA repeated a player history page.");
       job.history_pages.push(signature2);
       job.history.push(...rows);
@@ -1914,10 +1914,10 @@ async function readSnapshot(db, route, now = Date.now()) {
   return payload;
 }
 async function publicState2(db, route, now = Date.now()) {
-  const [row, snapshot] = await Promise.all([readState2(db, route), readSnapshot(db, route, now)]);
+  const [row, snapshot2] = await Promise.all([readState2(db, route), readSnapshot(db, route, now)]);
   const job = row?.job_json && row.job_expires_at > now ? JSON.parse(row.job_json) : null;
   return {
-    snapshot,
+    snapshot: snapshot2,
     refreshing: !!job || (row?.lease_until || 0) > now,
     next_refresh_at: row?.next_refresh_at || 0,
     progress: job?.progress || "",
@@ -2086,19 +2086,19 @@ async function advanceRefresh(db, route, ioFactory, now = Date.now()) {
   }
 }
 async function sharedDataResponse(request, env, headers = {}, ioFactory = createSharedIO) {
-  const json = (payload, status = 200) => Response.json(payload, { status, headers });
+  const json3 = (payload, status = 200) => Response.json(payload, { status, headers });
   const route = getSharedRoute(new URL(request.url).pathname);
-  if (!route) return json({ error: "Unknown shared data endpoint." }, 404);
-  if (request.method !== (route.refresh ? "POST" : "GET")) return json({ error: "Method not allowed." }, 405);
-  if (!env.ENTRY_LISTS_DB) return json({ error: "Shared data storage is not configured." }, 503);
+  if (!route) return json3({ error: "Unknown shared data endpoint." }, 404);
+  if (request.method !== (route.refresh ? "POST" : "GET")) return json3({ error: "Method not allowed." }, 405);
+  if (!env.ENTRY_LISTS_DB) return json3({ error: "Shared data storage is not configured." }, 503);
   try {
-    if (!route.refresh) return json(await publicState2(env.ENTRY_LISTS_DB, route));
+    if (!route.refresh) return json3(await publicState2(env.ENTRY_LISTS_DB, route));
     const result = await advanceRefresh(env.ENTRY_LISTS_DB, route, ioFactory);
-    const response = json(result.state, result.status || (result.failed ? 502 : result.state.refreshing ? 202 : 200));
+    const response = json3(result.state, result.status || (result.failed ? 502 : result.state.refreshing ? 202 : 200));
     if (result.status === 429) response.headers.set("Retry-After", String(BACKOFF / 1e3));
     return response;
   } catch {
-    return json({ error: "Shared data storage is unavailable. Check the shared schema and baseline import." }, 503);
+    return json3({ error: "Shared data storage is unavailable. Check the shared schema and baseline import." }, 503);
   }
 }
 async function pruneSharedData(db, now = Date.now()) {
@@ -2153,13 +2153,1501 @@ async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
   return false;
 }
 
+// cloudflare/wtarg-ranking-assets.mjs
+var HASH = /^[a-f0-9]{64}$/;
+var RANKING = /^rankings-(?:latest|\d{4})$/;
+var PROJECT = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/;
+var object2 = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+var checksum = (value) => typeof value === "string" && HASH.test(value);
+var fail = (message) => {
+  throw new Error(message);
+};
+var hash = async (value) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", value))].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+var RANKING_SOURCE_FILES = /* @__PURE__ */ new Set([
+  "wta_rankings_83_99.csv",
+  "wta_rankings_00_09.csv",
+  "wta_rankings_10_19.csv",
+  "wta_rankings_20_29.csv"
+]);
+var isRankingResource = (name) => RANKING.test(name);
+function validRankingAssetRef(value, project) {
+  if (!object2(value) || value.schemaVersion !== 1 || !checksum(value.bundleId) || typeof value.origin !== "string") return false;
+  try {
+    const url = new URL(value.origin);
+    const match = /^([a-f0-9]{8,40})\.([a-z0-9-]+)\.pages\.dev$/.exec(url.hostname);
+    return !!match && url.protocol === "https:" && url.origin === value.origin && !url.username && !url.password && !url.port && url.pathname === "/" && !url.search && !url.hash && PROJECT.test(match[2]) && (project === void 0 || PROJECT.test(project) && match[2] === project);
+  } catch {
+    return false;
+  }
+}
+async function assetBytes(env, reference, path, limit) {
+  const project = env.WTARG_RANKING_PAGES_PROJECT || "wtarg-ranking-files";
+  if (!validRankingAssetRef(reference, project)) fail("Invalid immutable ranking asset origin.");
+  const request = new Request(reference.origin + path, {
+    method: "GET",
+    redirect: "manual",
+    headers: { Accept: path.endsWith(".json") ? "application/json" : "application/octet-stream" },
+    signal: AbortSignal.timeout(2e4)
+  });
+  const response = env.WTARG_RANKING_ASSET_FETCHER?.fetch ? await env.WTARG_RANKING_ASSET_FETCHER.fetch(request) : await fetch(request);
+  if (!response.ok || response.redirected || Number(response.headers.get("Content-Length")) > limit) {
+    fail("Ranking asset is unavailable.");
+  }
+  const reader = response.body?.getReader();
+  if (!reader) fail("Ranking asset is empty.");
+  const chunks = [];
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > limit) {
+      await reader.cancel();
+      fail("Ranking asset exceeds its size limit.");
+    }
+    chunks.push(value);
+  }
+  const bytes3 = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes3.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes3;
+}
+function parse(bytes3) {
+  return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes3));
+}
+var equalParts = (left, right) => Array.isArray(left) && Array.isArray(right) && left.length === right.length && left.every((part, index) => part.sha256 === right[index].sha256 && part.bytes === right[index].bytes);
+var validParts = (parts, limit) => Array.isArray(parts) && parts.length > 0 && parts.length <= 1024 && parts.every((part) => object2(part) && checksum(part.sha256) && Number.isInteger(part.bytes) && part.bytes > 0 && part.bytes <= limit);
+var day = (value) => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+async function validateRankingAssets(env, manifest, sourceManifest) {
+  const externalSources = sourceManifest.files.filter((file) => file.storage === "ranking-assets");
+  const externalResources = Object.entries(manifest.resources).filter(([, resource]) => resource.assetStore === "rankings");
+  if (!externalSources.length && !externalResources.length && !manifest.rankingAssets && !sourceManifest.rankingAssets) return null;
+  const reference = manifest.rankingAssets;
+  if (!validRankingAssetRef(reference) || !validRankingAssetRef(sourceManifest.rankingAssets) || reference.bundleId !== sourceManifest.rankingAssets.bundleId || reference.origin !== sourceManifest.rankingAssets.origin || externalSources.length !== RANKING_SOURCE_FILES.size || externalSources.some((file) => !RANKING_SOURCE_FILES.has(file.name))) {
+    fail("Public rankings and recovery files need the same immutable asset bundle.");
+  }
+  const raw = await assetBytes(env, reference, "/manifest.json", 19e5);
+  if (await hash(raw) !== reference.bundleId) fail("Ranking asset manifest checksum differs.");
+  const bundle = parse(raw);
+  if (!object2(bundle) || bundle.schemaVersion !== 1 || !object2(bundle.sources) || !object2(bundle.resources) || Object.keys(bundle.sources).length !== RANKING_SOURCE_FILES.size || !Array.isArray(bundle.weeks) || !bundle.weeks.length || bundle.weeks.length > 1e4) fail("Invalid ranking asset manifest.");
+  for (const source of externalSources) {
+    const saved = bundle.sources[source.name];
+    if (!object2(saved) || !validParts(saved.parts, 196608) || !["rawSha256", "rawBytes", "gzipSha256", "gzipBytes"].every((key) => saved[key] === source[key]) || !equalParts(saved.parts, source.parts)) fail("Ranking source asset differs from the accepted checkpoint plan.");
+  }
+  const expectedNames = Object.keys(manifest.resources).filter(isRankingResource).sort();
+  if (externalResources.length !== expectedNames.length || !expectedNames.includes("rankings-latest") || Object.keys(bundle.resources).sort().join("|") !== expectedNames.join("|")) fail("Ranking public asset inventory differs.");
+  for (const [name, resource] of externalResources) {
+    const saved = bundle.resources[name];
+    if (!isRankingResource(name) || resource.storage !== "asset" || resource.assetReleaseId !== reference.bundleId || !object2(saved) || !validParts(saved.parts, 1e6) || saved.sha256 !== resource.sha256 || saved.bytes !== resource.bytes || !equalParts(saved.parts, resource.parts)) fail("Ranking public asset differs from its release plan.");
+  }
+  const weeks = /* @__PURE__ */ new Map();
+  for (const week of bundle.weeks) {
+    if (!object2(week) || !day(week.week_date) || weeks.has(week.week_date) || !checksum(week.sha256) || week.path !== `history/${week.week_date}-${week.sha256}.json` || !Number.isInteger(week.bytes) || week.bytes < 1 || week.bytes > 25 * 1024 * 1024 || !Number.isInteger(week.rows) || week.rows < 1 || !RANKING_SOURCE_FILES.has(week.source_file)) fail("Invalid lossless ranking archive inventory.");
+    weeks.set(week.week_date, week);
+  }
+  for (const [date2, checksum2] of Object.entries(sourceManifest.rankingCheckpointWeeks || {})) {
+    if (weeks.get(date2)?.sha256 !== checksum2) fail("Ranking archive metadata differs from its immutable file.");
+  }
+  return bundle;
+}
+async function rankingPublicPart(env, reference, resource, index) {
+  if (!isRankingResource(resource) || !Number.isInteger(index) || index < 0 || index > 255) fail("Invalid ranking public part.");
+  const value = parse(await assetBytes(env, reference, `/public/${resource}/${index}.json`, 19e5));
+  if (!object2(value) || typeof value.text !== "string") fail("Invalid ranking public content.");
+  return value;
+}
+async function validateRankingWeekIndex(db, bundle) {
+  if (!bundle) return;
+  const { results } = await db.prepare("SELECT week_date,content_hash,row_count,archive_path FROM wtarg_ranking_weeks WHERE series='wta_singles'").all();
+  const weeks = new Map(bundle.weeks.map((week) => [week.week_date, week]));
+  if (results.length !== weeks.size || results.some((row) => {
+    const expected = weeks.get(row.week_date);
+    return !expected || expected.sha256 !== row.content_hash || expected.rows !== row.row_count || row.archive_path !== `ranking-assets:wta_singles:${row.week_date}:${row.content_hash}`;
+  })) fail("Ranking database metadata differs from its immutable archive inventory.");
+}
+async function rankingSourceBlob(env, sourceManifest, blobId) {
+  const descriptor = sourceManifest.files.filter((file) => file.storage === "ranking-assets").flatMap((file) => file.parts).find((part) => part.sha256 === blobId);
+  if (!descriptor || !checksum(blobId)) return null;
+  const raw = await assetBytes(env, sourceManifest.rankingAssets, `/source/${blobId}.bin`, 196608);
+  if (raw.length !== descriptor.bytes || await hash(raw) !== blobId) fail("Ranking recovery asset checksum differs.");
+  let binary = "";
+  for (let index = 0; index < raw.length; index += 32768) binary += String.fromCharCode(...raw.subarray(index, index + 32768));
+  return { sha256: blobId, bytes: raw.length, base64: btoa(binary) };
+}
+
+// cloudflare/wtarg-store.mjs
+var ID = /^[a-f0-9]{64}$/;
+var RESOURCE = /^(?:bootstrap|identities|history|rankings-latest|rankings-\d{4})$/;
+var MAX_PART_BYTES = 1e6;
+var MAX_RESOURCE_BYTES = 32 * 1024 * 1024;
+var encoder2 = new TextEncoder();
+var object3 = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+var digest = async (text) => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", encoder2.encode(text)))).map((value) => value.toString(16).padStart(2, "0")).join("");
+function getWtargRoute(pathname) {
+  if (pathname === "/wtarg/v1/manifest") return { current: true };
+  const match = /^\/wtarg\/v1\/releases\/([a-f0-9]{64})\/(manifest|resources\/([a-z0-9-]+)\/parts\/(0|[1-9]\d{0,2}))$/.exec(pathname);
+  if (!match || match[3] && !RESOURCE.test(match[3])) return null;
+  return { releaseId: match[1], resource: match[3] || null, part: match[4] === void 0 ? null : Number(match[4]) };
+}
+function validWtargManifest(manifest, releaseId) {
+  if (!object3(manifest) || manifest.schemaVersion !== 1 || manifest.releaseId !== releaseId || !ID.test(manifest.applicationVersion) || !ID.test(manifest.sourceVersion) || typeof manifest.sourceFrozenAt !== "string" || !Number.isFinite(Date.parse(manifest.sourceFrozenAt)) || typeof manifest.preparedAt !== "string" || !Number.isFinite(Date.parse(manifest.preparedAt)) || !object3(manifest.resources) || !manifest.resources.bootstrap || manifest.rankingAssets !== void 0 && !validRankingAssetRef(manifest.rankingAssets)) return false;
+  const entries = Object.entries(manifest.resources);
+  if (!entries.length || entries.length > 64) return false;
+  return entries.every(([name, resource]) => RESOURCE.test(name) && object3(resource) && ["d1", "asset"].includes(resource.storage) && (name !== "bootstrap" || resource.storage === "d1") && (resource.assetStore === void 0 || resource.assetStore === "rankings" && isRankingResource(name) && resource.storage === "asset" && resource.assetReleaseId === manifest.rankingAssets?.bundleId) && (manifest.rankingAssets === void 0 || !isRankingResource(name) || resource.assetStore === "rankings") && (resource.assetReleaseId === void 0 || resource.storage === "asset" && typeof resource.assetReleaseId === "string" && ID.test(resource.assetReleaseId)) && (resource.d1ReleaseId === void 0 || resource.storage === "d1" && typeof resource.d1ReleaseId === "string" && ID.test(resource.d1ReleaseId)) && ID.test(resource.sha256) && Number.isInteger(resource.bytes) && resource.bytes > 0 && resource.bytes <= MAX_RESOURCE_BYTES && Array.isArray(resource.parts) && resource.parts.length > 0 && resource.parts.length <= 256 && resource.parts.every((part) => object3(part) && ID.test(part.sha256) && Number.isInteger(part.bytes) && part.bytes > 0 && part.bytes <= MAX_PART_BYTES && (part.storedBytes === void 0 || Number.isInteger(part.storedBytes) && part.storedBytes > 0 && part.storedBytes <= 19e5)) && resource.parts.reduce((total, part) => total + part.bytes, 0) === resource.bytes);
+}
+function validateWtargResourceBackings(_db, manifest, baseManifest) {
+  if (!validWtargManifest(manifest, manifest?.releaseId) || !validWtargManifest(baseManifest, baseManifest?.releaseId)) {
+    throw new Error("Invalid WTARG resource backing manifest.");
+  }
+  for (const [name, resource] of Object.entries(manifest.resources)) {
+    if (resource.assetStore === "rankings") continue;
+    const reference = resource.storage === "asset" ? resource.assetReleaseId : resource.d1ReleaseId;
+    if (resource.storage === "d1" && reference === void 0) continue;
+    const original = baseManifest.resources[name];
+    const owner = original?.storage === "asset" ? original.assetReleaseId || baseManifest.releaseId : original?.d1ReleaseId || baseManifest.releaseId;
+    if (!ID.test(reference || "") || reference === manifest.releaseId || !original || original.storage !== resource.storage || reference !== owner || original.sha256 !== resource.sha256 || original.bytes !== resource.bytes || original.parts.length !== resource.parts.length || original.parts.some((part, index) => part.sha256 !== resource.parts[index].sha256 || part.bytes !== resource.parts[index].bytes || part.storedBytes !== resource.parts[index].storedBytes)) {
+      throw new Error("WTARG resource reference is not the accepted matching base artifact.");
+    }
+  }
+  return true;
+}
+var readWtargSnapshot = (db, kind, scope) => db.prepare(
+  "SELECT payload_json FROM wta_snapshots WHERE kind = ? AND scope = ?"
+).bind(kind, scope).first();
+async function acceptedWtargManifest(db, releaseId) {
+  const [saved, accepted] = await Promise.all([
+    readWtargSnapshot(db, "wtarg:read_manifest", releaseId),
+    readWtargSnapshot(db, "wtarg:read_accepted", releaseId)
+  ]);
+  if (!saved || !accepted) return null;
+  const marker = JSON.parse(accepted.payload_json);
+  const manifest = JSON.parse(saved.payload_json);
+  if (!object3(marker) || marker.schemaVersion !== 1 || marker.releaseId !== releaseId || !ID.test(marker.manifestSha256) || await digest(saved.payload_json) !== marker.manifestSha256 || !validWtargManifest(manifest, releaseId)) throw new Error("Invalid accepted WTARG manifest.");
+  return manifest;
+}
+async function assetPart(env, releaseId, resource, index) {
+  if (!env.WTARG_ASSETS?.fetch) throw new Error("WTARG archive assets are unavailable.");
+  const response = await env.WTARG_ASSETS.fetch(new Request(
+    `https://wtarg-assets.invalid/wtarg-assets/${releaseId}/${resource}/${index}.json`
+  ));
+  if (!response.ok || Number(response.headers.get("Content-Length")) > 19e5) {
+    throw new Error("WTARG archive part is unavailable.");
+  }
+  const reader = response.body?.getReader();
+  if (!reader) throw new Error("Empty WTARG archive response.");
+  const chunks = [];
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > 19e5) {
+      await reader.cancel();
+      throw new Error("Oversized WTARG archive response.");
+    }
+    chunks.push(value);
+  }
+  const bytes3 = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes3.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes3));
+}
+async function wtargDataResponse(request, env, headers = {}) {
+  const json3 = (data, status = 200) => Response.json(data, { status, headers });
+  const route = getWtargRoute(new URL(request.url).pathname);
+  if (!route) return json3({ error: "Unknown WTARG resource." }, 404);
+  if (request.method !== "GET") return new Response(null, { status: 405, headers: { ...headers, Allow: "GET, OPTIONS" } });
+  if (!env.ENTRY_LISTS_DB) return json3({ error: "WTARG data is not available yet." }, 503);
+  try {
+    let releaseId = route.releaseId;
+    if (route.current) {
+      const saved = await readWtargSnapshot(env.ENTRY_LISTS_DB, "wtarg:read_current", "global");
+      const current = saved && JSON.parse(saved.payload_json);
+      if (!object3(current) || current.schemaVersion !== 1 || !ID.test(current.releaseId)) {
+        return json3({ error: "WTARG data is not available yet." }, 503);
+      }
+      releaseId = current.releaseId;
+    }
+    const manifest = await acceptedWtargManifest(env.ENTRY_LISTS_DB, releaseId);
+    if (!manifest) return json3({ error: "WTARG release is not available." }, route.current ? 503 : 404);
+    if (!route.resource) return json3(manifest);
+    const resource = manifest.resources[route.resource];
+    const descriptor = resource?.parts[route.part];
+    if (!descriptor) return json3({ error: "Unknown WTARG resource part." }, 404);
+    let part;
+    if (resource.assetStore === "rankings") part = await rankingPublicPart(env, manifest.rankingAssets, route.resource, route.part);
+    else if (resource.storage === "asset") part = await assetPart(env, resource.assetReleaseId || releaseId, route.resource, route.part);
+    else {
+      const saved = await readWtargSnapshot(
+        env.ENTRY_LISTS_DB,
+        "wtarg:read_part",
+        `${resource.d1ReleaseId || releaseId}:${route.resource}:${route.part}`
+      );
+      part = saved && JSON.parse(saved.payload_json);
+    }
+    if (!object3(part) || typeof part.text !== "string" || encoder2.encode(part.text).length !== descriptor.bytes || await digest(part.text) !== descriptor.sha256) throw new Error("Invalid WTARG resource part.");
+    return json3({ text: part.text });
+  } catch {
+    return json3({ error: "WTARG saved data could not be verified. Please try again." }, 503);
+  }
+}
+
+// cloudflare/wtarg-delta.mjs
+var WTARG_DELTA_TABLES = /* @__PURE__ */ new Set([
+  "wtarg_players",
+  "wtarg_player_ids",
+  "wtarg_player_aliases",
+  "wtarg_tournaments",
+  "wtarg_tournament_sources",
+  "wtarg_ranking_weeks",
+  "wtarg_rankings",
+  "wtarg_matches",
+  "wtarg_match_participants",
+  "wtarg_entry_lists",
+  "wtarg_entries",
+  "wtarg_entry_changes",
+  "wtarg_draws",
+  "wtarg_player_wtn",
+  "wtarg_draw_wtn",
+  "wtarg_tournament_metrics",
+  "wtarg_calendar_changes",
+  "wtarg_jobs",
+  "wtarg_source_state"
+]);
+var RETIRABLE = /* @__PURE__ */ new Set([
+  "wtarg_rankings",
+  "wtarg_entry_lists",
+  "wtarg_entries",
+  "wtarg_calendar_changes",
+  "wtarg_jobs",
+  "wtarg_source_state"
+]);
+var JOB_KEY = "wtarg:collector:global";
+var KIND = "wtarg:delta_journal";
+var MAX_JOURNAL_BYTES = 20 * 1024 * 1024;
+var object4 = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+var hash2 = async (value) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)))].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+var json = (value) => JSON.stringify(value);
+var failure = (message, status = 409) => Object.assign(new Error(message), { status });
+var quote = (name) => `"${name}"`;
+var journalScope = (jobId, batchId) => `${jobId}:${String(batchId).padStart(6, "0")}`;
+var fence = "EXISTS (SELECT 1 FROM wtarg_jobs WHERE job_key = ? AND lease_token = ? AND lease_until > ? AND job_expires_at > ? AND json_extract(payload_json, '$.jobId') = ?)";
+var fenceValues = (body, now) => [JOB_KEY, body.leaseToken, now, now, body.jobId];
+function validIdentity(body) {
+  if (!object4(body) || !/^[A-Za-z0-9-]{1,44}$/.test(body.jobId || "") || typeof body.leaseToken !== "string" || body.leaseToken.length < 16 || body.leaseToken.length > 200) {
+    throw failure("Invalid collector job identity.", 400);
+  }
+}
+async function requireLease(db, body, now) {
+  validIdentity(body);
+  const live = await db.prepare("SELECT 1 AS live WHERE " + fence).bind(...fenceValues(body, now)).first();
+  if (!live) throw failure("The collector lease is no longer active.");
+}
+async function layout(db, table) {
+  if (!WTARG_DELTA_TABLES.has(table)) throw failure("Unknown canonical table.", 400);
+  const { results } = await db.prepare(`PRAGMA table_info(${quote(table)})`).all();
+  if (!results.length || results.some((row) => !/^[a-z_]+$/.test(row.name))) throw failure("Canonical schema is unavailable.");
+  return {
+    columns: results.map((row) => row.name),
+    keys: results.filter((row) => row.pk).sort((a, b) => a.pk - b.pk).map((row) => row.name)
+  };
+}
+function validateOperation(operation, schema, restoring = false) {
+  const { table, key, before, after } = operation;
+  if (!object4(key) || Object.keys(key).sort().join() !== [...schema.keys].sort().join() || before === null && after === null) throw failure("Invalid canonical operation.", 400);
+  for (const row of [before, after]) {
+    if (row === null) continue;
+    if (!object4(row) || Object.keys(row).sort().join() !== [...schema.columns].sort().join() || Object.values(row).some((value) => value !== null && typeof value !== "string" && !(typeof value === "number" && Number.isFinite(value))) || schema.keys.some((name) => row[name] !== key[name])) throw failure("Invalid canonical row.", 400);
+    if (table === "wtarg_jobs" && (!String(row.job_key).startsWith("wtarg:wtn_gm:") || row.kind !== "wtn_gm" || row.discipline !== "S" || !["MDS", "QS"].includes(row.draw_code) || row.lease_token !== null || row.lease_until !== 0)) {
+      throw failure("Collector coordination cannot be replaced by a canonical delta.", 400);
+    }
+    if (table === "wtarg_source_state" && !/^(?:wtarg:(?:acceptance|wtn_publication|withdrawal_header|legacy_cache_file|legacy_cache_entry:[a-z0-9_.]+|main_draw_observation|profile_entry_checks|legacy_diagnostic:[a-z0-9_.]+)|itf_player_details|(?:wta_full_calendar_cache|itf_calendar_cache|wta_calendar_history|cache_state))$/.test(row.source)) {
+      throw failure("Provider coordination cannot be replaced by a canonical delta.", 400);
+    }
+  }
+  if (!restoring && after === null && !RETIRABLE.has(table)) throw failure("Permanent tennis history cannot be deleted.");
+  if (!restoring && table === "wtarg_rankings" && after?.series === "wta_singles") {
+    throw failure("Global WTA rankings are immutable files, not per-player SQL rows.");
+  }
+  if (!restoring && before?.frozen === 1 && json(schema.columns.map((name) => before[name])) !== json(schema.columns.map((name) => after?.[name]))) throw failure("A frozen metric cannot be replaced.");
+}
+function predicate(schema, row, key) {
+  const fields = row === null ? schema.keys : schema.columns;
+  const values = fields.map((name) => (row || key)[name]);
+  const condition = fields.map((name) => `${quote(name)} IS ?`).join(" AND ");
+  return { sql: `${row === null ? "NOT " : ""}EXISTS (SELECT 1 FROM TABLE WHERE ${condition})`, values };
+}
+function mutation(db, table, schema, row, key) {
+  if (row === null) return db.prepare(`DELETE FROM ${quote(table)} WHERE ` + schema.keys.map((name) => `${quote(name)} IS ?`).join(" AND ")).bind(...schema.keys.map((name) => key[name]));
+  const update = schema.columns.filter((name) => !schema.keys.includes(name));
+  return db.prepare(`INSERT INTO ${quote(table)} (${schema.columns.map(quote).join(",")}) VALUES (` + schema.columns.map(() => "?").join(",") + `) ON CONFLICT (${schema.keys.map(quote).join(",")}) ` + (update.length ? "DO UPDATE SET " + update.map((name) => `${quote(name)}=excluded.${quote(name)}`).join(",") : "DO NOTHING")).bind(...schema.columns.map((name) => row[name]));
+}
+function guardStart(db, body, now, scope) {
+  return db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES ('wtarg:delta_guard',?,CASE WHEN " + fence + " THEN '{}' ELSE '[' END,?,NULL)").bind(scope, ...fenceValues(body, now), new Date(now).toISOString());
+}
+function guardRow(db, operation, schema, expected, scope) {
+  const condition = predicate(schema, expected, operation.key);
+  return db.prepare("UPDATE wta_snapshots SET payload_json = CASE WHEN " + condition.sql.replace("FROM TABLE", `FROM ${quote(operation.table)}`) + " THEN '{}' ELSE '[' END WHERE kind='wtarg:delta_guard' AND scope=?").bind(...condition.values, scope);
+}
+async function deltaJournal(db, jobId) {
+  if (!/^[A-Za-z0-9-]{1,44}$/.test(jobId || "")) throw failure("Invalid collector job identity.", 400);
+  const { results } = await db.prepare("SELECT scope,json_extract(payload_json,'$.batchId') AS batchId,json_extract(payload_json,'$.operationsHash') AS operationsHash FROM wta_snapshots WHERE kind=? AND scope>=? AND scope<? ORDER BY scope").bind(KIND, jobId + ":", jobId + ";").all();
+  return results;
+}
+async function lastJournal(db, jobId) {
+  const row = await db.prepare("SELECT scope,payload_json FROM wta_snapshots WHERE kind=? AND scope>=? AND scope<? ORDER BY scope DESC LIMIT 1").bind(KIND, jobId + ":", jobId + ";").first();
+  return row ? { scope: row.scope, ...JSON.parse(row.payload_json) } : null;
+}
+async function totalsRow(db, jobId) {
+  const row = await db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind='wtarg:delta_totals' AND scope=?").bind(jobId).first();
+  const total = row ? JSON.parse(row.payload_json) : { batches: 0, bytes: 0, operations: 0, operationBytes: 0 };
+  if (!object4(total) || !Number.isInteger(total.batches) || total.batches < 0 || !Number.isInteger(total.bytes) || total.bytes < 0) throw failure("Invalid canonical recovery counters.");
+  if (!Number.isInteger(total.operations ?? 0) || (total.operations ?? 0) < 0 || !Number.isInteger(total.operationBytes ?? 0) || (total.operationBytes ?? 0) < 0) {
+    throw failure("Invalid canonical recovery counters.");
+  }
+  return { raw: row?.payload_json ?? null, operations: 0, operationBytes: 0, ...total };
+}
+async function deltaSummary(db, jobId) {
+  const total = await totalsRow(db, jobId);
+  return { batches: total.batches, bytes: total.bytes, operations: total.operations, operationBytes: total.operationBytes };
+}
+function guardTotals(db, jobId, previous, scope) {
+  return db.prepare("UPDATE wta_snapshots SET payload_json=CASE WHEN (SELECT payload_json FROM wta_snapshots WHERE kind='wtarg:delta_totals' AND scope=?) IS ? THEN '{}' ELSE '[' END WHERE kind='wtarg:delta_guard' AND scope=?").bind(jobId, previous.raw, scope);
+}
+function writeTotals(db, jobId, total, now) {
+  return db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES('wtarg:delta_totals',?,?,?,NULL) ON CONFLICT(kind,scope) DO UPDATE SET payload_json=excluded.payload_json,fetched_at=excluded.fetched_at").bind(jobId, json(total), new Date(now).toISOString());
+}
+async function applyDelta(db, body, now = Date.now(), approvedBudget = null) {
+  await requireLease(db, body, now);
+  if (!Number.isInteger(body.batchId) || body.batchId < 0 || body.batchId > 9999 || !Array.isArray(body.operations) || body.operations.length < 1 || body.operations.length > 8 || new TextEncoder().encode(json(body.operations)).length > 9e5) throw failure("Invalid canonical batch.", 400);
+  const operationsHash = await hash2(json(body.operations));
+  const scope = journalScope(body.jobId, body.batchId);
+  const saved = await db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind=? AND scope=?").bind(KIND, scope).first();
+  if (saved) {
+    if (JSON.parse(saved.payload_json).operationsHash !== operationsHash) throw failure("Canonical batch content changed.");
+    return { applied: false, batchId: body.batchId };
+  }
+  const previous = await lastJournal(db, body.jobId);
+  if (body.batchId !== (previous ? previous.batchId + 1 : 0)) throw failure("Canonical batches must be applied in order.");
+  const totals = await totalsRow(db, body.jobId);
+  const operationBytes = new TextEncoder().encode(json(body.operations)).length;
+  if (approvedBudget && (body.batchId >= approvedBudget.batches || totals.operations + body.operations.length > approvedBudget.operations || totals.operationBytes + operationBytes > approvedBudget.bytes)) {
+    throw failure("Canonical changes exceed their approved storage plan.");
+  }
+  const payload = json({
+    schemaVersion: 1,
+    jobId: body.jobId,
+    batchId: body.batchId,
+    operationsHash,
+    operations: body.operations
+  });
+  const payloadBytes2 = new TextEncoder().encode(payload).length;
+  if (totals.batches !== body.batchId || totals.bytes + payloadBytes2 > MAX_JOURNAL_BYTES) {
+    throw failure("Canonical recovery storage reserve exceeded; collection must pause.");
+  }
+  const schemas = /* @__PURE__ */ new Map();
+  const seen = /* @__PURE__ */ new Set();
+  for (const operation of body.operations) {
+    if (!object4(operation) || !WTARG_DELTA_TABLES.has(operation.table)) throw failure("Unknown canonical table.", 400);
+    if (!schemas.has(operation.table)) schemas.set(operation.table, await layout(db, operation.table));
+    const schema = schemas.get(operation.table);
+    validateOperation(operation, schema);
+    const identity = json([operation.table, ...schema.keys.map((name) => operation.key[name])]);
+    if (seen.has(identity)) throw failure("Repeated row in canonical batch.", 400);
+    seen.add(identity);
+  }
+  const statements = [guardStart(db, body, now, scope), guardTotals(db, body.jobId, totals, scope)];
+  for (const operation of body.operations) {
+    const schema = schemas.get(operation.table);
+    statements.push(guardRow(db, operation, schema, operation.before, scope));
+    statements.push(mutation(db, operation.table, schema, operation.after, operation.key));
+  }
+  statements.push(db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES(?,?,?,?,NULL)").bind(KIND, scope, payload, new Date(now).toISOString()));
+  statements.push(writeTotals(db, body.jobId, {
+    batches: totals.batches + 1,
+    bytes: totals.bytes + payloadBytes2,
+    operations: totals.operations + body.operations.length,
+    operationBytes: totals.operationBytes + operationBytes
+  }, now));
+  statements.push(db.prepare("DELETE FROM wta_snapshots WHERE kind='wtarg:delta_guard' AND scope=?").bind(scope));
+  try {
+    await db.batch(statements);
+  } catch {
+    throw failure("Canonical batch conflicted with the current rows or collector lease.");
+  }
+  return { applied: true, batchId: body.batchId };
+}
+async function rollbackDelta(db, body, now = Date.now()) {
+  await requireLease(db, body, now);
+  const last = await lastJournal(db, body.jobId);
+  if (!last) return { rolledBack: false, remaining: 0 };
+  const totals = await totalsRow(db, body.jobId);
+  if (totals.batches !== last.batchId + 1) throw failure("Canonical recovery counters are inconsistent.");
+  const payloadBytes2 = new TextEncoder().encode(json({
+    schemaVersion: last.schemaVersion,
+    jobId: last.jobId,
+    batchId: last.batchId,
+    operationsHash: last.operationsHash,
+    operations: last.operations
+  })).length;
+  if (totals.bytes < payloadBytes2) throw failure("Canonical recovery counters are inconsistent.");
+  const schemas = /* @__PURE__ */ new Map();
+  const statements = [guardStart(db, body, now, last.scope), guardTotals(db, body.jobId, totals, last.scope)];
+  for (const operation of [...last.operations].reverse()) {
+    if (!schemas.has(operation.table)) schemas.set(operation.table, await layout(db, operation.table));
+    const schema = schemas.get(operation.table);
+    validateOperation(operation, schema, true);
+    statements.push(guardRow(db, operation, schema, operation.after, last.scope));
+    statements.push(mutation(db, operation.table, schema, operation.before, operation.key));
+  }
+  statements.push(db.prepare("DELETE FROM wta_snapshots WHERE kind=? AND scope=?").bind(KIND, last.scope));
+  statements.push(writeTotals(db, body.jobId, {
+    batches: totals.batches - 1,
+    bytes: totals.bytes - payloadBytes2,
+    operations: Math.max(0, totals.operations - last.operations.length),
+    operationBytes: Math.max(0, totals.operationBytes - new TextEncoder().encode(json(last.operations)).length)
+  }, now));
+  statements.push(db.prepare("DELETE FROM wta_snapshots WHERE kind='wtarg:delta_guard' AND scope=?").bind(last.scope));
+  try {
+    await db.batch(statements);
+  } catch {
+    throw failure("Canonical recovery conflicted; provider collection must remain stopped.");
+  }
+  return { rolledBack: true, batchId: last.batchId, remaining: last.batchId };
+}
+
+// cloudflare/wtarg-storage.mjs
+var DEFAULT_WTARG_STORAGE_LIMIT = 4e8;
+var MAX_WTARG_STORAGE_LIMIT = 45e7;
+var WTARG_RECOVERY_RESERVE = 32 * 1024 * 1024;
+var encoder3 = new TextEncoder();
+var failure2 = (message, status = 507) => Object.assign(new Error(message), { status });
+var payloadBytes = (value) => encoder3.encode(typeof value === "string" ? value : JSON.stringify(value)).length;
+var storageCharge = (bytes3, rows = 1) => Math.ceil(bytes3 * 1.25) + rows * 8192;
+async function wtargStorage(db, env) {
+  const limitBytes = Number(env.WTARG_STORAGE_LIMIT_BYTES || DEFAULT_WTARG_STORAGE_LIMIT);
+  if (!Number.isSafeInteger(limitBytes) || limitBytes < 1e6 || limitBytes > MAX_WTARG_STORAGE_LIMIT) {
+    throw failure2("The collector storage ceiling is not configured safely.", 503);
+  }
+  const result = await db.prepare("SELECT 1 AS storage_probe").run();
+  const databaseBytes = result.meta?.size_after;
+  if (result.success !== true || !Number.isSafeInteger(databaseBytes) || databaseBytes < 1) {
+    throw failure2("The database size could not be verified; collection remains stopped.", 503);
+  }
+  return {
+    databaseBytes,
+    limitBytes,
+    recoveryReserveBytes: WTARG_RECOVERY_RESERVE,
+    availableBytes: Math.max(0, limitBytes - databaseBytes - WTARG_RECOVERY_RESERVE)
+  };
+}
+async function requireWtargStorage(db, env, growth = 0) {
+  if (!Number.isSafeInteger(growth) || growth < 0) throw failure2("Invalid collector storage projection.", 400);
+  const state = await wtargStorage(db, env);
+  if (growth > state.availableBytes || state.databaseBytes + WTARG_RECOVERY_RESERVE >= state.limitBytes) {
+    throw failure2("The free storage reserve would be exceeded. Saved data was kept; review collection storage before retrying.");
+  }
+  return {
+    ...state,
+    projectedGrowthBytes: growth,
+    projectedBytes: state.databaseBytes + growth + WTARG_RECOVERY_RESERVE
+  };
+}
+
+// cloudflare/wtarg-collector.mjs
+var JOB = "wtarg:collector:global";
+var CONTROL = "wtarg:collector";
+var COOLDOWN3 = 12e4;
+var INTERVAL = 2 * 60 * 60 * 1e3;
+var LEASE3 = 18e4;
+var BODY_LIMIT = 14e5;
+var PART_LIMIT = 1e6;
+var DEFAULT_COLLECTOR_WRITE_BUDGET = 6e4;
+var HASH2 = /^[a-f0-9]{64}$/;
+var JOB_ID = /^[a-f0-9-]{36}$/;
+var encoder4 = new TextEncoder();
+var object5 = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+var iso2 = (now) => new Date(now).toISOString();
+var bytes2 = (value) => encoder4.encode(value).length;
+var hash3 = async (value) => Array.from(new Uint8Array(await crypto.subtle.digest(
+  "SHA-256",
+  typeof value === "string" ? encoder4.encode(value) : value
+)), (v) => v.toString(16).padStart(2, "0")).join("");
+var timestamp = (value) => typeof value === "string" && /T.*(?:Z|[+-]\d\d:\d\d)$/.test(value) && Number.isFinite(Date.parse(value));
+var day2 = (value) => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+var safeMessage = (value) => typeof value === "string" ? value.replace(/[\x00-\x1f]/g, " ").slice(0, 240) : "";
+var FILES = /* @__PURE__ */ new Set([
+  "player_aliases_wta_itf.json",
+  "wta_rankings_83_99.csv",
+  "wta_rankings_00_09.csv",
+  "wta_rankings_10_19.csv",
+  "wta_rankings_20_29.csv",
+  "wta_ranking_refresh_status.json",
+  "itf_rankings_cache.json",
+  "wta_matches_arg.csv",
+  "itf_matches_arg.csv",
+  "gs_matches_arg.csv",
+  "bjkc_matches_arg.csv",
+  "og_matches_arg.csv",
+  "united_cup_matches_arg.csv",
+  "manually_added_matches.csv",
+  "calendar_snapshot.json",
+  "wta_full_calendar_cache.json",
+  "itf_calendar_cache.json",
+  "wta_pre_2016.json",
+  "wta_missing_tournaments.json",
+  "current_gs.json",
+  "olympic_games.json",
+  "manual_calendar_entries.json",
+  "tournament_snapshot.json",
+  "calendar_change_history.json",
+  "entry_lists_cache.json",
+  "entry_withdrawals.json",
+  "itf_acceptance_state.json",
+  "itf_event_filters_cache.json",
+  "draws_store_cache.json",
+  "draws_snapshot.json",
+  "itf_drawsheets_cache.json",
+  "itf_wtn_cache.json",
+  "itf_wtn_entry_lists_seen.json",
+  "wtn_singles_draw_history.json",
+  "main_draw_wtn_gm.json",
+  "tstrength_cache.json",
+  "tournament_draw_sizes.json",
+  "itf_player_details.json",
+  "ao27_md_race.json",
+  "ao27_q_race.json",
+  "points_distribution.json",
+  "points_distribution_history.json",
+  "captains.csv",
+  "national_team_order.csv",
+  "cache_state.json",
+  "draw_fetch_errors.json",
+  "itf_blocked_responses.json",
+  "main_draw_wtn_errors.json"
+]);
+var PROTECTED = /* @__PURE__ */ new Set([
+  "manually_added_matches.csv",
+  "current_gs.json",
+  "olympic_games.json",
+  "manual_calendar_entries.json",
+  "ao27_md_race.json",
+  "ao27_q_race.json",
+  "points_distribution.json",
+  "points_distribution_history.json",
+  "captains.csv",
+  "national_team_order.csv"
+]);
+function fail2(message, status = 400) {
+  const error = new Error(message);
+  error.status = status;
+  throw error;
+}
+function json2(value) {
+  const text = JSON.stringify(value);
+  if (bytes2(text) > 19e5) fail2("Collector payload exceeds its storage limit.");
+  return text;
+}
+var snapshot = (db, kind, scope = "global") => db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind=? AND scope=?").bind(kind, scope).first();
+var parsed = (row) => row ? JSON.parse(row.payload_json) : null;
+var jobRow = (db) => db.prepare("SELECT * FROM wtarg_jobs WHERE job_key=?").bind(JOB).first();
+var gateRow = (db) => db.prepare("SELECT * FROM wtarg_source_state WHERE source=? AND scope='global'").bind(CONTROL).first();
+var fence2 = "EXISTS (SELECT 1 FROM wtarg_jobs WHERE job_key='wtarg:collector:global' AND lease_token=? AND lease_until>? AND job_expires_at>? AND json_extract(payload_json,'$.jobId')=?)";
+var fenceValues2 = (body, now) => [body.leaseToken, now, now, body.jobId];
+async function journalState(db, jobId) {
+  const entries = jobId ? await deltaJournal(db, jobId) : [];
+  return { entries, batches: entries.length, remaining: entries.length };
+}
+function put(db, kind, scope, value, body, now, expiry = null) {
+  return db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) SELECT ?,?,?,?,? WHERE " + fence2 + " ON CONFLICT(kind,scope) DO UPDATE SET payload_json=excluded.payload_json, fetched_at=excluded.fetched_at, expires_at=excluded.expires_at WHERE " + fence2).bind(
+    kind,
+    scope,
+    json2(value),
+    iso2(now),
+    expiry,
+    ...fenceValues2(body, now),
+    ...fenceValues2(body, now)
+  );
+}
+async function immutablePut(db, kind, scope, value, body, now) {
+  const existing = await snapshot(db, kind, scope);
+  const text = json2(value);
+  if (existing) {
+    if (existing.payload_json !== text) fail2("Immutable collector content already has different bytes.", 409);
+    return false;
+  }
+  await db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) SELECT ?,?,?,?,NULL WHERE " + fence2 + " ON CONFLICT(kind,scope) DO NOTHING").bind(kind, scope, text, iso2(now), ...fenceValues2(body, now)).run();
+  const saved = await snapshot(db, kind, scope);
+  if (!saved || saved.payload_json !== text) fail2("The collector lease changed while saving content.", 409);
+  return true;
+}
+function getWtargCollectorRoute(pathname) {
+  if (pathname === "/wtarg/v1/status") return { operation: "status", method: "GET", public: true };
+  if (pathname === "/wtarg/v1/refresh") return { operation: "refresh", method: "POST", public: true };
+  const match = /^\/wtarg\/internal\/v1\/(claim|heartbeat|preflight|storage|stage|part|delta|rollback|commit|finish|pace|wtn|wtn-page|gc|source(?:\/blobs\/([a-f0-9]{64}))?)$/.exec(pathname);
+  if (!match) return null;
+  return {
+    operation: match[1].startsWith("source") ? "source" : match[1],
+    blob: match[2] || null,
+    public: false,
+    method: match[1] === "storage" ? "GET" : match[1].startsWith("source") ? "GET, POST" : "POST"
+  };
+}
+async function readBody(request) {
+  if (!request.headers.get("Content-Type")?.toLowerCase().startsWith("application/json")) fail2("Expected a JSON collector request.", 415);
+  if (Number(request.headers.get("Content-Length")) > BODY_LIMIT) fail2("Collector request is too large.", 413);
+  const reader = request.body?.getReader();
+  if (!reader) fail2("A collector JSON body is required.");
+  const chunks = [];
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > BODY_LIMIT) {
+      await reader.cancel();
+      fail2("Collector request is too large.", 413);
+    }
+    chunks.push(value);
+  }
+  const raw = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    raw.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  try {
+    const body = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(raw));
+    if (!object5(body)) fail2("Expected a collector object.");
+    return body;
+  } catch {
+    fail2("Invalid collector JSON.");
+  }
+}
+async function authorized(request, env) {
+  if (request.headers.has("Origin")) fail2("Collector credentials are not accepted from a browser origin.", 403);
+  if (typeof env.WTARG_COLLECTOR_TOKEN !== "string" || env.WTARG_COLLECTOR_TOKEN.length < 32) fail2("Collector access is not configured.", 503);
+  const bearer = request.headers.get("Authorization") || "";
+  if (!bearer.startsWith("Bearer ") || await hash3(bearer.slice(7)) !== await hash3(env.WTARG_COLLECTOR_TOKEN)) {
+    fail2("Collector authentication failed.", 401);
+  }
+}
+async function currentSource(db) {
+  const pointer = parsed(await snapshot(db, "wtarg:source_current"));
+  if (!pointer || !HASH2.test(pointer.sourceVersion)) return null;
+  const manifest = parsed(await snapshot(db, "wtarg:source_manifest", pointer.checkpointId || pointer.sourceVersion));
+  try {
+    return manifest && manifest.sourceVersion === pointer.sourceVersion ? await validateSource(manifest) : null;
+  } catch {
+    return null;
+  }
+}
+async function statusState(db, env, now) {
+  const [row, gate, current, source] = await Promise.all([jobRow(db), gateRow(db), snapshot(db, "wtarg:read_current"), currentSource(db)]);
+  const state = parsed(row) || {};
+  const enabled = env.WTARG_COLLECTION_ENABLED === "true" && typeof env.WTARG_COLLECTOR_TOKEN === "string" && env.WTARG_COLLECTOR_TOKEN.length >= 32 && !!source;
+  const active = row?.status === "running" && row.lease_until > now && row.job_expires_at > now;
+  let phase = state.phase || "idle";
+  if (row?.status === "running" && !active) phase = "failed";
+  if (phase === "repairing") phase = "publishing";
+  return {
+    enabled,
+    jobId: state.jobId || null,
+    state: phase,
+    progress: safeMessage(state.progress),
+    nextRefreshAt: state.nextRefreshAt || 0,
+    nextCollectionAt: gate?.not_before || 0,
+    currentReleaseId: parsed(current)?.releaseId || null,
+    lastSuccessAt: row?.last_success_at || null,
+    serverNow: now,
+    error: phase === "failed" && row?.status === "running" ? "The collector stopped before finishing. Its previous saved data is still available." : row?.error || null
+  };
+}
+async function initialize(db) {
+  await db.batch([
+    db.prepare("INSERT OR IGNORE INTO wtarg_jobs(job_key,source,kind,scope,payload_json) VALUES(?,?,?,?,?)").bind(JOB, "wtarg", "collector_cycle", "global", "{}"),
+    db.prepare("INSERT OR IGNORE INTO wtarg_source_state(source,scope) VALUES(?,'global')").bind(CONTROL)
+  ]);
+}
+async function activeJob(db, body, now, allowRepair = false) {
+  if (!JOB_ID.test(body.jobId || "") || !JOB_ID.test(body.leaseToken || "")) fail2("Invalid collector job identity.");
+  const row = await jobRow(db), state = parsed(row);
+  if (!row || state?.jobId !== body.jobId || row.lease_token !== body.leaseToken || row.lease_until <= now || row.job_expires_at <= now || row.status !== "running") fail2("Collector lease expired or changed.", 409);
+  if (!allowRepair && state.phase === "repairing") fail2("The previous normalized update must be restored before collecting.", 409);
+  const source = await currentSource(db);
+  if (source?.sourceVersion !== state.baseSourceVersion) fail2("The saved collector source changed.", 409);
+  return { row, state, source };
+}
+async function reserveWrites(db, body, count, env, now) {
+  const limit = Number(env.WTARG_DAILY_WRITE_BUDGET || DEFAULT_COLLECTOR_WRITE_BUDGET);
+  if (!Number.isInteger(limit) || limit < 1e3 || limit > 6e4) fail2("Collector write budget is not configured safely.", 503);
+  const scope = "write-budget:" + iso2(now).slice(0, 10);
+  await db.prepare("INSERT OR IGNORE INTO wtarg_source_state(source,scope,payload_json) SELECT ?,?,? WHERE " + fence2).bind(CONTROL, scope, '{"reserved":0}', ...fenceValues2(body, now)).run();
+  const reserved = await db.prepare("UPDATE wtarg_source_state SET payload_json=json_set(payload_json,'$.reserved',COALESCE(json_extract(payload_json,'$.reserved'),0)+?) WHERE source=? AND scope=? AND COALESCE(json_extract(payload_json,'$.reserved'),0)+?<=? AND " + fence2 + " RETURNING payload_json").bind(count, CONTROL, scope, count, limit, ...fenceValues2(body, now)).first();
+  if (!reserved) fail2("The collector's daily write reserve is exhausted; saved data was kept.", 429);
+}
+async function requestRefresh(db, env, now) {
+  if (!(await statusState(db, env, now)).enabled) fail2("Collector refresh is not enabled or its approved baseline is missing.", 503);
+  await initialize(db);
+  const row = await jobRow(db), state = parsed(row) || {};
+  if ((state.nextRefreshAt || 0) > now) return { status: 429, state: await statusState(db, env, now) };
+  if (row.status === "running" && row.lease_until > now || row.status === "queued" && state.jobId) {
+    await db.prepare("UPDATE wtarg_jobs SET payload_json=json_set(payload_json,'$.nextRefreshAt',?) WHERE job_key=? AND COALESCE(json_extract(payload_json,'$.nextRefreshAt'),0)<=?").bind(now + COOLDOWN3, JOB, now).run();
+    return { status: 202, state: await statusState(db, env, now) };
+  }
+  const pending = await journalState(db, state.jobId);
+  const keepOld = pending.remaining > 0;
+  const next = {
+    ...keepOld ? state : {},
+    jobId: keepOld ? state.jobId : crypto.randomUUID(),
+    phase: "queued",
+    progress: keepOld ? "Waiting to restore the previous interrupted update." : "Queued for the scheduled collector.",
+    nextRefreshAt: now + COOLDOWN3
+  };
+  await db.prepare("UPDATE wtarg_jobs SET status='queued',due_at=?,payload_json=?,error=NULL WHERE job_key=? AND payload_json=? AND lease_until<=?").bind(now, json2(next), JOB, row.payload_json, now).run();
+  return { status: 202, state: await statusState(db, env, now) };
+}
+async function claim(db, env, now) {
+  if (!(await statusState(db, env, now)).enabled) fail2("An approved source checkpoint and enabled collector are required.", 409);
+  await initialize(db);
+  const [row, gate, source, current, sourcePointer] = await Promise.all([
+    jobRow(db),
+    gateRow(db),
+    currentSource(db),
+    snapshot(db, "wtarg:read_current"),
+    snapshot(db, "wtarg:source_current")
+  ]);
+  const old = parsed(row) || {};
+  if (row.lease_until > now) return { jobId: null, nextCollectionAt: gate.not_before, sourceManifest: null };
+  const pending = await journalState(db, old.jobId);
+  const repairing = pending.remaining > 0;
+  if (!repairing && gate.not_before > now) return { jobId: null, nextCollectionAt: gate.not_before, sourceManifest: null };
+  const jobId = repairing ? old.jobId : row.status === "queued" && old.jobId ? old.jobId : crypto.randomUUID();
+  const token = crypto.randomUUID();
+  const next = repairing ? { ...old, phase: "repairing", progress: "Restoring an interrupted normalized update." } : {
+    jobId,
+    phase: "collecting",
+    progress: "Starting the scheduled collector.",
+    nextRefreshAt: old.nextRefreshAt || 0,
+    baseSourceVersion: source.sourceVersion,
+    baseCheckpointId: parsed(sourcePointer)?.checkpointId || source.sourceVersion,
+    baseReleaseId: parsed(current)?.releaseId || null
+  };
+  const sourceGuard = repairing ? "1" : "EXISTS (SELECT 1 FROM wtarg_source_state WHERE source='wtarg:collector' AND scope='global' AND not_before<=?)";
+  const statements = [db.prepare("UPDATE wtarg_jobs SET status='running',lease_token=?,lease_until=?,job_expires_at=?,attempt_count=attempt_count+1,payload_json=?,error=NULL WHERE job_key=? AND payload_json=? AND lease_until<=? AND " + sourceGuard).bind(token, now + LEASE3, now + INTERVAL, json2(next), JOB, row.payload_json, now, ...repairing ? [] : [now])];
+  if (!repairing) statements.push(db.prepare("UPDATE wtarg_source_state SET not_before=?,last_checked_at=? WHERE source=? AND scope='global' AND EXISTS(SELECT 1 FROM wtarg_jobs WHERE job_key=? AND lease_token=?)").bind(now + INTERVAL, iso2(now), CONTROL, JOB, token));
+  await db.batch(statements);
+  const claimed = await jobRow(db);
+  if (claimed.lease_token !== token) return { jobId: null, nextCollectionAt: (await gateRow(db)).not_before, sourceManifest: null };
+  return {
+    jobId,
+    leaseToken: token,
+    leaseUntil: now + LEASE3,
+    baseSourceVersion: next.baseSourceVersion,
+    baseReleaseId: next.baseReleaseId,
+    sourceManifest: source,
+    repairing,
+    nextCollectionAt: repairing ? gate.not_before : now + INTERVAL
+  };
+}
+async function validateSource(manifest) {
+  if (!object5(manifest) || manifest.schemaVersion !== 1 || !HASH2.test(manifest.sourceVersion) || !/^[a-f0-9]{40}$/.test(manifest.sourceRevision || "") || !Array.isArray(manifest.files) || manifest.files.length !== FILES.size || manifest.normalizedAt !== void 0 && !timestamp(manifest.normalizedAt) || manifest.capturedAt !== void 0 && !timestamp(manifest.capturedAt) || manifest.gitIdentityHash !== void 0 && !HASH2.test(manifest.gitIdentityHash) || manifest.rankingAssets !== void 0 && !validRankingAssetRef(manifest.rankingAssets) || manifest.identityPatchRevision !== void 0 && (!/^[a-f0-9]{40}$/.test(manifest.identityPatchRevision) || manifest.identityPatchRevision !== manifest.sourceRevision) || manifest.canonicalKeyOverrides !== void 0 && (!object5(manifest.canonicalKeyOverrides) || Object.keys(manifest.canonicalKeyOverrides).length > 1e4 || Object.entries(manifest.canonicalKeyOverrides).some(([key, value]) => !key.length || key.length > 200 || /[\x00-\x1f]/.test(key) || typeof value !== "string" || !value.length || value.length > 200 || /[\x00-\x1f]/.test(value))) || manifest.rankingCheckpointWeeks !== void 0 && (!object5(manifest.rankingCheckpointWeeks) || Object.keys(manifest.rankingCheckpointWeeks).length > 1e4 || Object.entries(manifest.rankingCheckpointWeeks).some(([key, value]) => !day2(key) || !HASH2.test(value)))) {
+    fail2("Invalid collector source manifest.");
+  }
+  const overrides = new Map(Object.entries(manifest.canonicalKeyOverrides || {})), complete = /* @__PURE__ */ new Set();
+  for (const start of overrides.keys()) {
+    let current = start;
+    const visited = /* @__PURE__ */ new Set();
+    while (overrides.has(current) && !complete.has(current)) {
+      if (visited.has(current)) fail2("Canonical key override metadata contains a cycle.");
+      visited.add(current);
+      current = overrides.get(current);
+    }
+    for (const key of visited) complete.add(key);
+  }
+  const seen = /* @__PURE__ */ new Set();
+  let raw = 0, compressed = 0;
+  for (const file of manifest.files) {
+    if (!object5(file) || !FILES.has(file.name) || seen.has(file.name) || !HASH2.test(file.rawSha256) || !HASH2.test(file.gzipSha256) || file.storage !== void 0 && !["d1", "ranking-assets"].includes(file.storage) || file.storage === "ranking-assets" && !RANKING_SOURCE_FILES.has(file.name) || !Number.isInteger(file.rawBytes) || file.rawBytes < 1 || file.rawBytes > 128 * 1024 * 1024 || !Number.isInteger(file.gzipBytes) || file.gzipBytes < 20 || file.gzipBytes > 96 * 1024 * 1024 || !Array.isArray(file.parts) || !file.parts.length || file.parts.length > 1024 || file.parts.some((part) => !object5(part) || !HASH2.test(part.sha256) || !Number.isInteger(part.bytes) || part.bytes < 1 || part.bytes > 196608) || file.parts.reduce((sum, part) => sum + part.bytes, 0) !== file.gzipBytes) fail2("Invalid source file descriptor.");
+    seen.add(file.name);
+    raw += file.rawBytes;
+    compressed += file.gzipBytes;
+  }
+  const external = manifest.files.filter((file) => file.storage === "ranking-assets");
+  if (external.length && (external.length !== RANKING_SOURCE_FILES.size || !validRankingAssetRef(manifest.rankingAssets)) || !external.length && manifest.rankingAssets !== void 0) fail2("Ranking recovery files need a complete immutable asset reference.");
+  const fingerprints = [...manifest.files].sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0).map((file) => ({ name: file.name, bytes: file.rawBytes, sha256: file.rawSha256 }));
+  if (raw !== manifest.totalRawBytes || compressed !== manifest.totalGzipBytes || raw > 256 * 1024 * 1024 || compressed > 96 * 1024 * 1024 || await hash3(JSON.stringify(fingerprints)) !== manifest.sourceVersion) fail2("Source manifest totals or identity do not match.");
+  return manifest;
+}
+async function validateReleasePlan(db, env, body, source, state) {
+  if (!validWtargManifest(body.manifest, body.manifest?.releaseId) || Object.values(body.manifest.resources).reduce((total, resource) => total + resource.parts.length, 0) > 2048) {
+    fail2("Invalid or oversized public release.");
+  }
+  if (!["bootstrap", "identities", "history", "rankings-latest"].every((name) => body.manifest.resources[name])) {
+    fail2("The public release is missing an existing website section.");
+  }
+  const sourceManifest = await validateSource(body.sourceManifest);
+  if (body.manifest.sourceVersion !== sourceManifest.sourceVersion) fail2("Public release and source checkpoint differ.");
+  if (sourceManifest.identityPatchRevision && env.WTARG_AUTHORED_REVISION !== sourceManifest.identityPatchRevision) {
+    fail2("A reviewed identity correction requires approval of its exact Git revision.", 409);
+  }
+  const oldFiles = new Map(source.files.map((file) => [file.name, file.rawSha256]));
+  const changedAuthored = sourceManifest.files.some((file) => PROTECTED.has(file.name) && oldFiles.get(file.name) !== file.rawSha256);
+  if (changedAuthored && env.WTARG_AUTHORED_REVISION !== sourceManifest.sourceRevision) {
+    fail2("Authored configuration changed; approve its Git revision before publishing collector data.", 409);
+  }
+  const base = state.baseReleaseId && await acceptedWtargManifest(db, state.baseReleaseId);
+  try {
+    await validateRankingAssets(env, body.manifest, sourceManifest);
+  } catch {
+    fail2("Ranking assets could not be verified against the release plan.", 409);
+  }
+  try {
+    validateWtargResourceBackings(db, body.manifest, base);
+  } catch {
+    fail2("Resource references must match the accepted base release.", 409);
+  }
+  return sourceManifest;
+}
+function deltaBudget(value) {
+  if (!object5(value) || Object.keys(value).some((key) => !["operations", "batches", "bytes"].includes(key)) || ![value.operations, value.batches, value.bytes].every(Number.isSafeInteger) || value.operations < 0 || value.operations > 8e4 || value.batches < 0 || value.batches > 1e4 || value.bytes < 0 || value.bytes > 24 * 1024 * 1024 || (value.batches === 0 ? value.operations !== 0 || value.bytes !== 0 : value.operations < value.batches || value.operations > value.batches * 8 || value.bytes < value.operations)) {
+    fail2("Invalid normalized storage budget.");
+  }
+  return value;
+}
+async function updatePlan(db, body) {
+  const plan = parsed(await snapshot(db, "wtarg:collector_preflight", body.jobId));
+  if (!plan) fail2("Approve the bounded storage plan before saving collector data.", 409);
+  return plan;
+}
+async function storageProjection(db, manifest, sourceManifest, budget) {
+  const blobs = [...new Map(sourceManifest.files.filter((file) => file.storage !== "ranking-assets").flatMap((file) => file.parts).map((part) => [part.sha256, part])).values()];
+  const saved = await db.prepare("SELECT scope FROM wta_snapshots WHERE kind='wtarg:source_blob' AND scope IN (SELECT json_extract(value,'$.sha256') FROM json_each(?))").bind(json2(blobs)).all();
+  const known = new Set(saved.results.map((row) => row.scope));
+  let sourceBytes = 0, sourceRows = 0;
+  for (const part of blobs) if (!known.has(part.sha256)) {
+    sourceBytes += payloadBytes({ sha256: part.sha256, bytes: part.bytes, base64: "" }) + 4 * Math.ceil(part.bytes / 3);
+    sourceRows++;
+  }
+  const parts = [];
+  for (const [name, resource] of Object.entries(manifest.resources)) if (resource.storage === "d1" && !resource.d1ReleaseId) {
+    resource.parts.forEach((part, index) => {
+      if (part.storedBytes !== void 0 && part.storedBytes < part.bytes + 11) fail2("Invalid stored resource size.");
+      parts.push({ scope: `${manifest.releaseId}:${name}:${index}`, ...part });
+    });
+  }
+  const receipts = parts.length ? await db.prepare("SELECT r.scope,length(CAST(p.payload_json AS BLOB)) AS stored_bytes,length(CAST(r.payload_json AS BLOB)) AS meta_bytes FROM wta_snapshots r LEFT JOIN wta_snapshots p ON p.kind='wtarg:read_part' AND p.scope=r.scope WHERE r.kind='wtarg:read_part_meta' AND r.scope IN (SELECT json_extract(value,'$.scope') FROM json_each(?))").bind(json2(parts)).all() : { results: [] };
+  const knownParts = new Map(receipts.results.map((row) => [row.scope, row]));
+  let publicBytes = 0, publicRows = 0;
+  for (const part of parts) {
+    const receipt = knownParts.get(part.scope);
+    if (!receipt?.stored_bytes) {
+      publicBytes += part.storedBytes ?? 6 * part.bytes + 11;
+      publicRows++;
+    }
+    if (!receipt?.meta_bytes) {
+      publicBytes += payloadBytes(part);
+      publicRows++;
+    }
+  }
+  const normalizedGrowthBytes = Math.ceil(budget.bytes * 1.5) + budget.operations * 8192;
+  const metadataGrowthBytes = storageCharge((payloadBytes(manifest) + payloadBytes(sourceManifest) + payloadBytes(budget)) * 3, 12);
+  const sourceGrowthBytes = storageCharge(sourceBytes, sourceRows);
+  const publicGrowthBytes = storageCharge(publicBytes, publicRows);
+  return {
+    sourceGrowthBytes,
+    publicGrowthBytes,
+    normalizedGrowthBytes,
+    metadataGrowthBytes,
+    projectedGrowthBytes: sourceGrowthBytes + publicGrowthBytes + normalizedGrowthBytes + metadataGrowthBytes
+  };
+}
+async function preflight(db, env, body, now) {
+  const { state, source } = await activeJob(db, body, now);
+  const sourceManifest = await validateReleasePlan(db, env, body, source, state);
+  const budget = deltaBudget(body.deltaBudget);
+  const core = { manifest: body.manifest, sourceManifest, deltaBudget: budget };
+  const old = parsed(await snapshot(db, "wtarg:collector_preflight", body.jobId));
+  if (old) {
+    if (json2({ manifest: old.manifest, sourceManifest: old.sourceManifest, deltaBudget: old.deltaBudget }) !== json2(core)) {
+      fail2("The approved collector storage plan cannot be replaced.", 409);
+    }
+    return { approved: true, unchanged: true, ...old.projection };
+  }
+  const cleanup = parsed(await snapshot(db, "wtarg:collector_gc"));
+  if (!cleanup?.complete || cleanup.jobId !== body.jobId || cleanup.leaseHash !== await hash3(body.leaseToken) || cleanup.readReleaseId !== state.baseReleaseId || cleanup.checkpointId !== state.baseCheckpointId) {
+    fail2("Complete a guarded cleanup sweep before preparing collector data.", 409);
+  }
+  if ((await deltaSummary(db, body.jobId)).batches) fail2("Recover pending normalized changes before preparing another plan.", 409);
+  const projection = await storageProjection(db, body.manifest, sourceManifest, budget);
+  const capacity = await requireWtargStorage(db, env, projection.projectedGrowthBytes);
+  await reserveWrites(db, body, 4, env, now);
+  await immutablePut(db, "wtarg:collector_preflight", body.jobId, { ...core, projection: { ...projection, ...capacity } }, body, now);
+  return { approved: true, ...projection, ...capacity };
+}
+async function stage(db, env, body, now) {
+  const { source, state } = await activeJob(db, body, now);
+  if (!Number.isInteger(body.expectedBatches) || body.expectedBatches < 0 || body.expectedBatches > 1e4 || !Array.isArray(body.deltaHashes) || body.deltaHashes.length !== body.expectedBatches || body.deltaHashes.some((value2) => !HASH2.test(value2))) fail2("Invalid normalized batch count.");
+  const sourceManifest = await validateReleasePlan(db, env, body, source, state);
+  const plan = await updatePlan(db, body);
+  if (json2(body.manifest) !== json2(plan.manifest) || json2(sourceManifest) !== json2(plan.sourceManifest) || body.expectedBatches !== plan.deltaBudget.batches) fail2("The staged data differs from its approved storage plan.", 409);
+  const value = {
+    manifest: body.manifest,
+    sourceManifest,
+    expectedBatches: body.expectedBatches,
+    deltaHashes: body.deltaHashes
+  };
+  const existing = await snapshot(db, "wtarg:collector_stage", body.jobId);
+  if (existing) {
+    if (existing.payload_json !== json2(value)) fail2("The staged collector data cannot be replaced.", 409);
+    return { staged: true, unchanged: true };
+  }
+  const journal = await journalState(db, body.jobId);
+  const totals = await deltaSummary(db, body.jobId);
+  if (journal.entries.length !== body.expectedBatches || journal.entries.some((entry, index) => entry.operationsHash !== body.deltaHashes[index]) || totals.operations !== plan.deltaBudget.operations || totals.operationBytes > plan.deltaBudget.bytes) {
+    fail2("The staged normalized plan differs from its applied journal.", 409);
+  }
+  await requireWtargStorage(db, env, storageCharge(payloadBytes(value), 2));
+  await reserveWrites(db, body, 4, env, now);
+  await immutablePut(db, "wtarg:collector_stage", body.jobId, value, body, now);
+  return { staged: true };
+}
+async function savedStage(db, body) {
+  const value = parsed(await snapshot(db, "wtarg:collector_stage", body.jobId));
+  if (!value) fail2("Stage the collector manifests first.", 409);
+  return value;
+}
+async function uploadPart(db, env, body, now) {
+  await activeJob(db, body, now);
+  const stage2 = await savedStage(db, body), resource = stage2.manifest.resources[body.resource];
+  if (resource?.storage !== "d1" || resource.d1ReleaseId || !Number.isInteger(body.index) || !resource.parts[body.index] || typeof body.text !== "string") fail2("Unknown D1 resource part.");
+  const expected = resource.parts[body.index];
+  if (bytes2(body.text) > PART_LIMIT || bytes2(body.text) !== expected.bytes || await hash3(body.text) !== expected.sha256) fail2("Resource part checksum or size is invalid.");
+  const textBytes = payloadBytes({ text: body.text });
+  if (expected.storedBytes !== void 0 && expected.storedBytes !== textBytes) fail2("Stored resource size differs from its approved plan.");
+  const scope = `${stage2.manifest.releaseId}:${body.resource}:${body.index}`;
+  const existing = await snapshot(db, "wtarg:read_part", scope);
+  if (existing && existing.payload_json !== json2({ text: body.text })) fail2("Immutable resource part already differs.", 409);
+  const meta = await snapshot(db, "wtarg:read_part_meta", scope);
+  if (meta && meta.payload_json !== json2(expected)) fail2("Immutable resource receipt already differs.", 409);
+  if (existing && meta) return { saved: true, unchanged: true };
+  await requireWtargStorage(db, env, storageCharge((existing ? 0 : textBytes) + (meta ? 0 : payloadBytes(expected)), Number(!existing) + Number(!meta)));
+  await reserveWrites(db, body, 4, env, now);
+  const statements = [];
+  if (!existing) statements.push(put(db, "wtarg:read_part", scope, { text: body.text }, body, now));
+  if (!meta) statements.push(put(db, "wtarg:read_part_meta", scope, expected, body, now));
+  await db.batch(statements);
+  return { saved: true };
+}
+function decodeBase64(value) {
+  if (typeof value !== "string" || value.length > 35e4 || !/^[A-Za-z0-9+/]*={0,2}$/.test(value)) fail2("Invalid compressed source blob.");
+  let raw;
+  try {
+    raw = atob(value);
+  } catch {
+    fail2("Invalid compressed source blob.");
+  }
+  if (btoa(raw) !== value) fail2("Source blob must use canonical base64.");
+  return Uint8Array.from(raw, (character) => character.charCodeAt(0));
+}
+async function uploadBlob(db, env, body, blobId, now) {
+  await activeJob(db, body, now);
+  const value = decodeBase64(body.base64);
+  if (body.sha256 !== blobId || body.bytes !== value.byteLength || value.byteLength > 262144 || await hash3(value) !== blobId) fail2("Source blob checksum or size is invalid.");
+  const stage2 = await savedStage(db, body);
+  if (!stage2.sourceManifest.files.some((file) => file.storage !== "ranking-assets" && file.parts.some((part) => part.sha256 === blobId && part.bytes === value.byteLength))) fail2("Source blob is not a D1 part in the staged checkpoint.");
+  const stored = { sha256: blobId, bytes: value.byteLength, base64: body.base64 };
+  if (!await snapshot(db, "wtarg:source_blob", blobId)) {
+    await requireWtargStorage(db, env, storageCharge(payloadBytes(stored)));
+    await reserveWrites(db, body, 2, env, now);
+  }
+  await immutablePut(db, "wtarg:source_blob", blobId, stored, body, now);
+  return { saved: true };
+}
+async function pace(db, body, now) {
+  await activeJob(db, body, now);
+  if (!["itf", "wta"].includes(body.provider) || !["api", "profile", "browser"].includes(body.kind)) fail2("Unknown provider pacing class.");
+  const interval = body.provider === "wta" ? 1e3 : body.kind === "profile" ? 2e3 : 13e3;
+  const source = "wtarg:pace", scope = body.provider;
+  await db.prepare("INSERT OR IGNORE INTO wtarg_source_state(source,scope) SELECT ?,? WHERE " + fence2).bind(source, scope, ...fenceValues2(body, now)).run();
+  if (body.backoffMs !== void 0) {
+    if (!Number.isInteger(body.backoffMs) || body.backoffMs < 1 || body.backoffMs > 3e5) fail2("Provider backoff is limited to five minutes.");
+    await db.prepare("UPDATE wtarg_source_state SET backoff_until=max(backoff_until,?) WHERE source=? AND scope=? AND " + fence2).bind(now + body.backoffMs, source, scope, ...fenceValues2(body, now)).run();
+    const held = await db.prepare("SELECT not_before,backoff_until FROM wtarg_source_state WHERE source=? AND scope=?").bind(source, scope).first();
+    return { granted: false, waitMs: Math.max(1, Math.max(held.not_before, held.backoff_until) - now) };
+  }
+  const previous = await db.prepare("SELECT not_before,backoff_until,last_checked_at FROM wtarg_source_state WHERE source=? AND scope=?").bind(source, scope).first();
+  const available = Math.max(
+    previous?.not_before || 0,
+    previous?.backoff_until || 0,
+    previous?.last_checked_at ? Date.parse(previous.last_checked_at) + interval : 0
+  );
+  if (available > now) return { granted: false, waitMs: available - now };
+  const granted = await db.prepare("UPDATE wtarg_source_state SET not_before=?,last_checked_at=? WHERE source=? AND scope=? AND last_checked_at IS ? AND not_before<=? AND backoff_until<=? AND " + fence2 + " RETURNING not_before").bind(now + interval, iso2(now), source, scope, previous?.last_checked_at || null, now, now, ...fenceValues2(body, now)).first();
+  if (granted) return { granted: true, waitMs: 0 };
+  const row = await db.prepare("SELECT not_before,backoff_until FROM wtarg_source_state WHERE source=? AND scope=?").bind(source, scope).first();
+  return { granted: false, waitMs: Math.max(1, Math.max(row?.not_before || 0, row?.backoff_until || 0) - now) };
+}
+async function verifiedWtn(db, env, body, now) {
+  await activeJob(db, body, now);
+  if (!Array.isArray(body.observations) || body.observations.length > 12) fail2("At most 12 singles observations are accepted.");
+  let saved = 0;
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en", { timeZone: "Europe/Madrid", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date(now)).map((part) => [part.type, part.value]));
+  const today2 = `${parts.year}-${parts.month}-${parts.day}`;
+  for (const item of body.observations) {
+    const observation = item?.observation;
+    const allowed = /* @__PURE__ */ new Set([
+      "name",
+      "country",
+      "wtn",
+      "source",
+      "profile_url",
+      "retrieved_at",
+      "source_key",
+      "observed_on",
+      "no_wtn_checked_at",
+      "last_profile_url"
+    ]);
+    if (!/^800\d+$/.test(item?.playerId || "") || !object5(observation) || Object.keys(observation).some((key) => !allowed.has(key)) || bytes2(json2(observation)) > 6e3) fail2("Only verified singles profile observations are accepted.");
+    const value = Number(observation.wtn);
+    const negative = day2(observation.no_wtn_checked_at);
+    const observed = observation.observed_on || (typeof observation.retrieved_at === "string" ? observation.retrieved_at.slice(0, 10) : "");
+    const positive = observation.source === "profile" && typeof observation.wtn !== "boolean" && Number.isFinite(value) && value > 0 && value <= 40 && day2(observed) && (day2(observation.retrieved_at) || timestamp(observation.retrieved_at));
+    if (!positive && !negative) fail2("WTN observation provenance is incomplete.");
+    if (positive && observed > today2 || negative && observation.no_wtn_checked_at > today2) fail2("A verified profile observation cannot be dated in the future.");
+    let url;
+    try {
+      url = new URL(negative ? observation.last_profile_url : observation.profile_url);
+    } catch {
+      fail2("A verified singles profile link is required.");
+    }
+    if (url.protocol !== "https:" || !["www.itftennis.com", "www.world.tennis", "world.tennis"].includes(url.hostname) || url.username || url.password || url.search || url.hash || url.href.length > 500 || !new RegExp(`^/en/players/[a-z0-9-]+/${item.playerId}/[a-z]{2,3}/(?:wt/s/overview|jt/s)/?$`, "i").test(url.pathname)) {
+      fail2("The verified profile link is not an official singles player profile.");
+    }
+    const old = parsed(await snapshot(db, "wtarg:verified_wtn", item.playerId));
+    const previous = old?.observation || {};
+    const observationFields = ["wtn", "source", "source_key", "profile_url", "retrieved_at", "observed_on"];
+    const priority = (record) => [String(record.observed_on || (record.source === "entry_list" ? "" : record.retrieved_at) || ""), record.source === "profile" ? "1" : "0"].join(":");
+    let merged = { ...previous, ...observation.name ? { name: observation.name } : {}, ...observation.country ? { country: observation.country } : {} };
+    const hasPrior = Number(previous.wtn) > 0 && Number(previous.wtn) <= 40;
+    if (!hasPrior || priority(observation) >= priority(previous)) {
+      for (const field of observationFields) delete merged[field];
+      for (const field of observationFields) if (Object.hasOwn(observation, field)) merged[field] = observation[field];
+    }
+    if (negative && observation.no_wtn_checked_at >= (previous.no_wtn_checked_at || "")) {
+      merged.no_wtn_checked_at = observation.no_wtn_checked_at;
+      merged.last_profile_url = observation.last_profile_url;
+    } else if (positive && observed >= (previous.no_wtn_checked_at || "")) {
+      delete merged.no_wtn_checked_at;
+      merged.last_profile_url = observation.profile_url;
+    }
+    if (json2(merged) === json2(previous)) continue;
+    const valueToSave = { playerId: item.playerId, observation: merged, verifiedAt: iso2(now), jobId: body.jobId };
+    await requireWtargStorage(db, env, storageCharge(payloadBytes(valueToSave)));
+    await db.batch([put(db, "wtarg:verified_wtn", item.playerId, valueToSave, body, now)]);
+    saved++;
+  }
+  return { saved };
+}
+async function heartbeat(db, body, now) {
+  const { row, state } = await activeJob(db, body, now, true);
+  if (body.state !== void 0 && !["collecting", "publishing"].includes(body.state)) fail2("Unknown collector progress state.");
+  const progress = safeMessage(body.progress) || state.progress || "";
+  const renewed = await db.prepare("UPDATE wtarg_jobs SET lease_until=?,payload_json=json_set(payload_json,'$.phase',CASE WHEN json_extract(payload_json,'$.phase')='repairing' THEN 'repairing' ELSE ? END,'$.progress',?) WHERE job_key=? AND " + fence2 + " RETURNING lease_until").bind(Math.min(now + LEASE3, row.job_expires_at), body.state || state.phase, progress, JOB, ...fenceValues2(body, now)).first();
+  if (!renewed) fail2("Collector lease expired or changed.", 409);
+  return { leaseUntil: renewed.lease_until };
+}
+async function finish(db, body, now) {
+  const { state } = await activeJob(db, body, now, true);
+  if (!["failed", "partial"].includes(body.state)) fail2("Only a failed or partial collector is finished without publication.");
+  const journal = await journalState(db, body.jobId);
+  const needsRollback = journal.remaining > 0;
+  const next = {
+    ...state,
+    phase: needsRollback ? "repairing" : body.state,
+    progress: needsRollback ? "Restoring the previous saved data." : "Saved data was kept after an incomplete update.",
+    failedState: body.state
+  };
+  const error = body.state === "partial" ? "The collector returned incomplete data. The previous saved version was kept." : "The collector could not finish. The previous saved version was kept.";
+  const statements = [db.prepare("UPDATE wtarg_jobs SET status=?,payload_json=?,error=?,lease_token=?,lease_until=? WHERE job_key=? AND " + fence2).bind(
+    needsRollback ? "running" : "failed",
+    json2(next),
+    error,
+    needsRollback ? body.leaseToken : null,
+    needsRollback ? Math.min(now + LEASE3, now + INTERVAL) : 0,
+    JOB,
+    ...fenceValues2(body, now)
+  )];
+  if (body.details !== void 0) {
+    if (payloadBytes(body.details) > 65536) fail2("Collector diagnostics exceed their emergency reserve.");
+    statements.unshift(put(
+      db,
+      "wtarg:collector_diagnostic",
+      body.jobId,
+      { state: body.state, details: body.details },
+      body,
+      now
+    ));
+  }
+  await db.batch(statements);
+  return { needsRollback };
+}
+async function rollback(db, body, now) {
+  const { state } = await activeJob(db, body, now, true);
+  if (state.phase !== "repairing") fail2("This collector is not restoring an interrupted update.", 409);
+  const result = await rollbackDelta(db, body, now);
+  const journal = await journalState(db, body.jobId);
+  if (!journal.remaining) {
+    const next = { ...state, phase: state.failedState || "failed", progress: "The previous saved data was restored." };
+    await db.prepare("UPDATE wtarg_jobs SET status='failed',lease_token=NULL,lease_until=0,payload_json=? WHERE job_key=? AND " + fence2).bind(json2(next), JOB, ...fenceValues2(body, now)).run();
+  }
+  return { ...result, remaining: journal.remaining, complete: journal.remaining === 0 };
+}
+async function commit(db, env, body, now) {
+  const outcome = body.outcome || "success";
+  if (!["success", "degraded"].includes(outcome)) fail2("Only a validated success or degraded transaction can be published.");
+  const receipt = parsed(await snapshot(db, "wtarg:collector_receipt", body.jobId || ""));
+  if (receipt && receipt.leaseHash === await hash3(body.leaseToken || "")) return {
+    committed: true,
+    releaseId: receipt.releaseId,
+    sourceVersion: receipt.sourceVersion,
+    outcome: receipt.outcome || "success",
+    alreadyCommitted: true
+  };
+  const { state } = await activeJob(db, body, now);
+  const staged = await savedStage(db, body), manifest = staged.manifest;
+  try {
+    await validateRankingWeekIndex(db, await validateRankingAssets(env, manifest, staged.sourceManifest));
+  } catch {
+    fail2("Ranking assets are unavailable; the saved release was retained.", 409);
+  }
+  const journal = await journalState(db, body.jobId);
+  if (journal.batches !== staged.expectedBatches || journal.entries.some((entry, index) => entry.operationsHash !== staged.deltaHashes[index])) {
+    fail2("Normalized update batches are incomplete or differ from the staged plan.", 409);
+  }
+  const requiredParts = [];
+  for (const [name, resource] of Object.entries(manifest.resources)) if (resource.storage === "d1" && !resource.d1ReleaseId) {
+    resource.parts.forEach((part, index) => requiredParts.push({ scope: `${manifest.releaseId}:${name}:${index}`, ...part }));
+  }
+  const requiredBlobs = [...new Map(staged.sourceManifest.files.filter((file) => file.storage !== "ranking-assets").flatMap((file) => file.parts).map((part) => [part.sha256, part])).values()];
+  for (const [kind, required] of [["wtarg:read_part_meta", requiredParts], ["wtarg:source_blob", requiredBlobs.map((part) => ({ scope: part.sha256, ...part }))]]) {
+    const saved = await db.prepare("SELECT s.scope,json_extract(s.payload_json,'$.bytes') AS bytes,json_extract(s.payload_json,'$.sha256') AS sha256 FROM wta_snapshots s JOIN json_each(?) r ON s.scope=json_extract(r.value,'$.scope') WHERE s.kind=?").bind(json2(required), kind).all();
+    const byScope = new Map(saved.results.map((row) => [row.scope, row]));
+    if (required.some((part) => byScope.get(part.scope)?.bytes !== part.bytes || byScope.get(part.scope)?.sha256 !== part.sha256)) {
+      fail2("Staged public data or compressed source checkpoint is incomplete.", 409);
+    }
+  }
+  const existing = await snapshot(db, "wtarg:read_manifest", manifest.releaseId);
+  if (existing && existing.payload_json !== json2(manifest)) fail2("An accepted release cannot be replaced.", 409);
+  const sourceExisting = await snapshot(db, "wtarg:source_manifest", manifest.releaseId);
+  if (sourceExisting && sourceExisting.payload_json !== json2(staged.sourceManifest)) fail2("An accepted source checkpoint cannot be replaced.", 409);
+  await requireWtargStorage(db, env, storageCharge(payloadBytes(manifest) + payloadBytes(staged.sourceManifest), 10));
+  await reserveWrites(db, body, 12, env, now);
+  const current = { schemaVersion: 1, releaseId: manifest.releaseId };
+  const next = {
+    ...state,
+    phase: outcome === "degraded" ? "partial" : "complete",
+    progress: outcome === "degraded" ? "Saved data was updated with warnings; some sources may be older." : "Saved data was updated.",
+    previousReleaseId: state.baseReleaseId,
+    nextRefreshAt: Math.max(state.nextRefreshAt || 0, now + COOLDOWN3)
+  };
+  const guardScope = body.jobId;
+  const guard = db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES('wtarg:publish_guard',?,CASE WHEN " + fence2 + " AND EXISTS (SELECT 1 FROM wta_snapshots WHERE kind='wtarg:source_current' AND scope='global' AND json_extract(payload_json,'$.sourceVersion')=? AND COALESCE(json_extract(payload_json,'$.checkpointId'),json_extract(payload_json,'$.sourceVersion'))=?) THEN '{}' ELSE '[' END,?,NULL)").bind(
+    guardScope,
+    ...fenceValues2(body, now),
+    state.baseSourceVersion,
+    state.baseCheckpointId || state.baseSourceVersion,
+    iso2(now)
+  );
+  await db.batch([
+    guard,
+    put(db, "wtarg:read_manifest", manifest.releaseId, manifest, body, now),
+    put(db, "wtarg:read_accepted", manifest.releaseId, {
+      schemaVersion: 1,
+      releaseId: manifest.releaseId,
+      manifestSha256: await hash3(json2(manifest))
+    }, body, now),
+    put(db, "wtarg:source_manifest", manifest.releaseId, staged.sourceManifest, body, now),
+    put(db, "wtarg:source_current", "global", {
+      schemaVersion: 1,
+      sourceVersion: staged.sourceManifest.sourceVersion,
+      checkpointId: manifest.releaseId
+    }, body, now),
+    put(db, "wtarg:read_current", "global", current, body, now),
+    put(db, "wtarg:collector_receipt", body.jobId, {
+      leaseHash: await hash3(body.leaseToken),
+      releaseId: manifest.releaseId,
+      sourceVersion: staged.sourceManifest.sourceVersion,
+      outcome
+    }, body, now),
+    ...state.baseReleaseId ? [put(db, "wtarg:read_previous", "global", { schemaVersion: 1, releaseId: state.baseReleaseId }, body, now)] : [],
+    put(db, "wtarg:source_previous", "global", {
+      schemaVersion: 1,
+      sourceVersion: state.baseSourceVersion,
+      checkpointId: state.baseCheckpointId || state.baseSourceVersion
+    }, body, now),
+    db.prepare("DELETE FROM wta_snapshots WHERE kind='wtarg:delta_journal' AND scope>=? AND scope<? AND " + fence2).bind(body.jobId + ":", body.jobId + ";", ...fenceValues2(body, now)),
+    db.prepare("DELETE FROM wta_snapshots WHERE kind='wtarg:delta_totals' AND scope=? AND " + fence2).bind(body.jobId, ...fenceValues2(body, now)),
+    db.prepare("DELETE FROM wta_snapshots WHERE kind='wtarg:publish_guard' AND scope=?").bind(guardScope),
+    db.prepare("UPDATE wtarg_source_state SET last_success_at=? WHERE source=? AND scope='global' AND " + fence2).bind(iso2(now), CONTROL, ...fenceValues2(body, now)),
+    db.prepare("UPDATE wtarg_jobs SET status='complete',lease_token=NULL,lease_until=0,last_success_at=?,error=NULL,payload_json=? WHERE job_key=? AND " + fence2).bind(iso2(now), json2(next), JOB, ...fenceValues2(body, now))
+  ]);
+  return { committed: true, releaseId: manifest.releaseId, sourceVersion: staged.sourceManifest.sourceVersion, outcome };
+}
+async function privateSource(db, env, route, request) {
+  if (request.method !== "GET") fail2("Use POST with a source blob identifier to upload compressed content.", 405);
+  if (route.blob) {
+    const source = await currentSource(db);
+    if (source) {
+      const external = await rankingSourceBlob(env, source, route.blob);
+      if (external) return external;
+    }
+    const blob = parsed(await snapshot(db, "wtarg:source_blob", route.blob));
+    if (!blob) fail2("Source blob is not available.", 404);
+    return blob;
+  }
+  return { manifest: await currentSource(db), ...await wtnPage(db, "") };
+}
+async function wtnPage(db, cursor) {
+  if (cursor !== "" && !/^800\d+$/.test(cursor || "")) fail2("Invalid singles WTN page cursor.");
+  const observations = await db.prepare("SELECT scope,payload_json FROM wta_snapshots WHERE kind='wtarg:verified_wtn' AND scope>? ORDER BY scope LIMIT 51").bind(cursor).all();
+  const records = observations.results.slice(0, 50);
+  const wtnObservations = Object.fromEntries(records.map((row) => [row.scope, JSON.parse(row.payload_json).observation]));
+  return { wtnObservations, nextWtnCursor: observations.results.length > 50 ? records.at(-1).scope : null };
+}
+async function garbageCollect(db, env, body, now) {
+  const limit = body.limit === void 0 ? 20 : body.limit;
+  if (!Number.isInteger(limit) || limit < 1 || limit > 50) fail2("Collector cleanup is limited to 50 rows per request.");
+  const [row, currentRead, previousRead, currentCheckpoint, previousCheckpoint] = await Promise.all([
+    jobRow(db),
+    snapshot(db, "wtarg:read_current"),
+    snapshot(db, "wtarg:read_previous"),
+    snapshot(db, "wtarg:source_current"),
+    snapshot(db, "wtarg:source_previous")
+  ]);
+  const state = parsed(row) || {};
+  const currentReadId = parsed(currentRead)?.releaseId;
+  const currentSourcePointer = parsed(currentCheckpoint);
+  if (!HASH2.test(currentReadId || "") || !HASH2.test(currentSourcePointer?.sourceVersion || "")) {
+    fail2("An approved source and public baseline are required before cleanup.", 409);
+  }
+  const [stageRow, planRow] = state.jobId ? await Promise.all([
+    snapshot(db, "wtarg:collector_stage", state.jobId),
+    snapshot(db, "wtarg:collector_preflight", state.jobId)
+  ]) : [null, null];
+  const pending = state.jobId ? await deltaSummary(db, state.jobId) : { batches: 0 };
+  const live = row?.status === "running" && row.lease_until > now && row.job_expires_at > now;
+  const keepStage = !!state.jobId && (live || pending.batches > 0);
+  const staged = keepStage ? [parsed(stageRow), parsed(planRow)].filter(Boolean) : [];
+  const readIds = new Set([currentReadId, parsed(previousRead)?.releaseId].filter(Boolean));
+  const manifests = /* @__PURE__ */ new Map();
+  for (const id of readIds) {
+    const manifest = await acceptedWtargManifest(db, id);
+    if (!manifest) fail2("Accepted public data could not be verified before cleanup.", 409);
+    manifests.set(id, manifest);
+  }
+  for (const stage2 of staged) {
+    if (!validWtargManifest(stage2.manifest, stage2.manifest?.releaseId)) fail2("Invalid staged cleanup inventory.", 409);
+    manifests.set(stage2.manifest.releaseId, stage2.manifest);
+  }
+  const metadataIds = /* @__PURE__ */ new Set();
+  const partScopes = /* @__PURE__ */ new Set();
+  for (const manifest of manifests.values()) {
+    metadataIds.add(manifest.releaseId);
+    for (const [name, resource] of Object.entries(manifest.resources)) {
+      const owner = resource.storage === "asset" ? resource.assetReleaseId || manifest.releaseId : resource.d1ReleaseId || manifest.releaseId;
+      metadataIds.add(owner);
+      if (resource.storage === "d1") resource.parts.forEach((_part, index) => partScopes.add(`${owner}:${name}:${index}`));
+    }
+  }
+  const sourceIds = /* @__PURE__ */ new Set();
+  const sourceManifests = [];
+  for (const pointer of [currentSourcePointer, parsed(previousCheckpoint)].filter(Boolean)) {
+    const id = pointer.checkpointId || pointer.sourceVersion;
+    if (!HASH2.test(id || "")) fail2("Invalid accepted source pointer before cleanup.", 409);
+    const manifest = parsed(await snapshot(db, "wtarg:source_manifest", id));
+    if (!manifest || manifest.sourceVersion !== pointer.sourceVersion) fail2("Accepted source inventory is missing.", 409);
+    await validateSource(manifest);
+    sourceIds.add(id);
+    sourceManifests.push(manifest);
+  }
+  for (const stage2 of staged) {
+    sourceManifests.push(await validateSource(stage2.sourceManifest));
+    sourceIds.add(stage2.manifest.releaseId);
+  }
+  const keepBlobs = new Set(sourceManifests.flatMap((manifest) => manifest.files.filter((file) => file.storage !== "ranking-assets").flatMap((file) => file.parts.map((part) => part.sha256))));
+  const kinds = [
+    "wtarg:read_part",
+    "wtarg:read_part_meta",
+    "wtarg:read_manifest",
+    "wtarg:read_accepted",
+    "wtarg:source_manifest",
+    "wtarg:source_blob",
+    "wtarg:collector_stage",
+    "wtarg:collector_preflight",
+    "wtarg:collector_diagnostic",
+    "wtarg:collector_receipt"
+  ];
+  const cursor = parsed(await snapshot(db, "wtarg:collector_gc")) || { kind: "", scope: "" };
+  const rows = await db.prepare("SELECT s.kind,s.scope,s.fetched_at,EXISTS(SELECT 1 FROM wta_snapshots a WHERE a.kind='wtarg:read_accepted' AND a.scope=substr(s.scope,1,64)) AS accepted FROM wta_snapshots s WHERE s.kind IN (" + kinds.map(() => "?").join(",") + ") AND (s.kind>? OR (s.kind=? AND s.scope>?)) ORDER BY s.kind,s.scope LIMIT 1000").bind(...kinds, cursor.kind, cursor.kind, cursor.scope).all();
+  const deletions = [];
+  let last = null;
+  for (const candidate of rows.results) {
+    last = { kind: candidate.kind, scope: candidate.scope };
+    const age = now - Date.parse(candidate.fetched_at);
+    if (!Number.isFinite(age)) fail2("Invalid cleanup row age; saved data was kept.", 409);
+    let remove = false;
+    if (candidate.kind === "wtarg:read_part" || candidate.kind === "wtarg:read_part_meta") {
+      remove = !partScopes.has(candidate.scope) && (!candidate.accepted || age > 36e5);
+    } else if (candidate.kind === "wtarg:read_manifest" || candidate.kind === "wtarg:read_accepted") {
+      remove = !metadataIds.has(candidate.scope) && (!candidate.accepted || age > 36e5);
+    } else if (candidate.kind === "wtarg:source_manifest") remove = !sourceIds.has(candidate.scope);
+    else if (candidate.kind === "wtarg:source_blob") remove = !keepBlobs.has(candidate.scope);
+    else if (candidate.kind === "wtarg:collector_stage" || candidate.kind === "wtarg:collector_preflight") {
+      remove = !keepStage || candidate.scope !== state.jobId;
+    } else remove = age > 7 * 864e5;
+    if (remove) deletions.push(candidate);
+    if (deletions.length >= limit) break;
+  }
+  const nextCursor = last && (deletions.length >= limit || rows.results.length === 1e3) ? last : { kind: "", scope: "" };
+  const continuation = nextCursor.kind !== "";
+  const checkpointId = currentSourcePointer.checkpointId || currentSourcePointer.sourceVersion;
+  const marker = {
+    ...nextCursor,
+    complete: !continuation,
+    jobId: state.jobId || null,
+    leaseHash: await hash3(row?.lease_token || ""),
+    readReleaseId: currentReadId,
+    checkpointId
+  };
+  const pointerGuards = [
+    ["wtarg:read_current", "global", currentRead],
+    ["wtarg:read_previous", "global", previousRead],
+    ["wtarg:source_current", "global", currentCheckpoint],
+    ["wtarg:source_previous", "global", previousCheckpoint],
+    ["wtarg:collector_stage", state.jobId || "", stageRow],
+    ["wtarg:collector_preflight", state.jobId || "", planRow]
+  ];
+  const unchanged = "(SELECT payload_json FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? AND (SELECT lease_token FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? AND (SELECT lease_until FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? " + pointerGuards.map(() => "AND (SELECT payload_json FROM wta_snapshots WHERE kind=? AND scope=?) IS ?").join(" ");
+  const values = [
+    row?.payload_json || null,
+    row?.lease_token || null,
+    row?.lease_until ?? null,
+    ...pointerGuards.flatMap(([kind, scope, saved]) => [kind, scope, saved?.payload_json || null])
+  ];
+  const budgetLimit = Number(env.WTARG_DAILY_WRITE_BUDGET || DEFAULT_COLLECTOR_WRITE_BUDGET);
+  if (!Number.isInteger(budgetLimit) || budgetLimit < 1e3 || budgetLimit > 6e4) fail2("Collector write budget is not configured safely.", 503);
+  const budgetScope = "write-budget:" + iso2(now).slice(0, 10);
+  const oldBudget = await db.prepare("SELECT payload_json FROM wtarg_source_state WHERE source=? AND scope=?").bind(CONTROL, budgetScope).first();
+  const reserved = parsed(oldBudget)?.reserved || 0;
+  const charge = deletions.length * 2 + 12;
+  if (!Number.isSafeInteger(reserved) || reserved < 0 || reserved + charge > budgetLimit) {
+    fail2("The collector cleanup write reserve is exhausted; collection remains stopped.", 429);
+  }
+  const guard = db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES('wtarg:collector_gc_guard','global',CASE WHEN " + unchanged + " AND (SELECT payload_json FROM wtarg_source_state WHERE source=? AND scope=?) IS ? THEN '{}' ELSE '[' END,?,NULL)").bind(...values, CONTROL, budgetScope, oldBudget?.payload_json || null, iso2(now));
+  try {
+    const results = await db.batch([
+      guard,
+      db.prepare("INSERT INTO wtarg_source_state(source,scope,payload_json) VALUES(?,?,?) ON CONFLICT(source,scope) DO UPDATE SET payload_json=excluded.payload_json").bind(CONTROL, budgetScope, json2({ reserved: reserved + charge })),
+      db.prepare("DELETE FROM wta_snapshots WHERE EXISTS(SELECT 1 FROM json_each(?) d WHERE wta_snapshots.kind=json_extract(d.value,'$.kind') AND wta_snapshots.scope=json_extract(d.value,'$.scope') AND wta_snapshots.fetched_at=json_extract(d.value,'$.fetched_at'))").bind(json2(deletions)),
+      db.prepare("INSERT INTO wta_snapshots(kind,scope,payload_json,fetched_at,expires_at) VALUES('wtarg:collector_gc','global',?,?,NULL) ON CONFLICT(kind,scope) DO UPDATE SET payload_json=excluded.payload_json,fetched_at=excluded.fetched_at").bind(json2(marker), iso2(now)),
+      db.prepare("DELETE FROM wta_snapshots WHERE kind='wtarg:collector_gc_guard' AND scope='global'")
+    ]);
+    return { scanned: rows.results.length, deleted: results[2].meta?.changes || 0, continuation, complete: !continuation };
+  } catch {
+    return { scanned: rows.results.length, deleted: 0, continuation: true, complete: false };
+  }
+}
+async function wtargCollectorResponse(request, env, headers = {}, now = Date.now()) {
+  const route = getWtargCollectorRoute(new URL(request.url).pathname);
+  const responseHeaders = { ...headers, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" };
+  if (route && !route.public) {
+    for (const key of Object.keys(responseHeaders)) if (key.toLowerCase().startsWith("access-control-")) delete responseHeaders[key];
+  }
+  const reply = (value, status = 200) => Response.json(value, { status, headers: responseHeaders });
+  try {
+    if (!route) fail2("Unknown WTARG collector route.", 404);
+    if (!route.public) await authorized(request, env);
+    if (!route.method.split(", ").includes(request.method)) fail2("Method not allowed.", 405);
+    if (!env.ENTRY_LISTS_DB) fail2("WTARG collection storage is unavailable.", 503);
+    const db = env.ENTRY_LISTS_DB;
+    if (route.operation === "status") return reply(await statusState(db, env, now));
+    if (route.operation === "refresh") {
+      if (!["https://wtarg.com", "https://www.wtarg.com", "https://tomistgg.github.io"].includes(request.headers.get("Origin"))) fail2("Website origin is required for refresh.", 403);
+      if (request.body) {
+        const reader = request.body.getReader();
+        const first = await reader.read();
+        await reader.cancel();
+        if (!first.done && first.value?.byteLength) fail2("Refresh accepts an empty request only.");
+      }
+      const result = await requestRefresh(db, env, now);
+      return reply(result.state, result.status);
+    }
+    if (route.operation === "storage") return reply(await wtargStorage(db, env));
+    if (route.operation === "source" && request.method === "GET") return reply(await privateSource(db, env, route, request));
+    const body = await readBody(request);
+    if (route.operation === "claim") return reply(await claim(db, env, now));
+    if (route.operation === "heartbeat") return reply(await heartbeat(db, body, now));
+    if (route.operation === "preflight") return reply(await preflight(db, env, body, now));
+    if (route.operation === "stage") return reply(await stage(db, env, body, now));
+    if (route.operation === "part") return reply(await uploadPart(db, env, body, now));
+    if (route.operation === "source" && route.blob) return reply(await uploadBlob(db, env, body, route.blob, now));
+    if (route.operation === "delta") {
+      await activeJob(db, body, now);
+      if (!Number.isInteger(body.batchId) || body.batchId < 0 || body.batchId >= 1e4) fail2("Unknown normalized batch.");
+      const plan = await updatePlan(db, body);
+      if (!Array.isArray(body.operations) || body.operations.length < 1 || body.operations.length > 8 || body.batchId >= plan.deltaBudget.batches) fail2("The normalized batch exceeds its approved storage plan.", 409);
+      const stage2 = parsed(await snapshot(db, "wtarg:collector_stage", body.jobId));
+      if (stage2 && body.batchId >= stage2.expectedBatches) fail2("The normalized plan was already sealed.", 409);
+      const journal = await deltaSummary(db, body.jobId);
+      if (body.batchId >= journal.batches) {
+        const operationBytes = payloadBytes(body.operations);
+        if (journal.operations + body.operations.length > plan.deltaBudget.operations || journal.operationBytes + operationBytes > plan.deltaBudget.bytes) {
+          fail2("Normalized changes exceed the approved operation or byte allowance.", 409);
+        }
+        await requireWtargStorage(db, env, Math.ceil(operationBytes * 1.5) + body.operations.length * 8192);
+        await reserveWrites(db, body, body.operations.length * 12 + 8, env, now);
+      }
+      return reply({ ...await applyDelta(db, body, now, plan.deltaBudget), operationsHash: await hash3(JSON.stringify(body.operations)) });
+    }
+    if (route.operation === "rollback") return reply(await rollback(db, body, now));
+    if (route.operation === "commit") return reply(await commit(db, env, body, now));
+    if (route.operation === "finish") return reply(await finish(db, body, now));
+    if (route.operation === "pace") return reply(await pace(db, body, now));
+    if (route.operation === "wtn") return reply(await verifiedWtn(db, env, body, now));
+    if (route.operation === "wtn-page") {
+      await activeJob(db, body, now, true);
+      return reply(await wtnPage(db, body.cursor || ""));
+    }
+    if (route.operation === "gc") return reply(await garbageCollect(db, env, body, now));
+    fail2("Unknown collector operation.", 404);
+  } catch (error) {
+    const message = error.status ? error.message : "WTARG collector storage is unavailable. The previous saved version was kept.";
+    if (route?.public) {
+      let state = {};
+      try {
+        state = await statusState(env.ENTRY_LISTS_DB, env, now);
+      } catch {
+      }
+      return reply({ ...state, error: message }, error.status || 503);
+    }
+    return reply({ error: message }, error.status || 503);
+  }
+}
+
 // cloudflare/worker-source.mjs
 var ALLOWED_ORIGIN = "https://tomistgg.github.io";
 var PHOTO_TYPES = /* @__PURE__ */ new Set(["image/jpeg", "image/png", "image/webp"]);
 var MAX_PHOTO_BYTES = 10 * 1024 * 1024;
 var driveToken;
-function base64url(bytes2) {
-  return btoa(String.fromCharCode(...bytes2)).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+function base64url(bytes3) {
+  return btoa(String.fromCharCode(...bytes3)).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
 async function googleAccessToken(credentials) {
   if (driveToken?.credentials === credentials && driveToken.expires > Date.now()) return driveToken.promise;
@@ -2258,21 +3746,21 @@ async function playerPhotoIndex(env, base, ctx) {
   return files;
 }
 async function playerPhotos(request, env, ctx, headers) {
-  const json = (data, status) => Response.json(data, { status, headers });
+  const json3 = (data, status) => Response.json(data, { status, headers });
   const url = new URL(request.url);
   const match = /^\/photos\/([A-Za-z0-9_-]+)$/.exec(url.pathname);
-  if (url.pathname !== "/photos" && !match) return json({ error: "Unknown photo endpoint." }, 404);
+  if (url.pathname !== "/photos" && !match) return json3({ error: "Unknown photo endpoint." }, 404);
   if (!env.GOOGLE_SERVICE_ACCOUNT_JSON || !/^[A-Za-z0-9_-]+$/.test(env.PLAYER_PHOTOS_FOLDER_ID || "")) {
-    return json({ error: "Player photos are not configured on the Worker." }, 503);
+    return json3({ error: "Player photos are not configured on the Worker." }, 503);
   }
   try {
     const files = await playerPhotoIndex(env, url.origin, ctx);
-    if (!match) return json({ photos: files.map((file2) => ({
+    if (!match) return json3({ photos: files.map((file2) => ({
       name: file2.name,
       path: "/photos/" + file2.id + "?v=" + encodeURIComponent(file2.modifiedTime)
     })) }, 200);
     const file = files.find((item) => item.id === match[1]);
-    if (!file) return json({ error: "Player photo not found." }, 404);
+    if (!file) return json3({ error: "Player photo not found." }, 404);
     const key = new Request(url.origin + "/_photo-cache/" + env.PLAYER_PHOTOS_FOLDER_ID + "/" + file.id + "?v=" + encodeURIComponent(file.modifiedTime));
     const cached = await globalThis.caches?.default.match(key);
     if (cached) return new Response(cached.body, { headers: {
@@ -2285,14 +3773,14 @@ async function playerPhotos(request, env, ctx, headers) {
     if (type !== file.mimeType || !PHOTO_TYPES.has(type) || Number(response.headers.get("Content-Length")) > MAX_PHOTO_BYTES) {
       throw new Error("Unsupported player image");
     }
-    const bytes2 = new Uint8Array(await response.arrayBuffer());
-    const png = bytes2[0] === 137 && bytes2[1] === 80 && bytes2[2] === 78 && bytes2[3] === 71;
-    const jpeg = bytes2[0] === 255 && bytes2[1] === 216 && bytes2[2] === 255;
-    const webp = String.fromCharCode(...bytes2.slice(0, 4)) === "RIFF" && String.fromCharCode(...bytes2.slice(8, 12)) === "WEBP";
-    if (bytes2.length > MAX_PHOTO_BYTES || !{ "image/png": png, "image/jpeg": jpeg, "image/webp": webp }[type]) {
+    const bytes3 = new Uint8Array(await response.arrayBuffer());
+    const png = bytes3[0] === 137 && bytes3[1] === 80 && bytes3[2] === 78 && bytes3[3] === 71;
+    const jpeg = bytes3[0] === 255 && bytes3[1] === 216 && bytes3[2] === 255;
+    const webp = String.fromCharCode(...bytes3.slice(0, 4)) === "RIFF" && String.fromCharCode(...bytes3.slice(8, 12)) === "WEBP";
+    if (bytes3.length > MAX_PHOTO_BYTES || !{ "image/png": png, "image/jpeg": jpeg, "image/webp": webp }[type]) {
       throw new Error("Invalid player image");
     }
-    const photo = new Response(bytes2, { headers: {
+    const photo = new Response(bytes3, { headers: {
       ...headers,
       "Content-Type": type,
       "Cache-Control": "public, max-age=300"
@@ -2300,27 +3788,31 @@ async function playerPhotos(request, env, ctx, headers) {
     await cachePhotoResponse(key, photo, ctx);
     return photo;
   } catch {
-    return json({ error: "Player photos could not be loaded. Check the Google Drive API, secret, and folder access." }, 502);
+    return json3({ error: "Player photos could not be loaded. Check the Google Drive API, secret, and folder access." }, 502);
   }
 }
 var worker_source_default = {
   async fetch(request, env = {}, ctx) {
     const origin = request.headers.get("Origin");
     const url = new URL(request.url);
+    const collectorRoute = getWtargCollectorRoute(url.pathname);
+    if (collectorRoute && !collectorRoute.public) return wtargCollectorResponse(request, env);
+    const allowedOrigin = url.pathname.startsWith("/wtarg/") && ["https://wtarg.com", "https://www.wtarg.com"].includes(origin) ? origin : ALLOWED_ORIGIN;
     const entryRoute = ["/entry-lists", "/entry-lists/refresh"].includes(url.pathname);
     const sharedRoute = getSharedRoute(url.pathname);
-    const methods = url.pathname === "/entry-lists/refresh" || sharedRoute?.refresh ? "POST, OPTIONS" : "GET, OPTIONS";
+    const wtargRoute = getWtargRoute(url.pathname);
+    const methods = collectorRoute ? collectorRoute.method + ", OPTIONS" : url.pathname === "/entry-lists/refresh" || sharedRoute?.refresh ? "POST, OPTIONS" : "GET, OPTIONS";
     const headers = {
-      "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+      "Access-Control-Allow-Origin": allowedOrigin,
       "Access-Control-Allow-Methods": methods,
       "Access-Control-Allow-Headers": "Accept",
       "Cache-Control": "no-store",
       "X-Content-Type-Options": "nosniff",
       "Vary": "Origin"
     };
-    const json = (data, status = 200) => Response.json(data, { status, headers });
-    if (origin && origin !== ALLOWED_ORIGIN) {
-      return json({ error: "Website origin is not allowed." }, 403);
+    const json3 = (data, status = 200) => Response.json(data, { status, headers });
+    if (origin && origin !== allowedOrigin) {
+      return json3({ error: "Website origin is not allowed." }, 403);
     }
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers });
@@ -2328,22 +3820,24 @@ var worker_source_default = {
     if (!methods.split(", ").includes(request.method)) {
       return new Response(null, { status: 405, headers: { ...headers, Allow: methods } });
     }
+    if (collectorRoute) return wtargCollectorResponse(request, env, headers);
+    if (wtargRoute) return wtargDataResponse(request, env, headers);
     if (entryRoute || sharedRoute) {
       if (request.method === "POST" && origin !== ALLOWED_ORIGIN) {
-        return json({ error: "Website origin is required for refresh." }, 403);
+        return json3({ error: "Website origin is required for refresh." }, 403);
       }
       if (request.method === "POST" && request.body !== null) {
         const reader = request.body.getReader();
         const chunk = await reader.read();
         await reader.cancel();
         if (!chunk.done && chunk.value?.byteLength) {
-          return json({ error: "Refresh accepts an empty request only." }, 400);
+          return json3({ error: "Refresh accepts an empty request only." }, 400);
         }
       }
       return entryRoute ? entryListResponse(request, env, headers) : sharedDataResponse(request, env, headers);
     }
     if (url.pathname === "/health") {
-      return json({ ok: true });
+      return json3({ ok: true });
     }
     if (url.pathname === "/photos" || url.pathname.startsWith("/photos/")) {
       return playerPhotos(request, env, ctx, headers);
@@ -2353,7 +3847,7 @@ var worker_source_default = {
     const sitePath = url.pathname.slice("/site".length);
     const isEntryList = url.pathname.startsWith("/site/") && /^\/tournaments\/\d+\/[a-z0-9-]+\/\d{4}\/player-list\/?$/i.test(sitePath);
     if (!isApi && !isEntryList) {
-      return json({ error: "Unknown WTA endpoint." }, 404);
+      return json3({ error: "Unknown WTA endpoint." }, 404);
     }
     const upstream = new URL(isApi ? "https://api.wtatennis.com" : "https://www.wtatennis.com");
     upstream.pathname = isApi ? apiPath : sitePath;
@@ -2371,7 +3865,7 @@ var worker_source_default = {
         cache: "no-store"
       });
       if (!response.ok) {
-        return json({ error: "WTA request failed.", upstream_status: response.status }, 502);
+        return json3({ error: "WTA request failed.", upstream_status: response.status }, 502);
       }
       return new Response(response.body, {
         headers: {
@@ -2382,7 +3876,7 @@ var worker_source_default = {
       });
     } catch (error) {
       console.error("WTA relay fetch failed:", error);
-      return json({ error: "WTA could not be reached. Please try again." }, 502);
+      return json3({ error: "WTA could not be reached. Please try again." }, 502);
     }
   },
   async scheduled(controller, env, ctx) {
