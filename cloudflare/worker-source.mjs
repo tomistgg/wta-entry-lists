@@ -1,5 +1,7 @@
 import { entryListResponse, scheduledEntryRefresh } from "./entry-store.mjs";
 import { getSharedRoute, sharedDataResponse, scheduledSharedRefresh } from "./shared-store.mjs";
+import { getWtargRoute, wtargDataResponse } from "./wtarg-store.mjs";
+import { getWtargCollectorRoute, wtargCollectorResponse } from "./wtarg-collector.mjs";
 
 // Both GitHub Pages websites share this origin, even though their paths differ.
 const ALLOWED_ORIGIN = "https://tomistgg.github.io";
@@ -141,11 +143,17 @@ export default {
     async fetch(request, env = {}, ctx) {
         const origin = request.headers.get("Origin");
         const url = new URL(request.url);
+        const collectorRoute = getWtargCollectorRoute(url.pathname);
+        if (collectorRoute && !collectorRoute.public) return wtargCollectorResponse(request, env);
+        const allowedOrigin = url.pathname.startsWith("/wtarg/") &&
+            ["https://wtarg.com", "https://www.wtarg.com"].includes(origin) ? origin : ALLOWED_ORIGIN;
         const entryRoute = ["/entry-lists", "/entry-lists/refresh"].includes(url.pathname);
         const sharedRoute = getSharedRoute(url.pathname);
-        const methods = url.pathname === "/entry-lists/refresh" || sharedRoute?.refresh ? "POST, OPTIONS" : "GET, OPTIONS";
+        const wtargRoute = getWtargRoute(url.pathname);
+        const methods = collectorRoute ? collectorRoute.method + ", OPTIONS" :
+            url.pathname === "/entry-lists/refresh" || sharedRoute?.refresh ? "POST, OPTIONS" : "GET, OPTIONS";
         const headers = {
-            "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+            "Access-Control-Allow-Origin": allowedOrigin,
             "Access-Control-Allow-Methods": methods,
             "Access-Control-Allow-Headers": "Accept",
             "Cache-Control": "no-store",
@@ -154,7 +162,7 @@ export default {
         };
         const json = (data, status = 200) => Response.json(data, { status, headers });
 
-        if (origin && origin !== ALLOWED_ORIGIN) {
+        if (origin && origin !== allowedOrigin) {
             return json({ error: "Website origin is not allowed." }, 403);
         }
         if (request.method === "OPTIONS") {
@@ -163,6 +171,9 @@ export default {
         if (!methods.split(", ").includes(request.method)) {
             return new Response(null, { status: 405, headers: { ...headers, Allow: methods } });
         }
+
+        if (collectorRoute) return wtargCollectorResponse(request, env, headers);
+        if (wtargRoute) return wtargDataResponse(request, env, headers);
 
         if (entryRoute || sharedRoute) {
             if (request.method === "POST" && origin !== ALLOWED_ORIGIN) {
