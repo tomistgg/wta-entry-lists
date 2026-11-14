@@ -146,10 +146,6 @@ export function renderEntryLists(models) {
         const main = element("div", "main-draw-view");
         const qual = element("div", "qual-view");
         main.style.display = "flex";
-        if (model.main_retained) {
-            main.prepend(element("p", "entry-note previous-main-note", "WTA currently lists qualifying only. The previous main draw is shown."));
-            main.style.flexWrap = "wrap";
-        }
         main.append(drawTable(model.main, model.dates.mainAvailable, countryCodes));
         qual.append(drawTable(model.qualifying, model.dates.qualAvailable, countryCodes));
         qual.style.display = "none";

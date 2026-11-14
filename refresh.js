@@ -20,7 +20,7 @@
 
     function entryModule() {
         // Browsers remember failed module URLs, so a retry needs a fresh URL.
-        const moduleURL = "./entry-lists.mjs?v=3" + (moduleRetry ? "&retry=" + moduleRetry : "");
+        const moduleURL = "./entry-lists.mjs?v=4" + (moduleRetry ? "&retry=" + moduleRetry : "");
         return module ||= import(moduleURL).catch(error => {
             module = undefined;
             moduleRetry++;

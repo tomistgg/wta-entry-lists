@@ -20,7 +20,7 @@ The selected tournament and Main Draw, Qualifying, or Changes view survive refre
 Each successful refresh compares WTA player IDs and records additions/removals separately for each
 draw. The first observed list establishes its baseline; ranking and spelling changes do not create
 entry events. Missing lists do not imply mass withdrawals. If WTA publishes qualifying while removing
-the main draw, the previous main draw is retained with an explanatory notice.
+the main draw, the previous main draw is retained.
 
 Only tournaments in the displayed upcoming four-week window are retained. Their entry lists, Changes,
 and comparison baselines are deleted when they leave that view; no permanent archive is maintained.
