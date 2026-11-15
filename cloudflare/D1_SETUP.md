@@ -72,7 +72,7 @@ The shared Worker still serves Haute Cadence photos and WTA relay requests.
 
 A successful refresh starts a shared two-minute cooldown. Incomplete or failed requests preserve
 valid current data. The one-minute trigger advances unfinished jobs and starts automatic updates
-when saved data is at least 30 minutes old or the displayed window rolls over. Browser Refresh
+when saved data is at least one hour old or the displayed window rolls over. Browser Refresh
 advances that same job while waiting. Ordinary data updates create no GitHub commits.
 
 1. Check `/health`, `/entry-lists?history=1`, and `/photos` on the public Worker.

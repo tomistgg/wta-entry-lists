@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { Miniflare } from "miniflare";
-import { createSharedIO } from "./shared-io.mjs";
+import { CALENDAR_TTL, createSharedIO } from "./shared-io.mjs";
 
 const reference = Date.parse("2026-11-12T10:00:00Z");
 const tournament = { tournamentGroup: { id: 100, name: "Example" }, year: 2026,
@@ -135,14 +135,14 @@ test("ranking dates and completed ranking caches have bounded freshness and a le
     assert.equal(await io.loadRankings("2026-10-19"), null);
 });
 
-test("published calendar coverage is read-only, expires after thirty minutes, and rejects malformed items", async t => {
+test("published calendar coverage is read-only, expires after one hour, and rejects malformed items", async t => {
     const db = await database(t);
     let now = reference;
     const io = createSharedIO(db, { now: () => now, fetch: async () => { throw new Error("Calendar lookup must not fetch"); } });
     const saved = { from: "2026-01-01", to: "2027-12-31", items: [tournament] };
     const write = payload => db.prepare("INSERT INTO wta_snapshots VALUES ('calendar_source', 'global', ?, ?, ?) " +
         "ON CONFLICT(kind,scope) DO UPDATE SET payload_json = excluded.payload_json, fetched_at = excluded.fetched_at, expires_at = excluded.expires_at")
-        .bind(JSON.stringify(payload), new Date(reference).toISOString(), reference + 1800000).run();
+        .bind(JSON.stringify(payload), new Date(reference).toISOString(), reference + CALENDAR_TTL).run();
     await write(saved);
     assert.deepEqual(await io.cachedCalendar("2026-11-09", "2026-11-16"), saved);
     assert.equal(await io.cachedCalendar("2025-12-01", "2026-01-01"), null);
@@ -151,7 +151,11 @@ test("published calendar coverage is read-only, expires after thirty minutes, an
     await write({ ...saved, items: [tournament, tournament] });
     assert.equal(await io.cachedCalendar("2026-11-09", "2026-11-16"), null);
     await write(saved);
-    now += 1800000;
+    now = reference + 30 * 60000;
+    assert.deepEqual(await io.cachedCalendar("2026-11-09", "2026-11-16"), saved);
+    now = reference + 60 * 60000 - 1;
+    assert.deepEqual(await io.cachedCalendar("2026-11-09", "2026-11-16"), saved);
+    now++;
     assert.equal(await io.cachedCalendar("2026-11-09", "2026-11-16"), null);
 });
 

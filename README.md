@@ -12,7 +12,7 @@ A complete snapshot is saved before success is reported, with a global two-minut
 Other visitors and page reloads use that same saved update.
 
 A one-minute Cloudflare Cron Trigger advances unfinished jobs and starts an automatic refresh
-when the saved data is at least 30 minutes old. It does not collect every tournament every minute.
+when the saved data is at least one hour old. It does not collect every tournament every minute.
 Failed requests preserve the previous complete snapshot. The page shows loading and unavailable
 states when it cannot initially obtain saved data, and keeps already displayed lists on a failure.
 The selected tournament and Main Draw, Qualifying, or Changes view survive refreshes when available.

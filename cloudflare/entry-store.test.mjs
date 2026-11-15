@@ -219,7 +219,9 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         assert.equal(Object.hasOwn(restored, "hidden_models"), false);
     });
 
-    await t.test("scheduled refresh skips fresh data and refreshes when thirty minutes stale", async () => {
+    await t.test("scheduled refresh skips thirty and fifty-nine minute snapshots and refreshes after one hour", async () => {
+        const now = Date.now();
+        const clock = t.mock.method(Date, "now", () => now);
         let outbound = 0;
         const fetchMock = t.mock.method(globalThis, "fetch", async () => {
             outbound++;
@@ -228,12 +230,21 @@ test("D1 persists authoritative snapshots, coordinates visitors, and keeps the p
         await scheduledEntryRefresh({ ENTRY_LISTS_DB: db });
         assert.equal(outbound, 0);
         const old = (await (await get()).json()).snapshot;
-        old.saved_at = new Date(Date.now() - 1800001).toISOString();
+        for (const minutes of [30, 59]) {
+            old.saved_at = new Date(now - minutes * 60000).toISOString();
+            await db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = 0 WHERE id = 1")
+                .bind(JSON.stringify(old)).run();
+            await scheduledEntryRefresh({ ENTRY_LISTS_DB: db });
+            assert.equal(outbound, 0, `${minutes}-minute snapshots must not launch an automatic refresh`);
+            assert.deepEqual((await (await get()).json()).snapshot, old);
+        }
+        old.saved_at = new Date(now - 3600000).toISOString();
         await db.prepare("UPDATE entry_list_state SET snapshot = ?, next_refresh_at = 0 WHERE id = 1").bind(JSON.stringify(old)).run();
         await scheduledEntryRefresh({ ENTRY_LISTS_DB: db });
         assert.equal(outbound, 1);
         assert.ok(Date.parse((await (await get()).json()).snapshot.saved_at) > Date.parse(old.saved_at));
         fetchMock.mock.restore();
+        clock.mock.restore();
     });
 });
 
@@ -341,4 +352,69 @@ test("scheduled cleanup removes expired data despite WTA failure and preserves a
     await pruneExpiredEntryData(db, now);
     assert.equal((await db.prepare("SELECT count(*) AS count FROM entry_legacy_history").first()).count, 0,
         "without displayed tournaments no imported history may remain");
+});
+
+test("unchanged cleanup writes no state while expired records and abandoned work still clear", async t => {
+    const mf = new Miniflare({ script: "export default { fetch() { return new Response('ok'); } }", modules: true,
+        compatibilityDate: "2026-07-30", d1Databases: { ENTRY_LISTS_DB: "idle-cleanup-test" } });
+    t.after(() => mf.dispose());
+    const db = await mf.getD1Database("ENTRY_LISTS_DB");
+    const schema = await readFile("cloudflare/schema.sql", "utf8");
+    for (const sql of schema.split(";").filter(part => part.trim())) await db.prepare(sql).run();
+    const now = Date.parse("2026-11-17T11:00:00Z"), window = createEntryJob(now);
+    const snapshot = { fetched_at: new Date(now).toISOString(), saved_at: new Date(now).toISOString(),
+        window_start: window.window_start, window_end: window.window_end,
+        models: [{ id: "ACTIVE", week: window.window_start, main: [], qualifying: [], changes: [] }] };
+    await db.prepare("UPDATE entry_list_state SET snapshot = ? WHERE id = 1").bind(JSON.stringify(snapshot)).run();
+    const before = await db.prepare("SELECT * FROM entry_list_state WHERE id = 1").first();
+    let writes = 0;
+    const measuredDB = {
+        prepare: sql => db.prepare(sql),
+        async batch(statements) {
+            const results = await db.batch(statements);
+            writes += results.reduce((sum, result) => sum + result.meta.rows_written, 0);
+            return results;
+        },
+    };
+    await db.prepare("CREATE TRIGGER reject_idle_update BEFORE UPDATE ON entry_list_state " +
+        "BEGIN SELECT RAISE(ABORT, 'unchanged state must not be written'); END").run();
+    assert.deepEqual(await pruneExpiredEntryData(measuredDB, now), before);
+    assert.equal(writes, 0, "an idle tick must not consume any row writes");
+
+    for (const [id, week] of [["ACTIVE", window.window_start], ["ABSENT", window.window_start], ["OLD", "2026-11-16"]]) {
+        await db.prepare("INSERT INTO entry_legacy_history VALUES (?, ?, '[]')").bind(id, week).run();
+    }
+    await db.prepare("INSERT INTO entry_ranking_cache VALUES ('expired', '[]', ?), ('current', '[]', ?)")
+        .bind(now, now + 1000).run();
+    assert.deepEqual(await pruneExpiredEntryData(measuredDB, now), before,
+        "expired records must be removed without rewriting unchanged display or job state");
+    assert.ok(writes > 0);
+    assert.deepEqual((await db.prepare("SELECT tournament_id FROM entry_legacy_history").all()).results,
+        [{ tournament_id: "ACTIVE" }]);
+    assert.deepEqual((await db.prepare("SELECT ranking_date FROM entry_ranking_cache").all()).results,
+        [{ ranking_date: "current" }]);
+    writes = 0;
+    await pruneExpiredEntryData(measuredDB, now);
+    assert.equal(writes, 0, "subsequent idle ticks must stay write-free");
+    await db.prepare("DROP TRIGGER reject_idle_update").run();
+
+    await db.prepare("UPDATE entry_list_state SET lease_token = 'abandoned', lease_until = ? WHERE id = 1")
+        .bind(now - 1).run();
+    const released = await pruneExpiredEntryData(measuredDB, now);
+    assert.equal(released.lease_token, null);
+    assert.equal(released.lease_until, 0);
+    const job = JSON.stringify({ window_start: window.window_start, stage: "entries" });
+    await db.prepare("UPDATE entry_list_state SET job = ?, job_expires_at = ? WHERE id = 1")
+        .bind(job, now - 1).run();
+    const expired = await pruneExpiredEntryData(measuredDB, now);
+    assert.equal(expired.job, null);
+    assert.equal(expired.job_expires_at, 0);
+    assert.equal(expired.snapshot, before.snapshot);
+    await db.prepare("UPDATE entry_list_state SET job = ?, job_expires_at = ? WHERE id = 1")
+        .bind(job, now + 1000).run();
+    writes = 0;
+    const active = await pruneExpiredEntryData(measuredDB, now);
+    assert.equal(active.job, job);
+    assert.equal(active.job_expires_at, now + 1000);
+    assert.equal(writes, 0, "a retained unleased job must not be rewritten either");
 });
