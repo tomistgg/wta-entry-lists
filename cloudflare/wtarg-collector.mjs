@@ -6,6 +6,7 @@ import { RANKING_SOURCE_FILES, rankingSourceBlob, validRankingAssetRef, validate
 
 const JOB = "wtarg:collector:global";
 const CONTROL = "wtarg:collector";
+const NO_ADMIN = "NOT EXISTS (SELECT 1 FROM wta_snapshots WHERE kind='wtarg:admin_lock' AND scope='global')";
 const COOLDOWN = 120000;
 const INTERVAL = 2 * 60 * 60 * 1000;
 const LEASE = 180000;
@@ -23,6 +24,11 @@ const hash = async value => Array.from(new Uint8Array(await crypto.subtle.digest
 const timestamp = value => typeof value === "string" && /T.*(?:Z|[+-]\d\d:\d\d)$/.test(value) && Number.isFinite(Date.parse(value));
 const day = value => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) &&
     Number.isFinite(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
+const historyTimestamp = value => timestamp(value) && day(value.slice(0, 10)) &&
+    /^(?!0000)\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):/.test(value);
+// Python checkpoints retain microseconds that Date.parse truncates.
+const historyInstant = value => BigInt(Date.parse(value)) * 1000n +
+    BigInt((value.match(/\.(\d+)/)?.[1] || "").padEnd(6, "0").slice(3, 6));
 const safeMessage = value => typeof value === "string" ? value.replace(/[\x00-\x1f]/g, " ").slice(0, 240) : "";
 
 const FILES = new Set(["player_aliases_wta_itf.json", "wta_rankings_83_99.csv", "wta_rankings_00_09.csv",
@@ -37,6 +43,8 @@ const FILES = new Set(["player_aliases_wta_itf.json", "wta_rankings_83_99.csv", 
     "itf_player_details.json", "ao27_md_race.json", "ao27_q_race.json", "points_distribution.json",
     "points_distribution_history.json", "captains.csv", "national_team_order.csv", "cache_state.json",
     "draw_fetch_errors.json", "itf_blocked_responses.json", "main_draw_wtn_errors.json"]);
+const RETIRED_FILES = new Set(["ao27_md_race.json", "ao27_q_race.json"]);
+const ACTIVE_FILES = new Set([...FILES].filter(name => !RETIRED_FILES.has(name)));
 const PROTECTED = new Set(["manually_added_matches.csv", "current_gs.json", "olympic_games.json", "manual_calendar_entries.json",
     "ao27_md_race.json", "ao27_q_race.json", "points_distribution.json", "points_distribution_history.json", "captains.csv",
     "national_team_order.csv"]);
@@ -53,7 +61,7 @@ const parsed = row => row ? JSON.parse(row.payload_json) : null;
 const jobRow = db => db.prepare("SELECT * FROM wtarg_jobs WHERE job_key=?").bind(JOB).first();
 const gateRow = db => db.prepare("SELECT * FROM wtarg_source_state WHERE source=? AND scope='global'").bind(CONTROL).first();
 const fence = "EXISTS (SELECT 1 FROM wtarg_jobs WHERE job_key='wtarg:collector:global' AND lease_token=? " +
-    "AND lease_until>? AND job_expires_at>? AND json_extract(payload_json,'$.jobId')=?)";
+    "AND lease_until>? AND job_expires_at>? AND json_extract(payload_json,'$.jobId')=?) AND " + NO_ADMIN;
 const fenceValues = (body, now) => [body.leaseToken, now, now, body.jobId];
 
 async function journalState(db, jobId) {
@@ -128,15 +136,17 @@ async function currentSource(db) {
 }
 
 async function statusState(db, env, now) {
-    const [row, gate, current, source] = await Promise.all([jobRow(db), gateRow(db), snapshot(db, "wtarg:read_current"), currentSource(db)]);
+    const [row, gate, current, source, maintenance] = await Promise.all([jobRow(db), gateRow(db),
+        snapshot(db, "wtarg:read_current"), currentSource(db), snapshot(db, "wtarg:admin_lock")]);
     const state = parsed(row) || {};
     const enabled = env.WTARG_COLLECTION_ENABLED === "true" && typeof env.WTARG_COLLECTOR_TOKEN === "string" &&
-        env.WTARG_COLLECTOR_TOKEN.length >= 32 && !!source;
+        env.WTARG_COLLECTOR_TOKEN.length >= 32 && !!source && !maintenance;
     const active = row?.status === "running" && row.lease_until > now && row.job_expires_at > now;
     let phase = state.phase || "idle";
     if (row?.status === "running" && !active) phase = "failed";
     if (phase === "repairing") phase = "publishing";
-    return { enabled, jobId: state.jobId || null, state: phase, progress: safeMessage(state.progress),
+    return { enabled, maintenance: !!maintenance, jobId: state.jobId || null, state: phase,
+        progress: maintenance ? "Saved data is available while migration maintenance finishes." : safeMessage(state.progress),
         nextRefreshAt: state.nextRefreshAt || 0, nextCollectionAt: gate?.not_before || 0,
         currentReleaseId: parsed(current)?.releaseId || null, lastSuccessAt: row?.last_success_at || null,
         serverNow: now, error: phase === "failed" && row?.status === "running"
@@ -145,9 +155,9 @@ async function statusState(db, env, now) {
 
 async function initialize(db) {
     await db.batch([
-        db.prepare("INSERT OR IGNORE INTO wtarg_jobs(job_key,source,kind,scope,payload_json) VALUES(?,?,?,?,?)")
+        db.prepare("INSERT OR IGNORE INTO wtarg_jobs(job_key,source,kind,scope,payload_json) SELECT ?,?,?,?,? WHERE " + NO_ADMIN)
             .bind(JOB, "wtarg", "collector_cycle", "global", "{}"),
-        db.prepare("INSERT OR IGNORE INTO wtarg_source_state(source,scope) VALUES(?,'global')").bind(CONTROL),
+        db.prepare("INSERT OR IGNORE INTO wtarg_source_state(source,scope) SELECT ?,'global' WHERE " + NO_ADMIN).bind(CONTROL),
     ]);
 }
 
@@ -182,7 +192,7 @@ async function requestRefresh(db, env, now) {
     if ((state.nextRefreshAt || 0) > now) return { status: 429, state: await statusState(db, env, now) };
     if (row.status === "running" && row.lease_until > now || row.status === "queued" && state.jobId) {
         await db.prepare("UPDATE wtarg_jobs SET payload_json=json_set(payload_json,'$.nextRefreshAt',?) WHERE job_key=? " +
-            "AND COALESCE(json_extract(payload_json,'$.nextRefreshAt'),0)<=?").bind(now + COOLDOWN, JOB, now).run();
+            "AND COALESCE(json_extract(payload_json,'$.nextRefreshAt'),0)<=? AND " + NO_ADMIN).bind(now + COOLDOWN, JOB, now).run();
         return { status: 202, state: await statusState(db, env, now) };
     }
     const pending = await journalState(db, state.jobId);
@@ -190,7 +200,7 @@ async function requestRefresh(db, env, now) {
     const next = { ...(keepOld ? state : {}), jobId: keepOld ? state.jobId : crypto.randomUUID(), phase: "queued",
         progress: keepOld ? "Waiting to restore the previous interrupted update." : "Queued for the scheduled collector.",
         nextRefreshAt: now + COOLDOWN };
-    await db.prepare("UPDATE wtarg_jobs SET status='queued',due_at=?,payload_json=?,error=NULL WHERE job_key=? AND payload_json=? AND lease_until<=?")
+    await db.prepare("UPDATE wtarg_jobs SET status='queued',due_at=?,payload_json=?,error=NULL WHERE job_key=? AND payload_json=? AND lease_until<=? AND " + NO_ADMIN)
         .bind(now, json(next), JOB, row.payload_json, now).run();
     return { status: 202, state: await statusState(db, env, now) };
 }
@@ -214,10 +224,10 @@ async function claim(db, env, now) {
             baseReleaseId: parsed(current)?.releaseId || null };
     const sourceGuard = repairing ? "1" : "EXISTS (SELECT 1 FROM wtarg_source_state WHERE source='wtarg:collector' AND scope='global' AND not_before<=?)";
     const statements = [db.prepare("UPDATE wtarg_jobs SET status='running',lease_token=?,lease_until=?,job_expires_at=?," +
-        "attempt_count=attempt_count+1,payload_json=?,error=NULL WHERE job_key=? AND payload_json=? AND lease_until<=? AND " + sourceGuard)
+        "attempt_count=attempt_count+1,payload_json=?,error=NULL WHERE job_key=? AND payload_json=? AND lease_until<=? AND " + sourceGuard + " AND " + NO_ADMIN)
         .bind(token, now + LEASE, now + INTERVAL, json(next), JOB, row.payload_json, now, ...(repairing ? [] : [now]))];
     if (!repairing) statements.push(db.prepare("UPDATE wtarg_source_state SET not_before=?,last_checked_at=? WHERE source=? AND scope='global' " +
-        "AND EXISTS(SELECT 1 FROM wtarg_jobs WHERE job_key=? AND lease_token=?)").bind(now + INTERVAL, iso(now), CONTROL, JOB, token));
+        "AND EXISTS(SELECT 1 FROM wtarg_jobs WHERE job_key=? AND lease_token=?) AND " + NO_ADMIN).bind(now + INTERVAL, iso(now), CONTROL, JOB, token));
     await db.batch(statements);
     const claimed = await jobRow(db);
     if (claimed.lease_token !== token) return { jobId: null, nextCollectionAt: (await gateRow(db)).not_before, sourceManifest: null };
@@ -226,10 +236,15 @@ async function claim(db, env, now) {
 }
 
 async function validateSource(manifest) {
+    const inventoryVersion = manifest?.inventoryVersion === undefined ? 1 : manifest.inventoryVersion;
+    const files = inventoryVersion === 2 ? ACTIVE_FILES : FILES;
     if (!object(manifest) || manifest.schemaVersion !== 1 || !HASH.test(manifest.sourceVersion) ||
-        !/^[a-f0-9]{40}$/.test(manifest.sourceRevision || "") || !Array.isArray(manifest.files) || manifest.files.length !== FILES.size ||
+        ![1, 2].includes(inventoryVersion) || !/^[a-f0-9]{40}$/.test(manifest.sourceRevision || "") ||
+        !Array.isArray(manifest.files) || manifest.files.length !== files.size ||
         manifest.normalizedAt !== undefined && !timestamp(manifest.normalizedAt) ||
         manifest.capturedAt !== undefined && !timestamp(manifest.capturedAt) ||
+        manifest.matchHistorySince !== undefined && (!historyTimestamp(manifest.matchHistorySince) ||
+            !historyTimestamp(manifest.capturedAt) || historyInstant(manifest.matchHistorySince) > historyInstant(manifest.capturedAt)) ||
         manifest.gitIdentityHash !== undefined && !HASH.test(manifest.gitIdentityHash) ||
         manifest.rankingAssets !== undefined && !validRankingAssetRef(manifest.rankingAssets) ||
         manifest.identityPatchRevision !== undefined && (!/^[a-f0-9]{40}$/.test(manifest.identityPatchRevision) ||
@@ -254,7 +269,7 @@ async function validateSource(manifest) {
     }
     const seen = new Set(); let raw = 0, compressed = 0;
     for (const file of manifest.files) {
-        if (!object(file) || !FILES.has(file.name) || seen.has(file.name) || !HASH.test(file.rawSha256) || !HASH.test(file.gzipSha256) ||
+        if (!object(file) || !files.has(file.name) || seen.has(file.name) || !HASH.test(file.rawSha256) || !HASH.test(file.gzipSha256) ||
             file.storage !== undefined && !["d1", "ranking-assets"].includes(file.storage) ||
             file.storage === "ranking-assets" && !RANKING_SOURCE_FILES.has(file.name) ||
             !Number.isInteger(file.rawBytes) || file.rawBytes < 1 || file.rawBytes > 128 * 1024 * 1024 ||
@@ -284,11 +299,15 @@ async function validateReleasePlan(db, env, body, source, state) {
     }
     const sourceManifest = await validateSource(body.sourceManifest);
     if (body.manifest.sourceVersion !== sourceManifest.sourceVersion) fail("Public release and source checkpoint differ.");
+    if (source.inventoryVersion === 2 && sourceManifest.inventoryVersion !== 2) {
+        fail("Retired source files cannot be reintroduced by a collector update.", 409);
+    }
     if (sourceManifest.identityPatchRevision && env.WTARG_AUTHORED_REVISION !== sourceManifest.identityPatchRevision) {
         fail("A reviewed identity correction requires approval of its exact Git revision.", 409);
     }
     const oldFiles = new Map(source.files.map(file => [file.name, file.rawSha256]));
-    const changedAuthored = sourceManifest.files.some(file => PROTECTED.has(file.name) && oldFiles.get(file.name) !== file.rawSha256);
+    const nextFiles = new Map(sourceManifest.files.map(file => [file.name, file.rawSha256]));
+    const changedAuthored = [...PROTECTED].some(name => oldFiles.get(name) !== nextFiles.get(name));
     if (changedAuthored && env.WTARG_AUTHORED_REVISION !== sourceManifest.sourceRevision) {
         fail("Authored configuration changed; approve its Git revision before publishing collector data.", 409);
     }
@@ -782,7 +801,7 @@ async function garbageCollect(db, env, body, now) {
         ["wtarg:source_current", "global", currentCheckpoint], ["wtarg:source_previous", "global", previousCheckpoint],
         ["wtarg:collector_stage", state.jobId || "", stageRow], ["wtarg:collector_preflight", state.jobId || "", planRow],
     ];
-    const unchanged = "(SELECT payload_json FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? " +
+    const unchanged = NO_ADMIN + " AND (SELECT payload_json FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? " +
         "AND (SELECT lease_token FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? " +
         "AND (SELECT lease_until FROM wtarg_jobs WHERE job_key='wtarg:collector:global') IS ? " +
         pointerGuards.map(() => "AND (SELECT payload_json FROM wta_snapshots WHERE kind=? AND scope=?) IS ?").join(" ");
@@ -835,6 +854,9 @@ export async function wtargCollectorResponse(request, env, headers = {}, now = D
         if (!env.ENTRY_LISTS_DB) fail("WTARG collection storage is unavailable.", 503);
         const db = env.ENTRY_LISTS_DB;
         if (route.operation === "status") return reply(await statusState(db, env, now));
+        if (request.method === "POST" && await snapshot(db, "wtarg:admin_lock")) {
+            fail("WTARG migration maintenance is active. Saved data remains available.", 409);
+        }
         if (route.operation === "refresh") {
             if (!['https://wtarg.com', 'https://www.wtarg.com', 'https://tomistgg.github.io'].includes(request.headers.get("Origin"))) fail("Website origin is required for refresh.", 403);
             if (request.body) { const reader = request.body.getReader(); const first = await reader.read(); await reader.cancel();

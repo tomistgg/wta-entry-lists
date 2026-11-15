@@ -1,6 +1,6 @@
 import { createSharedJob, advanceSharedJob } from "./shared-collector.mjs";
 import { mergeCalendar } from "./shared-models.mjs";
-import { createSharedIO } from "./shared-io.mjs";
+import { CALENDAR_TTL, createSharedIO } from "./shared-io.mjs";
 
 const DAY = 86400000;
 const COOLDOWN = 120000;
@@ -132,7 +132,7 @@ async function publishResult(db, route, token, result, job, now) {
         db, route, token, kind, scope, payload, fetchedAt, expiry));
     if (route.kind === "calendar") {
         const old = await snapshotRow(db, "calendar");
-        add("calendar_source", "global", result.calendar_source, now + 1800000);
+        add("calendar_source", "global", result.calendar_source, now + CALENDAR_TTL);
         add("calendar", "global", mergeCalendar(old ? JSON.parse(old.payload_json) : null, result.calendar_source));
     } else if (route.kind === "players") {
         const [old, metadata, names] = await Promise.all([
@@ -279,7 +279,7 @@ export async function scheduledSharedRefresh(env, ioFactory = createSharedIO) {
         const candidates = inflight.results.map(row => ({ route: { kind: row.kind, scope: row.scope,
             view: row.kind === "matches" ? "results" : row.kind }, nextRefresh: row.job_expires_at - JOB_LIFETIME }));
         for (const [kind, view, snapshotKind, scope, interval] of [
-            ["calendar", "calendar", "calendar_source", "global", 1800000],
+            ["calendar", "calendar", "calendar_source", "global", CALENDAR_TTL],
             ["matches", "results", "results", "global", 300000],
             ["players", "players", "players", "metadata", 7 * DAY],
         ]) {

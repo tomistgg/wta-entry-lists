@@ -18,7 +18,8 @@ const failure = (message, status = 409) => Object.assign(new Error(message), { s
 const quote = name => `"${name}"`;
 const journalScope = (jobId, batchId) => `${jobId}:${String(batchId).padStart(6, "0")}`;
 const fence = "EXISTS (SELECT 1 FROM wtarg_jobs WHERE job_key = ? AND lease_token = ? AND lease_until > ? " +
-    "AND job_expires_at > ? AND json_extract(payload_json, '$.jobId') = ?)";
+    "AND job_expires_at > ? AND json_extract(payload_json, '$.jobId') = ?) " +
+    "AND NOT EXISTS (SELECT 1 FROM wta_snapshots WHERE kind='wtarg:admin_lock' AND scope='global')";
 const fenceValues = (body, now) => [JOB_KEY, body.leaseToken, now, now, body.jobId];
 
 function validIdentity(body) {

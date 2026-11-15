@@ -4,6 +4,7 @@ import test from "node:test";
 import { Miniflare } from "miniflare";
 import { getSharedRoute, pruneSharedData, scheduledSharedRefresh, sharedDataResponse } from "./shared-store.mjs";
 import { createSharedJob } from "./shared-collector.mjs";
+import { CALENDAR_TTL } from "./shared-io.mjs";
 
 const now = Date.parse("2026-11-12T12:00:00Z");
 const tournament = { tournamentGroup: { id: 100, name: "Example" }, year: 2026, level: "WTA 250",
@@ -35,7 +36,7 @@ async function setup(t, clock = () => now) {
     await save("player_names", "global", { by_wta_id: { "1": "Chosen Name", "900": "Outside Directory" }, by_name: { chosen: "Chosen Name" } });
     await save("champions", "metadata", { champion_count: 1, through: "2026-11-09", coverage_note: "Imported coverage",
         missing_champions: [{ tournament_id: "100", year: 2026 }, { tournament_id: "200", year: 2001 }] });
-    await save("calendar_source", "global", source, new Date(now).toISOString(), now + 1800000);
+    await save("calendar_source", "global", source, new Date(now).toISOString(), now + CALENDAR_TTL);
     await save("calendar", "global", { fields: ["name", "level", "startDate", "endDate", "calendarKey", "source"],
         weeks: { "2026-11-09": [["ITF Event", "W15", "2026-11-09", "2026-11-15", "itf:keep", "ITF"]] } });
     await db.prepare("INSERT INTO wta_players VALUES ('1', ?, ?)").bind(JSON.stringify(profile), new Date(now).toISOString()).run();
@@ -362,6 +363,26 @@ test("scheduled work advances only one bounded job and calendar merge preserves 
     const rows = Object.values(calendar.data.snapshot.weeks).flat();
     assert.ok(rows.some(row => row[fields.indexOf("calendarKey")] === "itf:keep"));
     assert.ok(rows.some(row => row[fields.indexOf("calendarKey")] === "wta:100:2026"));
+});
+
+test("automatic calendar collection waits one hour and publishes matching cache expiry", async t => {
+    let current = now;
+    const { db, save } = await setup(t, () => current);
+    await save("players", "metadata", { snapshot_date: "2026-11-09" });
+    let requests = 0;
+    const factory = () => io({ count: () => requests++ });
+    for (const age of [30 * 60000, 60 * 60000 - 1, 60 * 60000]) {
+        current = now + age;
+        // Keep the independent five-minute match feed current during this calendar check.
+        await save("results", "global", { updated_at: new Date(current).toISOString(), matches: [] },
+            new Date(current).toISOString(), current + 86400000);
+        assert.equal(await scheduledSharedRefresh({ ENTRY_LISTS_DB: db }, factory), age === 60 * 60000);
+    }
+    assert.equal(requests, 1);
+    const saved = await db.prepare("SELECT fetched_at,expires_at FROM wta_snapshots " +
+        "WHERE kind='calendar_source' AND scope='global'").first();
+    assert.equal(saved.fetched_at, new Date(current).toISOString());
+    assert.equal(saved.expires_at, current + 60 * 60000);
 });
 
 test("a failing calendar job cannot starve healthy scheduled matches and rankings", async t => {

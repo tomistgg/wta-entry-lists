@@ -40,7 +40,7 @@ retry delay. Raw source caches hold completed individual pages, not partial publ
 `shared-io.mjs` uses allowlisted WTA routes, fixed headers/host, bounded responses, and validated
 envelopes. Raw calendar, match, history, and current-week ranking responses cache for two minutes,
 so the next allowed manual refresh can fetch new match data. Historical ranking dates can cache
-for 24 hours. The complete shared calendar source is valid for 30 minutes.
+for 24 hours. The complete shared calendar source is valid for one hour.
 
 Entry Lists reuses that complete calendar and date-scoped singles ranking cache. It keeps its own
 four-week selection and entry-specific cleanup; player-list HTML still comes from WTA. Missing shared
@@ -77,12 +77,16 @@ The existing one-minute trigger advances one bounded shared job step and then th
 step. Due shared feeds and resumable jobs share the same queue, ordered by their eligibility or last
 stage time. Long-running form or match jobs yield between stages, so they cannot hold overdue
 rankings, results, or calendars behind them. No new scheduler table or schema migration is needed.
-Calendars refresh after 30 minutes, match feeds after five minutes, and rankings when a new Madrid
-ranking week is due. Form caches are collected on request, not by scanning every player.
+Calendars and entry lists refresh automatically after one hour; match feeds refresh after five minutes.
+Rankings refresh when a new Madrid ranking week is due. Form caches are collected on request, not by
+scanning every player. Hourly timers use saved-data age, not exact clock hours. Manual Refresh keeps
+its independent two-minute cooldown.
 
 Reads filter expired result matches and inactive draws. Scheduled cleanup trims old feeds, expires
 source/form caches and abandoned jobs, and retains career/title statistics and curated names.
 Active brackets remain available through tournament end dates if a later request fails.
+Entry cleanup skips the state rewrite when its snapshot, job and expired-lease fields already match;
+expired ranking/history rows are still removed through the existing guarded cleanup.
 
 ## Local preview
 

@@ -345,6 +345,143 @@ test("altered source manifests, checksums, authored files and static backing ref
     assert.equal(response.status, 409);
 });
 
+test("match-history start rejects invalid, naive and later-than-capture instants before staging", async t => {
+    const f = await setup(t), lease = await f.claim();
+    const capturedAt = "2026-11-14T12:00:00Z";
+    for (const matchHistorySince of [null, 123, {}, "invalid", "2026-11-14", "2026-11-14T11:00:00",
+        "2026-02-30T11:00:00Z", "2026-11-13T24:00:00Z", "0000-11-14T11:00:00Z",
+        "2026-11-14T12:00:01Z", "2026-11-14T12:00:00.000001Z",
+        "2026-11-14T13:00:01+01:00", "2026-11-14T11:00:01-01:00"]) {
+        const source = { ...f.source, capturedAt, matchHistorySince };
+        const response = await f.call("preflight", { ...lease, manifest: f.manifest(), sourceManifest: source,
+            deltaBudget: { operations: 0, batches: 0, bytes: 0 } });
+        assert.equal(response.status, 400, json({ matchHistorySince, response: response.data }));
+        assert.match(response.data.error, /source manifest/);
+    }
+    assert.equal(await f.db.prepare("SELECT 1 FROM wta_snapshots WHERE kind='wtarg:collector_preflight'").first(), null);
+    assert.equal((await f.call("source")).data.manifest.matchHistorySince, undefined);
+});
+
+test("match-history start compares aware offsets as instants and survives accepted checkpoint storage", async t => {
+    const f = await setup(t), lease = await f.claim();
+    const source = { ...f.source, capturedAt: "2026-11-14T12:00:00.123456Z", matchHistorySince: "2026-11-14T13:00:00.123456+01:00" };
+    await f.stage(lease, [], f.texts, source);
+    await f.upload(lease);
+    assert.equal((await f.call("commit", lease)).status, 200);
+    const accepted = (await f.call("source")).data.manifest;
+    assert.equal(accepted.matchHistorySince, source.matchHistorySince);
+    assert.equal(accepted.capturedAt, source.capturedAt);
+});
+
+test("match-history start requires capture metadata while legacy checkpoints remain compatible", async t => {
+    const f = await setup(t), lease = await f.claim();
+    const source = { ...f.source, matchHistorySince: "2026-11-13T12:00:00Z" };
+    const body = { ...lease, manifest: f.manifest(), sourceManifest: source,
+        deltaBudget: { operations: 0, batches: 0, bytes: 0 } };
+    assert.equal((await f.call("preflight", body)).status, 400);
+    for (const capturedAt of [null, 123, "2026-11-14T12:00:00", "2026-02-30T12:00:00Z"]) {
+        const response = await f.call("preflight", { ...body, sourceManifest: { ...source, capturedAt } });
+        assert.equal(response.status, 400, json({ capturedAt, response: response.data }));
+    }
+    await f.preflight(lease);
+    assert.equal(f.source.matchHistorySince, undefined);
+    assert.equal(f.source.capturedAt, undefined);
+});
+
+function resealSource(source) {
+    source.totalRawBytes = source.files.reduce((sum, file) => sum + file.rawBytes, 0);
+    source.totalGzipBytes = source.files.reduce((sum, file) => sum + file.gzipBytes, 0);
+    source.sourceVersion = hash(json([...source.files].sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
+        .map(file => ({ name: file.name, bytes: file.rawBytes, sha256: file.rawSha256 }))));
+    return source;
+}
+
+function retireAo(source) {
+    return resealSource({ ...structuredClone(source), inventoryVersion: 2, sourceRevision: "b".repeat(40),
+        files: source.files.filter(file => !["ao27_md_race.json", "ao27_q_race.json"].includes(file.name)) });
+}
+
+test("AO retirement requires its reviewed revision and preserves legacy checkpoint recovery through cleanup", async t => {
+    const f = await setup(t), retired = [];
+    f.source.inventoryVersion = 1;
+    for (const file of f.source.files.filter(file => /^ao27_/.test(file.name))) {
+        const raw = Buffer.from(json({ original: file.name })), packed = gzipSync(raw);
+        const part = { sha256: hash(packed), bytes: packed.length };
+        Object.assign(file, { rawSha256: hash(raw), rawBytes: raw.length, gzipSha256: hash(packed),
+            gzipBytes: packed.length, parts: [part] });
+        await f.save("wtarg:source_blob", part.sha256, { ...part, base64: packed.toString("base64") });
+        retired.push({ file: file.name, part, raw });
+    }
+    resealSource(f.source);
+    await f.save("wtarg:source_manifest", f.source.sourceVersion, f.source);
+    await f.save("wtarg:source_current", "global", { schemaVersion: 1, sourceVersion: f.source.sourceVersion });
+    const old = f.manifest(oldId);
+    await f.save("wtarg:read_manifest", oldId, old);
+    await f.save("wtarg:read_accepted", oldId, { schemaVersion: 1, releaseId: oldId, manifestSha256: hash(json(old)) });
+    const lease = await f.claim(), active = retireAo(f.source);
+    const release = { ...f.manifest(), sourceVersion: active.sourceVersion };
+    const body = { ...lease, manifest: release, sourceManifest: active,
+        deltaBudget: { operations: 0, batches: 0, bytes: 0 } };
+    let response = await f.call("preflight", body);
+    assert.equal(response.status, 409); assert.match(response.data.error, /Authored/);
+    f.env.WTARG_AUTHORED_REVISION = "c".repeat(40);
+    assert.equal((await f.call("preflight", body)).status, 409);
+    f.env.WTARG_AUTHORED_REVISION = active.sourceRevision;
+    await f.preflight(lease, [], release, active);
+    await f.stage(lease, [], f.texts, active);
+    await f.upload(lease);
+    assert.equal((await f.call("commit", lease)).status, 200);
+    const current = (await f.call("source")).data.manifest;
+    assert.equal(current.inventoryVersion, 2); assert.equal(current.files.length, 46);
+    assert.ok(!current.files.some(file => /^ao27_/.test(file.name)));
+    await f.cleanup(now + 1000);
+    const previous = JSON.parse((await f.db.prepare("SELECT payload_json FROM wta_snapshots " +
+        "WHERE kind='wtarg:source_previous' AND scope='global'").first()).payload_json);
+    const prior = JSON.parse((await f.db.prepare("SELECT payload_json FROM wta_snapshots " +
+        "WHERE kind='wtarg:source_manifest' AND scope=?").bind(previous.checkpointId).first()).payload_json);
+    assert.equal(prior.files.length, 48);
+    for (const record of retired) {
+        assert.ok(prior.files.some(file => file.name === record.file));
+        response = await f.call("source/blobs/" + record.part.sha256);
+        assert.equal(response.status, 200);
+        assert.equal(response.data.base64, gzipSync(record.raw).toString("base64"));
+    }
+    await f.save("wtarg:source_current", "global", previous);
+    await f.save("wtarg:read_current", "global", { schemaVersion: 1, releaseId: oldId });
+    assert.equal((await f.call("source")).data.manifest.files.length, 48);
+});
+
+test("new collector updates cannot resurrect the retired inventory after an approved transition", async t => {
+    const f = await setup(t), lease = await f.claim(), active = retireAo(f.source);
+    f.env.WTARG_AUTHORED_REVISION = active.sourceRevision;
+    await f.stage(lease, [], f.texts, active); await f.upload(lease);
+    assert.equal((await f.call("commit", lease)).status, 200);
+    const next = await f.claim(now + 2 * 60 * 60 * 1000);
+    f.env.WTARG_AUTHORED_REVISION = f.source.sourceRevision;
+    const response = await f.call("preflight", { ...next, manifest: { ...f.manifest(hash("resurrection")),
+        sourceVersion: f.source.sourceVersion }, sourceManifest: f.source,
+        deltaBudget: { operations: 0, batches: 0, bytes: 0 } }, now + 2 * 60 * 60 * 1000);
+    assert.equal(response.status, 409); assert.match(response.data.error, /reintroduced/);
+});
+
+for (const invalid of ["missing-version", "legacy-version", "legacy-files", "missing-active", "unknown-file", "string-version"]) {
+    test(`checkpoint inventories reject ${invalid} during retirement`, async t => {
+        const f = await setup(t), lease = await f.claim();
+        const source = invalid === "legacy-files" ? structuredClone(f.source) : retireAo(f.source);
+        source.inventoryVersion = 2;
+        if (invalid === "missing-version") delete source.inventoryVersion;
+        if (invalid === "legacy-version") source.inventoryVersion = 1;
+        if (invalid === "missing-active") source.files.pop();
+        if (invalid === "unknown-file") source.files[0] = { ...source.files[0], name: "unreviewed.json" };
+        if (invalid === "string-version") source.inventoryVersion = "2";
+        resealSource(source);
+        f.env.WTARG_AUTHORED_REVISION = source.sourceRevision;
+        const response = await f.call("preflight", { ...lease, manifest: { ...f.manifest(), sourceVersion: source.sourceVersion },
+            sourceManifest: source, deltaBudget: { operations: 0, batches: 0, bytes: 0 } });
+        assert.equal(response.status, 400, json(response.data));
+    });
+}
+
 test("explicit identity corrections require approval of their exact reviewed Git revision", async t => {
     const f = await setup(t), lease = await f.claim();
     const source = { ...f.source, gitIdentityHash: hash("reviewed registry"), identityPatchRevision: f.source.sourceRevision };
@@ -597,6 +734,59 @@ test("cleanup cannot delete candidates when the accepted pointer changes before 
     const result = await f.call("gc", { limit: 20 });
     assert.equal(result.status, 200, json(result.data)); assert.equal(raced, true);
     assert.equal(result.data.deleted, 0);
+    assert.ok(await f.db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind='wtarg:source_blob' AND scope=?").bind(orphan).first());
+});
+
+test("administrative maintenance preserves public reads and refuses collector mutations", async t => {
+    const f = await setup(t);
+    await f.save("wtarg:verified_wtn", "800123456", { observation: { wtn: 12, observed_on: "2026-11-13" } });
+    await f.save("wtarg:admin_lock", "global", { schemaVersion: 1, planId: hash("cutover"), phase: "maintenance" });
+    const before = (await f.db.prepare("SELECT kind,scope,payload_json FROM wta_snapshots ORDER BY kind,scope").all()).results;
+    const status = await f.call("/wtarg/v1/status");
+    assert.equal(status.status, 200); assert.equal(status.data.enabled, false); assert.equal(status.data.maintenance, true);
+    assert.equal((await f.call("source")).status, 200);
+    const publicData = await wtargDataResponse(new Request("https://example.workers.dev/wtarg/v1/manifest"), f.env);
+    assert.equal(publicData.status, 200);
+    for (const operation of ["claim", "gc", "heartbeat", "preflight", "delta", "rollback", "commit", "wtn"]) {
+        const response = await f.call(operation, {});
+        assert.equal(response.status, 409, operation); assert.match(response.data.error, /maintenance/);
+    }
+    const refresh = await f.call("/wtarg/v1/refresh", {}, now, { headers: { Origin: "https://wtarg.com" } });
+    assert.equal(refresh.status, 409);
+    assert.deepEqual((await f.db.prepare("SELECT kind,scope,payload_json FROM wta_snapshots ORDER BY kind,scope").all()).results, before);
+});
+
+test("claim cannot obtain a lease when maintenance starts after its initial check", async t => {
+    const f = await setup(t), claims = new WeakSet(); let raced = false;
+    f.env.ENTRY_LISTS_DB = { prepare(sql) {
+        const statement = f.db.prepare(sql);
+        if (!sql.includes("SET status='running',lease_token=")) return statement;
+        return { bind(...values) { const bound = statement.bind(...values); claims.add(bound); return bound; } };
+    }, async batch(statements) {
+        if (!raced && statements.some(statement => claims.has(statement))) {
+            raced = true;
+            await f.save("wtarg:admin_lock", "global", { schemaVersion: 1, planId: hash("cutover"), phase: "maintenance" });
+        }
+        return f.db.batch(statements);
+    } };
+    const response = await f.call("claim", {});
+    assert.equal(response.status, 200, json(response.data)); assert.equal(response.data.jobId, null); assert.ok(raced);
+    const job = await f.db.prepare("SELECT status,lease_token FROM wtarg_jobs WHERE job_key=?").bind(JOB).first();
+    assert.equal(job.status, "queued"); assert.equal(job.lease_token, null);
+});
+
+test("cleanup cannot remove staged recovery data when maintenance starts before its transaction", async t => {
+    const f = await setup(t), orphan = hash("cutover recovery part"); let raced = false;
+    await f.save("wtarg:source_blob", orphan, { sha256: orphan, bytes: 1, base64: "AA==" });
+    f.env.ENTRY_LISTS_DB = { prepare(sql) { return f.db.prepare(sql); }, async batch(statements) {
+        if (!raced) {
+            raced = true;
+            await f.save("wtarg:admin_lock", "global", { schemaVersion: 1, planId: hash("cutover"), phase: "maintenance" });
+        }
+        return f.db.batch(statements);
+    } };
+    const response = await f.call("gc", { limit: 20 });
+    assert.equal(response.status, 200, json(response.data)); assert.equal(response.data.deleted, 0); assert.ok(raced);
     assert.ok(await f.db.prepare("SELECT payload_json FROM wta_snapshots WHERE kind='wtarg:source_blob' AND scope=?").bind(orphan).first());
 });
 

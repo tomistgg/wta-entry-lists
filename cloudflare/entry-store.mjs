@@ -6,7 +6,7 @@ const COOLDOWN = 120000;
 const LEASE = 90000;
 const JOB_LIFETIME = 900000;
 const ERROR_BACKOFF = 15000;
-const AUTO_REFRESH = 1800000;
+const AUTO_REFRESH = 3600000;
 const MAX_JSON_BYTES = 1500000;
 
 function storedJSON(value) {
@@ -70,20 +70,25 @@ export async function pruneExpiredEntryData(db, now = Date.now()) {
     }
     const job = row.job ? JSON.parse(row.job) : null;
     const keepJob = job && row.job_expires_at > now && job.window_start === window.window_start;
+    const nextSnapshot = snapshot ? storedJSON(snapshot) : null;
+    const nextJob = keepJob ? row.job : null;
+    const nextExpiry = keepJob ? row.job_expires_at : 0;
     const keys = JSON.stringify(snapshot?.models.map(({ id, week }) => ({ id, week })) || []);
     const guard = "EXISTS (SELECT 1 FROM entry_list_state WHERE id = 1 AND lease_until <= ? AND snapshot IS ? AND job IS ?)";
-    await db.batch([
+    const statements = [
         db.prepare("DELETE FROM entry_legacy_history WHERE (week < ? OR week >= ? " +
             "OR (tournament_id, week) NOT IN (SELECT json_extract(value, '$.id'), json_extract(value, '$.week') FROM json_each(?)) " +
             ") AND " + guard).bind(window.window_start, window.window_end,
             keys, now, row.snapshot, row.job),
         db.prepare("DELETE FROM entry_ranking_cache WHERE expires_at <= ? AND " + guard)
             .bind(now, now, row.snapshot, row.job),
-        db.prepare("UPDATE entry_list_state SET snapshot = ?, job = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0 " +
+    ];
+    if (nextSnapshot !== row.snapshot || nextJob !== row.job || nextExpiry !== row.job_expires_at ||
+        row.lease_token !== null || row.lease_until !== 0) statements.push(db.prepare(
+        "UPDATE entry_list_state SET snapshot = ?, job = ?, job_expires_at = ?, lease_token = NULL, lease_until = 0 " +
             "WHERE id = 1 AND lease_until <= ? AND snapshot IS ? AND job IS ?")
-            .bind(snapshot ? storedJSON(snapshot) : null, keepJob ? row.job : null, keepJob ? row.job_expires_at : 0,
-                now, row.snapshot, row.job),
-    ]);
+            .bind(nextSnapshot, nextJob, nextExpiry, now, row.snapshot, row.job));
+    await db.batch(statements);
     return readState(db);
 }
 
